@@ -1,158 +1,6 @@
-<!DOCTYPE html>
-<html>
+@extends('customer.master')
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>GOENERGEE | Customer Payment History</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-	<link rel="icon" href="img/favicon.png" type='image/x-icon'>
-
-</head>
-
-<body>
-    <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                             </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Patrick Chigbata</strong>
-                             </span> <span class="text-muted text-xs block">Developer <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
-                        </ul>
-                    </div>
-                    <div class="logo-element">
-                        GO
-                    </div>
-                </li>
-				
-				<li>
-                    <li><a href="customer_report.html"><i class="fa fa-calculator"></i> <span class="nav-label">My Dashboard</span></a>
-                </li>
-				
-                <li>
-                    <li class="active"><a href="Payment_history.html"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
-                </li>
-				
-                
-                <li>
-                   <li><a href="meter_request.html"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
-                </li>
-				 <li>
-                    <li><a href="customer_Profile.html"><i class="fa fa-podcast"></i> <span class="nav-label">My Profile</span></a>
-                </li>
-                 
-                    
-                
-                
-    </nav>
-
-        <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom">
-        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" action="search_results.html">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Platform.</span>
-                </li>
-                
-
-
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-                <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i>
-                    </a>
-                </li>
-            </ul>
-
-        </nav>
-        </div>
-
-            <div class="wrapper wrapper-content">
-        <div class="row">
-                   <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-info pull-right">Instant Top Up</span>
-                                <h5>Current Balance</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small>Customers</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-primary pull-right">Year</span>
-                                 <span class="label label-primary pull-right">Month</span>
-                                  <span class="label label-primary pull-right">Week</span>
-                                  <span class="label label-primary pull-right">Today</span>
-                                <h5>Average Daily Charge</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins"><span>&#8358;</span>120</h1>
-                                <div class="stat-percent font-bold text-navy">4% <i class="fa fa-level-up"></i></div>
-                                <small>Average Cost of Electricity Per day</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-success pull-right">Year</span>
-                                <span class="label label-success pull-right">Quater</span>
-                                <span class="label label-success pull-right">Month</span>
-                                <h5>Utility Spend to date</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins"><span>&#8358;</span>10,000</h1>
-                                <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
-                                <small>Cumulative Amount Spend on Electricity</small>
-                            </div>
-                        </div>
-            </div>
-        </div>
-        
-        
-            
-        
-
-     
-
+@section('customer-section')
                
                 <div class="col-lg-12">
                                     <div class="panel panel-primary">
@@ -201,15 +49,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>2/5/2018</td>
-                                <td>3WQ-987T</td>
+                                @foreach ($payments as $pay)
+                                    <tr>
+                                <td>{{ $pay->id }}</td>
+                                <td>{{ $pay->created_at }}</td>
+                                <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
                                 <td>Successful</td>
                                 <td>Pre-Paid</td>
                                 <td>Agbara</td>
-                                <td>10,987</td>
+                                <td>N{{ number_format($pay->total_amount) }}</td>
                                 <td>3500 6584 8754 1254</td>
                                 <td>650</td>
                            
@@ -218,6 +67,8 @@
                                
                                
                             </tr>
+                                @endforeach
+                            
                             
                             </tbody>
                         </table>
@@ -460,3 +311,4 @@
     </script>
 </body>
 </html>
+@endsection

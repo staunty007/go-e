@@ -18,6 +18,7 @@ class CreatePrepaidPaymentTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->text('phone_number');
+            $table->string('email');
             $table->text('meter_no');
             $table->integer('amount');
             $table->integer('conv_fee');

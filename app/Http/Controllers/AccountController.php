@@ -93,6 +93,7 @@ class AccountController extends Controller
             $prepaid->last_name = $paymentDetails['last_name'];
             $prepaid->phone_number = $paymentDetails['mobile'];
             $prepaid->meter_no = $paymentDetails['meter_no'];
+            $prepaid->email = $paymentDetails['email'];
             $prepaid->amount = $paymentDetails['amount'];
             $prepaid->conv_fee = 100;
             $prepaid->total_amount = $paymentDetails['amount'] + 100;
@@ -100,7 +101,7 @@ class AccountController extends Controller
 
             $prepaid->save();
 
-            return redirect('/');
+            return back();
         }
 
         return redirect('/');
@@ -114,8 +115,11 @@ class AccountController extends Controller
         
     }
     public function makePayment() {
-
-        return view('customer.make-payment');
+        $userEmail = \Auth::user()->email;
+        //return $userEmail;
+        $prepaid = PrepaidPayment::where('email',$userEmail)->first();
+        //return $prepaid;
+        return view('customer.make-payment')->withBefore($prepaid);
 
     }
 
@@ -126,7 +130,10 @@ class AccountController extends Controller
         return "We are working on this <a href='/home'>Back</a>";
     }
     public function paymentHistory() {
-        return "We are working on this <a href='/home'>Back</a>";
+        $userEmail = \Auth::user()->email;
+        //return $userEmail;
+        $prepaid = PrepaidPayment::where('email',$userEmail)->get();
+        return view('customer.payment_history')->withPayments($prepaid);
     }
 
 

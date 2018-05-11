@@ -89,10 +89,13 @@
 
 
                 <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
+                      
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"><i class="fa fa-sign-out"></i> Logout</a>
+                        <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                            {{ csrf_field()}}
+                        </form>
                 </li>
+                    
                 <li>
                     <a class="right-sidebar-toggle">
                         <i class="fa fa-tasks"></i>

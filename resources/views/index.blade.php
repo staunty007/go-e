@@ -579,7 +579,7 @@ function showSlides(n) {
 	<script>
 		$(".registerBtn").click((e) => {
 			e.preventDefault();
-			$(this).prop('disabled',true);
+			$('.registerBtn').prop('disabled',true);
 			var formdata = $(".form-signin").serialize();
 
 			$.ajax({
@@ -597,6 +597,7 @@ function showSlides(n) {
 					}else {
 						//console.log(response);
 						 swal('Ooops!',''+response.err+'','error');
+						 $('.registerBtn').prop('disabled',false);
 					}
 				},
 				error: (err) => {
@@ -607,7 +608,7 @@ function showSlides(n) {
 
 		$(".login-btn").click((e) => {
 			e.preventDefault();
-			$(this).prop('disabled',true);
+			$('.login-btn').prop('disabled',true);
 			var formData = $(".login-form").serialize();
 
 			$.ajax({
@@ -626,6 +627,7 @@ function showSlides(n) {
 					}else {
 						//console.log(response);
 						 swal('Ooops!',''+response.err+'','error');
+						 $('.login-btn').prop('disabled',false);
 					}
 				}
 			})
@@ -639,7 +641,7 @@ function showSlides(n) {
 		  <script>
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
-
+				$('.pay-meter').prop('disabled',true);
 				var formdata = $('.meter').serialize();
 
 				$.ajax({
@@ -672,6 +674,7 @@ function showSlides(n) {
 				},
 				onClose: function(){
 					alert('Payment Cancelled');
+					$('.pay-meter').prop('disabled',false);
 				}
 			  });
 			  handler.openIframe();
