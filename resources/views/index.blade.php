@@ -652,8 +652,11 @@ function showSlides(n) {
 						if(response.code == "ok") {
 							payWithPaystack();
 						}
+					},error: (err) => {
+						$('.pay-meter').prop('disabled',false);
 					}
 				})
+				//$('.pay-meter').prop('disabled',false);
 			})
 			function payWithPaystack(){
 				var amountMeter = document.querySelector('.meter-amount').value;
