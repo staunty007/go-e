@@ -6,6 +6,7 @@ use Mail;
 use Session;
 use App\User;
 use Validator;
+use App\MeterRequest;
 use App\PrepaidPayment;
 use Illuminate\Http\Request;
 use App\Mail\AccountActivation;
@@ -127,7 +128,28 @@ class AccountController extends Controller
         return "We are working on this <a href='/home'>Back</a>";
     }
     public function meterRequest() {
-        return "We are working on this <a href='/home'>Back</a>";
+        return view('customer.meter_request');
+        // return "We are working on this <a href='/home'>Back</a>";
+    }
+    public function postMeterRequest(Request $request) {
+        $meterRequest = new MeterRequest;
+
+        $meterRequest->first_name = $request->first_name;
+        $meterRequest->last_name = $request->last_name;
+        $meterRequest->email_address = $request->email;
+        $meterRequest->home_address = $request->address;
+        $meterRequest->closest_bus_stop = $request->closest_bus_stop;
+        $meterRequest->dist_company = $request->dist_company;
+        $meterRequest->district = $request->district;
+        $meterRequest->house_type = $request->house_type;
+        $meterRequest->meter_type = $request->meter_type;
+        $meterRequest->gender = $request->gender;
+
+        $meterRequest->save();
+
+        Session::flash('success','Meter Request Submitted Successfully, Our Admin has been notified, we would get back to you shortly');
+
+        return back();
     }
     public function paymentHistory() {
         $userEmail = \Auth::user()->email;

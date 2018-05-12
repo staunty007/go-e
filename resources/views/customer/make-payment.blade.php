@@ -3,8 +3,8 @@
 @section('customer-section')
 
             <div class="wrapper wrapper-content">
-        <div class="row">
-                   <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-4">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <span class="label label-info pull-right">Instant Top Up</span>
@@ -49,84 +49,47 @@
                                 <small>Cumulative Amount Spend on Electricity</small>
                             </div>
                         </div>
+                    </div>
             </div>
  
-            
-        
-
-            <div class="col-md-12 text-center"  id="group-pay">
-                <h1>Who are you paying For? </h1>
-                <div class="btn-group">
-                    <button id='tFS' class="btn btn-primary btn-md">Myself</button>
-                    <button id="tFO" class="btn btn-warning btn-md">For Others</button>
+            <div class="row">
+                <div class="col-md-12 text-center"  id="group-pay">
+                    <h1>Who are you paying For? </h1>
+                    <div class="btn-group">
+                        <button id='tFS' class="btn btn-primary btn-md">Myself</button>
+                        <button id="tFO" class="btn btn-warning btn-md">For Others</button>
+                    </div>
                 </div>
-            </div>
 
                
-                <div class="col-lg-12" id="forSelf">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            Make new bill payment
-                                        </div>
-                                    <div class="ibox float-e-margins">
-                    
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+                <div class="col-lg-6" id="forSelf">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Make new bill payment
                         </div>
-                    </div>
-                    <div class="ibox-content">
-                        {{-- @if(isset($before)) --}}
-                        <form action="" method="POST" class="meterSelf">
-                            {{ csrf_field()}}
-                            <div class="form-group">
-                                <label>Meter No.</label>
-                                <input type="text" name="meter_no" class="form-control" />
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
                             </div>
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" name="first_name" class="form-control"  value="{{ Auth::user()->first_name }}" />
-                            </div>
-                            <div class="form-group">
-                                <label>Lastname</label>
-                                <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}"  />
-                            </div>
-                            <div class="form-group">
-                                <label>Email Address</label>
-                                <input type="text" name="email" class="form-control meter-email" value="{{ Auth::user()->email }}"  />
-                            </div>
-                            <div class="form-group">
-                                <label>Mobile Number</label>
-                                <input type="text" name="mobile" class="form-control" value="{{ Auth::user()->mobile }}"  />
-                            </div>
-                            <div class="form-group">
-                                <label>Convienience Fee</label>
-                                <input type="text" value="100.00" readonly class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Amount</label>
-                                <input type="text" name="amount" class="form-control meter-amount" />
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-block btn-primary pay-meter1">Make Payment</button>
-                            </div>
-                        </form>
-                        {{-- @else
-                        <form action="" method="POST" class="meter">
+                        </div>
+                        <div class="ibox-content">
+                            {{-- @if(isset($before)) --}}
+                            <form action="" method="POST" class="meterSelf">
                                 {{ csrf_field()}}
                                 <div class="form-group">
                                     <label>Meter No.</label>
@@ -134,19 +97,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" name="first_name" class="form-control" />
+                                    <input type="text" name="first_name" class="form-control"  value="{{ Auth::user()->first_name }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Lastname</label>
-                                    <input type="text" name="last_name" class="form-control" />
+                                    <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}"  />
                                 </div>
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input type="text" name="email" class="form-control meter-email"  />
+                                    <input type="text" name="email" class="form-control meter-email" value="{{ Auth::user()->email }}"  />
                                 </div>
                                 <div class="form-group">
                                     <label>Mobile Number</label>
-                                    <input type="text" name="mobile" class="form-control" />
+                                    <input type="text" name="mobile" class="form-control" value="{{ Auth::user()->mobile }}"  />
                                 </div>
                                 <div class="form-group">
                                     <label>Convienience Fee</label>
@@ -157,15 +120,15 @@
                                     <input type="text" name="amount" class="form-control meter-amount" />
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-block btn-primary pay-meter">Make Payment</button>
+                                    <button class="btn btn-block btn-primary pay-meter1">Make Payment</button>
                                 </div>
                             </form>
-                        @endif --}}
 
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-12" id="forOthers">
+                <div class="col-lg-6" id="forOthers">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             Make new bill payment

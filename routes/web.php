@@ -17,7 +17,8 @@ Route::middleware('auth')->group(function(){
     Route::get('customer-profile','AccountController@customerProfile')->name('customer-profile');
     Route::get('make-payment','AccountController@makePayment')->name('make-payment');
     Route::post('make-payment','AccountController@postPayment');
-    Route::get('meter-request','AccountController@meterRequest')->name('meter-request');
+    Route::get('meter-request','AccountController@meterRequest')->name('meter.request');
+    Route::post('meter-request','AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history','AccountController@paymentHistory')->name('payment-history');
 });
 Route::post('logout','AccountController@logout')->middleware('auth')->name('logout');

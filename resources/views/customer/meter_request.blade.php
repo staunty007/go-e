@@ -1,243 +1,132 @@
-<!DOCTYPE html>
-<html>
+@extends('customer.master')
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>GOENERGEE | Meter Request Form</title>
- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://js.paystack.co/v1/paystack.js"></script>
-
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
-
-    <link href="css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
-
-    
-    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-<link rel="icon" href="img/favicon.png" type='image/x-icon'>
- 
-
-
-</head>
-
-<body>
-    <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                             </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Patrick Chigbata</strong>
-                             </span> <span class="text-muted text-xs block">Developer <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
-                        </ul>
-                    </div>
-                    <div class="logo-element">
-                        GO
-                    </div>
-                </li>
-                <li>
-                    <li><a href="customer_report.html"><i class="fa fa-calculator"></i> <span class="nav-label">My Dashboard</span></a>
-                </li>
-				
-                <li>
-                     <li><a href="Payment_history.html"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
-                </li>
-				<li>
-                   <li class="active"><a href="meter_request.html"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
-                </li>  
-                 <li>
-                    <li><a href="customer_Profile.html"><i class="fa fa-podcast"></i> <span class="nav-label">My Profile</span></a>
-                </li>
-                
-    </nav>
-    <div id="page-wrapper" class="gray-bg">
-        
-        <div class="row border-bottom">
-        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" action="search_results.html">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Platform.</span>
-                </li>
-                
-
-
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-                <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i>
-                    </a>
-                </li>
-            </ul>
-
-        </nav>
-        </div>
-
-            
+@section('customer-section')
     <div class="wrapper wrapper-content">
          <div class="row">
-                                        <div class="col-lg-12">
-                                        <div class="panel panel-success">
-                                        <div class="panel-heading">
-                                            Meter Request Form
-                                        </div>
+            <div class="col-lg-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Meter Request Form
+                    </div>
                                             
-                                                <div class="ibox-content">
-                                                    <form method="get" class="form-horizontal">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-2 control-label">First Name</label>
-                                                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                                                            <label class="col-sm-2 control-label">Last Name</label>
-                                                            <div class="col-sm-3">
-                                                                <input type="text" class="form-control"> 
-                                                        </div></div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-2 control-label">Address</label> 
-                                                            <div class="col-sm-9"><input type="text" class="form-control"></div><div class="form-group">
-                                                            </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal form-request" action="{{ route('meter.request') }}">
+                            {{ csrf_field()}}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">First Name</label>
+                                <div class="col-sm-3"><input type="text" class="form-control" name="first_name"></div>
+                                <label class="col-sm-2 control-label">Last Name</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="last_name"> 
+                            </div></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Address</label> 
+                                <div class="col-sm-9"><input type="text" class="form-control" name="address"></div><div class="form-group">
+                                </div>
 
-                                                            <label class="col-sm-2 control-label">Closest Bus stop</label>
-                                                            <div class="col-sm-3">
-                                                                <input type="text" class="form-control"> 
-                                                        </div>
-                                                        <label class="col-sm-2 control-label">Email Address</label>
-                                                            <div class="col-sm-3">
-                                                                <input type="text" class="form-control"> 
-                                                        </div></div>
-                                                        <label class="col-sm-2 control-label">Distribution Company</label>
-                                                            <div class="col-sm-3">
-                                                                <select class="form-control m-b" name="account">
-                                                                    <option>EKEDC</option>
-                                                                    <option>Others</option>
-                                                                   
-                                                                </select>
-                                                        </div>
-                                                        <label class="col-sm-2 control-label">District/Location</label>
-                                                            <div class="col-sm-3">
-                                                                <select class="form-control m-b" name="account">
-                                                                    <option>Ajele</option>
-                                                                    <option>Ojo</option>
-                                                                    <option>Mushin</option>
-                                                                    <option>Lekki</option>
-                                                                    <option>Isolo  </option>
-                                                                    <option>Festac</option>
-                                                                    <option>Ibeju</option>
-                                                                    <option>Orile</option>
-                                                                    <option>Agbara</option>
-                                                                    
-                                                                </select>
-                                                            </div>
-                                                       
-                                                       
-                                                    
-                                                    <div class="hr-line-dashed"></div>
-                                                        <div class="form-group">
-                                                            <div class="hr-line-dashed"></div>
-                                                              <label class="col-sm-2 control-label">Gender<br /></label>
-                                                                 <div class="col-sm-2">
-                                                                <div class="i-checks"><label> <input type="radio" value="option1" name="a"> <i></i> Male </label></div>
-                                                                <div class="i-checks"><label> <input type="radio" checked="" value="option2" name="a"> <i></i> Female</label></div>
-                                                                 </div>
-
-
-                                                        <label class="col-sm-2 control-label">House Type<br /></label>
-                                                           <div class="col-sm-2">
-                                                          <div class="i-checks"><label> <input type="radio" value="option1" name="a"> <i></i> Residential </label></div>
-                                                          <div class="i-checks"><label> <input type="radio" checked="" value="option2" name="a"> <i></i> Commercial </label></div>
-                                                           </div>
-
-
-                                                    <label class="col-sm-2 control-label">Meter Type<br /></label>
-                                                       <div class="col-sm-2">
-                                                      <div class="i-checks"><label> <input type="radio" value="option1" name="a"> <i></i> Post paid </label></div>
-                                                      <div class="i-checks"><label> <input type="radio" checked="" value="option2" name="a"> <i></i> Prepaid </label></div>
-                                                       </div>
-                                                        </div>
-
-                                                        
-                                                        <div class="hr-line-dashed"></div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-2 control-label">
-                                                                Declaration <br />
-                                                               
-                                                            </label>
-                                                            <div class="col-sm-10">
-                                                                <div><label> <input type="checkbox" value=""> 
-                                                                <li> I, the undersigned, in my capacity as the owner detailed above, do hereby declare that the information supplied is to the best of my knowledge, true and correct.  </li>
-
-                                                                <li> I hereby apply for the retrofitting of a credit electricity system or meter to a prepayment meter. I also affirm to pay every outstanding electricity bill/account which is in arrears.  </li>
-
-                                                                <li> I acknowledge that I will pay the full cost of the smart prepayment meter, including but not limited to installation & commissioning costs, associated add-ons as may be required by the utility company or her representatives.  </li>
-
-                                                                <li> Conversion to the prepayment electricity meter does not inhibit the application of the various bylaws.   </li>
-
-                                                                <li> I acknowledge that in terms of the Electricity Supply Bylaws currently in place, only one electricity meter is allowed per single residential property. Any internal metering on the property is not covered under this application.    </li>
-
-                                                                <li>  I acknowledge that there is a lag in the billing of electricity consumed on the credit meter and that once the installation of the prepayment meter has been performed, I, or my tenant where applicable, will still be responsible for the payment of the electricity consumed up to this date.   </li>
-
-                                                                <li> I acknowledge that if my prior credit account for the basic electricity charge and other services charges is not settled within the stipulated timeframe, access to the electricity supply will be terminated. Further to this, I will not be able to purchase any prepayment tokens until the receipt is processed by the Utility service provider or her representative.    </li>
-                                                                
-
-                                                                <li>   I will update the meter users with regard to the retrofitting of the credit meter with a prepayment meter and ensure every outstanding bills or energy consumed is paid for..   </li></div>
-                                                                <div>
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                         <div class="hr-line-dashed"></div>
-                                                        <div class="form-group">
-                                                        <div class="col-sm-4 col-sm-offset-2">
-                                                                <button class="btn btn-white" type="submit">Cancel</button>
-                                                                <button class="btn btn-primary" type="submit">Submit</button>
-                                                        </div>
-                                                        
-                                                        
-                                                        
-                                                      
-                                                        
-                                                        
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                <label class="col-sm-2 control-label">Closest Bus stop</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="closest_bus_stop" class="form-control"> 
+                            </div>
+                            <label class="col-sm-2 control-label">Email Address</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="email" class="form-control"> 
+                            </div></div>
+                            <label class="col-sm-2 control-label">Distribution Company</label>
+                                <div class="col-sm-3">
+                                    <select name="dist_company" class="form-control m-b" name="account">
+                                        <option value="EKEDC">EKEDC</option>
+                                        <option value="Others">Others</option>
+                                        
+                                    </select>
+                            </div>
+                            <label class="col-sm-2 control-label">District/Location</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control m-b" name="district">
+                                        <option value="Ajele">Ajele</option>
+                                        <option value="Ojo">Ojo</option>
+                                        <option value="Mushin">Mushin</option>
+                                        <option value="Lekki">Lekki</option>
+                                        <option value="Isolo">Isolo  </option>
+                                        <option value="Festac">Festac</option>
+                                        <option value="Ibeju">Ibeju</option>
+                                        <option value="Orile">Orile</option>
+                                        <option value="Agbara">Agbara</option>
+                                        
+                                    </select>
+                                </div>
+                            
+                            
+                        
+                        <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="hr-line-dashed"></div>
+                                    <label class="col-sm-2 control-label">Gender<br /></label>
+                                        <div class="col-sm-2">
+                                    <div class="i-checks"><label> <input type="radio" value="Male" name="gender"> <i></i> Male </label></div>
+                                    <div class="i-checks"><label> <input type="radio" value="Female" name="gender"> <i></i> Female</label></div>
                                         </div>
+
+
+                            <label class="col-sm-2 control-label">House Type<br /></label>
+                                <div class="col-sm-2">
+                                <div class="i-checks"><label> <input type="radio" value="Residential" name="house_type"> <i></i> Residential </label></div>
+                                <div class="i-checks"><label> <input type="radio" checked="" value="Commercial" name="house_type"> <i></i> Commercial </label></div>
+                                </div>
+
+
+                        <label class="col-sm-2 control-label">Meter Type<br /></label>
+                            <div class="col-sm-2">
+                            <div class="i-checks"><label> <input type="radio" value="Postpaid" name="meter_type"> <i></i> Post paid </label></div>
+                            <div class="i-checks"><label> <input type="radio" checked="" value="Prepaid" name="meter_type"> <i></i> Prepaid </label></div>
+                            </div>
+                            </div>
+
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    Declaration <br />
+                                    
+                                </label>
+                                <div class="col-sm-10">
+                                    <div><label> <input type="checkbox" value="" id="declaration"> 
+                                    <li> I, the undersigned, in my capacity as the owner detailed above, do hereby declare that the information supplied is to the best of my knowledge, true and correct.  </li>
+
+                                    <li> I hereby apply for the retrofitting of a credit electricity system or meter to a prepayment meter. I also affirm to pay every outstanding electricity bill/account which is in arrears.  </li>
+
+                                    <li> I acknowledge that I will pay the full cost of the smart prepayment meter, including but not limited to installation & commissioning costs, associated add-ons as may be required by the utility company or her representatives.  </li>
+
+                                    <li> Conversion to the prepayment electricity meter does not inhibit the application of the various bylaws.   </li>
+
+                                    <li> I acknowledge that in terms of the Electricity Supply Bylaws currently in place, only one electricity meter is allowed per single residential property. Any internal metering on the property is not covered under this application.    </li>
+
+                                    <li>  I acknowledge that there is a lag in the billing of electricity consumed on the credit meter and that once the installation of the prepayment meter has been performed, I, or my tenant where applicable, will still be responsible for the payment of the electricity consumed up to this date.   </li>
+
+                                    <li> I acknowledge that if my prior credit account for the basic electricity charge and other services charges is not settled within the stipulated timeframe, access to the electricity supply will be terminated. Further to this, I will not be able to purchase any prepayment tokens until the receipt is processed by the Utility service provider or her representative.    </li>
+                                    
+
+                                    <li>   I will update the meter users with regard to the retrofitting of the credit meter with a prepayment meter and ensure every outstanding bills or energy consumed is paid for..   </li></div>
+                                    <div>
+                                        
                                     </div>
+                                </div>
+                            </div>
+                                <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                    {{-- <button class="btn btn-white" type="submit">Cancel</button> --}}
+                                    <button class="btn btn-primary" type="submit" id="btnD">Submit</button>
+                            </div>
+                            </div></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
                 
                     
 
-                </div>
-            </div>
         <div class="footer">
             
             <div>
@@ -332,7 +221,19 @@
 
     <script>
         $(document).ready(function(){
-
+            (function() => {
+                var submitBtn = document.querySelector('#btnD');
+                var declareCheckbox = document.querySelector('#declaration');
+                var form = document.querySelector('.form-request');
+                submitBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if(declareCheckbox.checked == true) {
+                        form.submit();
+                    }else {
+                        alert('Please Check the declaration');
+                    }
+                })
+            })();
             $('.tagsinput').tagsinput({
                 tagClass: 'label label-primary'
             });
@@ -653,3 +554,4 @@
 </body>
 
 </html>
+@endsection;
