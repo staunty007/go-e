@@ -172,7 +172,7 @@
             </div>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="text" name="email" class="form-control meter-email" />
+                <input type="text" name="email" class="form-control meter-email-2" />
             </div>
             <div class="form-group">
                 <label>Mobile Number</label>
@@ -184,7 +184,7 @@
             </div>
             <div class="form-group">
                 <label>Amount</label>
-                <input type="text" name="amount" class="form-control meter-amount" />
+                <input type="text" name="amount" class="form-control meter-amount-2" />
             </div>
             <div class="form-group">
                 <button class="btn btn-block btn-primary pay-meter2">Make Payment</button>
@@ -251,7 +251,7 @@
                   })
               })
               $(".pay-meter2").click((e) => {
-                  e.preventDefault();$(this).prop('disabled',true);
+                  e.preventDefault();$('.pay-meter2').prop('disabled',true).html('Loading...');
   
                   var formdata = $('.meterOthers').serialize();
   
@@ -261,7 +261,7 @@
                       data: formdata,
                       success: (response) => {
                           if(response.code == "ok") {
-                              payWithPaystack();
+                              payWithPaystack2();
                           }
                       }
                   })
@@ -274,6 +274,29 @@
                 var handler = PaystackPop.setup({
                   key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
                   email: document.querySelector('.meter-email').value,
+                  amount: chargedAmount+"00",
+                  ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                  
+                  callback: function(response){
+                      swal('Yay!','Payment Successfull','success');
+                      setTimeout(() => {
+                          window.location.href='/payment/'+response.reference+'/success';
+                      },3000);
+                  },
+                  onClose: function(){
+                      alert('Payment Cancelled');
+                  }
+                });
+                handler.openIframe();
+              }
+              function payWithPaystack2(){
+                  var amountMeter = document.querySelector('.meter-amount-2').value;
+                  
+                  var chargedAmount = parseInt(amountMeter) + 100;
+                    console.log(chargedAmount);
+                var handler = PaystackPop.setup({
+                  key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+                  email: document.querySelector('.meter-email-2').value,
                   amount: chargedAmount+"00",
                   ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                   
