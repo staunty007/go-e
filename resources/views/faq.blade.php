@@ -102,13 +102,11 @@
 			<a href="{{ url('/')}}">
 				<img src="images/logo.png" style="float:left;margin-top:6px; padding:4px;"></a>			
 					<div class="navbar" style="margin-top:6px;right:23px;">
-						
-					<button type="button" id="support_btn" class="grad-box">
-	<a href="/" class="fas fa-home"></i><font color="white">Back to Home</a></font></a>
-
-							
-	
-	
+						<a href="/">
+					        <button type="button" id="support_btn" class="grad-box">
+                                <i class="fas fa-home"></i> Back to Home
+                            </button>
+                        </a>
 					</div>
 		</div>
 	

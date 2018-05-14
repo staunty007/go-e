@@ -137,29 +137,29 @@
 
   <div class="carousel-inner">
     <div class="item active">
-      <img src="images/rev_image/1.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/1.png" class="img-responsive" style="height:350px; width: 100% ">
     </div>
 
     <div class="item">
-      <img src="images/rev_image/2.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/2.png" class="img-responsive" style="height:350px; width: 100% ">
     </div>
 
     <div class="item">
-      <img src="images/rev_image/3.png"  class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/3.png"  class="img-responsive" style="height:350px; width: 100% ">
     </div>
 	  <div class="item">
-      <img src="images/rev_image/4.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/4.png" class="img-responsive" style="height:350px; width: 100% ">
     </div>
 
  
     <div class="item">
-      <img src="images/rev_image/7.png"  class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/7.png"  class="img-responsive" style="height:350px; width: 100% ">
     </div>  <div class="item">
-      <img src="images/rev_image/8.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/8.png" class="img-responsive" style="height:350px; width: 100% ">
     </div>
 
     <div class="item">
-      <img src="images/rev_image/9.png"  class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/9.png"  class="img-responsive" style="height:350px; width: 100% ">
     </div>
   </div>
 
