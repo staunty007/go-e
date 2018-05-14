@@ -36,9 +36,9 @@
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="/customer/img/profile_small.jpg" />
-                             </span>
+                    <div class="dropdown profile-element">{{--  <span>
+                            <img alt="image" class="img-circle" src="" />
+                             </span> --}}
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Welcome, {{ ucfirst(Auth::user()->first_name) }}</strong>
                         </span></span></a>

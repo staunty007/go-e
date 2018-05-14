@@ -4,6 +4,9 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('faq', function () {
+	return view('faq');
+});
 Route::post('account/login','AccountController@loginUser');
 Route::post('account/register','AccountController@registerUser')->name('signup');
 Route::get('registration/verify','AccountController@sendAccountMail')->name('semd.mail');

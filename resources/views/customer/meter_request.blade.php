@@ -554,4 +554,4 @@
 </body>
 
 </html>
-@endsection;
+@endsection

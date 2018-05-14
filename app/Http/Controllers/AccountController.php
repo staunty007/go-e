@@ -102,6 +102,10 @@ class AccountController extends Controller
 
             $prepaid->save();
 
+            $smsNumber = "234".$paymentDetails['mobile'];
+
+            echo "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is " .$ref. ", Thanks For Your Payment.&flash=0&recipients=".$smsNumber;
+
             return back();
         }
 

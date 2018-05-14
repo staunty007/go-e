@@ -1,35 +1,35 @@
 
 	<!DOCTYPE html>
 	<head>
-	<title>GOENERGEE</title>
+	<title>Home - GOENERGEE</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}"
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection"type='text/css'>
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/css/font-awesome.css" rel="stylesheet">
-		<link href="/css/animate.css" rel="stylesheet">
-		<link href="/css/application.css" rel="stylesheet">
-		<link href="/css/bootstrap.css" rel="stylesheet">
-		<link href="/css/emojionline.css" rel="stylesheet">
-		<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/font-awesome.css" rel="stylesheet">
+	<link href="/css/animate.css" rel="stylesheet">
+	<link href="/css/application.css" rel="stylesheet">
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/emojionline.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 	<!---Bootstrap CDN---->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script>
-	$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-</script>
+	<script>
+		$.ajaxSetup({
+		    headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    }
+		});
+	</script>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -135,32 +135,31 @@
   </ol>
   </ol>
 
-  <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="/images/rev_image/l.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/1.png" class="img-responsive" style="height:300px;">
     </div>
 
     <div class="item">
-      <img src="/images/rev_image/2.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/2.png" class="img-responsive" style="height:300px;">
     </div>
 
     <div class="item">
-      <img src="/images/rev_image/3.png"  class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/3.png"  class="img-responsive" style="height:300px;">
     </div>
 	  <div class="item">
-      <img src="/images/rev_image/4.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/4.png" class="img-responsive" style="height:300px;">
     </div>
 
  
     <div class="item">
-      <img src="/images/rev_image/7.png"  class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/7.png"  class="img-responsive" style="height:300px;">
     </div>  <div class="item">
-      <img src="/images/rev_image/8.png" class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/8.png" class="img-responsive" style="height:300px;">
     </div>
 
     <div class="item">
-      <img src="/images/rev_image/9.png"  class="img-responsive" style="height:300px;">
+      <img src="images/rev_image/9.png"  class="img-responsive" style="height:300px;">
     </div>
   </div>
 
@@ -177,14 +176,14 @@
 	
 
 
-	<!--main div--->
+	<!-- main div -->
 	<div class="row" style="margin:-7px 6px 0px 13px;">
 	<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
 
-	<!--divide col--->
+	<!--divide col-->
 	<div class="row">
 	<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-5px ">
-	<!--divide col for buttons--->
+	<!--divide col for buttons-->
 	<div class="row">
 	<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 
@@ -228,7 +227,7 @@
 	<div class="col-md-6 col-xs-6"style="padding:0px 5px;">
 	
 
-	<button type="button" class="grad-box" style="padding: 32px 20px;">
+	<button type="button" class="grad-box"  id="support_btn" style="padding: 32px 20px;">
 	<i class="fas fa-cogs"></i>
 	Support
 	</button>
@@ -236,11 +235,15 @@
 	</div>
 
 	<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-	<button type="button" class="grad-box" style="padding: 32px 20px;">
-	<i class="fas fa-question-circle"></i>
-	FAQ
+		<a href="faq">
+			<button type="button" class="grad-box" style="padding: 32px 20px;">
+				<i class="fas fa-question-circle"></i>
 
-	</button>
+					FAQ
+
+
+			</button>
+		</a>
 	</div>
 
 	</div>
@@ -261,9 +264,8 @@
 
 
 	<p style="margin-top:7px;"><span style="color:#a9191e;"><a href="https://www.goenergee.com/support.html">Click on Support for assistance!</span></p></a>
-
 	</div>
-	<img src="/images/advert.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:157px;">
+	<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
 	</div>
 	<!--Default div ends -->
 
@@ -447,8 +449,15 @@
 	   </div>
 	   </div>
 	   </div>
-	   <!---make payments ends--->
-
+	   <!---make payments ends-->
+<div id="support">
+                        <div class="text-center login-title"><img src="images/logo.png"> </div><h4 style="color:#80c636"><b><div class="text-center login-title">Customer Support Service</b></h4>
+                        <h5 style="color:#80c636"><b>Head Office</b></h5>
+                        <h5><b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lekki Phase 1, Lekki, Victoria Island, Lagos</h5>
+                        <h5><b>Phone:</b> 08052313815</h5>
+                        <h5><b>Email:</b> customersupport@goenergee.com</h5>
+                        
+                    </div>
 		
 	</div><!---col-md-7 ends--->
 
@@ -503,31 +512,48 @@
 			
 
 			});
-			$("#login").hide();
-			$("#sign-up").hide();
-			$("#make_payments").hide();
+			 $("#login").hide();
+        $("#sign-up").hide();
+        $("#make_payments").hide();
+        $("#support").hide();
+		
+
+        $("#login_btn").click(function() {
+
+            $("#login").show(500);
+            $("#sign-up").hide();
+            $("#news").hide();
+            $("#make_payments").hide();
+            $("#support").hide(); 
 			
-			$("#login_btn").click(function(){
-			$("#login").show(500);
-			$("#news").hide(700);
-			$("#sign-up").hide();
-			$("#make_payments").hide();
+        });   
+      
+        $("#sign_up_btn").click(function() {
+            $("#sign-up").show(400);
+            $("#news").hide();
+            $("#login").hide();
+            $("#make_payments").hide();
+            $("#support").hide();
 			
-			});
+        });
+
+        $("#payment_btn").click(function() {
+            $("#make_payments").show(600);
+            $("#news").hide();
+            $("#login").hide();
+            $("#sign-up").hide();
+            $("#support").hide();
 			
-			$("#sign_up_btn").click(function(){
-			$("#sign-up").show(500);
-			$("#news").hide(700);
-			$("#login").hide();
-			$("#make_payments").hide();
+
+        });
+
+        $("#support_btn").click(function() {
 			
-			});
-			
-			$("#payment_btn").click(function(){
-			$("#make_payments").show(500);
-			$("#news").hide(700);
-			$("#login").hide();
-			$("#sign-up").hide();
+            $("#support").show(400);
+            $("#news").hide();
+            $("#login").hide();
+            $("#sign-up").hide();
+            $("#make_payments").hide();
 			
 			});
 			
@@ -587,7 +613,7 @@ function showSlides(n) {
     setTimeout(showSlides, 3000); // Change image every 3 seconds
 }
 	</script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
 	<script>
 		$(".registerBtn").click((e) => {
 			e.preventDefault();
