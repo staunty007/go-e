@@ -262,8 +262,6 @@
 	<h6 style=""><b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h6>
 	<h6 style=""><b>CASH: </b>Take advantage of our <b>SALES</b> outlets closest to you and transact with our Agent.</h6>
 
-
-	<p style="margin-top:7px;"><span style="color:#a9191e;"><a href="https://www.goenergee.com/support.html">Click on Support for assistance!</span></p></a>
 	</div>
 	<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
 	</div>
@@ -403,7 +401,7 @@
 	  </form>
 	  
 			<button class="btn btn-rounded" id="three">Prepaid</button>
-			<a href="make_payments.html" target="_blank"><button class="btn btn-rounded" id="four">Postpaid</button></a>
+			<a href="{{ route('postpaid') }}" target="_blank"><button class="btn btn-rounded" id="four">Postpaid</button></a>
 			
 			
 		  <div class="row form-section" style=" margin:6px auto; padding:4px;">

@@ -3,7 +3,7 @@
 
 <title>GoEnergee</title>
 
-<link href="images/favicon.png" rel="shortcut icon" type="image/png">
+<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">

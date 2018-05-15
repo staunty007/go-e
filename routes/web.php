@@ -13,6 +13,9 @@ Route::get('registration/verify','AccountController@sendAccountMail')->name('sem
 Route::get('registration/activate/{token}','AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success','AccountController@paymentSuccess');
 Route::post('payment/hold','AccountController@paymentHolder');
+Route::get('payment/postpaid',function() {
+    return view('make_payments');
+})->name('postpaid');
 // User Dashboard
 
 Route::middleware('auth')->group(function(){
