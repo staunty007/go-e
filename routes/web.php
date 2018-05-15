@@ -7,6 +7,9 @@ Route::get('/', function () {
 Route::get('faq', function () {
     return view('faq');
 });
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
 Route::post('account/login','AccountController@loginUser');
 Route::post('account/register','AccountController@registerUser')->name('signup');
 Route::get('registration/verify','AccountController@sendAccountMail')->name('semd.mail');
