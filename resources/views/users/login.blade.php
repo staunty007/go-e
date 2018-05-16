@@ -31,6 +31,7 @@
 
 <body>
 	<h1>Agents And Administrator Login</h1>
+	<img src="/images/logo.png" />
 	<div class="w3ls-login box box--big">
 		<!-- form starts here -->
 		<form action="#" method="post" class="login-form">
