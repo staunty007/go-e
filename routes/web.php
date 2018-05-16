@@ -57,14 +57,14 @@ Route::prefix('backend')->group(function () {
 
     // Administrator
     Route::get('administrator', 'AdminController@home')->name('admin.home');
-    Route::get('finance', 'AdminController@home')->name('admin.finance');
-    Route::get('profile', 'AdminController@home')->name('admin.profile');
-    Route::get('customer_report', 'AdminController@home')->name('admin.customer_report');
-    Route::get('payment_history', 'AdminController@home')->name('admin.payment_history');
-    Route::get('demographics', 'AdminController@home')->name('admin.demographics');
-    Route::get('meter_admin', 'AdminController@home')->name('admin.meter_admin');
-    Route::get('settings', 'AdminController@home')->name('admin.settings');
-    Route::get('sms', 'AdminController@home')->name('admin.sms');
+    Route::get('finance', 'AdminController@finance')->name('admin.finance');
+    Route::get('profile', 'AdminController@profile')->name('admin.profile');
+    Route::get('customer_report', 'AdminController@customer_report')->name('admin.customer_report');
+    Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
+    Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
+    Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
+    Route::get('settings', 'AdminController@settings')->name('admin.settings');
+    Route::get('sms', 'AdminController@sms')->name('admin.sms');
 
 
     // Agents
