@@ -15,7 +15,6 @@ use App\PostpaidPayment;
 //use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
-
 class AccountController extends Controller
 {
     public function loginUser(Request $request)
@@ -112,18 +111,18 @@ class AccountController extends Controller
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
 
-            return redirect()->route('finalize',[$smsNumber,$ref]);
+            return redirect()->route('finalize', [$smsNumber,$ref]);
             $reqst = "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is ".$ref."&flash=0&recipients=".$smsNumber;
 
             //return $reqst;
             // Create a client with a base URI
             
             $client = new Client();
-            $response = $client->request('GET',$reqst);
+            $response = $client->request('GET', $reqst);
 
-            if($response) {
+            if ($response) {
                 return $response->getStatusCode();
-            }else {
+            } else {
                 return "Mopre";
             }
             //session()->forget('payment_details');
@@ -168,7 +167,18 @@ class AccountController extends Controller
     }
     public function home()
     {
-        return view('customer.dashboard');
+        $role = \Auth::user()->role_id;
+        switch ($role) {
+            case '1':
+                return view('users.admin.home');
+                break;
+            case '2':
+                return view('users.agent.home');
+                break;
+            default:
+                return view('customer.dashboard');
+                break;
+        }
     }
 
     public function customerProfile()
@@ -230,9 +240,9 @@ class AccountController extends Controller
         return redirect('/');
     }
 
-    public function useHTTPGet($url, $username, $apikey, $flash, $sendername, $messagetext, $recipients) {
+    public function useHTTPGet($url, $username, $apikey, $flash, $sendername, $messagetext, $recipients)
+    {
         $query_str = http_build_query(array('username' => $username, 'apikey' => $apikey, 'sender' => $sendername, 'messagetext' => $messagetext, 'flash' => $flash, 'recipients' => $recipients));
         return file_get_contents("{$url}?{$query_str}");
     }
-     
 }

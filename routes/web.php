@@ -4,7 +4,7 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::get('finalize/{number}/{ref}', function() {
+Route::get('finalize/{number}/{ref}', function () {
     return view('finalize');
 })->name('finalize');
 Route::get('faq', function () {
@@ -13,12 +13,12 @@ Route::get('faq', function () {
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::post('account/login','AccountController@loginUser');
-Route::post('account/register','AccountController@registerUser')->name('signup');
-Route::get('registration/verify','AccountController@sendAccountMail')->name('semd.mail');
-Route::get('registration/activate/{token}','AccountController@activateAccount')->name('activate.account');
-Route::get('payment/{ref}/success','AccountController@paymentSuccess');
-Route::post('payment/hold','AccountController@paymentHolder');
+Route::post('account/login', 'AccountController@loginUser');
+Route::post('account/register', 'AccountController@registerUser')->name('signup');
+Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
+Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
+Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
+Route::post('payment/hold', 'AccountController@paymentHolder');
 // Route::get('payment/postpaid',function() {
 //     return view('make_payments');
 // })->name('postpaid');
@@ -48,19 +48,27 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin
-Route::prefix('backend')->group(function() {
-    Route::get('/', function() {
+Route::prefix('backend')->group(function () {
+    Route::get('/', function () {
         return redirect()->route('backend-login');
     });
-    Route::get('login','BackendController@getUserLogin')->name('backend-login');
-    Route::post('login','BackendController@userLogin')->name('backend-login');
+    Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
+    Route::post('login', 'BackendController@userLogin')->name('backend-login');
 
     // Administrator
-    Route::get('administrator','AdminController@home')->name('admin.home');
+    Route::get('administrator', 'AdminController@home')->name('admin.home');
+    Route::get('finance', 'AdminController@home')->name('admin.finance');
+    Route::get('profile', 'AdminController@home')->name('admin.profile');
+    Route::get('customer_report', 'AdminController@home')->name('admin.customer_report');
+    Route::get('payment_history', 'AdminController@home')->name('admin.payment_history');
+    Route::get('demographics', 'AdminController@home')->name('admin.demographics');
+    Route::get('meter_admin', 'AdminController@home')->name('admin.meter_admin');
+    Route::get('settings', 'AdminController@home')->name('admin.settings');
+    Route::get('sms', 'AdminController@home')->name('admin.sms');
+
 
     // Agents
-    Route::get('agent','AgentController@home')->name('agent.home');
-
+    Route::get('agent', 'AgentController@home')->name('agent.home');
 });
 
 

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -80,7 +81,9 @@ class LoginController extends Controller
             'first_name' => $name['0'],
             'last_name' => @$name['1'],
             'email' => $user->email,
-            'password'=> str_random(8),
+            'role_id'=>'3',
+            'password'=> Hash::make('developer'),
+            // 'password' => Hash::make(str_random(8)),
             'provider' => $provider,
             'provider_id' => $user->id
         ]);
