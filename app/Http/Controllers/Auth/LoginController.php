@@ -80,6 +80,7 @@ class LoginController extends Controller
             'first_name' => $name['0'],
             'last_name' => @$name['1'],
             'email' => $user->email,
+            'password'=> str_random(8),
             'provider' => $provider,
             'provider_id' => $user->id
         ]);
