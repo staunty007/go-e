@@ -64,7 +64,7 @@
                             </div>
                         </li>
 
-                        <li class="active">
+                        <li class="{{$current_route_name =="admin.finance" ? 'active' : ''}}">
                             <a href="{{route('admin.finance')}}">
                                 <span>&#8358;</span>
                                 </i>
@@ -72,46 +72,46 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li class="{{$current_route_name =="admin.customer_report" ? 'active' : ''}}">
                             <a href="{{route('admin.customer_report')}}">
                                 <i class="fa fa-user"></i>
                                 <span class="nav-label">Customer Report</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="{{$current_route_name =="admin.payment_history" ? 'active' : ''}}">
                             <a href="{{route('admin.payment_history')}}">
                                 <i class="fa fa-cc-visa"></i>
                                 <span class="nav-label">Payment History</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{$current_route_name =="admin.demographics" ? 'active' : ''}}">
                             <a href="{{route('admin.demographics')}}">
                                 <i class="fa fa fa-yelp"></i>
                                 <span class="nav-label">Energy Consumption</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="{{$current_route_name =="admin.meter_admin" ? 'active' : ''}}">
                             <a href="{{route('admin.meter_admin')}}">
                                 <i class="fa fa-table"></i>
                                 <span class="nav-label">Meter Management</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="{{$current_route_name =="admin.profile" ? 'active' : ''}}">
                             <a href="{{route('admin.profile')}}">
                                 <i class="fa fa-podcast"></i>
                                 <span class="nav-label">Admin Profile</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{$current_route_name =="admin.settings" ? 'active' : ''}}">
                             <a href="{{route('admin.settings')}}">
                                 <i class="fa fa-address-card"></i>
                                 <span class="nav-label">User Manager</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{$current_route_name =="admin.sms" ? 'active' : ''}}">
                             <a href="{{route('admin.sms')}}">
                                 <i class="fa fa-envelope"></i>
                                 <span class="nav-label">SMS Gateway</span>
