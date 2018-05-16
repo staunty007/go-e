@@ -173,6 +173,7 @@ class AccountController extends Controller
 
     public function customerProfile()
     {
+        return view('customer.customer_profile');
     }
     public function makePayment()
     {
