@@ -12,6 +12,9 @@ use App\PrepaidPayment;
 use Illuminate\Http\Request;
 use App\Mail\AccountActivation;
 use App\PostpaidPayment;
+//use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 
 class AccountController extends Controller
 {
@@ -104,11 +107,27 @@ class AccountController extends Controller
 
             $prepaid->save();
 
-            $smsNumber = "234".$paymentDetails['mobile'];
+            $smsNumber = "+234".$paymentDetails['mobile'];
+            //echo '<script src="https://unpkg.com/axios/dist/axios.min.js"></script>';
+            session()->put(['smsNumber' => $smsNumber]);
+            session()->put(['smsRef' => $ref]);
 
-            echo "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is " .$ref. ", Thanks For Your Payment.&flash=0&recipients=".$smsNumber;
+            return redirect()->route('finalize',[$smsNumber,$ref]);
+            $reqst = "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is ".$ref."&flash=0&recipients=".$smsNumber;
 
-            session()->forget('payment_details');
+            //return $reqst;
+            // Create a client with a base URI
+            
+            $client = new Client();
+            $response = $client->request('GET',$reqst);
+
+            if($response) {
+                return $response->getStatusCode();
+            }else {
+                return "Mopre";
+            }
+            //session()->forget('payment_details');
+
             return back();
         }
 
@@ -209,4 +228,10 @@ class AccountController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function useHTTPGet($url, $username, $apikey, $flash, $sendername, $messagetext, $recipients) {
+        $query_str = http_build_query(array('username' => $username, 'apikey' => $apikey, 'sender' => $sendername, 'messagetext' => $messagetext, 'flash' => $flash, 'recipients' => $recipients));
+        return file_get_contents("{$url}?{$query_str}");
+    }
+     
 }

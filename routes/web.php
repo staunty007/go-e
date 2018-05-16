@@ -4,6 +4,9 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('finalize/{number}/{ref}', function() {
+    return view('finalize');
+})->name('finalize');
 Route::get('faq', function () {
     return view('faq');
 });

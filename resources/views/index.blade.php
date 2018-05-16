@@ -780,7 +780,7 @@
 		<script>
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
-				$('.pay-meter').prop('disabled', true);
+				$('.pay-meter').html('Connecting to Gateway...');
 				var formdata = $('.meter').serialize();
 
 				$.ajax({
@@ -793,10 +793,10 @@
 						}
 					},
 					error: (err) => {
-						$('.pay-meter').prop('disabled', false);
+						$('.pay-meter').html('Pay');
 					}
 				})
-				$('.pay-meter').prop('disabled', false);
+				//$('.pay-meter').prop('disabled', false);
 			})
 
 			function payWithPaystack() {
@@ -818,7 +818,7 @@
 					},
 					onClose: function () {
 						alert('Payment Cancelled');
-						$('.pay-meter').prop('disabled', false);
+						$('.pay-meter').html('Pay');
 					}
 				});
 				handler.openIframe();
