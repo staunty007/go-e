@@ -14,8 +14,8 @@ class AddSocialiteToUsers extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('provider');
-            $table->string('provider_id');
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
         });
     }
 

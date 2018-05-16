@@ -741,6 +741,7 @@
 						console.log(err);
 					}
 				})
+				$('.registerBtn').prop('disabled', false);
 			})
 
 			$(".login-btn").click((e) => {
@@ -768,6 +769,7 @@
 						}
 					}
 				})
+				$('.login-btn').prop('disabled', false);
 			})
 		</script>
 
