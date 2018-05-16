@@ -4,6 +4,9 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('finalize/{number}/{ref}', function() {
+    return view('finalize');
+})->name('finalize');
 Route::get('faq', function () {
     return view('faq');
 });
@@ -43,4 +46,23 @@ Route::middleware('auth')->group(function () {
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
 });
+
+// Admin
+Route::prefix('backend')->group(function() {
+    Route::get('/', function() {
+        return redirect()->route('backend-login');
+    });
+    Route::get('login','BackendController@getUserLogin')->name('backend-login');
+    Route::post('login','BackendController@userLogin')->name('backend-login');
+
+    // Administrator
+    Route::get('administrator','AdminController@home')->name('admin.home');
+
+    // Agents
+    Route::get('agent','AgentController@home')->name('agent.home');
+
+});
+
+
+
 Route::post('logout', 'AccountController@logout')->middleware('auth')->name('logout');

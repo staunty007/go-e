@@ -6,13 +6,8 @@
         <div class="row">
             <div class="col-lg-3">
                     <div class="widget-head-color-box navy-bg p-lg text-center">
-                        <div class="m-b-md">
-                        <h2 class="font-bold no-margins">
-                            Administrator
-                        </h2>
-                            <small>GOENERGEE </small>
-                        </div>
-                        <img src="/customer/img/a4.jpg" class="img-circle circle-border m-b-md" alt="profile">
+                        
+                        {{-- <img src="/customer/img/a4.jpg" class="img-circle circle-border m-b-md" alt="profile"> --}}
                         <ul class="list-unstyled m-t-md">
                         <div class="text-left">
                          <li>

@@ -166,26 +166,26 @@
 
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/rev_image/1.png" class="img-responsive" style="height:350px; width: 100% ">
+								<img src="images/rev_image/1.png" class="img-responsive" style="height:300px; width: 100% ">
 							</div>
 
 							<div class="item">
-								<img src="images/rev_image/2.png" class="img-responsive" style="height:350px; width: 100% ">
+								<img src="images/rev_image/2.png" class="img-responsive" style="height:300px; width: 100% ">
 							</div>
 
 							<div class="item">
-								<img src="images/rev_image/3.png" class="img-responsive" style="height:350px; width: 100% ">
+								<img src="images/rev_image/3.png" class="img-responsive" style="height:300px; width: 100% ">
 							</div>
 							<div class="item">
-								<img src="images/rev_image/4.png" class="img-responsive" style="height:350px; width: 100% ">
+								<img src="images/rev_image/4.png" class="img-responsive" style="height:300px; width: 100% ">
 							</div>
 
 
 							<div class="item">
-								<img src="images/rev_image/7.png" class="img-responsive" style="height:350px; width: 100% ">
+								<img src="images/rev_image/7.png" class="img-responsive" style="height:300px; width: 100% ">
 							</div>
 							<div class="item">
-								<img src="images/rev_image/8.png" class="img-responsive" style="height:350px; width: 100% ">
+								<img src="images/rev_image/8.png" class="img-responsive" style="height:300px; width: 100% ">
 							</div>
 
 							<div class="item">
@@ -286,23 +286,19 @@
 
 								<!--Default div -->
 								<div id="news">
-									<div class="text-insert" style="margin-bottom:10px;">
+										<div class="text-insert" style="margin-bottom:10px;">
 										<h4 style="margin-bottom:10px; color:#80c636">More Power Options to Recharge!</h4>
-
-										<h6 style="">Are you aware that
-											<b>GOENERGEE</b> is available on alternative channels?</h6>
-										<h6 style="">
-											<b>mCASH: </b>Simply dial
-											<b>*402*00009130*Amount#</b> and dial our customer helpdesk.</h6>
-										<h6 style="">
-											<b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h6>
-										<h6 style="">
-											<b>CASH: </b>Take advantage of our
-											<b>SALES</b> outlets closest to you and transact with our Agent.</h6>
-
-									</div>
-									<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
-								</div>
+									
+										<h5 style=""><b>GOENERGEE</b> is available on these alternative channels.</h5>
+										<h5 style=""><b>mCASH: </b>Simply dial <b>*402*00009130*Amount#</b> and dial our customer helpdesk.</h5>
+										<h5 style=""><b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h5>
+										<h5 style=""><b>CASH: </b>Take advantage of our <b>SALES</b> outlets closest to you and transact with our Agent.</h5>
+									
+									
+										
+										</div>
+										<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
+										</div>
 								<!--Default div ends -->
 
 
@@ -741,6 +737,7 @@
 						console.log(err);
 					}
 				})
+				$('.registerBtn').prop('disabled', false);
 			})
 
 			$(".login-btn").click((e) => {
@@ -768,6 +765,7 @@
 						}
 					}
 				})
+				$('.login-btn').prop('disabled', false);
 			})
 		</script>
 
@@ -778,7 +776,7 @@
 		<script>
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
-				$('.pay-meter').prop('disabled', true);
+				$('.pay-meter').html('Connecting to Gateway...');
 				var formdata = $('.meter').serialize();
 
 				$.ajax({
@@ -791,10 +789,10 @@
 						}
 					},
 					error: (err) => {
-						$('.pay-meter').prop('disabled', false);
+						$('.pay-meter').html('Pay');
 					}
 				})
-				$('.pay-meter').prop('disabled', false);
+				//$('.pay-meter').prop('disabled', false);
 			})
 
 			function payWithPaystack() {
@@ -816,7 +814,7 @@
 					},
 					onClose: function () {
 						alert('Payment Cancelled');
-						$('.pay-meter').prop('disabled', false);
+						$('.pay-meter').html('Pay');
 					}
 				});
 				handler.openIframe();

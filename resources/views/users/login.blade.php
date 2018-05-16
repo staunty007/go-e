@@ -1,231 +1,141 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 
 <head>
+	<title>Login - GOENERGEE</title>
+    <!-- Meta-Tags -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>GOENERGEE | Customer Main</title>
-
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
-	  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
-	<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-	<link href="/css/style1.css" rel="stylesheet">
-     
-	<link rel="icon" href="/img/favicon.png" type='image/x-icon'>
-
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //Meta-Tags -->
+	<!-- Stylesheets -->
+	<link href="/ba/css/font-awesome.css" rel="stylesheet">
+	<link href="/ba/css/style.css" rel='stylesheet' type='text/css' />
+	<!--// Stylesheets -->
+	<!--fonts-->
+	<!-- title -->
+	<link href="//fonts.googleapis.com/css?family=Niconne" rel="stylesheet">
+	<!-- body -->
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+	<!--//fonts-->
 </head>
 
 <body>
-   
-
-       <div class="container">
-	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
-	<li data-target="#myCarousel" data-slide-to="4"></li>
-	
-	<li data-target="#myCarousel" data-slide-to="7"></li>
-	<li data-target="#myCarousel" data-slide-to="8"></li>
-	<li data-target="#myCarousel" data-slide-to="9"></li>
-	<li data-target="#myCarousel" data-slide-to="10"></li>
-	<li data-target="#myCarousel" data-slide-to="11"></li>
-  </ol>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="/img/1.png" class="img-responsive" style="height:300px;">
-    </div>
-
-    <div class="item">
-      <img src="/img/2.png" class="img-responsive" style="height:300px;">
-    </div>
-
-    <div class="item">
-      <img src="/img/3.png"  class="img-responsive" style="height:300px;">
-    </div>
-	  <div class="item">
-      <img src="/img/4.png" class="img-responsive" style="height:300px;">
-    </div>
-
- 
-    <div class="item">
-      <img src="/img/7.png"  class="img-responsive" style="height:300px;">
-    </div>  <div class="item">
-      <img src="/img/8.png" class="img-responsive" style="height:300px;">
-    </div>
-
-    <div class="item">
-      <img src="/img/9.png"  class="img-responsive" style="height:300px;">
-    </div>
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div></div>
-        
-            
-        
-<div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="ibox float-e-margins">
-                        
-                        <div class="ibox-content">
-                            <div>
-                                <div class="cotn_principal">
-<div class="cont_centrar">
-
-  <div class="cont_login">
-<div class="cont_info_log_sign_up">
-      <div class="col_md_login">
-<div class="cont_ba_opcitiy">
-        
-        <h2>LOGIN TO</h2> <img src="/img/logo.png">
-  <p>This is strictly for Administrators, Agents & DisCo.</p> 
-  <button class="btn_login" onclick="cambiar_login()">LOGIN</button>
-  </div>
-  </div>
-<div class="col_md_sign_up">
-<div class="cont_ba_opcitiy">
-  <h2>SIGN UP WITH</h2><img src="/img/logo.png">
-
-  
-  <p>Come onboard the leading Utility Payment Platform.</p>
-
-  <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
-</div>
-  </div>
-       </div>
-
-    
-    <div class="cont_back_info">
-       <div class="cont_img_back_grey">
-	   <img src="/img/transformers.jpg">
-       <!--<img src="https://images.unsplash.com/42/U7Fc1sy5SCUDIu4tlJY3_NY_by_PhilippHenzler_philmotion.de.jpg?ixlib=rb-0.3.5&q=50&fm=jpg&crop=entropy&s=7686972873678f32efaf2cd79671673d" alt="" />-->
-       </div>
-       
-    </div>
-<div class="cont_forms" >
-    <div class="cont_img_back_">
-	<img src="/img/bg.png">
-       <!--<img src="https://images.unsplash.com/42/U7Fc1sy5SCUDIu4tlJY3_NY_by_PhilippHenzler_philmotion.de.jpg?ixlib=rb-0.3.5&q=50&fm=jpg&crop=entropy&s=7686972873678f32efaf2cd79671673d" alt="" />-->
-       </div>
- <div class="cont_form_login">
-<a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
-   <h2>LOGIN TO</h2><img src="/img/logo.png">
- <input type="text" placeholder="Email" />
-<input type="password" placeholder="Password" />
-<button class="btn_login" onclick="cambiar_login()">LOGIN</button>
-  </div>
-  
-   <div class="cont_form_sign_up">
-<a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
-     <h2>SIGN UP WITH</h2><img src="/img/logo.png">
-<input type="text" placeholder="Email" />
-<input type="password" placeholder="Password" />
-<input type="password" placeholder="Confirm Password" />
-<button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
-
-  </div>
-
-    </div>
-    
-  </div>
- </div>
-</div>
-  
-  
-
-    <script  src="js/index.js"></script>
-	
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-				<div class="col-lg-5">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Information Portal</h5>
-                        </div>
-                        <div class="ibox-content ">
-                            <div class="carousel slide" id="carousel2">
-                                <ol class="carousel-indicators">
-                                    <li data-slide-to="0" data-target="#carousel2"  class="active"></li>
-                                    <li data-slide-to="1" data-target="#carousel2"></li>
-                                    <li data-slide-to="2" data-target="#carousel2" class=""></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img alt="image"  class="img-responsive" src="/img/p_big1.png">
-                                        
-                                    </div>
-                                    <div class="item ">
-                                        <img alt="image"  class="img-responsive" src="/img/p_big2.jpg">
-                                        
-                                    </div>
-                                    
-                                </div>
-                                <a data-slide="prev" href="#carousel2" class="left carousel-control">
-                                    <span class="icon-prev"></span>
-                                </a>
-                                <a data-slide="next" href="#carousel2" class="right carousel-control">
-                                    <span class="icon-next"></span>
-                                </a>
-                            </div>
-                            </div>
-                    </div>
-                </div>
+	<h1>Agents And Administrator Login</h1>
+	<img src="/images/logo.png" />
+	<div class="w3ls-login box box--big">
+		<!-- form starts here -->
+		<form action="#" method="post" class="login-form">
+            {{ csrf_field()}}
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-square"></i> Category</label>
+                    <select class="form-control" name="role_id">
+                        <option value="2">Agent</option>
+                        <option value="1">Administrator</option>
+                    </select>
             </div>
-     
-              
-        </div>
-        <div class="footer">
-            
-            <div>
-                <strong>Powered by</strong> GOENERGEE &copy; 2018
-            </div>
-        </div>
-</div></div>
-    </div>
-      <!-- Mainly scripts -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
+			<div class="agile-field-txt">
+				<label>
+					<i class="fa fa-user" aria-hidden="true"></i> Email Address :</label>
+				<input type="text" name="email" placeholder=" " />
+			</div>
+			<div class="agile-field-txt">
+				<label>
+					<i class="fa fa-envelope" aria-hidden="true"></i> password :</label>
+				<input type="password" name="password" placeholder=" " id="myInput" />
+				{{-- <div class="agile_label">
+					<input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+					<label class="check" for="check3">Show password</label>
+				</div> --}}
+			</div>
+			<!-- script for show password -->
+			<script>
+				function myFunction() {
+					var x = document.getElementById("myInput");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+			</script>
+			<!-- //script ends here -->
+			<div class="w3ls-bot">
+				<div class="switch-agileits">
+					<label class="switch">
+						<input type="checkbox">
+						<span class="slider round"></span>
+						keep me signed in
+					</label>
+				</div>
+				<div class="form-end">
+					<input type="submit" value="LOGIN" id="loggin">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</form>
+	</div>
+	<!-- //form ends here -->
+	<!--copyright-->
+	<div class="copy-wthree">
+		<p>© 2018 GOENERGEE
+		</p>
+	</div>
+    <!--//copyright-->
+    <script src="/ba/js/jquery-3.1.1.min.js"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script>
+        $(function() {
+            $('#loggin').click((e) => {
+                e.preventDefault();
+                $('#loggin').addClass('disabled');
+                $('#loggin').val('Logging In...');
 
-   
+                var formData = $('.login-form').serialize();
 
-    <!-- Mainly scripts -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+                $.ajax({
+                    url: "{{ route('backend-login') }}",
+                    method: 'POST',
+                    data: formData,
+                    success: (response) => {
+                        if(response.data == 1) {
+                            window.location.href='/backend/administrator';
+                        }else if(response.data == 2) {
+                            window.location.href='/backend/agent';
+                        }else {
+                            swal('Ooops!',''+response.data+'','error');
+                            //$("#error").html(response.data);
+                            //console.log(response);
+                            $('#loggin').val('Login');
+                        }
+                    },error: (err) => {
+                        $('#loggin').addClass('disabled');
+                        $('#loggin').val('Login');
+                    }
+                });
 
- 
 
+            })
+        })
+    </script>
 </body>
+
 </html>

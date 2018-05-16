@@ -7,7 +7,7 @@
     <link href="images/favicon.png" rel="shortcut icon" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -126,7 +126,7 @@
                         <span style="color:#80c636">Postpaid payments</span> here!</h4>
                     <div class="hr-line-dashed"></div>
                     <form action="POST" class="meter">
-                        <table class="table table-bordered table-section" id="postpaiditems">
+                        <table class="table table-bordered table-responsive" id="postpaiditems" style="width:100%;">
                             <thead>
                                 <tr>
 
