@@ -28,10 +28,5 @@ class UpdateUsersField extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('mobile', 50);
-            $table->string('first_name');
-            $table->string('last_name');
-        });
     }
 }
