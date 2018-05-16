@@ -17,6 +17,7 @@ class UpdateUsersField extends Migration
             $table->string('mobile', 50)->nullable()->change();
             $table->string('first_name')->nullable()->change();
             $table->string('last_name')->nullable()->change();
+            $table->string('access_token')->nullable()->change();
         });
     }
 
