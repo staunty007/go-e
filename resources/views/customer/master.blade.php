@@ -64,7 +64,7 @@
                     <li class="{{ Request::is('payment-history') ? 'active' :'' }}"><a href="payment-history"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
                 </li>
 				<li>
-                    <li class="{{ Request::is('make-payment') ? 'active' :'' }}"><a href="make-payment"><i class="fa fa-cc-visa"></i> <span class="nav-label">Make Payment</span></a>
+                    <li class="{{ Request::is('make-payment') ? 'active' :'' }}"><a href="make-payment"><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span></a>
                  </li>
                 
                 <li>

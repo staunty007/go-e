@@ -4,7 +4,8 @@
 	<title>Home - GOENERGEE</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
-	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -134,11 +135,16 @@
 									<input type="search" style="border:0px; padding:4px; border-radius: 10px 0 0 10px;" placeholder="Search.." name="search">
 									<button type="submit" style="background-color:#a1c844; border-radius: 0 10px 10px 0px; border:0px; padding:4px; margin-left:-5px;">
 										<a href="#" style="color:white;">
-											<i class="fa fa-search" style="padding:4px;"></i>
+											<i class="fas fa-search"></i>
 										</a>
 									</button>
 								</form>
 							</li>
+							@if (Auth::check())
+								<li style="border: none; color: #fff;">
+									<p style="font-size: 1.5em">Welcome {{ Auth::user()->first_name}}</p>
+								</li>
+							@endif
 						</ul>
 
 					</div>
@@ -468,7 +474,7 @@
 									</form>
 
 									<button class="btn btn-rounded" id="three">Prepaid</button>
-									<a href="{{ route('postpaid') }}" target="_blank">
+									<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
 										<button class="btn btn-rounded" id="four">Postpaid</button>
 									</a>
 
@@ -541,7 +547,7 @@
 										<b>Head Office</b>
 									</h5>
 									<h5>
-										<b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lekki Phase 1, Lekki, Victoria Island, Lagos</h5>
+										<b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lekki Phase 1, Lagos</h5>
 									<h5>
 										<b>Phone:</b> 08052313815</h5>
 									<h5>
@@ -592,6 +598,7 @@
 							$(".form-section").fadeToggle(500);
 							$("#one").hide();
 							$("#two").hide();
+							$("#postPaid").hide();
 
 						});
 

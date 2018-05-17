@@ -18,10 +18,10 @@ Route::post('account/register', 'AccountController@registerUser')->name('signup'
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
-Route::post('payment/hold', 'AccountController@paymentHolder');
-// Route::get('payment/postpaid',function() {
-//     return view('make_payments');
-// })->name('postpaid');
+
+Route::get('payment/postpaid',function() {
+    return view('make_payments');
+})->name('postpaid');
 Route::get('postpaidpayment', function () {
     return view('postpaidpayment');
 })->name('postpaid');
@@ -66,11 +66,8 @@ Route::prefix('backend')->group(function () {
     Route::get('settings', 'AdminController@settings')->name('admin.settings');
     Route::get('sms', 'AdminController@sms')->name('admin.sms');
 
-
     // Agents
     Route::get('agent', 'AgentController@home')->name('agent.home');
 });
-
-
 
 Route::post('logout', 'AccountController@logout')->middleware('auth')->name('logout');
