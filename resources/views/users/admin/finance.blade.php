@@ -5,7 +5,7 @@
     <div class="col-sm-4">
         <h1 class="m-b-xs">
             <span>&#8358;</span>
-            26,900
+            {{$data['salesthismonth']}}
         </h1>
         <small>
             Sales in current month
@@ -31,7 +31,7 @@
     <div class="col-sm-4">
         <h1 class="m-b-xs">
             <span>&#8358;</span>
-            98,100
+            {{$data['salestoday']}}
         </h1>
         <small>
             Sales in last 24h
@@ -61,7 +61,7 @@
             <div class="col-xs-6">
                 <h5 class="m-b-xs">Income last month</h5>
                 <h1 class="no-margins">
-                    <span>&#8358;</span>160,000</h1>
+                    <span>&#8358;</span>{{$data['incomelastmonth']}}</h1>
                 <div class="font-bold text-navy">98%
                     <i class="fa fa-bolt"></i>
                 </div>
@@ -69,7 +69,7 @@
             <div class="col-xs-6">
                 <h5 class="m-b-xs">Sales current year</h5>
                 <h1 class="no-margins">
-                    <span>&#8358;</span>42,120</h1>
+                    <span>&#8358;</span>{{$data['salescurrentyear']}}</h1>
                 <div class="font-bold text-navy">98%
                     <i class="fa fa-bolt"></i>
                 </div>
@@ -81,7 +81,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <strong>230</strong> Customers
+                        <strong>{{$data['registeredcustomers']}}</strong> Customers
 
                     </td>
                     <td>
@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>12</strong> Agents
+                        <strong>{{$data['registeredagents']}}</strong> Agents
                     </td>
                     <td>
                         <strong>3</strong> Payment Channels
