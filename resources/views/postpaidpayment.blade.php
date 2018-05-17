@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link href="css/main.css" rel='stylesheet' type='text/css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> -->
     <style>
         table .error {
@@ -219,7 +217,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7" style="text-align:right;">Total Fee</td>
+                                        <td colspan="6" style="text-align:right;">Total Fee</td>
                                         <td>(Sum of the subtotal)
                                             <input type="text" name="sum" id="sum" placeholder="" disabled="">
                                             <input type="hidden" name="totalPayblleAmount" id="totalPayblleAmount" value=" ">
@@ -244,20 +242,33 @@
                             <h5>Information Portal</h5>
                         </div>
                         <div class="ibox-content ">
-                            <div class="carousel slide" id="carousel2">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li data-slide-to="0" data-target="#carousel2" class="active"></li>
-                                    <li data-slide-to="1" data-target="#carousel2"></li>
-                                    <li data-slide-to="2" data-target="#carousel2" class=""></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                 </ol>
                                 <div class="carousel-inner">
-                                    <div class="item ">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/advert.jpg')}}">
-
+                                    <div class="carousel-item active">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/1.png')}}">
                                     </div>
-
+                                    <div class="carousel-item">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/2.png')}}">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/3.png')}}">
+                                    </div>
                                 </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -274,7 +285,7 @@
     <script>
         var sum = 0;
         $(document).ready(function () {
-
+            $('.carousel').carousel();
             //iterate through each textboxes and add keyup
             //handler to trigger sum event
             $(".txt").each(function () {
