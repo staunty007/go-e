@@ -32,7 +32,7 @@
                         <li class="nav-header">
                             <div class="dropdown profile-element">
                                 <span>
-                                    <img alt="image" class="img-circle" src="{{asset('images/profile_small.jpg')}}" />
+                                    <img alt="image" class="img-circle" src="{{asset('images/profile_small.png')}}" />
                                 </span>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <span class="clear">
@@ -56,7 +56,10 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="login.html">Logout</a>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
+                                        <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                                            {{ csrf_field()}}
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
@@ -161,9 +164,7 @@
                                 </div>
                             </div>
                             @endpush
-                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
-                                <i class="fa fa-bars"></i>
-                            </a>
+
                             <form role="search" class="navbar-form-custom" action="search_results.html">
                                 <div class="form-group">
                                     <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
@@ -178,9 +179,12 @@
 
 
                             <li>
-                                <a href="login.html">
-                                    <i class="fa fa-sign-out"></i> Log out
-                                </a>
+
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">
+                                    <i class="fa fa-sign-out"></i>logout</a>
+                                <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                                    {{ csrf_field()}}
+                                </form>
                             </li>
 
                         </ul>
