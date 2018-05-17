@@ -82,8 +82,7 @@ class LoginController extends Controller
             'last_name' => @$name['1'],
             'email' => $user->email,
             'role_id'=>'3',
-            'password'=> Hash::make('developer'),
-            // 'password' => Hash::make(str_random(8)),
+            'password' => Hash::make(str_random(8)),
             'provider' => $provider,
             'provider_id' => $user->id
         ]);

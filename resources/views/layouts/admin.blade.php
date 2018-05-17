@@ -20,6 +20,7 @@
 
         <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
         <link rel="icon" href="{{asset('images/favicon.png')}}" type='image/x-icon'>
+        <link href="{{asset('css/custom.css')}}" rel="stylesheet">
 
     </head>
 
@@ -126,6 +127,40 @@
                 <div class="row border-bottom">
                     <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                         <div class="navbar-header">
+                            <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                                Top up Wallet Account
+                            </button>
+                            @push('popups')
+                            <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                            <h4 class="modal-title">Top Up Wallet</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <form id="admin_amount">
+                                                    <div class="form-group">
+                                                        <label>Amount</label>
+                                                        <input id="amount" placeholder="Enter Amount" class="form-control">
+                                                    </div>
+                                                    <div>
+                                                    </div>
+                                                </form>
+                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="payWithPaystack()">
+                                                    <strong>Top Up Now</strong>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @endpush
                             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
                                 <i class="fa fa-bars"></i>
                             </a>
@@ -167,54 +202,54 @@
             </div>
         </div>
 
-         <!-- Mainly scripts -->
-    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-    <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+        <!-- Mainly scripts -->
+        <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+        <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="{{asset('js/inspinia.js')}}"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="{{asset('js/inspinia.js')}}"></script>
+        <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
 
-    <!-- ChartJS-->
-    <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
-    <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
+        <!-- ChartJS-->
+        <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+        <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
 
 
-    <!-- Flot -->
-    <script src="{{asset('js/plugins/flot/jquery.flot.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.spline.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.resize.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.pie.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.symbol.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.time.js')}}"></script>
+        <!-- Flot -->
+        <script src="{{asset('js/plugins/flot/jquery.flot.js')}}"></script>
+        <script src="{{asset('js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
+        <script src="{{asset('js/plugins/flot/jquery.flot.spline.js')}}"></script>
+        <script src="{{asset('js/plugins/flot/jquery.flot.resize.js')}}"></script>
+        <script src="{{asset('js/plugins/flot/jquery.flot.pie.js')}}"></script>
+        <script src="{{asset('js/plugins/flot/jquery.flot.symbol.js')}}"></script>
+        <script src="{{asset('js/plugins/flot/jquery.flot.time.js')}}"></script>
 
-    <!-- Peity -->
-    <script src="{{asset('js/plugins/peity/jquery.peity.min.js')}}"></script>
-    <script src="{{asset('js/demo/peity-demo.js')}}"></script>
+        <!-- Peity -->
+        <script src="{{asset('js/plugins/peity/jquery.peity.min.js')}}"></script>
+        <script src="{{asset('js/demo/peity-demo.js')}}"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="{{asset('js/inspinia.js')}}"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="{{asset('js/inspinia.js')}}"></script>
+        <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
 
-    <!-- jQuery UI -->
-    <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+        <!-- jQuery UI -->
+        <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
-    <!-- Jvectormap -->
-    <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
-    <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+        <!-- Jvectormap -->
+        <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
+        <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
 
-    <!-- EayPIE -->
-    <script src="{{asset('js/plugins/easypiechart/jquery.easypiechart.js')}}"></script>
+        <!-- EayPIE -->
+        <script src="{{asset('js/plugins/easypiechart/jquery.easypiechart.js')}}"></script>
 
-    <!-- Sparkline -->
-    <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script src="{{asset('js/plugins/footable/footable.all.min.js')}}"></script>
+        <!-- Sparkline -->
+        <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+        <script src="{{asset('js/plugins/footable/footable.all.min.js')}}"></script>
 
-    <!-- Sparkline demo data  -->
-    <script src="{{asset('js/demo/sparkline-demo.js')}}"></script>
+        <!-- Sparkline demo data  -->
+        <script src="{{asset('js/demo/sparkline-demo.js')}}"></script>
 
         <script>
             $(document).ready(function () {
@@ -353,7 +388,7 @@
 
             });
         </script>
-    @stack('scripts')
+        @stack('popups') @stack('scripts')
 
     </body>
 
