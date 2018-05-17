@@ -131,7 +131,7 @@
                                         <td>Postpaid</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Postpaid" />
-                                            <input type="text" name="account_number[]" id="meter_number1" placeholder="Account Number">
+                                            <input type="text" name="account_number[]" id="meter_number1" placeholder="Account/Meter #">
                                         </td>
                                         <td>
                                             <input type="email" name="email[]" id="email_1" size="35" placeholder="Email Address">
@@ -154,7 +154,7 @@
                                         <td>Penalties</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Penalties" />
-                                            <input type="text" name="account_number[]" id="meter_number2" placeholder="Account Number">
+                                            <input type="text" name="account_number[]" id="meter_number2" placeholder="Account/Meter #">
                                         </td>
                                         <td>
                                             <input type="email" name="email[]" id="email_2" size="35" placeholder="Email Address">
@@ -177,7 +177,7 @@
                                         <td>Loss of Revenue</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Loss of Revenue" />
-                                            <input type="text" name="account_number[]" id="meter_number3" placeholder="Account Number">
+                                            <input type="text" name="account_number[]" id="meter_number3" placeholder="Account/Meter #">
                                         </td>
                                         <td>
                                             <input type="email" name="email[]" id="email_3" size="35" placeholder="Email Address">
@@ -200,7 +200,7 @@
                                         <td>Reconnection Fee</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Reconnection Fee" />
-                                            <input type="text" name="account_number[]" id="meter_number4" placeholder="Account Number">
+                                            <input type="text" name="account_number[]" id="meter_number4" placeholder="Account/Meter #">
                                         </td>
                                         <td>
                                             <input type="email" name="email[]" id="email_4" size="35" placeholder="Email Address">

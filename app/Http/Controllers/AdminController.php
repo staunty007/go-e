@@ -59,7 +59,9 @@ class AdminController extends Controller
     }
     public function customer_report()
     {
-        return $this->v('customer_report');
+        $data=[];
+
+        return $this->v('customer_report', $data);
     }
     public function payment_history()
     {
