@@ -175,6 +175,9 @@ class AccountController extends Controller
             case '2':
                 return view('users.agent.home');
                 break;
+            case '4':
+                return view('users.distributor.home');
+                break;
             default:
                 return view('customer.dashboard');
                 break;
