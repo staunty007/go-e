@@ -5,13 +5,13 @@
                    <div class="col-lg-4">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <span class="label label-info pull-right">Annual</span>
+                                {{-- <span class="label label-info pull-right">Annual</span> --}}
                                 <h5>Total Customers</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">275,800</h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small>Customers</small>
+                                {{-- <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                <small>Customers</small> --}}
                             </div>
                         </div>
                     </div>
@@ -20,13 +20,13 @@
                     <div class="col-lg-4">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <span class="label label-primary pull-right">Today</span>
-                                <h5>visits</h5>
+                                {{-- <span class="label label-primary pull-right">Today</span> --}}
+                                <h5>Visits</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">106,120</h1>
-                                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
-                                <small>New visits</small>
+                                {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                                <small>New visits</small> --}}
                             </div>
                         </div>
                     </div>
@@ -40,8 +40,8 @@
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">10</h1>
-                                <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
-                                <small># of daily Customer sign Up</small>
+                                {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
+                                <small># of daily Customer sign Up</small> --}}
                             </div>
                         </div>
             </div>
@@ -88,13 +88,13 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label class="control-label" for="order_id">Order ID</label>
+                            <label class="control-label" for="order_id">Transaction ID</label>
                             <input type="number" id="order_id" name="order_id" value="" placeholder="Order ID" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label class="control-label" for="status">Order status</label>
+                            <label class="control-label" for="status">Transaction status</label>
                             <input type="text" id="status" name="status" value="" placeholder="Status" class="form-control">
                         </div>
                     </div>
@@ -153,14 +153,15 @@
                                     <th data-hide="phone">Trans Date</th>
                                     <th data-hide="phone">Trans Ref</th>
                                     <th data-hide="phone">Trans type</th>
-                                   <th data-hide="phone">Customer Type</th>
+                                   <th data-hide="phone">Type</th>
+                                   <th data-hide="phone">Customer Name</th>
                                     <th data-hide="phone">Status</th>
                                     <th data-hide="phone">Meter #</th>
                                     <th data-hide="phone">District</th>
                                     <th data-hide="phone">Amount</th>
                                     <th data-hide="phone">PIN</th>
-                                    <th data-hide="phone">Units (KwH)</th>
-                                    <th data-hide="phone">Convenience Fee</th>
+                                    <th data-hide="phone">KwH</th>
+                                    <th data-hide="phone">Conv. Fee</th>
                                     <th data-hide="phone">Commision</th>
                                     <th data-hide="phone">Amount</th>
                                     <th data-hide="phone">PGP</th>

@@ -127,32 +127,32 @@
             <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <span class="label label-primary pull-right">Year</span>
-                        <span class="label label-primary pull-right">Month</span>
+                        {{-- <span class="label label-primary pull-right">Year</span>
+                        <span class="label label-primary pull-right">Month</span> --}}
                         <h5>Income</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins">₦40 886,200</h1>
-                        <div class="stat-percent font-bold text-success">98%
+                        {{-- <div class="stat-percent font-bold text-success">98%
                             <i class="fa fa-bolt"></i>
-                        </div>
-                        <small>Total income</small>
+                        </div> --}}
+                        {{-- <small>Total income</small> --}}
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <span class="label label-primary pull-right">Year</span>
-                        <span class="label label-primary pull-right">Month</span>
+                        {{-- <span class="label label-primary pull-right">Year</span>
+                        <span class="label label-primary pull-right">Month</span> --}}
                         <h5>Avg Daily Earning</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins">₦230,000</h1>
-                        <div class="stat-percent font-bold text-info">20%
+                        {{-- <div class="stat-percent font-bold text-info">20%
                             <i class="fa fa-level-up"></i>
-                        </div>
-                        <small>Average Daily Transaction per customer</small>
+                        </div> --}}
+                        {{-- <small>Average Daily Transaction per customer</small> --}}
                     </div>
                 </div>
             </div>
