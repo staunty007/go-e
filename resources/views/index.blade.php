@@ -8,15 +8,13 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/font-awesome.css" rel="stylesheet">
-	<link href="/css/animate.css" rel="stylesheet">
-	<link href="/css/application.css" rel="stylesheet">
-	<link href="/css/bootstrap.css" rel="stylesheet">
-	<link href="/css/emojionline.css" rel="stylesheet">
-	<link href="/css/style.css" rel="stylesheet">
-	<!---Bootstrap CDN---->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="/css/animate.css" rel="stylesheet">
+	<!-- <link href="/css/application.css" rel="stylesheet"> -->
+	<link href="/css/emojione.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="{{asset('css/custom.css')}}" rel="stylesheet">
+	<!---Bootstrap CDN---->
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -103,11 +101,13 @@
 		<!-- header navbar -->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="col-xs-5 col-md-3 col-lg-3">
 					<a href="http://GOENERGEE.com/">
-						<img src="/images/logo.png" style="float:left;margin-top:26px; padding:4px;">
+						<img src="/images/logo.png">
 					</a>
-					<div class="navbar" style="margin-top:15px;right:23px;">
+				</div>
+				<div class="col-xs-7 col-md-3 col-lg-9">
+					<div class="navbar headernav1">
 						<ul>
 							<li style="border-color:#28a9e0; background:#28a9e0;">
 								<a href="#">
@@ -132,7 +132,7 @@
 
 							<li style="border:0px;">
 								<form>
-									<input type="search" style="border:0px; padding:4px; border-radius: 10px 0 0 10px;" placeholder="Search.." name="search">
+									<input type="search" style="border:0px; padding:4px; border-radius: 10px 0 0 10px; width:86%;" placeholder="Search.." name="search">
 									<button type="submit" style="background-color:#a1c844; border-radius: 0 10px 10px 0px; border:0px; padding:4px; margin-left:-5px;">
 										<a href="#" style="color:white;">
 											<i class="fas fa-search"></i>
@@ -141,17 +141,16 @@
 								</form>
 							</li>
 							@if (Auth::check())
-								<li style="border: none; color: #fff;">
-									<p style="font-size: 1.5em">Welcome {{ Auth::user()->first_name}}</p>
-								</li>
+							<li style="border: none; color: #fff;">
+								<p style="font-size: 1.5em">Welcome {{ Auth::user()->first_name}}</p>
+							</li>
 							@endif
 						</ul>
 
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="container">
+
 			<div class="row">
 				<div class="col-sm-12 col-md-12 col-lg-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -168,8 +167,6 @@
 							<li data-target="#myCarousel" data-slide-to="10"></li>
 							<li data-target="#myCarousel" data-slide-to="11"></li>
 						</ol>
-						</ol>
-
 						<div class="carousel-inner">
 							<div class="item active">
 								<img src="images/rev_image/1.png" class="img-responsive" style="height:300px; width: 100% ">
@@ -210,134 +207,232 @@
 						</a>
 					</div>
 				</div>
+			</div>
 
 
+			<!-- main div -->
+			<div class="row">
+				<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
 
-				<!-- main div -->
-				<div class="row" style="margin:-7px 6px 0px 13px;">
-					<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
+					<!--divide col-->
+					<div class="row">
+						<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-5px ">
+							<!--divide col for buttons-->
+							<div class="row">
+								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 
-						<!--divide col-->
-						<div class="row">
-							<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-5px ">
-								<!--divide col for buttons-->
-								<div class="row">
-									<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+									<button type="button" id="login_btn" class="grad-box" style="padding: 32px 20px;">
 
-										<button type="button" id="login_btn" class="grad-box" style="padding: 32px 20px;">
+										<i class="fas fa-user-circle"></i>
+										Login
 
-											<i class="fas fa-user-circle"></i>
-											Login
-
-										</button>
-
-									</div>
-
-									<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-										<button type="button" id="sign_up_btn" class="grad-box" style="padding: 32px 20px;">
-
-											<i class="fas fa-user-plus"></i>
-											Sign Up
-
-										</button>
-									</div>
+									</button>
 
 								</div>
 
-								<div class="row" style="padding:0px;">
-									<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
-										<div style="text-align:center;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+									<button type="button" id="sign_up_btn" class="grad-box" style="padding: 32px 20px;">
 
-											<button type="button" id="payment_btn" style="margin:0; background-color:white; padding:40px 40px;" class="grad-boxa shake">
-												<a href="#" style="color:#80c636">
-													<i class="far fa-credit-card"></i>
-													Make Payment
-												</a>
-											</button>
+										<i class="fas fa-user-plus"></i>
+										Sign Up
 
-										</div>
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-
-
-										<button type="button" class="grad-box" id="support_btn" style="padding: 32px 20px;">
-											<i class="fas fa-cogs"></i>
-											Support
-										</button>
-
-									</div>
-
-									<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-										<a href="faq">
-											<button type="button" class="grad-box" style="padding: 32px 20px;">
-												<i class="fas fa-question-circle"></i>
-
-												FAQ
-
-
-											</button>
-										</a>
-									</div>
-
+									</button>
 								</div>
 
 							</div>
-							<!--col-6 ends -->
 
-							<div class="col-md-7 col-sm-12 col-xs-12" style="padding:3px">
+							<div class="row" style="padding:0px;">
+								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
+									<div style="text-align:center;">
 
-								<!--Default div -->
-								<div id="news">
-										<div class="text-insert" style="margin-bottom:10px;">
-										<h4 style="margin-bottom:10px; color:#80c636">More Power Options to Recharge!</h4>
-									
-										<h5 style=""><b>GOENERGEE</b> is available on these alternative channels.</h5>
-										<h5 style=""><b>mCASH: </b>Simply dial <b>*402*00009130*Amount#</b> and dial our customer helpdesk.</h5>
-										<h5 style=""><b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h5>
-										<h5 style=""><b>CASH: </b>Take advantage of our <b>SALES</b> outlets closest to you and transact with our Agent.</h5>
-									
-									
-										
-										</div>
-										<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
-										</div>
-								<!--Default div ends -->
+										<button type="button" id="payment_btn" style="margin:0; background-color:white; padding:40px 40px;" class="grad-boxa shake">
+											<a href="#" style="color:#80c636">
+												<i class="far fa-credit-card"></i>
+												Make Payment
+											</a>
+										</button>
+
+									</div>
+								</div>
+							</div>
 
 
-								<!--Login div -->
-								<div class="user-details" id="login" style="">
-									<div style="">
+							<div class="row">
+								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+
+
+									<button type="button" class="grad-box" id="support_btn" style="padding: 32px 20px;">
+										<i class="fas fa-cogs"></i>
+										Support
+									</button>
+
+								</div>
+
+								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+									<a href="faq">
+										<button type="button" class="grad-box" style="padding: 32px 20px;">
+											<i class="fas fa-question-circle"></i>
+
+											FAQ
+
+
+										</button>
+									</a>
+								</div>
+
+							</div>
+
+						</div>
+						<!--col-6 ends -->
+
+						<div class="col-md-7 col-sm-12 col-xs-12" style="padding:3px">
+
+							<!--Default div -->
+							<div id="news">
+								<div class="text-insert" style="margin-bottom:10px;">
+									<h4 style="margin-bottom:10px; color:#80c636">More Power Options to Recharge!</h4>
+
+									<h5 style="">
+										<b>GOENERGEE</b> is available on these alternative channels.</h5>
+									<h5 style="">
+										<b>mCASH: </b>Simply dial
+										<b>*402*00009130*Amount#</b> and dial our customer helpdesk.</h5>
+									<h5 style="">
+										<b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h5>
+									<h5 style="">
+										<b>CASH: </b>Take advantage of our
+										<b>SALES</b> outlets closest to you and transact with our Agent.</h5>
+
+
+
+								</div>
+								<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
+							</div>
+							<!--Default div ends -->
+
+
+							<!--Login div -->
+							<div class="user-details" id="login" style="">
+								<div style="">
+									<div class="text-center login-title">
+										<h4>LOGIN TO</h4>
+										<img src="/images/logo.png"> </div>
+
+									<div class="account-wall" style="text-align:center;">
+
+										<hr>
+										<form class="login-form" action="" method="POST">
+											<div class="form-group">
+												<input type="text" class="form-control" name="email" placeholder="Email" required autofocus>
+											</div>
+
+											<div class="form-group">
+												<input type="password" class="form-control" placeholder="Password" name="password" required>
+											</div>
+
+											<button class="btn btn-info btn-block login-btn" type="submit">
+												Login</button>
+											<label class="checkbox">
+												<input type="checkbox" value="remember-me"> Remember me
+											</label>
+
+										</form>
+									</div>
+
+
+									<p style="text-align:center; font-size:13px;margin-top:15px;"> You can also login with:</p>
+
+									<p style="text-align:center; margin-top:-5px;">
+										<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
+											<i class="fab fa-facebook-f"></i>
+										</a>
+										<a class="btn btn-primary social-login-btn " href="{{ url('/login/twitter') }}" style="background-color:#28a9e0;">
+											<i class="fab fa-twitter"></i>
+										</a>
+										<a class="btn btn-primary social-login-btn " href="{{ url('/login/linkedin') }}" style="background-color:#0b78b6;">
+											<i class="fab fa-linkedin-in"></i>
+										</a>
+										<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
+											<i class="fab fa-google-plus-g"></i>
+										</a>
+
+
+
+
+								</div>
+							</div>
+							<!---log in ends-->
+
+							<!---sign-up starts-->
+							<div class="user-details" id="sign-up" style="">
+
+								<form class="form-signin" action="signup.php" method="POST" style="border:1px solid #ccc">
+									<div style="padding:10px;">
 										<div class="text-center login-title">
-											<h4>LOGIN TO</h4>
+											<h4>SIGN UP ON</h4>
 											<img src="/images/logo.png"> </div>
-
-										<div class="account-wall" style="text-align:center;">
-
-											<hr>
-											<form class="login-form" action="" method="POST">
+										<p style="text-align:center">Please fill in this form to create an account.</p>
+										<hr>
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6">
 												<div class="form-group">
-													<input type="text" class="form-control" name="email" placeholder="Email" required autofocus>
+													<label for="first_name">
+														<b>First Name</b>
+													</label>
+													<input type="text" name="first_name" id="first_name" class=" input-sm" placeholder="First Name">
 												</div>
-
+											</div>
+											<div class="col-xs-6 col-sm-6 col-md-6">
 												<div class="form-group">
-													<input type="password" class="form-control" placeholder="Password" name="password" required>
+													<label for="last_name">
+														<b>Last Name</b>
+													</label>
+													<input type="text" name="last_name" id="last_name" class=" input-sm" placeholder="Last Name">
 												</div>
+											</div>
+										</div>
 
-												<button class="btn btn-info btn-block login-btn" type="submit">
-													Login</button>
-												<label class="checkbox">
-													<input type="checkbox" value="remember-me"> Remember me
-												</label>
-
-											</form>
+										<div class="form-group">
+											<label for="email">
+												<b>Email</b>
+											</label>
+											<input type="email" name="email" id="email" class="input-sm" placeholder="Email Address">
+										</div>
+										<div class="form-group">
+											<label for="mobile">
+												<b>Phone Number</b>
+											</label>
+											<input type="text" name="mobile" id="mobile" class="input-sm" placeholder="Phone Number">
 										</div>
 
 
-										<p style="text-align:center; font-size:13px;margin-top:15px;"> You can also login with:</p>
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6">
+												<div class="form-group">
+													<label for="password">
+														<b>Password</b>
+													</label>
+													<input type="password" name="password" id="password" class="input-sm" placeholder="Password">
+												</div>
+											</div>
+											<div class="col-xs-6 col-sm-6 col-md-6">
+												<div class="form-group">
+													<label for="password_confirmation">
+														<b>Confirm Password</b>
+													</label>
+													<input type="password" name="password_confirmation" id="password_confirmation" class="input-sm" placeholder="Confirm Password">
+												</div>
+											</div>
+										</div>
+
+
+										<label>
+											<input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+										</label>
+
+										<!--<p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>-->
+
+										<p style="text-align:center; font-size:13px;margin-top:1px;"> Sign Up with:</p>
 
 										<p style="text-align:center; margin-top:-5px;">
 											<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
@@ -352,318 +447,226 @@
 											<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
 												<i class="fab fa-google-plus-g"></i>
 											</a>
-
-
-
-
+										</p>
+										<input type="submit" value="Register" class="btn btn-info btn-block registerBtn">
 									</div>
-								</div>
-								<!---log in ends-->
+								</form>
 
-								<!---sign-up starts-->
-								<div class="user-details" id="sign-up" style="">
+							</div>
+							<!--Sign up ends -->
 
-									<form class="form-signin" action="signup.php" method="POST" style="border:1px solid #ccc">
-										<div style="padding:10px;">
-											<div class="text-center login-title">
-												<h4>SIGN UP ON</h4>
-												<img src="/images/logo.png"> </div>
-											<p style="text-align:center">Please fill in this form to create an account.</p>
-											<hr>
-											<div class="row">
-												<div class="col-xs-6 col-sm-6 col-md-6">
-													<div class="form-group">
-														<label for="first_name">
-															<b>First Name</b>
-														</label>
-														<input type="text" name="first_name" id="first_name" class=" input-sm" placeholder="First Name">
-													</div>
-												</div>
-												<div class="col-xs-6 col-sm-6 col-md-6">
-													<div class="form-group">
-														<label for="last_name">
-															<b>Last Name</b>
-														</label>
-														<input type="text" name="last_name" id="last_name" class=" input-sm" placeholder="Last Name">
-													</div>
-												</div>
+							<!---make payments starts-->
+							<div id="make_payments" style="">
+								<div class="text-center login-title">
+									<img src="/images/logo.png"> </div>
+								<h4>Your Next Electricity Bill Payment</h4>
+								<h5>is just a few clicks away</h5>
+								<br>
+
+								<form>
+									<div class="radio" id="one">
+										<label>
+											<input type="radio" name="one">EKEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two" disabled>Other Payments
+										</label>
+									</div>
+								</form>
+
+								<button class="btn btn-rounded" id="three">Prepaid</button>
+								<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
+									<button class="btn btn-rounded" id="four">Postpaid</button>
+								</a>
+
+
+								<div class="row form-section" style=" margin:6px auto; padding:4px;">
+									<div class="">
+										<form class="meter" method="post" action="">
+											<div class="form-group">
+												<label for="Meter_number">
+													<b>Meter Number</b>
+												</label>
+												<input type="text" class="form-control" placeholder="Enter Your Pre Paid Meter Number" required autofocus name="meter_no">
 											</div>
-
+											<div class="form-group">
+												<label for="first_name">
+													<b>First Name</b>
+												</label>
+												<input type="text" name="first_name" class="form-control" placeholder="Enter Your First name" required autofocus>
+											</div>
+											<div class="form-group">
+												<label for="last_name">
+													<b>Last Name</b>
+												</label>
+												<input type="text" name="last_name" class="form-control" placeholder="Enter Your Last name" required autofocus>
+											</div>
 											<div class="form-group">
 												<label for="email">
 													<b>Email</b>
 												</label>
-												<input type="email" name="email" id="email" class="input-sm" placeholder="Email Address">
+												<input type="email" name="email" class="form-control meter-email" placeholder="Enter Valid Email Address" required autofocus>
 											</div>
+
 											<div class="form-group">
 												<label for="mobile">
-													<b>Phone Number</b>
+													<b>Mobile Number</b>
 												</label>
-												<input type="text" name="mobile" id="mobile" class="input-sm" placeholder="Phone Number">
+												<input type="text" class="form-control" placeholder="Enter Your Mobile Number" required autofocus name="mobile">
+											</div>
+											<div class="form-group">
+												<label for="convinience_fee">
+													<b>Convenience Fee</b>
+												</label>
+												<input type="number" class="form-control" value="100.00" readonly>
+											</div>
+											<div class="form-group">
+												<label for="amount">
+													<b>Amount</b>
+												</label>
+												<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount">
 											</div>
 
-
-											<div class="row">
-												<div class="col-xs-6 col-sm-6 col-md-6">
-													<div class="form-group">
-														<label for="password">
-															<b>Password</b>
-														</label>
-														<input type="password" name="password" id="password" class="input-sm" placeholder="Password">
-													</div>
-												</div>
-												<div class="col-xs-6 col-sm-6 col-md-6">
-													<div class="form-group">
-														<label for="password_confirmation">
-															<b>Confirm Password</b>
-														</label>
-														<input type="password" name="password_confirmation" id="password_confirmation" class="input-sm" placeholder="Confirm Password">
-													</div>
-												</div>
-											</div>
-
-
-											<label>
-												<input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+											<button class="btn btn-success btn-block pay-meter" type="submit">
+												Pay</button>
+											<label style="padding:20px;" class="checkbox ">
+												<input type="checkbox" value="remember-me"> Remember me
 											</label>
 
-											<!--<p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>-->
-
-											<p style="text-align:center; font-size:13px;margin-top:1px;"> Sign Up with:</p>
-
-											<p style="text-align:center; margin-top:-5px;">
-												<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
-													<i class="fab fa-facebook-f"></i>
-												</a>
-												<a class="btn btn-primary social-login-btn " href="{{ url('/login/twitter') }}" style="background-color:#28a9e0;">
-													<i class="fab fa-twitter"></i>
-												</a>
-												<a class="btn btn-primary social-login-btn " href="{{ url('/login/linkedin') }}" style="background-color:#0b78b6;">
-													<i class="fab fa-linkedin-in"></i>
-												</a>
-												<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
-													<i class="fab fa-google-plus-g"></i>
-												</a>
-											</p>
-											<input type="submit" value="Register" class="btn btn-info btn-block registerBtn">
-										</div>
-									</form>
-
-								</div>
-								<!--Sign up ends -->
-
-								<!---make payments starts-->
-								<div id="make_payments" style="">
-									<div class="text-center login-title">
-										<img src="/images/logo.png"> </div>
-									<h4>Your Next Electricity Bill Payment</h4>
-									<h5>is just a few clicks away</h5>
-									<br>
-
-									<form>
-										<div class="radio" id="one">
-											<label>
-												<input type="radio" name="one">EKEDC Meter Payment
-											</label>
-										</div>
-										<div class="radio" id="two">
-											<label>
-												<input type="radio" name="two" disabled>Other Payments
-											</label>
-										</div>
-									</form>
-
-									<button class="btn btn-rounded" id="three">Prepaid</button>
-									<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
-										<button class="btn btn-rounded" id="four">Postpaid</button>
-									</a>
-
-
-									<div class="row form-section" style=" margin:6px auto; padding:4px;">
-										<div class="">
-											<form class="meter" method="post" action="">
-												<div class="form-group">
-													<label for="Meter_number">
-														<b>Meter Number</b>
-													</label>
-													<input type="text" class="form-control" placeholder="Enter Your Pre Paid Meter Number" required autofocus name="meter_no">
-												</div>
-												<div class="form-group">
-													<label for="first_name">
-														<b>First Name</b>
-													</label>
-													<input type="text" name="first_name" class="form-control" placeholder="Enter Your First name" required autofocus>
-												</div>
-												<div class="form-group">
-													<label for="last_name">
-														<b>Last Name</b>
-													</label>
-													<input type="text" name="last_name" class="form-control" placeholder="Enter Your Last name" required autofocus>
-												</div>
-												<div class="form-group">
-													<label for="email">
-														<b>Email</b>
-													</label>
-													<input type="email" name="email" class="form-control meter-email" placeholder="Enter Valid Email Address" required autofocus>
-												</div>
-
-												<div class="form-group">
-													<label for="mobile">
-														<b>Mobile Number</b>
-													</label>
-													<input type="text" class="form-control" placeholder="Enter Your Mobile Number" required autofocus name="mobile">
-												</div>
-												<div class="form-group">
-													<label for="convinience_fee">
-														<b>Convenience Fee</b>
-													</label>
-													<input type="number" class="form-control" value="100.00" readonly>
-												</div>
-												<div class="form-group">
-													<label for="amount">
-														<b>Amount</b>
-													</label>
-													<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount">
-												</div>
-
-												<button class="btn btn-success btn-block pay-meter" type="submit">
-													Pay</button>
-												<label style="padding:20px;" class="checkbox ">
-													<input type="checkbox" value="remember-me"> Remember me
-												</label>
-
-										</div>
 									</div>
 								</div>
-								<!---make payments ends-->
-								<div id="support">
-									<div class="text-center login-title">
-										<img src="images/logo.png"> </div>
-									<h4 style="color:#80c636">
-										<b>
-											<div class="text-center login-title">Customer Support Service</b>
-									</h4>
-									<h5 style="color:#80c636">
-										<b>Head Office</b>
-									</h5>
-									<h5>
-										<b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lekki Phase 1, Lagos</h5>
-									<h5>
-										<b>Phone:</b> 08052313815</h5>
-									<h5>
-										<b>Email:</b> customersupport@goenergee.com</h5>
-
-									</div>
+							</div>
+							<!---make payments ends-->
+							<div id="support">
+								<div class="text-center login-title">
+									<img src="images/logo.png"> </div>
+								<h4 style="color:#80c636">
+									<b>
+										<div class="text-center login-title">Customer Support Service</b>
+								</h4>
+								<h5 style="color:#80c636">
+									<b>Head Office</b>
+								</h5>
+								<h5>
+									<b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lagos</h5>
+								<h5>
+									<b>Phone:</b> 08052313815</h5>
+								<h5>
+									<b>Email:</b> customersupport@goenergee.com</h5>
 
 								</div>
-								<!---col-md-7 ends--->
 
 							</div>
-						</div>
-
-
-						<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
-							<img src="/images/12.png" class='img-responsive side-img'>
+							<!---col-md-7 ends--->
 
 						</div>
 					</div>
+
+
+					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+						<img src="/images/12.png" class='img-responsive side-img'>
+
+					</div>
 				</div>
-				<!-- row ends -->
-				<br>
+			</div>
+			<!-- row ends -->
+			<br>
 
-				<script>
-					$('document').ready(function () {
-						$(".hidden-button").fadeOut();
-						$(".form-section").fadeOut();
+			<script>
+				$('document').ready(function () {
+					$(".hidden-button").fadeOut();
+					$(".form-section").fadeOut();
+					$(".table-section").fadeOut();
+
+
+					$("#three").hide();
+					$("#four").hide();
+
+					$("#one").click(function () {
+						$(".hidden-button").fadeToggle(500);
+						$("#one").hide();
+						$("#two").hide();
+						$("#three").show();
+						$("#four").show();
+					});
+
+					$("#two").click(function () {
+						$(this).addClass('disabled');
+					});
+
+					$("#three").click(function () {
 						$(".table-section").fadeOut();
+						$(".form-section").fadeToggle(500);
+						$("#one").hide();
+						$("#two").hide();
+						$("#postPaid").hide();
+
+					});
+
+					$("#four").click(function () {
+						$(".form-section").fadeOut();
+						$(".table-section").fadeToggle(500);
+						$("#one").hide();
+						$("#two").hide();
 
 
-						$("#three").hide();
-						$("#four").hide();
-
-						$("#one").click(function () {
-							$(".hidden-button").fadeToggle(500);
-							$("#one").hide();
-							$("#two").hide();
-							$("#three").show();
-							$("#four").show();
-						});
-
-						$("#two").click(function () {
-							$(this).addClass('disabled');
-						});
-
-						$("#three").click(function () {
-							$(".table-section").fadeOut();
-							$(".form-section").fadeToggle(500);
-							$("#one").hide();
-							$("#two").hide();
-							$("#postPaid").hide();
-
-						});
-
-						$("#four").click(function () {
-							$(".form-section").fadeOut();
-							$(".table-section").fadeToggle(500);
-							$("#one").hide();
-							$("#two").hide();
+					});
+					$("#login").hide();
+					$("#sign-up").hide();
+					$("#make_payments").hide();
+					$("#support").hide();
 
 
-						});
-						$("#login").hide();
+					$("#login_btn").click(function () {
+
+						$("#login").show(500);
 						$("#sign-up").hide();
+						$("#news").hide();
 						$("#make_payments").hide();
 						$("#support").hide();
 
+					});
 
-						$("#login_btn").click(function () {
-
-							$("#login").show(500);
-							$("#sign-up").hide();
-							$("#news").hide();
-							$("#make_payments").hide();
-							$("#support").hide();
-
-						});
-
-						$("#sign_up_btn").click(function () {
-							$("#sign-up").show(400);
-							$("#news").hide();
-							$("#login").hide();
-							$("#make_payments").hide();
-							$("#support").hide();
-
-						});
-
-						$("#payment_btn").click(function () {
-							$("#make_payments").show(600);
-							$("#news").hide();
-							$("#login").hide();
-							$("#sign-up").hide();
-							$("#support").hide();
-
-
-						});
-
-						$("#support_btn").click(function () {
-
-							$("#support").show(400);
-							$("#news").hide();
-							$("#login").hide();
-							$("#sign-up").hide();
-							$("#make_payments").hide();
-
-						});
+					$("#sign_up_btn").click(function () {
+						$("#sign-up").show(400);
+						$("#news").hide();
+						$("#login").hide();
+						$("#make_payments").hide();
+						$("#support").hide();
 
 					});
-				</script>
+
+					$("#payment_btn").click(function () {
+						$("#make_payments").show(600);
+						$("#news").hide();
+						$("#login").hide();
+						$("#sign-up").hide();
+						$("#support").hide();
 
 
-				<footer>
-					Powered by GOENERGEE
-				</footer>
+					});
 
-			</div>
+					$("#support_btn").click(function () {
+
+						$("#support").show(400);
+						$("#news").hide();
+						$("#login").hide();
+						$("#sign-up").hide();
+						$("#make_payments").hide();
+
+					});
+
+				});
+			</script>
+
+
+			<footer>
+				Powered by GOENERGEE
+			</footer>
+
+		</div>
 		</div>
 
 		</div>
