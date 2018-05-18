@@ -39,7 +39,7 @@
                                         <span class="block m-t-xs">
                                             <strong class="font-bold">Patrick Chigbata</strong>
                                         </span>
-                                        <span class="text-muted text-xs block">Developer
+                                        <span class="text-muted text-xs block">GOENERGEE
                                             <b class="caret"></b>
                                         </span>
                                     </span>
@@ -79,14 +79,14 @@
                         <li class="{{$current_route_name =="admin.customer_report" ? 'active' : ''}}">
                             <a href="{{route('admin.customer_report')}}">
                                 <i class="fa fa-user"></i>
-                                <span class="nav-label">Customer Report</span>
+                                <span class="nav-label">Payment History</span>
                             </a>
                         </li>
 
                         <li class="{{$current_route_name =="admin.payment_history" ? 'active' : ''}}">
                             <a href="{{route('admin.payment_history')}}">
                                 <i class="fa fa-cc-visa"></i>
-                                <span class="nav-label">Payment History</span>
+                                <span class="nav-label">Commission Split</span>
                             </a>
                         </li>
                         <li class="{{$current_route_name =="admin.demographics" ? 'active' : ''}}">
@@ -164,12 +164,6 @@
                                 </div>
                             </div>
                             @endpush
-
-                            <form role="search" class="navbar-form-custom" action="search_results.html">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                                </div>
-                            </form>
                         </div>
                         <ul class="nav navbar-top-links navbar-right">
                             <li>

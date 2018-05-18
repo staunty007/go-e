@@ -146,7 +146,7 @@
                                             <input type="text" class="txt" name="amount[]" id="amount_1">
                                         </td>
                                         <td>
-                                            <label>Convenience</label>
+                                            <label>Convenience Fee</label>
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
@@ -262,7 +262,7 @@
                         <div class="ibox-title">
                             <h5>Information Portal</h5>
                         </div>
-                        <div class="ibox-content ">
+                        <div class="ibox-content">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

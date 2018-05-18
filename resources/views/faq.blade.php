@@ -62,17 +62,21 @@
     <style type="text/css">
         .bg-img {
             background: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.20)), url('images/transformers.jpg') no-repeat;
-            /* For mobile phones: */
-            #boot_msg {
-                width: 60% !important;
-                z-index: 1028 !important;
-                position: fixed !important;
-                text-align: center !important;
-                top: 120px !important;
-                left: 20% !important;
-                right: 20% !important;
-            }
         }
+
+        /* For mobile phones: */
+
+        #boot_msg {
+            width: 60% !important;
+            z-index: 1028 !important;
+            position: fixed !important;
+            text-align: center !important;
+            top: 120px !important;
+            left: 20% !important;
+            right: 20% !important;
+        }
+
+
 
         #boot_msg {
             width: 25%;
@@ -162,7 +166,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwenty">Why cant I log into my account?</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwenty">Why can't I log into my account?</a>
                                 </h4>
                             </div>
                             <div id="collapseTwenty" class="panel-collapse collapse">
