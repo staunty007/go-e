@@ -39,7 +39,7 @@
                                         <span class="block m-t-xs">
                                             <strong class="font-bold">Patrick Chigbata</strong>
                                         </span>
-                                        <span class="text-muted text-xs block">Developer
+                                        <span class="text-muted text-xs block">GOENERGEE
                                             <b class="caret"></b>
                                         </span>
                                     </span>
@@ -48,12 +48,12 @@
                                     <li>
                                         <a href="{{route('admin.profile')}}">Profile</a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="contacts.html">Contacts</a>
                                     </li>
                                     <li>
                                         <a href="mailbox.html">Mailbox</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
@@ -68,7 +68,7 @@
                             </div>
                         </li>
 
-                        <li class="{{$current_route_name =="admin.finance" ? 'active' : ''}}">
+                        <li class="{{ Request::is('distributor/finance') ? 'active' :'' }}">
                             <a href="{{route('distributor.finance')}}">
                                 <span>&#8358;</span>
                                 </i>

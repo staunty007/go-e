@@ -1,0 +1,2 @@
+================ Codergab Made Some changes ===================
+1.  I deleted all the extra migration files and add them to their original tables for simplicty sake

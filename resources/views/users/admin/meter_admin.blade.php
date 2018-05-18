@@ -19,7 +19,12 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label" for="status">Request status</label>
-                                <input type="text" id="status" name="status" value="" placeholder="Status" class="form-control">
+                                <select class="form-control" name="status">
+                                    <option value="0">Select Request Status</option>
+                                    <option value="0">Pending</option>
+                                    <option value="2">Processing</option>
+                                    <option value="3">Delivered</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -100,109 +105,30 @@
                                         <h3>
                                             <u>Meter Request Data</u>
                                         </h3>
-                                        <tr>
-                                            <td>
-                                                01
-                                            </td>
-                                            <td>
-                                                Makus Igwe
-                                            </td>
-                                            <td>
-                                                20/05/2015 14:00hrs
-                                            </td>
-
-                                            <td>
-                                                29 Ralmouf Street, Lekki phase 1
-                                            </td>
-                                            <td>
-                                                081-954-8974
-                                            </td>
-                                            <td>
-                                                makusigwe@somebody.com
-                                            </td>
-                                            <td>
-                                                <span class="label label-warning">Pending</span>
-                                            </td>
-
-                                            <td>
-                                                Lekki
-                                            </td>
-                                            <td>
-                                                Pre Paid
-                                            </td>
-                                            <td>
-                                                Residential
-                                            </td>
+                                        @foreach ($requests as $req)
+                                            <tr>
+                                                <td>{{ $req->id }}</td>
+                                                <td>{{ $req->first_name }} {{ $req->last_name }}</td>
+                                                <td>{{ $req->created_at }}</td>
+                                                <td>{{ $req->home_address }}</td>
+                                                <td>NULL</td>
+                                                <td>{{ $req->email_address }}</td>
+                                                <td>
+                                                    @if($req->status == 0)
+                                                    <span class="label label-warning">Pending</span>
+                                                    @elseif($req->status == 1)
+                                                    <span class="label label-info">Processing</span>
+                                                    @else
+                                                    <span class="label label-success">Delivered</span>
+                                                    @endif
+                                                    
+                                                </td>
+                                                <td>{{ $req->district }}</td>
+                                                <td>{{ $req->meter_type }}</td>
+                                                <td>{{ $req->house_type }}</td>
                                         </tr>
-                                        <tr>
-                                            <tr>
-                                                <td>
-                                                    02 </td>
-                                                <td>
-                                                    Way Concept Limited
-                                                </td>
-                                                <td>
-                                                    22/05/2015 10:00hrs
-                                                </td>
-                                                <td>
-                                                    119 Anya Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    12@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Installed</span>
-                                                </td>
-
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    28/05/2015 18:00hrs
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-danger">Not Available</span>
-                                                </td>
-
-
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-
-                                            </tr>
+                                        @endforeach
+                                        
                                     </tbody>
                                     <tfoot>
                                         <tr>

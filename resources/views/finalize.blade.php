@@ -69,7 +69,12 @@
                     </div>
 
                     <div v-if='redir'>
-                        <a href="/">Back to Home</a>
+                        @if (Auth::check())
+                            <a href="/home">Back to Home</a>
+                        @else
+                            <a href="/">Back to Home</a>
+                        @endif
+                        {{-- <a href="/home">Back to Home</a> --}}
                     </div>
                     
                 </div>

@@ -28,9 +28,10 @@
             </a>
         </div>
     </div>
+    <div class="col-lg-12">
                     <div class="ibox-content">
 
-                        <table class="table">
+                        <table class="table table-responsive">
                             <thead>
                             <tr>
                                 <th>ID #</th>
@@ -81,7 +82,8 @@
                 <strong>Powered by</strong> GOENERGEE &copy; 2018
             </div>
         </div>
-
+    </div>
+    
       <!-- Mainly scripts -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

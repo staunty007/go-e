@@ -25,6 +25,7 @@ class CreateMeterRequestsTable extends Migration
             $table->string('gender');
             $table->string('house_type');
             $table->string('meter_type');
+            $table->integer('status')->default(false);
             $table->timestamps();
         });
     }

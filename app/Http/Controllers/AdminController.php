@@ -7,6 +7,7 @@ use App\PrepaidPayment;
 use App\PostpaidPayment;
 use Carbon\Carbon;
 use App\User;
+use App\MeterRequest;
 
 class AdminController extends Controller
 {
@@ -73,7 +74,9 @@ class AdminController extends Controller
     }
     public function meter_admin()
     {
-        return $this->v('meter_admin');
+        $meter_requests = MeterRequest::all();
+        return view($this->prefix.'meter_admin')->withRequests($meter_requests);
+        // return $this->v('meter_admin', compact('meter_requests'));
     }
     public function settings()
     {
