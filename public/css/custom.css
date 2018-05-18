@@ -1,3 +1,26 @@
 .mt-10 {
     margin-top: 10px;
 }
+
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.headernav {
+    margin-top: 15px;
+    right: 23px;
+}
+
+#support {
+    background-color: #ffffff;
+    height: 390px;
+    padding: 15px;
+}

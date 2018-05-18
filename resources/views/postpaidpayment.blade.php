@@ -138,7 +138,7 @@
                                         </td>
                                         <td>
                                             <label>Mobile Number</label>
-                                            <input type="text" name="mobile[]" id="mobile_1" >
+                                            <input type="text" name="mobile[]" id="mobile_1">
                                         </td>
                                         <td>
                                             <label>Amount</label>
@@ -261,7 +261,7 @@
                         <div class="ibox-title">
                             <h5>Information Portal</h5>
                         </div>
-                        <div class="ibox-content ">
+                        <div class="ibox-content">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -270,13 +270,10 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/1.png')}}">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
                                     </div>
                                     <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/2.png')}}">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/3.png')}}">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/banne.jpg')}}">
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

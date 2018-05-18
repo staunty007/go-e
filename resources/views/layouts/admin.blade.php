@@ -164,8 +164,6 @@
                                 </div>
                             </div>
                             @endpush
-
-                            
                         </div>
                         <ul class="nav navbar-top-links navbar-right">
                             <li>
