@@ -129,8 +129,9 @@
                                         <td>Postpaid</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Postpaid" />
-                                            <label>Account / Meter #<label>
-                                            <input type="text" name="account_number[]" id="meter_number1">
+                                            <label>Account / Meter #
+                                                <label>
+                                                    <input type="text" name="account_number[]" id="meter_number1">
                                         </td>
                                         <td>
                                             <label>Email Address</label>
@@ -138,13 +139,13 @@
                                         </td>
                                         <td>
                                             <label>Mobile Number</label>
-                                            <input type="text" name="mobile[]" id="mobile_1" >
+                                            <input type="text" name="mobile[]" id="mobile_1">
                                         </td>
                                         <td>
                                             <label>Amount</label>
                                             <input type="text" class="txt" name="amount[]" id="amount_1">
                                         </td>
-                                        <td>Convenience Fee
+                                        <td>
                                             <label>Convenience</label>
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
@@ -172,7 +173,7 @@
                                             <label for="">Amount</label>
                                             <input type="text" name="amount[]" class="txt" id="amount_2">
                                         </td>
-                                        <td>Convenience Fee
+                                        <td>
                                             <label for="">Convenience Fee</label>
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
@@ -200,7 +201,7 @@
                                             <label for="">Amount</label>
                                             <input type="text" name="amount[]" class="txt" id="amount_3">
                                         </td>
-                                        <td>Convenience 
+                                        <td>
                                             <label for="">Convenience Fee</label>
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
@@ -228,7 +229,7 @@
                                             <label for="">Amount</label>
                                             <input type="text" name="amount[]" class="txt" id="amount_4">
                                         </td>
-                                        <td>Convenience Fee
+                                        <td>
                                             <label for="">Convenience Fee</label>
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
@@ -270,13 +271,10 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/1.png')}}">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
                                     </div>
                                     <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/2.png')}}">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/3.png')}}">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/advert.jpg')}}">
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
