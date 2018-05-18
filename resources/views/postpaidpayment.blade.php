@@ -274,7 +274,7 @@
                                         <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
                                     </div>
                                     <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/advert.jpg')}}">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/banne.jpg')}}">
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
