@@ -278,10 +278,10 @@
                   ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                   
                   callback: function(response){
-                      swal('Yay!','Payment Successfull','success');
+                    //   swal('Yay!','Payment Successfull','success');
                       setTimeout(() => {
                           window.location.href='/payment/'+response.reference+'/success';
-                      },3000);
+                      },1000);
                   },
                   onClose: function(){
                       alert('Payment Cancelled');
@@ -304,7 +304,7 @@
                       swal('Yay!','Payment Successfull','success');
                       setTimeout(() => {
                           window.location.href='/payment/'+response.reference+'/success';
-                      },3000);
+                      },1000);
                   },
                   onClose: function(){
                       alert('Payment Cancelled');

@@ -39,6 +39,9 @@
                     <div class="dropdown profile-element">{{--  <span>
                             <img alt="image" class="img-circle" src="" />
                              </span> --}}
+                             <span>
+                                 <i class="fa fa-user-o fa-4x" style="color: #fff;S"></i>
+                             </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Welcome, {{ ucfirst(Auth::user()->first_name) }}</strong>
                         </span></span></a>
@@ -75,7 +78,7 @@
                 </li>
                 <li>
                     <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"><i class="fa fa-sign-out"></i> Logout</a>
                     <form class="logout-form" method="POST" action="{{ route('logout') }}">
                         {{ csrf_field()}}
                     </form>
@@ -86,12 +89,23 @@
         <div class="row border-bottom">
         <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            {{-- <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
             <form role="search" class="navbar-form-custom" action="search_results.html">
                 <div class="form-group">
                     <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
                 </div>
-            </form>
+            </form> --}}
+            <div class="row" style="margin-top: 1em">
+                <div class="col-md-4">
+                    <button class="btn btn-primary">Buy Token</button>
+                </div>
+                <div class="col-md-8">
+                    <p style="margin-top: 0.7em; font-size: 16px">
+                        Welcome, <b>{{ Auth::user()->first_name}} {{ Auth::user()->last_name}}</b>
+                    </p>
+                </div>
+                
+            </div>
         </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>

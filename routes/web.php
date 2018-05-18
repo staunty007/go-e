@@ -70,4 +70,29 @@ Route::prefix('backend')->group(function () {
     Route::get('agent', 'AgentController@home')->name('agent.home');
 });
 
+Route::prefix('distributor')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('backend-login');
+    });
+    Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
+    Route::post('login', 'BackendController@userLogin')->name('backend-login');
+
+    // Administrator
+    Route::get('distributor', 'DistributorController@home')->name('distributor.home');
+    Route::get('finance', 'DistributorController@finance')->name('distributor.finance');
+    Route::get('profile', 'DistributorController@profile')->name('distributor.profile');
+    Route::get('customer_payment', 'DistributorController@customer_payment')->name('distributor.customer_payment');
+    Route::get('demographics', 'DistributorController@demographics')->name('distributor.demographics');
+    Route::get('meter_admin', 'DistributorController@meter_admin')->name('distributor.meter_admin');
+    Route::get('settings', 'DistributorController@settings')->name('admin.settings');
+    
+
+
+    // Agents
+    Route::get('agent', 'AgentController@home')->name('agent.home');
+});
+
+
+
+
 Route::post('logout', 'AccountController@logout')->middleware('auth')->name('logout');

@@ -112,7 +112,7 @@ class AccountController extends Controller
             session()->put(['smsRef' => $ref]);
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
-            $reqst = "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is ".$ref."&flash=0&recipients=".$smsNumber;
+            // $reqst = "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is ".$ref."&flash=0&recipients=".$smsNumber;
             
             session()->forget('payment_details');
 
@@ -144,7 +144,13 @@ class AccountController extends Controller
             }
             if ($mobile) {
                 $smsNumber = "234".$mobile;
-                echo "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is " .$ref. ", Thanks For Your Payment.&flash=0&recipients=".$smsNumber;
+                //$smsNumber = "+234".$paymentDetails['mobile'];
+                //echo '<script src="https://unpkg.com/axios/dist/axios.min.js"></script>';
+                session()->put(['smsNumber' => $smsNumber]);
+                session()->put(['smsRef' => $ref]);
+
+                return redirect()->route('finalize', [$smsNumber,$ref]);
+                // echo "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is " .$ref. ", Thanks For Your Payment.&flash=0&recipients=".$smsNumber;
             }
             
             request()->session()->forget('payment_details');
@@ -163,6 +169,9 @@ class AccountController extends Controller
                 break;
             case '2':
                 return view('users.agent.home');
+                break;
+            case '4':
+                return view('users.distributor.home');
                 break;
             default:
                 return view('customer.dashboard');
@@ -217,7 +226,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        $prepaid = PrepaidPayment::where('email', $userEmail)->get();
+        $prepaid = PrepaidPayment::where('email', $userEmail)->paginate(10);
         return view('customer.payment_history')->withPayments($prepaid);
     }
 

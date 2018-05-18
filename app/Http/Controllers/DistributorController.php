@@ -8,48 +8,48 @@ use App\PostpaidPayment;
 use Carbon\Carbon;
 use App\User;
 
-class AdminController extends Controller
+class DistributorController extends Controller
 {
-    private $prefix = "users.admin.";
+    private $prefix = "users.distributor.";
 
     //private $view = view($this.pre)
-    
+
     public function home()
     {
         return $this->v('home');
     }
 
-    public function v($file, $data=[])
+    public function v($file, $data = [])
     {
-        return view($this->prefix.$file, compact('data'));
+        return view($this->prefix . $file, compact('data'));
     }
     public function finance()
     {
-        $data=[];
-        $firstdayofmonth =date("Y-m-01");
-        $monthlysalesprepaid=PrepaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
+        $data = [];
+        $firstdayofmonth = date("Y-m-01");
+        $monthlysalesprepaid = PrepaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
         $monthlysalespostpaid = PostpaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        $data['salesthismonth']= $monthlysalesprepaid+ $monthlysalespostpaid;
-        $today=date("Y-m-d 00:00:00");
+        $data['salesthismonth'] = $monthlysalesprepaid + $monthlysalespostpaid;
+        $today = date("Y-m-d 00:00:00");
         $salesprepaid = PrepaidPayment::where('created_at', '>', $today)->count();
         $salespostpaid = PostpaidPayment::where('created_at', '>', $today)->count();
-        $data['salestoday']= $salesprepaid+ $salespostpaid;
-        
+        $data['salestoday'] = $salesprepaid + $salespostpaid;
+
 
         $start = new Carbon('first day of last month');
         $end = new Carbon('last day of last month');
-        $incomelastmonthprepaid = PrepaidPayment::whereBetween('created_at', [$start,$end])->sum('total_amount');
+        $incomelastmonthprepaid = PrepaidPayment::whereBetween('created_at', [$start, $end])->sum('total_amount');
         $incomelastmonthpostpaid = PostpaidPayment::whereBetween('created_at', [$start, $end])->sum('total_amount');
-        
-        $data['incomelastmonth']= $incomelastmonthprepaid + $incomelastmonthpostpaid;
+
+        $data['incomelastmonth'] = $incomelastmonthprepaid + $incomelastmonthpostpaid;
         $start = new Carbon('first day of this year');
-        
+
         $salescurrentyearprepaid = PrepaidPayment::where('created_at', '>', $start)->sum('total_amount');
         $salescurrentyearpostpaid = PostpaidPayment::where('created_at', '>', $start)->sum('total_amount');
 
         $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
 
-        $data['registeredcustomers']= User::where('role_id', 3)->count();
+        $data['registeredcustomers'] = User::where('role_id', 3)->count();
         $data['registeredagents'] = User::where('role_id', 2)->count();
         return $this->v('finance', $data);
     }
@@ -57,11 +57,11 @@ class AdminController extends Controller
     {
         return $this->v('profile');
     }
-    public function customer_report()
+    public function customer_payment()
     {
-        $data=[];
+        $data = [];
 
-        return $this->v('customer_report', $data);
+        return $this->v('customer_payment', $data);
     }
     public function payment_history()
     {

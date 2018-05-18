@@ -2,32 +2,32 @@
 
 @section('customer-section')
                
-                <div class="col-lg-12">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            GOENERGEE Customer Transaction
-                                        </div>
-                                    <div class="ibox float-e-margins">
-                    
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                GOENERGEE Customer Transaction
+            </div>
+        <div class="ibox float-e-margins">
+        
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-wrench"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
 
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
+                <li><a href="#">Config option 1</a>
+                </li>
+                <li><a href="#">Config option 2</a>
+                </li>
+            </ul>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
                     <div class="ibox-content">
 
                         <table class="table">
@@ -57,7 +57,7 @@
                                 <td>Web</td>
                                 <td>Successful</td>
                                 <td>Pre-Paid</td>
-                                <td>Agbara</td>
+                                <td>{{ $pay->meter_no }}</td>
                                 <td>N{{ number_format($pay->total_amount) }}</td>
                                 <td>3500 6584 8754 1254</td>
                                 <td>650</td>
@@ -72,26 +72,16 @@
                             
                             </tbody>
                         </table>
-
+                        <center>{{ $payments->links()}}</center>
                     </div>
-                </div>
-              
-        </div>
+                
         <div class="footer">
             
             <div>
                 <strong>Powered by</strong> GOENERGEE &copy; 2018
             </div>
         </div>
-        </div>
-       
 
-            </div>
-
-
-
-        </div>
-    </div>
       <!-- Mainly scripts -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

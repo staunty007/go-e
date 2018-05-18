@@ -720,6 +720,7 @@
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
 				$('.registerBtn').prop('disabled', true);
+				$('.registerBtn').html('Creating Account...');
 				var formdata = $(".form-signin").serialize();
 
 				$.ajax({
@@ -738,6 +739,7 @@
 							//console.log(response);
 							swal('Ooops!', '' + response.err + '', 'error');
 							$('.registerBtn').prop('disabled', false);
+							$('.registerBtn').html('Sign Up');
 						}
 					},
 					error: (err) => {
@@ -745,11 +747,12 @@
 					}
 				})
 				$('.registerBtn').prop('disabled', false);
+				$('.registerBtn').html('Sign Up');
 			})
 
 			$(".login-btn").click((e) => {
 				e.preventDefault();
-				$('.login-btn').prop('disabled', true);
+				$('.login-btn').html('Logging In...');
 				var formData = $(".login-form").serialize();
 
 				$.ajax({

@@ -69,58 +69,36 @@
                         </li>
 
                         <li class="{{$current_route_name =="admin.finance" ? 'active' : ''}}">
-                            <a href="{{route('admin.finance')}}">
+                            <a href="{{route('distributor.finance')}}">
                                 <span>&#8358;</span>
                                 </i>
                                 <span class="nav-label">&nbsp;Financial</span>
                             </a>
                         </li>
 
-                        <li class="{{$current_route_name =="admin.customer_report" ? 'active' : ''}}">
-                            <a href="{{route('admin.customer_report')}}">
+                        <li class="{{$current_route_name =="distributor.customer_payment" ? 'active' : ''}}">
+                            <a href="{{route('distributor.customer_payment')}}">
                                 <i class="fa fa-user"></i>
-                                <span class="nav-label">Customer Report</span>
+                                <span class="nav-label">Customer Payment</span>
                             </a>
                         </li>
 
-                        <li class="{{$current_route_name =="admin.payment_history" ? 'active' : ''}}">
-                            <a href="{{route('admin.payment_history')}}">
-                                <i class="fa fa-cc-visa"></i>
-                                <span class="nav-label">Payment History</span>
-                            </a>
-                        </li>
-                        <li class="{{$current_route_name =="admin.demographics" ? 'active' : ''}}">
-                            <a href="{{route('admin.demographics')}}">
+
+                        <li class="{{$current_route_name =="distributor.demographics" ? 'active' : ''}}">
+                            <a href="{{route('distributor.demographics')}}">
                                 <i class="fa fa fa-yelp"></i>
                                 <span class="nav-label">Energy Consumption</span>
                             </a>
                         </li>
 
-                        <li class="{{$current_route_name =="admin.meter_admin" ? 'active' : ''}}">
-                            <a href="{{route('admin.meter_admin')}}">
+                        <li class="{{$current_route_name =="distributor.meter_admin" ? 'active' : ''}}">
+                            <a href="{{route('distributor.meter_admin')}}">
                                 <i class="fa fa-table"></i>
                                 <span class="nav-label">Meter Management</span>
                             </a>
                         </li>
 
-                        <li class="{{$current_route_name =="admin.profile" ? 'active' : ''}}">
-                            <a href="{{route('admin.profile')}}">
-                                <i class="fa fa-podcast"></i>
-                                <span class="nav-label">Admin Profile</span>
-                            </a>
-                        </li>
-                        <li class="{{$current_route_name =="admin.settings" ? 'active' : ''}}">
-                            <a href="{{route('admin.settings')}}">
-                                <i class="fa fa-address-card"></i>
-                                <span class="nav-label">User Manager</span>
-                            </a>
-                        </li>
-                        <li class="{{$current_route_name =="admin.sms" ? 'active' : ''}}">
-                            <a href="{{route('admin.sms')}}">
-                                <i class="fa fa-envelope"></i>
-                                <span class="nav-label">SMS Gateway</span>
-                            </a>
-                        </li>
+
                     </ul>
 
 

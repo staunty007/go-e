@@ -2,7 +2,7 @@
 
 <head>
 
-    <title>GoEnergee</title>
+    <title>GOENERGEE</title>
 
     <link href="images/favicon.png" rel="shortcut icon" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link href="css/main.css" rel='stylesheet' type='text/css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> -->
     <style>
         table .error {
@@ -81,14 +79,6 @@
                 element.attachEvent("on" + eventName, handler);
             }
         }
-
-        // addHandler(window, "load",
-        //     function () {
-        //         addHandler(document.getElementById("subtotal1"), "keyup", sum);
-        //         addHandler(document.getElementById("subtotal2"), "keyup", sum);
-        //         addHandler(document.getElementById("subtotal3"), "keyup", sum);
-        //         addHandler(document.getElementById("subtotal4"), "keyup", sum);
-        //     });
     </script>
     <style>
         @media only screen and (min-width: 1500px) {
@@ -120,130 +110,187 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-9">
+                    <div class="" style="padding:40px 70px 30px, 30px;">
+                        <h4>Fill in the details to make your
+                            <span style="color:#80c636">Postpaid payments</span> here!</h4>
+                        <div class="hr-line-dashed"></div>
+                        <form action="POST" class="meter">
+                            <table class="table table-bordered table-responsive" id="postpaiditems" style="width:100%;">
+                                <thead>
+                                    <tr>
 
-                <div class="" style="padding:40px 70px 30px, 30px;">
-                    <h4>Fill in the details to make your
-                        <span style="color:#80c636">Postpaid payments</span> here!</h4>
-                    <div class="hr-line-dashed"></div>
-                    <form action="POST" class="meter">
-                        <table class="table table-bordered table-responsive" id="postpaiditems" style="width:100%;">
-                            <thead>
+                                        <th colspan="8">Postpaid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+
+                                        <td>Postpaid</td>
+                                        <td>
+                                            <input type="hidden" name="payment_type[]" value="Postpaid" />
+                                            <label>Account / Meter #<label>
+                                            <input type="text" name="account_number[]" id="meter_number1">
+                                        </td>
+                                        <td>
+                                            <label>Email Address</label>
+                                            <input type="email" name="email[]" id="email_1" size="35">
+                                        </td>
+                                        <td>
+                                            <label>Mobile Number</label>
+                                            <input type="text" name="mobile[]" id="mobile_1" >
+                                        </td>
+                                        <td>
+                                            <label>Amount</label>
+                                            <input type="text" class="txt" name="amount[]" id="amount_1">
+                                        </td>
+                                        <td>Convenience Fee
+                                            <label>Convenience</label>
+                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                        </td>
+                                        <td>Subtotal
+                                            <input type="text" name="subtotal_1" id="subtotal_1" placeholder="" disabled="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>Penalties</td>
+                                        <td>
+                                            <input type="hidden" name="payment_type[]" value="Penalties" />
+                                            <label>Account / Meter #</label>
+                                            <input type="text" name="account_number[]" id="meter_number2">
+                                        </td>
+                                        <td>
+                                            <label for="">Email Address</label>
+                                            <input type="email" name="email[]" id="email_2" size="35">
+                                        </td>
+                                        <td>
+                                            <label for="">Mobile Number</label>
+                                            <input type="text" name="mobile[]" id="mobile_2">
+                                        </td>
+                                        <td>
+                                            <label for="">Amount</label>
+                                            <input type="text" name="amount[]" class="txt" id="amount_2">
+                                        </td>
+                                        <td>Convenience Fee
+                                            <label for="">Convenience Fee</label>
+                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                        </td>
+                                        <td>Subtotal
+                                            <input type="text" name="subtotal_2" id="subtotal_2" placeholder="" disabled="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>Loss of Revenue</td>
+                                        <td>
+                                            <input type="hidden" name="payment_type[]" value="Loss of Revenue" />
+                                            <label for="">Account / Meter #</label>
+                                            <input type="text" name="account_number[]" id="meter_number3">
+                                        </td>
+                                        <td>
+                                            <label for="">Email Address</label>
+                                            <input type="email" name="email[]" id="email_3" size="35">
+                                        </td>
+                                        <td>
+                                            <label for="">Mobile Number</label>
+                                            <input type="text" name="mobile[]" id="mobile_3">
+                                        </td>
+                                        <td>
+                                            <label for="">Amount</label>
+                                            <input type="text" name="amount[]" class="txt" id="amount_3">
+                                        </td>
+                                        <td>Convenience 
+                                            <label for="">Convenience Fee</label>
+                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                        </td>
+                                        <td>Subtotal
+                                            <input type="text" name="subtotal_3" id="subtotal_3" placeholder="" disabled="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>Reconnection Fee</td>
+                                        <td>
+                                            <input type="hidden" name="payment_type[]" value="Reconnection Fee" />
+                                            <label for="">Account / Meter #</label>
+                                            <input type="text" name="account_number[]" id="meter_number4">
+                                        </td>
+                                        <td>
+                                            <label for="">Email Address</label>
+                                            <input type="email" name="email[]" id="email_4" size="35">
+                                        </td>
+                                        <td>
+                                            <label for="">Mobile Number</label>
+                                            <input type="text" name="mobile[]" id="mobile_4">
+                                        </td>
+                                        <td>
+                                            <label for="">Amount</label>
+                                            <input type="text" name="amount[]" class="txt" id="amount_4">
+                                        </td>
+                                        <td>Convenience Fee
+                                            <label for="">Convenience Fee</label>
+                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                        </td>
+                                        <td>Subtotal
+                                            <input type="text" name="subtotal_4" id="subtotal_4" placeholder="" disabled="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" style="text-align:right;">Total Fee</td>
+                                        <td>(Sum of the subtotal)
+                                            <input type="text" name="sum" id="sum" placeholder="" disabled="">
+                                            <input type="hidden" name="totalPayblleAmount" id="totalPayblleAmount" value=" ">
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <table width="100%" border="0" bgcolor="#ffffff">
                                 <tr>
-
-                                    <th colspan="8">Postpaid</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-
-                                    <td>Postpaid</td>
-                                    <td>
-                                        <input type="hidden" name="payment_type[]" value="Postpaid" />
-                                        <input type="text" name="account_number[]" id="meter_number1" placeholder="Account Number">
-                                    </td>
-                                    <td>
-                                        <input type="email" name="email[]" id="email_1" placeholder="Email Address">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="mobile[]" id="mobile_1" placeholder="Mobile Number">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="txt" name="amount[]" id="amount_1" placeholder="Amount">
-                                    </td>
-                                    <td>Convienience Fee
-                                        <input type="text" name="convienience" placeholder="N100.00" disabled="">
-                                    </td>
-                                    <td>Subtotal
-                                        <input type="text" name="subtotal_1" id="subtotal_1" placeholder="" disabled="">
+                                    <td width="7%">
+                                        <button type="submit" class="btn btn-success " id="paynow" style="float:right;">Pay Now</button>
                                     </td>
                                 </tr>
-                                <tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Information Portal</h5>
+                        </div>
+                        <div class="ibox-content ">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/1.png')}}">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/2.png')}}">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/3.png')}}">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
 
-                                    <td>Penalties</td>
-                                    <td>
-                                        <input type="hidden" name="payment_type[]" value="Penalties" />
-                                        <input type="text" name="account_number[]" id="meter_number2" placeholder="Account Number">
-                                    </td>
-                                    <td>
-                                        <input type="email" name="email[]" id="email_2" placeholder="Email Address">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="mobile[]" id="mobile_2" placeholder="Mobile Number">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="amount[]" class="txt" id="amount_2" placeholder="Amount">
-                                    </td>
-                                    <td>Convienience Fee
-                                        <input type="text" name="convienience" placeholder="N100.00" disabled="">
-                                    </td>
-                                    <td>Subtotal
-                                        <input type="text" name="subtotal_2" id="subtotal_2" placeholder="" disabled="">
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Loss of Revenue</td>
-                                    <td>
-                                        <input type="hidden" name="payment_type[]" value="Loss of Revenue" />
-                                        <input type="text" name="account_number[]" id="meter_number3" placeholder="Account Number">
-                                    </td>
-                                    <td>
-                                        <input type="email" name="email[]" id="email_3" placeholder="Email Address">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="mobile[]" id="mobile_3" placeholder="Mobile Number">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="amount[]" class="txt" id="amount_3" placeholder="Amount">
-                                    </td>
-                                    <td>Convienience Fee
-                                        <input type="text" name="convienience" placeholder="N100.00" disabled="">
-                                    </td>
-                                    <td>Subtotal
-                                        <input type="text" name="subtotal_3" id="subtotal_3" placeholder="" disabled="">
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Reconnection Fee</td>
-                                    <td>
-                                        <input type="hidden" name="payment_type[]" value="Reconnection Fee" />
-                                        <input type="text" name="account_number[]" id="meter_number4" placeholder="Account Number">
-                                    </td>
-                                    <td>
-                                        <input type="email" name="email[]" id="email_4" placeholder="Email Address">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="mobile[]" id="mobile_4" placeholder="Mobile Number">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="amount[]" class="txt" id="amount_4" placeholder="Amount">
-                                    </td>
-                                    <td>Convienience Fee
-                                        <input type="text" name="convienience" placeholder="N100.00" disabled="">
-                                    </td>
-                                    <td>Subtotal
-                                        <input type="text" name="subtotal_4" id="subtotal_4" placeholder="" disabled="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="7" style="text-align:right;">Total Fee</td>
-                                    <td>(Sum of the subtotal)
-                                        <input type="text" name="sum" id="sum" placeholder="" disabled="">
-                                        <input type="hidden" name="totalPayblleAmount" id="totalPayblleAmount" value=" ">
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <table width="100%" border="0" bgcolor="#ffffff">
-                            <tr>
-                                <td width="7%">
-                                    <button type="submit" class="btn btn-success " id="paynow" style="float:right;">Pay Now</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -258,7 +305,7 @@
     <script>
         var sum = 0;
         $(document).ready(function () {
-
+            $('.carousel').carousel();
             //iterate through each textboxes and add keyup
             //handler to trigger sum event
             $(".txt").each(function () {

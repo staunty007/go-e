@@ -3,15 +3,15 @@
     <div class="wrapper wrapper-content">
         <div class="row">
                    <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
+                        <div class="ibox float-e-margins" style="height: 100%;">
                             <div class="ibox-title">
-                                <span class="label label-info pull-right">Instant Top Up</span>
+                                {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
                                 <h5>Current Balance</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
                                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small>Customers</small>
+                                
                             </div>
                         </div>
                     </div>
@@ -19,10 +19,10 @@
                     <div class="col-lg-4">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <span class="label label-primary pull-right">Year</span>
+                                {{-- <span class="label label-primary pull-right">Year</span>
                                  <span class="label label-primary pull-right">Month</span>
                                   <span class="label label-primary pull-right">Week</span>
-                                  <span class="label label-primary pull-right">Today</span>
+                                  <span class="label label-primary pull-right">Today</span> --}}
                                 <h5>Average Daily Charge</h5>
                             </div>
                             <div class="ibox-content">
@@ -36,14 +36,14 @@
                     <div class="col-lg-4">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <span class="label label-success pull-right">Year</span>
+                                {{-- <span class="label label-success pull-right">Year</span>
                                 <span class="label label-success pull-right">Quater</span>
-                                <span class="label label-success pull-right">Month</span>
+                                <span class="label label-success pull-right">Month</span> --}}
                                 <h5>Utility Spend to date</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins"><span>&#8358;</span>10,000</h1>
-                                <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
+                                {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div> --}}
                                 <small>Cumulative Amount Spend on Electricity</small>
                             </div>
                         </div>
