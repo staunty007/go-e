@@ -7,7 +7,8 @@ use App\PrepaidPayment;
 use App\PostpaidPayment;
 use Carbon\Carbon;
 use App\User;
-use App\MeterRequest;
+use Auth;
+use App\Http\Requests\UpdateUser;
 
 class AdminController extends Controller
 {
@@ -56,7 +57,20 @@ class AdminController extends Controller
     }
     public function profile()
     {
-        return $this->v('profile');
+        $user=Auth::user();
+        return $this->v('profile', $user);
+    }
+    public function updateprofile(UpdateUser $request)
+    {
+        $user=User::find(Auth::user()->id);
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+
+        if ($request->hasFile('avatar')) {
+            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+        $user->save();
+        return back();
     }
     public function customer_report()
     {

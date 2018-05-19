@@ -19,7 +19,7 @@ Route::get('registration/verify', 'AccountController@sendAccountMail')->name('se
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
 
-Route::get('payment/postpaid',function() {
+Route::get('payment/postpaid', function () {
     return view('make_payments');
 })->name('postpaid');
 Route::get('postpaidpayment', function () {
@@ -55,6 +55,8 @@ Route::prefix('backend')->group(function () {
     Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
     Route::post('login', 'BackendController@userLogin')->name('backend-login');
 
+    Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
+
     // Administrator
     Route::get('administrator', 'AdminController@home')->name('admin.home');
     Route::get('finance', 'AdminController@finance')->name('admin.finance');
@@ -76,7 +78,6 @@ Route::prefix('distributor')->group(function () {
     });
     Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
     Route::post('login', 'BackendController@userLogin')->name('backend-login');
-
     // Administrator
     Route::get('distributor', 'DistributorController@home')->name('distributor.home');
     Route::get('finance', 'DistributorController@finance')->name('distributor.finance');
