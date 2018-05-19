@@ -1,4 +1,9 @@
 @extends('layouts.admin') @section('content')
+<style>
+    .error {
+        color: crimson;
+    }
+</style>
 <link href="{{asset('css/plugins/steps/jquery.steps.css')}}" rel="stylesheet">
 <div class="row">
     <div class="col-lg-3">
@@ -9,7 +14,8 @@
                 </h2>
                 <small>GOENERGEE </small>
             </div>
-            <img src="{{asset('images/a4.jpg')}}" class="img-circle circle-border m-b-md" alt="profile">
+            <img src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset('storage/'.Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif"
+                class="img-circle circle-border m-b-md" alt="profile" width="120px">
             <ul class="list-unstyled m-t-md">
                 <div class="text-left">
                     <li>
@@ -18,45 +24,17 @@
                         GOENERGEE
                     </li>
                     <li>
-                        <span class="fa fa-user-o m-r-xs"></span>
-                        <label>Position:</label>
-
-                    </li>
-                    <li>
-                        <span class="fa fa-user-circle-o m-r-xs"></span>
-                        <label>Staff Strength:</label>
-
+                        <span class="fa fa-user m-r-xs"></span>
+                        <label>Name: {{Auth::user()->first_name}} {{Auth::user()->last_name}}</label>
                     </li>
                     <li>
                         <span class="fa fa-envelope m-r-xs"></span>
-                        <label>Email:</label>
+                        <label>Email: {{Auth::user()->email}}</label>
                     </li>
-                    <li>
-                        <span class="fa fa-home m-r-xs"></span>
-                        <label>Address:</label>
-                    </li>
-                    <li>
-                        <span class="fa fa-phone m-r-xs"></span>
-                        <label>Contact 1:</label>
-                    </li>
-                    <li>
-                        <span class="fa fa-phone m-r-xs"></span>
-                        <label>Contact 2:</label>
-                    </li>
-                    <li>
-                        <span class="fa fa-table m-r-xs"></span>
-                        <label>Meter Number:</label>
-                    </li>
-                    <li>
-                        <span class="fa fa-map-marker m-r-xs"></span>
-                        <label>District:</label>
 
-                    </li>
-                    <li>
-                        <span class="fa fa-puzzle-piece m-r-xs"></span>
-                        <label>Business Areas:</label>
 
-                    </li>
+
+
             </ul>
             </div>
         </div>
@@ -93,25 +71,24 @@
                         Please provide valid information to update your profile.
                     </p>
 
-                    <form id="form" action="#" class="wizard-big">
+                    <form id="form" action="{{route('admin.updateprofile')}}" class="wizard-big" method="POST" enctype="multipart/form-data">
+                        {{csrf_field()}}
                         <h1>Account</h1>
                         <fieldset>
                             <h2>Account Information</h2>
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label>Meter/Account Number *</label>
-                                        <input id="userName" name="userName" type="text" class="form-control required">
+                                        <label>Email</label>
+                                        <input id="email" name="email" value="{{$data->email}}" type="text" class="form-control required"> @if ($errors->has('email'))
+                                        <div class="error">{{ $errors->first('email') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label>Password *</label>
-                                        <input id="password" name="password" type="text" class="form-control required">
+                                        <input id="password" name="password" type="text" class="form-control">
                                     </div>
-                                    <div class="form-group">
 
-                                        <label>Profile Picture Update</label>
-                                        <input name="myFile" type="file">
-                                    </div>
                                 </div>
                                 <div class="col-lg-9">
 
@@ -169,20 +146,25 @@
                         </fieldset>
                         <h1>Profile</h1>
                         <fieldset>
-                            <h2>Meter Update</h2>
+                            <h2>Update</h2>
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label>Company Name</label>
-                                        <input id="userName" name="userName" type="text" class="form-control required">
+                                        <label>First Name</label>
+                                        <input id="first_name" name="first_name" value="{{$data->first_name}}" type="text" class="form-control required"> @if ($errors->has('first_name'))
+                                        <div class="error">{{ $errors->first('first_name') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
-                                        <label>Position</label>
-                                        <input id="password" name="password" type="text" class="form-control required">
+                                        <label>Last Name</label>
+                                        <input id="last_name" name="last_name" value="{{$data->last_name}}" type="text" class="form-control required"> @if ($errors->has('last_name'))
+                                        <div class="error">{{ $errors->first('last_name') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
-                                        <label>Number of Staff</label>
-                                        <input id="confirm" name="confirm" type="text" class="form-control required">
+
+                                        <label>Profile Picture Update</label>
+                                        <input name="avatar" type="file" />
                                     </div>
                                 </div>
                                 <div class="col-lg-9">
@@ -240,164 +222,7 @@
 
                         </fieldset>
 
-                        <h1>Contact Details Update</h1>
-                        <fieldset>
-                            <h2>Profile Update</h2>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input id="userName" name="userName" type="Email" class="form-control required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input id="password" name="password" type="text" class="form-control required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Mobile phone</label>
-                                        <input id="confirm" name="confirm" type="Number" class="form-control required">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
 
-                                    <div class="carousel slide" id="carousel2">
-                                        <ol class="carousel-indicators">
-                                            <li data-slide-to="0" data-target="#carousel2" class="active"></li>
-                                            <li data-slide-to="1" data-target="#carousel2"></li>
-                                            <li data-slide-to="2" data-target="#carousel2" class=""></li>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <div class="item active">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/1.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/2.png')}}">
-
-                                            </div>
-
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/4.png')}}">
-
-                                            </div>
-
-
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/7.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/8.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/9.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/10.png')}}">
-
-                                            </div>
-
-                                        </div>
-                                        <a data-slide="prev" href="#carousel2" class="left carousel-control">
-                                            <span class="icon-prev"></span>
-                                        </a>
-                                        <a data-slide="next" href="#carousel2" class="right carousel-control">
-                                            <span class="icon-next"></span>
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </fieldset>
-
-                        <h1>Meter</h1>
-
-                        <fieldset>
-                            <h2>Meter Update</h2>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>New Meter Number</label>
-                                        <input id="userName" name="userName" type="Number" class="form-control required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>District</label>
-
-                                        <select class="form-control m-b" name="account">
-                                            <option>Ajele</option>
-                                            <option>Ojo</option>
-                                            <option>Mushin</option>
-                                            <option>Lekki</option>
-                                            <option>Isolo </option>
-                                            <option>Festac</option>
-                                            <option>Ibeju</option>
-                                            <option>Orile</option>
-                                            <option>Agbara</option>
-
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Business Area</label>
-                                        <input id="confirm" name="confirm" type="text" class="form-control required">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
-
-                                    <div class="carousel slide" id="carousel2">
-                                        <ol class="carousel-indicators">
-                                            <li data-slide-to="0" data-target="#carousel2" class="active"></li>
-                                            <li data-slide-to="1" data-target="#carousel2"></li>
-                                            <li data-slide-to="2" data-target="#carousel2" class=""></li>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <div class="item active">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/1.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/2.png')}}">
-
-                                            </div>
-
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/4.png')}}">
-
-                                            </div>
-
-
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/7.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/8.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/9.png')}}">
-
-                                            </div>
-                                            <div class="item ">
-                                                <img alt="image" class="img-responsive" src="{{asset('images/10.png')}}">
-
-                                            </div>
-
-                                        </div>
-                                        <a data-slide="prev" href="#carousel2" class="left carousel-control">
-                                            <span class="icon-prev"></span>
-                                        </a>
-                                        <a data-slide="next" href="#carousel2" class="right carousel-control">
-                                            <span class="icon-next"></span>
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </fieldset>
                     </form>
                 </div>
             </div>
@@ -423,11 +248,6 @@
                             return true;
                         }
 
-                        // Forbid suppressing "Warning" step if the user is to young
-                        if (newIndex === 3 && Number($("#age").val()) < 18) {
-                            return false;
-                        }
-
                         var form = $(this);
 
                         // Clean up if user went backward before
@@ -445,14 +265,7 @@
                     },
                     onStepChanged: function (event, currentIndex, priorIndex) {
                         // Suppress (skip) "Warning" step if the user is old enough.
-                        if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-                            $(this).steps("next");
-                        }
 
-                        // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-                        if (currentIndex === 2 && priorIndex === 3) {
-                            $(this).steps("previous");
-                        }
                     },
                     onFinishing: function (event, currentIndex) {
                         var form = $(this);
@@ -475,9 +288,7 @@
                         element.before(error);
                     },
                     rules: {
-                        confirm: {
-                            equalTo: "#password"
-                        }
+
                     }
                 });
             });
