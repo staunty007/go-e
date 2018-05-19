@@ -12,8 +12,6 @@ use App\PrepaidPayment;
 use Illuminate\Http\Request;
 use App\Mail\AccountActivation;
 use App\PostpaidPayment;
-//use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
 
 class AccountController extends Controller
 {
@@ -89,8 +87,6 @@ class AccountController extends Controller
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
 
-            //return $paymentDetails;
-
             // Insert into prepaid_payment
             $prepaid = new PrepaidPayment;
 
@@ -107,13 +103,12 @@ class AccountController extends Controller
             $prepaid->save();
 
             $smsNumber = "+234".$paymentDetails['mobile'];
-            //echo '<script src="https://unpkg.com/axios/dist/axios.min.js"></script>';
+
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
-            // $reqst = "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is ".$ref."&flash=0&recipients=".$smsNumber;
-            
+
             session()->forget('payment_details');
 
             return back();
@@ -144,13 +139,11 @@ class AccountController extends Controller
             }
             if ($mobile) {
                 $smsNumber = "234".$mobile;
-                //$smsNumber = "+234".$paymentDetails['mobile'];
-                //echo '<script src="https://unpkg.com/axios/dist/axios.min.js"></script>';
+
                 session()->put(['smsNumber' => $smsNumber]);
                 session()->put(['smsRef' => $ref]);
 
                 return redirect()->route('finalize', [$smsNumber,$ref]);
-                // echo "http://api.ebulksms.com:8080/sendsms?username=codergab&apikey=4adaafcd68002419c3f39a92843f573ed09ddd32&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is " .$ref. ", Thanks For Your Payment.&flash=0&recipients=".$smsNumber;
             }
             
             request()->session()->forget('payment_details');
@@ -170,7 +163,7 @@ class AccountController extends Controller
             case '2':
                 return view('users.agent.home');
                 break;
-            case '4':
+            case '3':
                 return view('users.distributor.home');
                 break;
             default:

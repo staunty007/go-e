@@ -129,9 +129,8 @@
                                         <td>Postpaid</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Postpaid" />
-                                            <label>Account / Meter #
-                                                <label>
-                                                    <input type="text" name="account_number[]" id="meter_number1">
+                                            <label>Account or Meter #<label>
+                                            <input type="text" name="account_number[]" id="meter_number1">
                                         </td>
                                         <td>
                                             <label>Email Address</label>
@@ -145,8 +144,8 @@
                                             <label>Amount</label>
                                             <input type="text" class="txt" name="amount[]" id="amount_1">
                                         </td>
-                                        <td>
-                                            <label>Convenience Fee</label>
+                                        <td>Convenience Fee
+                                           
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
@@ -158,7 +157,7 @@
                                         <td>Penalties</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Penalties" />
-                                            <label>Account / Meter #</label>
+                                            <label>Account or Meter #</label>
                                             <input type="text" name="account_number[]" id="meter_number2">
                                         </td>
                                         <td>
@@ -173,8 +172,8 @@
                                             <label for="">Amount</label>
                                             <input type="text" name="amount[]" class="txt" id="amount_2">
                                         </td>
-                                        <td>
-                                            <label for="">Convenience Fee</label>
+                                        <td>Convenience Fee
+                                            
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
@@ -186,7 +185,7 @@
                                         <td>Loss of Revenue</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Loss of Revenue" />
-                                            <label for="">Account / Meter #</label>
+                                            <label for="">Account or Meter #</label>
                                             <input type="text" name="account_number[]" id="meter_number3">
                                         </td>
                                         <td>
@@ -201,8 +200,8 @@
                                             <label for="">Amount</label>
                                             <input type="text" name="amount[]" class="txt" id="amount_3">
                                         </td>
-                                        <td>
-                                            <label for="">Convenience Fee</label>
+                                        <td>Convenience Fee
+                                            
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
@@ -214,7 +213,7 @@
                                         <td>Reconnection Fee</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Reconnection Fee" />
-                                            <label for="">Account / Meter #</label>
+                                            <label for="">Account or Meter #</label>
                                             <input type="text" name="account_number[]" id="meter_number4">
                                         </td>
                                         <td>
@@ -229,8 +228,8 @@
                                             <label for="">Amount</label>
                                             <input type="text" name="amount[]" class="txt" id="amount_4">
                                         </td>
-                                        <td>
-                                            <label for="">Convenience Fee</label>
+                                        <td>Convenience Fee
+                                            
                                             <input type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
