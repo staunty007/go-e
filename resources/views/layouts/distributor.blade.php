@@ -79,7 +79,7 @@
                         <li class="{{$current_route_name =="distributor.customer_payment" ? 'active' : ''}}">
                             <a href="{{route('distributor.customer_payment')}}">
                                 <i class="fa fa-user"></i>
-                                <span class="nav-label">Customer Payment</span>
+                                <span class="nav-label">Customer Report</span>
                             </a>
                         </li>
 
@@ -171,9 +171,9 @@
                 </div>
 
                 <div class="wrapper wrapper-content animated fadeIn">
-                    <div class="p-w-md m-t-sm">
+                    {{-- <div class="p-w-md m-t-sm"> --}}
                         @yield('content')
-                    </div>
+                    {{-- </div> --}}
                 </div>
 
             </div>
