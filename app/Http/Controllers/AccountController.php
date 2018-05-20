@@ -159,7 +159,7 @@ class AccountController extends Controller
         $role = \Auth::user()->role_id;
         switch ($role) {
             case '1':
-                $admin = AdminBiodata::find(1);
+                $admin = AdminBiodata::where('user_id',\Auth::user()->id)->first();
                 if($admin->wallet_balance !== NULL) {
                     $balance = $admin->wallet_balance;
                 }else {
