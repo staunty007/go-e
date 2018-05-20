@@ -160,6 +160,11 @@ class AccountController extends Controller
         switch ($role) {
             case '1':
                 $admin = AdminBiodata::find(1);
+                if($admin->wallet_balance !== NULL) {
+                    $balance = $admin->wallet_balance;
+                }else {
+                    $balance = 0;
+                }
                 $balance = $admin->wallet_balance;
                 return view('users.admin.home')->withBalance($balance);
                 break;
