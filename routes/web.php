@@ -67,10 +67,19 @@ Route::prefix('backend')->group(function () {
     Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
     Route::get('settings', 'AdminController@settings')->name('admin.settings');
     Route::get('sms', 'AdminController@sms')->name('admin.sms');
+    Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
 
-    // Agents
-    Route::get('agent', 'AgentController@home')->name('agent.home');
+
 });
+
+Route::prefix('agent')->group(function() {
+    Route::get('profile','AgentController@profile')->name('agent.profile');
+    Route::get('payment-history','AgentController@paymentHistory')->name('agent.payHistory');
+    Route::get('meter-management','AgentController@meterManagement')->name('agent.meter');
+    Route::get('dashboard','AgentController@dashboard')->name('agent.dashboard');
+    Route::get('topup-agent/success/{amount}','AgentController@completeTopup');
+});
+
 
 Route::prefix('distributor')->group(function () {
     Route::get('/', function () {
@@ -87,10 +96,6 @@ Route::prefix('distributor')->group(function () {
     Route::get('meter_admin', 'DistributorController@meter_admin')->name('distributor.meter_admin');
     Route::get('settings', 'DistributorController@settings')->name('admin.settings');
     
-
-
-    // Agents
-    Route::get('agent', 'AgentController@home')->name('agent.home');
 });
 
 

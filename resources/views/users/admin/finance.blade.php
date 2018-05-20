@@ -10,22 +10,7 @@
         <small>
             Sales in current month
         </small>
-        <div id="sparkline1" class="m-b-sm"></div>
-        <div class="row">
-            <div class="col-xs-4">
-                <small class="stats-label">Pages / Visit</small>
-                <h4>236,321</h4>
-            </div>
-
-            <div class="col-xs-4">
-                <small class="stats-label">% New Visits</small>
-                <h4>46.11%</h4>
-            </div>
-            <div class="col-xs-4">
-                <small class="stats-label">Last week</small>
-                <h4>432</h4>
-            </div>
-        </div>
+        
 
     </div>
     <div class="col-sm-4">
@@ -36,22 +21,7 @@
         <small>
             Sales in last 24h
         </small>
-        <div id="sparkline2" class="m-b-sm"></div>
-        <div class="row">
-            <div class="col-xs-4">
-                <small class="stats-label">Pages / Visit</small>
-                <h4>166,781</h4>
-            </div>
-
-            <div class="col-xs-4">
-                <small class="stats-label">% New Visits</small>
-                <h4>22.45%</h4>
-            </div>
-            <div class="col-xs-4">
-                <small class="stats-label">Last week</small>
-                <h4>862</h4>
-            </div>
-        </div>
+        
 
 
     </div>
@@ -162,49 +132,17 @@
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal6">
-                        Top up Wallet Account
-                    </button>
-
-                    <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">
-                                        <span aria-hidden="true">&times;</span>
-                                        <span class="sr-only">Close</span>
-                                    </button>
-                                    <h4 class="modal-title">Top Up Wallet</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <form id="admin_amount">
-                                            <div class="form-group">
-                                                <label>Amount</label>
-                                                <input id="amount" placeholder="Enter Amount" class="form-control">
-                                            </div>
-                                            <div>
-                                            </div>
-                                        </form>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="payWithPaystack()">
-                                            <strong>Top Up Now</strong>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
+                    
+                    Wallet Balance
 
                     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-                    <script src="https://js.paystack.co/v1/inline.js"></script>
+                    {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
                     <script src="app.js"></script>
 
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">Balance =
-                        <span>&#8358;</span>886,200</h1>
+                        <span>&#8358;</span></h1>
                     <div class="stat-percent font-bold text-success">5 days
                         <i class="fa fa-bolt"></i>
                     </div>
@@ -339,6 +277,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <div class="footer">

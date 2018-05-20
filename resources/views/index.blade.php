@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-	<title>Home - GOENERGEE</title>
+	<title>GOENERGEE</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -306,7 +306,7 @@
 
 
 								</div>
-								<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:155px;">
+								<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:180px;">
 							</div>
 							<!--Default div ends -->
 

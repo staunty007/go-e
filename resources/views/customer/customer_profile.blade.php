@@ -13,12 +13,12 @@
                          <li>
                              <span class="fa fa-envelope m-r-xs"></span>
                              <label>Email:</label>
-                             info@goenergee.com
+                             {{ Auth::user()->email }}
                          </li>
                          <li>
                              <span class="fa fa-home m-r-xs"></span>
                              <label>Address:</label>
-                             18A Fatai Idowu, Arobieke Street, Lekki,
+                             
                          </li>
                          <li>
                              <span class="fa fa-phone m-r-xs"></span>
@@ -28,7 +28,7 @@
                          <li>
                              <span class="fa fa-table m-r-xs"></span>
                             <label>Meter Number:</label>
-                            
+                            {{ $meterNo }}
                          </li>
                          <li>
                              <span class="fa fa-map-marker m-r-xs"></span>
@@ -76,8 +76,8 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label>Meter/Account Number *</label>
-                                                <input id="userName" name="userName" type="text" class="form-control required">
+                                                <label>Meter or Account Number *</label>
+                                                <input id="meter_no" name="userName" type="text" class="form-control required" value="{{ $meterNo }}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Password *</label>

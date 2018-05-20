@@ -16,7 +16,7 @@ class DistributorController extends Controller
 
     public function home()
     {
-        return $this->v('home');
+        return $this->v('finance');
     }
 
     public function v($file, $data = [])

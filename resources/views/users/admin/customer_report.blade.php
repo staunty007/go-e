@@ -79,7 +79,7 @@
 
 
 
-                <div class="col-lg-14">
+                <div class="col-lg-14" style="width:100%">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             GOENERGEE Customer Transaction
@@ -145,7 +145,7 @@
 
             </div>
                                     <div class="ibox float-e-margins">
-                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="3">
+                <table class="footable table table-stripped table-responsive toggle-arrow-tiny" data-page-size="3">
                                 <thead>
                                 <tr>
 
@@ -188,7 +188,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -249,7 +249,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -310,7 +310,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -371,7 +371,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -432,7 +432,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -493,7 +493,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -554,7 +554,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>
@@ -615,7 +615,7 @@
                                     <td>
                                         Pre-Paid
                                     </td>
-
+                                    <td>Islarik Menib</td>
                                     <td>
                                         <span class="label label-primary">Success</span>
                                     </td>

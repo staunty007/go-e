@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label" for="order_id">Order ID</label>
+                            <label class="control-label" for="order_id">Transaction Reference</label>
                             <input type="text" id="order_id" name="order_id" value="" placeholder="Order ID" class="form-control">
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -161,7 +161,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -208,7 +208,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -255,7 +255,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -302,7 +302,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -349,7 +349,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -395,7 +395,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>
@@ -441,7 +441,7 @@
 
                                             </td>
                                             <td>
-                                                <span class="label label-primary">Success</span>
+                                                <span class="label label-primary">Successfull</span>
                                             </td>
 
                                             <td>

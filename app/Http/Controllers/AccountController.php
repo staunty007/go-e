@@ -12,6 +12,7 @@ use App\PrepaidPayment;
 use Illuminate\Http\Request;
 use App\Mail\AccountActivation;
 use App\PostpaidPayment;
+use App\AdminBiodata;
 
 class AccountController extends Controller
 {
@@ -158,10 +159,13 @@ class AccountController extends Controller
         $role = \Auth::user()->role_id;
         switch ($role) {
             case '1':
-                return view('users.admin.home');
+                $admin = AdminBiodata::find(1);
+                $balance = $admin->wallet_balance;
+                return view('users.admin.home')->withBalance($balance);
                 break;
             case '2':
-                return view('users.agent.home');
+                //$agent = AgentBiodata::where('user_id',\Auth::user()->id)->get();
+                return view('users.agent.financial');
                 break;
             case '3':
                 return view('users.distributor.home');
@@ -174,7 +178,15 @@ class AccountController extends Controller
 
     public function customerProfile()
     {
-        return view('customer.customer_profile');
+        // Fetch User Profile From Meter payment
+        $fetch = PrepaidPayment::where('email',\Auth::user()->email)->first();
+        if($fetch !== NULL) {
+            $meterNo = $fetch->meter_no;
+        }else {
+            $meterNo = "";
+        }
+                        
+        return view('customer.customer_profile')->withMeterNo($meterNo);
     }
     public function makePayment()
     {

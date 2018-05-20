@@ -40,7 +40,7 @@
                                             <strong class="font-bold">Patrick Chigbata</strong>
                                         </span>
                                         <span class="text-muted text-xs block">GOENERGEE
-                                            <b class="caret"></b>
+                                        | Disco
                                         </span>
                                     </span>
                                 </a>
@@ -68,7 +68,7 @@
                             </div>
                         </li>
 
-                        <li class="{{ Request::is('distributor/finance') ? 'active' :'' }}">
+                        <li class="{{ Request::is('distributor/finance') ? 'active' :'' }}{{ Request::is('home') ? 'active' :'' }}">
                             <a href="{{route('distributor.finance')}}">
                                 <span>&#8358;</span>
                                 </i>
@@ -80,7 +80,7 @@
                             <a href="{{route('distributor.customer_payment')}}">
                                 <i class="fa fa-user"></i>
                                 <span class="nav-label">Customer Report</span>
-                            </a>
+                            </a> 
                         </li>
 
 
@@ -108,40 +108,7 @@
                 <div class="row border-bottom">
                     <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                         <div class="navbar-header">
-                            <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
-                                Top up Wallet Account
-                            </button>
-                            @push('popups')
-                            <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">
-                                                <span aria-hidden="true">&times;</span>
-                                                <span class="sr-only">Close</span>
-                                            </button>
-                                            <h4 class="modal-title">Top Up Wallet</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <form id="admin_amount">
-                                                    <div class="form-group">
-                                                        <label>Amount</label>
-                                                        <input id="amount" placeholder="Enter Amount" class="form-control">
-                                                    </div>
-                                                    <div>
-                                                    </div>
-                                                </form>
-                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="payWithPaystack()">
-                                                    <strong>Top Up Now</strong>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            @endpush
+                            
 
                             <form role="search" class="navbar-form-custom" action="search_results.html">
                                 <div class="form-group">

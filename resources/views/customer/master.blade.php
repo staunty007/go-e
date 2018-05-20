@@ -162,7 +162,8 @@
 
     <!-- Jquery Validate -->
     <script src="/customer/js/plugins/validate/jquery.validate.min.js"></script>
-
+    
+    @stack('scripts')
 
     <script>
         $(document).ready(function(){

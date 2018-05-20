@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\User;
 use Auth;
 use App\Http\Requests\UpdateUser;
+use App\MeterRequest;
+use App\AdminBiodata;
 
 class AdminController extends Controller
 {
@@ -18,7 +20,13 @@ class AdminController extends Controller
     
     public function home()
     {
-        return $this->v('home');
+        // $admin = AdminBiodata::find(1);
+        // $balance = $admin->wallet_balance;
+
+        // return $balance;
+
+
+        // return $this->view('home');
     }
 
     public function v($file, $data=[])
@@ -53,6 +61,17 @@ class AdminController extends Controller
 
         $data['registeredcustomers']= User::where('role_id', 3)->count();
         $data['registeredagents'] = User::where('role_id', 2)->count();
+
+        // Wallet Balance
+        /**
+         * Finds Users with id of 1,
+         * Which is the Admin by default;
+         * And return the result of their wallet balance
+         */
+        $admin = AdminBiodata::find(1);
+        $data['wallet_balance'] = $admin->wallet_balance;
+
+        //return $data['wallet_balance'];
         return $this->v('finance', $data);
     }
     public function profile()
@@ -99,5 +118,31 @@ class AdminController extends Controller
     public function sms()
     {
         return $this->v('sms');
+    }
+
+    // complete admin topup
+    public function completeTopup($amount) {
+
+        $biodata = AdminBiodata::find(1);
+
+        //return $biodata;
+
+        if($biodata == NULL) {
+            $addUser = new AdminBiodata;
+
+            $addUser->user_id = 1;
+            $addUser->wallet_balance += $amount;
+    
+            $addUser->save();
+            
+            return redirect('home')->withSuccess('Topup Successfull');
+        }
+
+        $biodata->wallet_balance += $amount;
+
+        $biodata->save();
+
+    
+        return redirect('home')->withSuccess('Topup Successfull');
     }
 }
