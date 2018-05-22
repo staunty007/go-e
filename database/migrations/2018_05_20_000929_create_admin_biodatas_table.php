@@ -16,7 +16,8 @@ class CreateAdminBiodatasTable extends Migration
         Schema::create('admin_biodatas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->bigInteger('wallet_balance');
+            $table->bigInteger('wallet_balance')->default(0);
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\AgentBiodata;
+use App\AdminBiodata;
 
 class AgentController extends Controller
 {
@@ -29,6 +31,22 @@ class AgentController extends Controller
     {
         return $this->v('payment_history');
     }
+    public function buyToken()
+    {
+        $isNotViolated = "";
+        // check if amount to buy token is not violated
+        // Fetch Admin Details
+        $fetchAdmin = AdminBiodata::where('user_id',1)->first();
+        // Fetch Agent
+        $fetchAgent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+        if($fetchAdmin->wallet_balance < $fetchAgent->wallet_balance) {
+            $isNotViolated = "Yes";
+        }
+       
+
+        return view($this->prefix.'buy-token')->withViolated($isNotViolated);
+    }
 
     public function meterManagement()
     {
@@ -42,27 +60,87 @@ class AgentController extends Controller
 
     // complete admin topup
     public function completeTopup($amount) {
-
-        $biodata = AgentBiodata::where('user_id',Auth::user()->id)->get();
-
-        //return $biodata;
-
-        if($biodata == NULL) {
-            $addUser = new AdminBiodata;
-
-            $addUser->user_id = 1;
-            $addUser->wallet_balance += $amount;
-    
-            $addUser->save();
-            
-            return redirect('home')->withSuccess('Topup Successfull');
-        }
+        //return $amount;
+        $biodata = AgentBiodata::where('user_id',Auth::user()->id)->first();
 
         $biodata->wallet_balance += $amount;
 
         $biodata->save();
 
-    
         return redirect('home')->withSuccess('Topup Successfull');
+    }
+
+    public function agentTokenSuccess($ref)
+    {   
+        if (session()->exists('payment_details')) {
+            $paymentDetails = session('payment_details');
+
+            // Insert into prepaid_payment
+            $prepaid = new PrepaidPayment;
+
+            $prepaid->first_name = $paymentDetails['first_name'];
+            $prepaid->last_name = $paymentDetails['last_name'];
+            $prepaid->phone_number = $paymentDetails['mobile'];
+            $prepaid->meter_no = $paymentDetails['meter_no'];
+            $prepaid->email = $paymentDetails['email'];
+            $prepaid->amount = $paymentDetails['amount'];
+            $prepaid->conv_fee = 100;
+            $prepaid->total_amount = $paymentDetails['amount'] + 100;
+            $prepaid->transaction_ref = $ref;
+            $prepaid->payment_type = "Prepaid";
+            $prepaid->save();
+
+            $smsNumber = "+234".$paymentDetails['mobile'];
+
+            session()->put(['smsNumber' => $smsNumber]);
+            session()->put(['smsRef' => $ref]);
+
+            return redirect()->route('finalize', [$smsNumber,$ref]);
+
+            session()->forget('payment_details');
+
+            return back();
+        }
+
+        return redirect('/');
+    }
+
+    public function agentCustomerTokenSuccess($ref)
+    {
+        if (session()->exists('payment_details')) {
+            $paymentDetails = session('payment_details');
+
+            // Insert into prepaid_payment
+            $prepaid = new PrepaidPayment;
+
+            $prepaid->first_name = $paymentDetails['first_name'];
+            $prepaid->last_name = $paymentDetails['last_name'];
+            $prepaid->phone_number = $paymentDetails['mobile'];
+            $prepaid->meter_no = $paymentDetails['meter_no'];
+            $prepaid->email = $paymentDetails['email'];
+            $prepaid->amount = $paymentDetails['amount'];
+            $prepaid->conv_fee = 100;
+            $prepaid->total_amount = $paymentDetails['amount'] + 100;
+            $prepaid->transaction_ref = $ref;
+            $prepaid->is_agent = 1;
+            $prepaid->payment_type = "Prepaid";
+
+            $bal = ((2/100) * $d->amount + $d->conv_fee ) - ((1.5/100) * $d->total_amount) + ((0.85/100) * $d->amount);
+            $prepaid->balance =  
+            $prepaid->save();
+
+            $smsNumber = "+234".$paymentDetails['mobile'];
+
+            session()->put(['smsNumber' => $smsNumber]);
+            session()->put(['smsRef' => $ref]);
+
+            return redirect()->route('finalize', [$smsNumber,$ref]);
+
+            session()->forget('payment_details');
+
+            return back();
+        }
+
+        return redirect('/');
     }
 }

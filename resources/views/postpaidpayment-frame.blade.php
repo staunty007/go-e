@@ -114,24 +114,8 @@
     </div>
     <div style="height:100%;">
         <div class="body-container">
-
-
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <a href="{{ url('/')}}">
-                        <img src="images/logo.png" style="float:left;margin-top:6px; padding:4px;">
-                    </a>
-                    <div class="navbar" style="margin-top:6px;right:23px;">
-                        <a href="/">
-                            <button type="button" id="support_btn" class="grad-box">
-                                <i class="fas fa-home"></i> Back to Home
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="" style="padding:40px 70px 30px, 30px;">
                         <h4>Fill in the details to make your
                             <span style="color:#80c636">Postpaid payments</span> here!</h4>
@@ -277,49 +261,12 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-3" id="side-banner">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Information Portal</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/banne.jpg')}}">
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="/js/sweetalert.min.js"></script>
-
-    <footer>
-        Powered by GOENERGEE
-    </footer>
-
     <script>
         (function() {
             document.querySelector("#btnCloseIfAdmin").addEventListener('click', function(){

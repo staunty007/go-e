@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,6 +49,8 @@
         <div id="app">
         <input type="hidden" value="{{ session('smsNumber') }}" id='number'/>
         <input type="hidden" value="{{ session('smsRef') }}" id='ref'/>
+        {{-- <input type="hidden" value="{{ session('payment_type') }} " id="paymentType">
+        <input type="hidden" value="{{ session('paid_amount') }}" id="paidAmount"> --}}
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title">
@@ -90,6 +91,9 @@
                 data: {
                     smsNumber: document.querySelector('#number').value,
                     smsRef: document.querySelector('#ref').value,
+                    paymentType: document.querySelector("#paymentType").value,
+                    textMsg = "",
+                    paidAmount = document.querySelector("#paymentType").value,
                     error: false,
                     sent: false,
                     loading: true,
@@ -104,8 +108,10 @@
                 // }
                 methods: {
                     sendSMS: function() {
+
+                    this.textMsg = "Meter Token: 424289848298928.\nYour Eko Electricity Distribution Company Plc" + this.paymentType+" payment of NGN "+this.paidAmount+" was successfull.\nREF: "+this.smsRef+". \nFor support call 0700 000000000";
                         //var app = this
-                    axios.get("http://api.ebulksms.com:8080/sendsms?username=codergab@gmail.com&apikey=13c346d8195b64ae915347fac6e4249d9ca668f2&sender=GOENERGEE&messagetext=Your Electricty Transaction was successfull, Your Payment Referense is "+this.smsRef+"&flash=0&recipients="+this.smsNumber+"")
+                    axios.get("http://api.ebulksms.com:8080/sendsms?username=codergab@gmail.com&apikey=13c346d8195b64ae915347fac6e4249d9ca668f2&sender=GOENERGEE&messagetext="+this.textMsg+"&flash=0&recipients="+this.smsNumber+"")
                         .then(response => {
                             this.sent = true
                             console.log

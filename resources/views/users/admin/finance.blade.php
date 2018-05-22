@@ -10,7 +10,22 @@
         <small>
             Sales in current month
         </small>
-        
+        <div id="sparkline1" class="m-b-sm"></div>
+        <div class="row">
+            <div class="col-xs-4">
+                <small class="stats-label">Pages / Visit</small>
+                <h4>236,321</h4>
+            </div>
+
+            <div class="col-xs-4">
+                <small class="stats-label">% New Visits</small>
+                <h4>46.11%</h4>
+            </div>
+            <div class="col-xs-4">
+                <small class="stats-label">Last week</small>
+                <h4>432</h4>
+            </div>
+        </div>
 
     </div>
     <div class="col-sm-4">
@@ -21,7 +36,23 @@
         <small>
             Sales in last 24h
         </small>
-        
+        <div id="sparkline2" class="m-b-sm"></div>
+        <div class="row">
+            <div class="col-xs-4">
+                <small class="stats-label">Pages / Visit</small>
+                <h4>166,781</h4>
+            </div>
+
+            <div class="col-xs-4">
+                <small class="stats-label">% New Visits</small>
+                <h4>22.45%</h4>
+            </div>
+            <div class="col-xs-4">
+                <small class="stats-label">Last week</small>
+                <h4>862</h4>
+            </div>
+        </div>
+
 
 
     </div>
@@ -142,7 +173,7 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">Balance =
-                        <span>&#8358;</span></h1>
+                        <span>&#8358;</span> {{ $data['wallet_balance'] }}</h1>
                     <div class="stat-percent font-bold text-success">5 days
                         <i class="fa fa-bolt"></i>
                     </div>

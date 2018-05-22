@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_activated')->default(false);
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+            $table->string("avatar", 500)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

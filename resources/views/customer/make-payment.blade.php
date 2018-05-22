@@ -1,7 +1,15 @@
 @extends('customer.master')
 
 @section('customer-section')
+<style>
+    #forSelf, #forOthers, #ifAdmin {
+        display: none;
+    }
 
+    #forOthers > .panel , #forOthers > .panel-body, #forOthers > .ibox-content {
+        min-height: 800px !important;
+    }
+</style>
             <div class="wrapper wrapper-content">
                 <div class="row">
                         <div class="col-lg-4">
@@ -56,8 +64,8 @@
                 <div class="col-md-12 text-center"  id="group-pay">
                     <h1>Who are you paying For? </h1>
                     <div class="btn-group">
-                        <button id='tFS' class="btn btn-primary btn-md">Myself</button>
-                        <button id="tFO" class="btn btn-warning btn-md">For Others</button>
+                        <button id='tFS' class="btn btn-primary btn-md">Prepaid</button>
+                        <button id="tFO" class="btn btn-warning btn-md">Postpaid</button>
                     </div>
                 </div>
 
@@ -67,26 +75,7 @@
                         <div class="panel-heading">
                             Make new bill payment
                         </div>
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-
-                                    <li><a href="#">Config option 1</a>
-                                    </li>
-                                    <li><a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                        </div>
+                        
                         <div class="ibox-content">
                             {{-- @if(isset($before)) --}}
                             <form action="" method="POST" class="meterSelf">
@@ -128,35 +117,18 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6" id="forOthers">
+                <div class="col-lg-12" id="forOthers">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             Make new bill payment
                         </div>
                     <div class="ibox float-e-margins">
     
-        <div class="ibox-tools">
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-wrench"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
 
-                <li><a href="#">Config option 1</a>
-                </li>
-                <li><a href="#">Config option 2</a>
-                </li>
-            </ul>
-            <a class="close-link">
-                <i class="fa fa-times"></i>
-            </a>
-        </div>
     </div>
     <div class="ibox-content">
 
-        <form action="" method="POST" class="meterOthers">
+        {{-- <form action="" method="POST" class="meterOthers">
             {{ csrf_field()}}
             <div class="form-group">
                 <label>Meter No.</label>
@@ -189,11 +161,22 @@
             <div class="form-group">
                 <button class="btn btn-block btn-primary pay-meter2">Make Payment</button>
             </div>
-        </form>
+        </form> --}}
+        <iframe src="{{ url('payment-frame') }}" frameborder="0" width="100%" height="800px">
+        </iframe>
 
     </div>
 </div>
-
+    
+    </div>
+    <div class="row" id="ifAdmin">
+            <div class="col-lg-6 text-center">
+                    <h2>Please Contact Admin</h2>
+                    <h5>
+                            <b>Phone:</b> 08052313815</h5>
+                        <h5>
+                            <b>Email:</b> customersupport@goenergee.com</h5>
+                </div>
     </div>
       <!-- Mainly scripts -->
     <script src="/customer/js/jquery-3.1.1.min.js"></script>
@@ -246,6 +229,9 @@
                       success: (response) => {
                           if(response.code == "ok") {
                               payWithPaystack();
+                          }else {
+                              swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues','danger');
+                              $("#ifAdmin").css({'display':'block'});
                           }
                       }
                   })
@@ -262,6 +248,9 @@
                       success: (response) => {
                           if(response.code == "ok") {
                               payWithPaystack2();
+                          }else {
+                              swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues','danger');
+                              $("#ifAdmin").css({'display':'block'});
                           }
                       }
                   })
@@ -291,7 +280,6 @@
               }
               function payWithPaystack2(){
                   var amountMeter = document.querySelector('.meter-amount-2').value;
-                  
                   var chargedAmount = parseInt(amountMeter) + 100;
                     console.log(chargedAmount);
                 var handler = PaystackPop.setup({

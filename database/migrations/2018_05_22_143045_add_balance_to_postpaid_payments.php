@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTotalAmountToAdminBiodatas extends Migration
+class AddBalanceToPostpaidPayments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTotalAmountToAdminBiodatas extends Migration
      */
     public function up()
     {
-        Schema::table('admin_biodatas', function (Blueprint $table) {
-            //
+        Schema::table('postpaid_payments', function (Blueprint $table) {
+            $table->string('balance');
         });
     }
 
@@ -25,8 +25,8 @@ class AddTotalAmountToAdminBiodatas extends Migration
      */
     public function down()
     {
-        Schema::table('admin_biodatas', function (Blueprint $table) {
-            //
+        Schema::table('postpaid_payments', function (Blueprint $table) {
+            $table->dropColumn('balance');
         });
     }
 }

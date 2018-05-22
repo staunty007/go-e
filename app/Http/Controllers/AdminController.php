@@ -95,7 +95,16 @@ class AdminController extends Controller
     {
         $data=[];
 
-        return $this->v('customer_report', $data);
+        $prepaidPayments = PrepaidPayment::all();
+
+        $postpaidPayments = PostpaidPayment::all();
+
+        $data = collect([$prepaidPayments,$postpaidPayments]);
+
+        $admin = AdminBiodata::find(1);
+        
+
+        return view($this->prefix.'customer_report')->withData(array_collapse($data));
     }
     public function payment_history()
     {

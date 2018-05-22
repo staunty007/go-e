@@ -50,6 +50,9 @@
                 <li class="{{ Request::is('agent/payment-history') ? 'active': '' }}">
                     <a href="{{ route('agent.payHistory') }}"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
                 </li>
+                <li class="{{ Request::is('agent/buy-token') ? 'active': '' }}">
+                   <a href="{{ route('agent.buy-token') }}"><i class="fa fa-money"></i> <span class="nav-label">Buy Token</span></a>
+                </li>
 				<li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
                    <a href="{{ route('agent.meter') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
                 </li>
@@ -67,7 +70,7 @@
             <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
                 Top up Wallet Account
             </button>
-            @push('popups')
+            {{-- @push('popups') --}}
             <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
@@ -88,16 +91,16 @@
                                     <div>
                                     </div>
                                 </form>
-                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="payWithPaystack()" id="topUpBtn">
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="payWithPaystack(); this.innerHTML = 'Connecting to Gateway';" id="topUpBtn">
                                     <strong>Top Up Now</strong>
                                 </button>
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
             </div>
-            @endpush
+            {{-- @endpush --}}
             
         </div>
             <ul class="nav navbar-top-links navbar-right">
@@ -121,7 +124,11 @@
 
         </nav>
         </div>
-
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @yield('content')
                
                
@@ -409,7 +416,7 @@
     <script>
         
         function payWithPaystack() {
-            alert('This payment is not yet completed');
+            // alert('This payment is not yet completed');
             var amount = document.querySelector('#topup-amount').value;
             var handler = PaystackPop.setup({
                 key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
@@ -420,7 +427,7 @@
                 callback: function (response) {
                     // swal('Yay!', 'Payment Successfull', 'success');
                     setTimeout(() => {
-                        window.location.href = '/backend/topup-agent/success/'+amount;
+                        window.location.href = '/agent/topup-agent/success/'+amount;
                     }, 1000);
                 },
                 onClose: function () {
@@ -431,6 +438,6 @@
             handler.openIframe();
         }
     </script>
-    @stack('popups') @stack('scripts')
+    {{-- @stack('popups') @stack('scripts') --}}
 </body>
 </html>

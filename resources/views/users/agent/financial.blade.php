@@ -123,7 +123,7 @@
                         <h3 class="font-bold no-margins">
                             Current Balance is
                         </h3>
-                        <span>&#8358;</span>120,000
+                        <span>&#8358;</span>{{ $details->wallet_balance}}
                     </div>
                 </div>
 		</div>

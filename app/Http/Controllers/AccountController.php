@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Mail\AccountActivation;
 use App\PostpaidPayment;
 use App\AdminBiodata;
+use App\AgentBiodata;
 
 class AccountController extends Controller
 {
@@ -76,8 +77,23 @@ class AccountController extends Controller
         return view('activating');
     }
 
+    public function paymentFrame()
+    {
+        return view('postpaidpayment-frame');
+    }
     public function paymentHolder(Request $request)
     {
+        // Check if payment sending is not greater than that of admin
+        $adminDetails = AdminBiodata::where('user_id',1)->first();
+
+        //return $adminDetails;
+
+        if($adminDetails->wallet_balance < $request->totalPayblleAmount) {
+
+            return $request;
+
+            return response()->json(['code' => 'no']);
+        }
         session(['payment_details' => $request->all()]);
 
         return response()->json(['code' => 'ok']);
@@ -100,13 +116,20 @@ class AccountController extends Controller
             $prepaid->conv_fee = 100;
             $prepaid->total_amount = $paymentDetails['amount'] + 100;
             $prepaid->transaction_ref = $ref;
+            $prepaid->payment_type = "Prepaid";
 
+            $prepaid->balance = ((2/100) * $paymentDetails['amount'] + 100 ) - ((1.5/100) * $paymentDetails['amount'] + 100 + (0.85/100) * $paymentDetails['amount']);
+
+            
             $prepaid->save();
 
             $smsNumber = "+234".$paymentDetails['mobile'];
-
+            $amountPaid = $paymentDetails['amount'];
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
+            session()->put(['paid_amount' => $amountPaid]);
+            session()->put(['paymemtType' => 'Prepaid']);
+            
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
 
@@ -124,25 +147,29 @@ class AccountController extends Controller
             $mobile=false;
             foreach ($paymentDetails['email'] as $key => $payment) {
                 if ($paymentDetails['amount'][$key]>0) {
+                    
                     $postpaid = new PostpaidPayment;
                     $postpaid->payment_type = $paymentDetails['payment_type'][$key];
                     $postpaid->phone_number = $paymentDetails['mobile'][$key];
-
                     $postpaid->meter_no = $paymentDetails['account_number'][$key];
                     $postpaid->email = $paymentDetails['email'][$key];
                     $postpaid->amount = $paymentDetails['amount'][$key];
                     $postpaid->conv_fee = 100;
                     $postpaid->total_amount = $paymentDetails['amount'][$key] + 100;
                     $postpaid->transaction_ref = $ref;
+                    $postpaid->payment_type = "Postpaid";
+                    $postpaid->balance = ((2/100) * $paymentDetails['amount'] + 100 ) - ((1.5/100) * $paymentDetails['amount'][$key] + 100 + (0.85/100) * $paymentDetails['amount'][$key]);
                     $postpaid->save();
                     $mobile=$postpaid->phone_number;
                 }
             }
             if ($mobile) {
                 $smsNumber = "234".$mobile;
-
+                
                 session()->put(['smsNumber' => $smsNumber]);
                 session()->put(['smsRef' => $ref]);
+                session()->put(['paid_amount' => $paymentDetails['amount']]);
+                session()->put(['paymemtType' => 'PostPaid']);
 
                 return redirect()->route('finalize', [$smsNumber,$ref]);
             }
@@ -159,18 +186,11 @@ class AccountController extends Controller
         $role = \Auth::user()->role_id;
         switch ($role) {
             case '1':
-                $admin = AdminBiodata::where('user_id',\Auth::user()->id)->first();
-                if($admin->wallet_balance !== NULL) {
-                    $balance = $admin->wallet_balance;
-                }else {
-                    $balance = 0;
-                }
-                $balance = $admin->wallet_balance;
-                return view('users.admin.home')->withBalance($balance);
+                return redirect('/backend/finance');
                 break;
             case '2':
-                //$agent = AgentBiodata::where('user_id',\Auth::user()->id)->get();
-                return view('users.agent.financial');
+                $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+                return view('users.agent.financial')->withDetails($agent);
                 break;
             case '3':
                 return view('users.distributor.home');
@@ -197,6 +217,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
+        
         $prepaid = PrepaidPayment::where('email', $userEmail)->first();
         //return $prepaid;
         return view('customer.make-payment')->withBefore($prepaid);

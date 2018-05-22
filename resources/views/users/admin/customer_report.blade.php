@@ -144,536 +144,70 @@
                  <button type="button" class="btn btn-primary btn-md">Search</button>
 
             </div>
-                                    <div class="ibox float-e-margins">
-                <table class="footable table table-stripped table-responsive toggle-arrow-tiny" data-page-size="3">
+                                    <div class="ibox" style="overflow-x:auto;">
+                <table class="table table-striped table-responsive toggle-arrow-tiny" data-page-size="3">
                                 <thead>
-                                <tr>
-
-
-                                    <th data-hide="phone">Trans Date</th>
-                                    <th data-hide="phone">Trans Ref</th>
-                                    <th data-hide="phone">Trans type</th>
-                                   <th data-hide="phone">Type</th>
-                                   <th data-hide="phone">Customer Name</th>
-                                    <th data-hide="phone">Status</th>
-                                    <th data-hide="phone">Meter #</th>
-                                    <th data-hide="phone">District</th>
-                                    <th data-hide="phone">Amount</th>
-                                    <th data-hide="phone">PIN</th>
-                                    <th data-hide="phone">KwH</th>
-                                    <th data-hide="phone">Conv. Fee</th>
-                                    <th data-hide="phone">Commision</th>
-                                    <th data-hide="phone">Amount</th>
-                                    <th data-hide="phone">PGP</th>
-                                    <th data-hide="phone">Agent #</th>
-                                    <th data-hide="phone">SPEC</th>
-                                    <th data-hide="phone">RKL</th>
-                                    <th data-hide="phone">Total</th>
-                                    <th data-hide="phone">Net Amt</th>
-
-
-                                </tr>
+                                    <tr>
+                                        <th data-hide="phone">Trans Date</th>
+                                        <th data-hide="phone">Trans Ref</th>
+                                        <th data-hide="phone">Trans type</th>
+                                        <th data-hide="phone">Type</th>
+                                        <th data-hide="phone">Customer Name</th>
+                                        <th data-hide="phone">Status</th>
+                                        <th data-hide="phone">Meter #</th>
+                                        <th data-hide="phone">District</th>
+                                        <th data-hide="phone">PIN</th>
+                                        <th data-hide="phone">KwH</th>
+                                        <th data-hide="phone">Conv. Fee</th>
+                                        <th data-hide="phone">Commission</th>
+                                        <th data-hide="phone">Amount Chrgd</th>
+                                        <th data-hide="phone">Unit Purchased</th>
+                                        <th data-hide="phone">PGP</th>
+                                        <th data-hide="phone">Agent #</th>
+                                        {{-- <th>BAL</th> --}}
+                                        <th data-hide="phone">SPEC</th>
+                                        <th data-hide="phone">RKL</th>
+                                        <th data-hide="phone">Total</th>
+                                        <th data-hide="phone">Net Amt</th>
+                                        <th data-hide="phone">Wallet Balance</th>
+                                    </tr>
                                 </thead>
+
                                 <tbody>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-                                    <td>Islarik Menib</td>
-                                    <td>
-                                        <span class="label label-primary">Success</span>
-                                    </td>
-
-                                    <td>
-                                        45897421
-                                    </td>
-                                    <td>
-                                        Lekki
-                                    </td>
-                                    <td>
-                                        ₦5,000.00
-                                    </td>
-                                    <td>
-                                        9807 2676
-                                    </td>
-                                    <td>
-                                        254
-                                    </td>
-                                    <td>
-                                        ₦100
-                                    </td>
-                                    <td>
-                                        ₦270
-                                    </td>
-                                    <td>
-                                        ₦13,000
-                                    </td>
-                                    <td>
-                                        ₦204
-                                    </td>
-                                    <td>
-                                        ₦11.48
-                                    </td>
-                                    <td>
-                                        ₦5.1
-                                    </td>
-                                    <td>
-                                        ₦46.1
-                                    </td>
-                                    <td>
-                                        ₦370
-                                    </td>
-                                    <td>
-                                        ₦13,230
-                                    </td>
-                                </tr>
-
+                                    @foreach($data as $d)
+                                        <tr>
+                                            <td>{{ date('d/m/Y', strtotime($d->created_at)) }}</td>
+                                            <td>{{ $d->transaction_ref }}</td>
+                                            <td>Web</td>
+                                            <td>{{ $d->payment_type }}</td>
+                                            <td>{{ $d->first_name }} {{ $d->last_name }}</td>
+                                            <td>
+                                                <span class="label label-primary">Successful</span>
+                                            </td>
+                                            <td>{{ $d->meter_no }}</td>
+                                            <td>Lekki</td>
+                                            <td>9807 2676</td>
+                                            <td>254</td>
+                                            <td>₦{{$d->conv_fee }}</td>
+                                            <td>₦{{ (2/100) * $d->amount }}</td>
+                                            <td>₦{{ $d->total_amount }}</td>
+                                            <td>₦{{$d->amount }}</td>
+                                            <td>₦{{ (1.5/100) * $d->total_amount }}</td>
+                                            <td>₦{{ (0.85/100) * $d->amount }}</td>
+                                            <td>₦{{ $d->balance * 0.1 }}</td>
+                                            <td>₦{{$d->balance * 0.9 }}</td>
+                                            <td>₦{{ ((1.5/100) * $d->total_amount) + ((0.85/100) * $d->amount) + ($d->balance * 0.1) + ($d->balance * 0.9) }}</td>
+                                            <td>₦{{ $d->amount + (2/100) * $d->amount }}</td>
+                                            <td>₦</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td colspan="7">
-                                        <ul class="pagination pull-right"></ul>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="7"> <ul class="pagination pull-right"></ul></td>
+                                    </tr>
                                 </tfoot>
                             </table>
-
                         </div>
                     </div>
 
@@ -690,6 +224,7 @@
 
         </div>
         @push('scripts')
+        
 <script src="js/plugins/chartJs/Chart.min.js"></script>
     <script src="js/demo/chartjs-demo.js"></script>
         <script>

@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('home', 'AccountController@home')->name('home')->middleware('auth');
     Route::get('customer-profile', 'AccountController@customerProfile')->name('customer-profile');
     Route::get('make-payment', 'AccountController@makePayment')->name('make-payment');
+    Route::get('payment-frame','AccountController@paymentFrame');
     Route::post('make-payment', 'AccountController@postPayment');
     Route::get('meter-request', 'AccountController@meterRequest')->name('meter.request');
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
@@ -76,8 +77,13 @@ Route::prefix('agent')->group(function() {
     Route::get('profile','AgentController@profile')->name('agent.profile');
     Route::get('payment-history','AgentController@paymentHistory')->name('agent.payHistory');
     Route::get('meter-management','AgentController@meterManagement')->name('agent.meter');
+    Route::post('meter-management','AccountController@postMeterRequest')->name('meter.post-request');
+    Route::get('buy-token','AgentController@buyToken')->name('agent.buy-token');
     Route::get('dashboard','AgentController@dashboard')->name('agent.dashboard');
+    Route::get('check-admin-balance','AgentController@checkAdminBalance');
     Route::get('topup-agent/success/{amount}','AgentController@completeTopup');
+    Route::get('payment-agent/{ref}/success','AgentController@agentTokenSuccess');
+    Route::get('payment-agent-customer/{ref}/success','AgentController@agentCustomerTokenSuccess');
 });
 
 

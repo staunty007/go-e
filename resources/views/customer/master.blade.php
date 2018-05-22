@@ -28,6 +28,11 @@
     })();
     </script>
     <!--End of Tawk.to Script-->
+    <style>
+        #myModal6:active {
+            z-index: -10;
+        }
+        </style>
 </head>
 
 <body>
@@ -95,7 +100,7 @@
             </form> --}}
             <div class="row" style="margin-top: 1em">
                 <div class="col-md-4">
-                    <button class="btn btn-primary">Buy Token</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Buy Token</button>
                 </div>
                 <div class="col-md-8">
                     <p style="margin-top: 0.7em; font-size: 16px">
@@ -103,6 +108,35 @@
                     </p>
                 </div>
                 
+            </div>
+            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title">Top Up Wallet</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <form id="admin_amount">
+                                    <div class="form-group">
+                                        <label>Amount</label>
+                                        <input id="topup-amount" placeholder="Enter Amount" class="form-control">
+                                    </div>
+                                    <div>
+                                    </div>
+                                </form>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="this.innerHTML='Connecting to payment gateway'; payWithPaystack()" id="topUpBtn">
+                                    <strong>Top Up Now</strong>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
             <ul class="nav navbar-top-links navbar-right">
@@ -144,7 +178,6 @@
 
         </div>
         </div>
-
 
 
     <!-- Mainly scripts -->

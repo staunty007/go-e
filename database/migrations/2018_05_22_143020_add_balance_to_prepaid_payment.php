@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAvatarFieldtoUser extends Migration
+class AddBalanceToPrepaidPayment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAvatarFieldtoUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string("avatar", 500);
+        Schema::table('prepaid_payment', function (Blueprint $table) {
+            $table->string('balance');
         });
     }
 
@@ -25,5 +25,8 @@ class AddAvatarFieldtoUser extends Migration
      */
     public function down()
     {
+        Schema::table('prepaid_payment', function (Blueprint $table) {
+            $table->dropColumn('balance');
+        });
     }
 }

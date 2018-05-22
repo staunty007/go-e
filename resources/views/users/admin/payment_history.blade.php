@@ -12,8 +12,8 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
-                            <table style="border: 1px solid black;">
-                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10">
+
+                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" style="border: 1px solid black;overflow-x:scroll;">
 
                                     <thead>
                                         <tr>

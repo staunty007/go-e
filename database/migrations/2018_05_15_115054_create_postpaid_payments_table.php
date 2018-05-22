@@ -23,6 +23,7 @@ class CreatePostpaidPaymentsTable extends Migration
             $table->integer('conv_fee');
             $table->integer('total_amount');
             $table->text('transaction_ref');
+            $table->integer('is_agent')->default(0);
             $table->timestamps();
         });
     }
