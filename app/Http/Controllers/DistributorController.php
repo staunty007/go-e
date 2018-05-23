@@ -51,7 +51,18 @@ class DistributorController extends Controller
 
         $data['registeredcustomers'] = User::where('role_id', 3)->count();
         $data['registeredagents'] = User::where('role_id', 2)->count();
-        return $this->v('finance', $data);
+
+
+        $prepaidPayments = PrepaidPayment::orderBy('created_at','desc')->get();
+        $postpaidPayments = PostpaidPayment::orderBy('created_at','desc')->get();
+
+        $payments = collect([$prepaidPayments,$postpaidPayments]);
+
+        //return $payments;
+
+        return view($this->prefix.'finance')
+                ->withData($payments->collapse())
+                ;
     }
     public function profile()
     {

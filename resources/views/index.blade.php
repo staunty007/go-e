@@ -550,7 +550,7 @@
 									<b>Head Office</b>
 								</h5>
 								<h5>
-									<b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lagos</h5>
+									<b>Contact Address:</b> Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lekki Phase 1, Lagos</h5>
 								<h5>
 									<b>Phone:</b> 08052313815</h5>
 								<h5>
@@ -732,7 +732,7 @@
 					data: formdata,
 					success: (response) => {
 						if (response.sus == 1) {
-							swal('Successfull', 'Account Registration Successfull', 'success');
+							swal('Successful', 'Account Registration Successful', 'success');
 							$(this).prop('disabled', false);
 							setTimeout(() => {
 								window.location.href = '/registration/verify';
@@ -765,7 +765,7 @@
 					success: (response) => {
 						if (response.sus == 1) {
 							setTimeout(() => {
-								swal('Successfull', 'Login Successfull', 'success');
+								swal('Successful', 'Login Successful', 'success');
 								$(this).prop('disabled', false);
 								setTimeout(() => {
 									window.location.href = '/home';
@@ -820,7 +820,7 @@
 					ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
 
 					callback: function (response) {
-						swal('Yay!', 'Payment Successfull', 'success');
+						swal('Yay!', 'Payment Successful', 'success');
 						setTimeout(() => {
 							window.location.href = '/payment/' + response.reference + '/success';
 						}, 3000);

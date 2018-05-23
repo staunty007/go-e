@@ -16,11 +16,11 @@
                                 <div class="ibox float-e-margins" style="height: 100%;">
                                     <div class="ibox-title">
                                         {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
-                                        <h5>Current Balance</h5>
+                                        <h5>Current Meter Balance</h5>
                                     </div>
                                     <div class="ibox-content">
                                         <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
-                                        <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                        {{-- <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div> --}}
                                         
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="ibox-content">
                                         <h1 class="no-margins"><span>&#8358;</span>120</h1>
-                                        <div class="stat-percent font-bold text-navy">4% <i class="fa fa-level-up"></i></div>
+                                        {{-- <div class="stat-percent font-bold text-navy">4% <i class="fa fa-level-up"></i></div> --}}
                                         <small>Average Cost of Electricity Per day</small>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
  
             <div class="row">
                 <div class="col-md-12 text-center"  id="group-pay">
-                    <h1>Who are you paying For? </h1>
+                    <h1>Choose Meter Option </h1>
                     <div class="btn-group">
                         <button id='tFS' class="btn btn-primary btn-md">Prepaid</button>
                         <button id="tFO" class="btn btn-warning btn-md">Postpaid</button>

@@ -18,7 +18,13 @@
                                 <label class="col-sm-2 control-label">Last Name</label>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" name="last_name"> 
-                            </div></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Phone Number</label>
+                                <div class="col-sm-3"><input type="text" class="form-control" name="phone"></div>
+                                
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Address</label> 
                                 <div class="col-sm-9"><input type="text" class="form-control" name="address"></div><div class="form-group">
@@ -31,7 +37,9 @@
                             <label class="col-sm-2 control-label">Email Address</label>
                                 <div class="col-sm-3">
                                     <input type="text" name="email" class="form-control"> 
-                            </div></div>
+                                </div>
+                                
+                            </div>
                             <label class="col-sm-2 control-label">Distribution Company</label>
                                 <div class="col-sm-3">
                                     <select name="dist_company" class="form-control m-b" name="account">

@@ -3,7 +3,7 @@
 <div class="col-lg-14">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            Payment History
+            Commission Split Table
         </div>
         <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
@@ -13,7 +13,7 @@
                     <div class="ibox">
                         <div class="ibox-content">
 
-                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" style="border: 1px solid black;overflow-x:scroll;">
+                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" style="">
 
                                     <thead>
                                         <tr>
@@ -123,7 +123,7 @@
                                             <td>0.90%</td>
                                         </tr>
                                         <tr>
-                                            <td style="vertical-align:middle" rowspan="2">2</td>
+                                            <td style="vertical-align:middle" rowspan="2">3</td>
                                             <td style="vertical-align:middle" rowspan="2">mCash</td>
                                             <td style="vertical-align:middle" rowspan="4" colspan="2">100</td>
                                             <td>50-1999</td>

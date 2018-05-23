@@ -9,7 +9,7 @@
                                 <h5>Total Customers</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">275,800</h1>
+                                <h1 class="no-margins">{{ $customers }}</h1>
                                 {{-- <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
                                 <small>Customers</small> --}}
                             </div>
@@ -39,7 +39,7 @@
                                 <h5>Daily Sign up</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">10</h1>
+                                <h1 class="no-margins">{{ $dailySignup }}</h1>
                                 {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
                                 <small># of daily Customer sign Up</small> --}}
                             </div>
@@ -89,7 +89,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label" for="order_id">Transaction ID</label>
-                            <input type="number" id="order_id" name="order_id" value="" placeholder="Order ID" class="form-control">
+                            <input type="number" id="order_id" name="order_id" value="" placeholder="Transaction ID" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -151,7 +151,7 @@
                                         <th data-hide="phone">Trans Date</th>
                                         <th data-hide="phone">Trans Ref</th>
                                         <th data-hide="phone">Trans type</th>
-                                        <th data-hide="phone">Type</th>
+                                        <th data-hide="phone">Meter Type</th>
                                         <th data-hide="phone">Customer Name</th>
                                         <th data-hide="phone">Status</th>
                                         <th data-hide="phone">Meter #</th>

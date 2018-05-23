@@ -42,7 +42,7 @@
         <div class="col-lg-9">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Agent Profile Update</h5>
+                    <h5>ADMIN PROFILE UPDATE</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

@@ -95,6 +95,7 @@
                                             <th>Address</th>
                                             <th>Tel</th>
                                             <th>Email</th>
+                                            
                                             <th>Status</th>
                                             <th>District</th>
                                             <th data-hide="phone">Meter Type</th>
@@ -107,12 +108,13 @@
                                         </h3>
                                         @foreach ($requests as $req)
                                             <tr>
-                                                <td>{{ $req->id }}</td>
+                                                <td>MR-GO-1000{{ $req->id }}</td>
                                                 <td>{{ $req->first_name }} {{ $req->last_name }}</td>
                                                 <td>{{ $req->created_at }}</td>
                                                 <td>{{ $req->home_address }}</td>
-                                                <td>NULL</td>
+                                                <td>{{ $req->phone_number }}</td>
                                                 <td>{{ $req->email_address }}</td>
+                                                
                                                 <td>
                                                     @if($req->status == 0)
                                                     <span class="label label-warning">Pending</span>

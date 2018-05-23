@@ -90,10 +90,13 @@ class AgentController extends Controller
             $prepaid->payment_type = "Prepaid";
             $prepaid->save();
 
-            $smsNumber = "+234".$paymentDetails['mobile'];
+            $smsNumber = $paymentDetails['mobile'];
 
+            $amountPaid = $paymentDetails['amount'];
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
+            session()->put(['paid_amount' => $amountPaid]);
+            session()->put(['payment_type' => 'Prepaid']);
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
 
@@ -129,10 +132,13 @@ class AgentController extends Controller
             $prepaid->balance =  
             $prepaid->save();
 
-            $smsNumber = "+234".$paymentDetails['mobile'];
+            $smsNumber = $paymentDetails['mobile'];
 
+            $amountPaid = $paymentDetails['amount'];
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
+            session()->put(['paid_amount' => $amountPaid]);
+            session()->put(['payment_type' => 'Prepaid']);
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
 

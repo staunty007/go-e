@@ -12,14 +12,19 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label" for="order_id">Order ID</label>
-                                <input type="number" id="order_id" name="order_id" value="" placeholder="Order ID" class="form-control">
+                                <label class="control-label" for="order_id">Request ID</label>
+                                <input type="number" id="request_id" name="request_id" value="" placeholder="request ID" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label" for="status">Order status</label>
-                                <input type="text" id="status" name="status" value="" placeholder="Status" class="form-control">
+                                <select name="status" class="form-control">
+                                    <option value="">Select Status</option>
+                                    <option value="">Installation Date</option>
+                                    <option value="">Not Available</option>
+                                    <option value="">Installed</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -30,7 +35,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label class="control-label" for="customer">Amount Paid</label>
+                                <label class="control-label" for="customer">Meter Number</label>
                                 <input type="number" id="meter#" name="Meter#" value="" placeholder="Meter Number" class="form-control">
                             </div>
                         </div>
@@ -86,7 +91,6 @@
 
                                             <th>Request ID</th>
                                             <th data-hide="phone">Name</th>
-                                            <th data-hide="phone">Amount</th>
                                             <th data-hide="phone">Address</th>
                                             <th data-hide="phone">Tel</th>
                                             <th data-hide="phone">Email</th>
@@ -114,9 +118,7 @@
                                             <td>
                                                 Makus Igwe
                                             </td>
-                                            <td>
-                                                ₦50,000.00
-                                            </td>
+                                            
                                             <td>
                                                 29 Ralmouf Street, Lekki phase 1
                                             </td>
@@ -146,326 +148,6 @@
                                                 Residential
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <tr>
-                                                <td>
-                                                    02 </td>
-                                                <td>
-                                                    Way Concept Limited
-                                                </td>
-                                                <td>
-                                                    ₦150,000.00
-                                                </td>
-                                                <td>
-                                                    119 Anya Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    12@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Installed</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-danger">Not Available</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Success</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Success</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Success</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Success</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Success</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    01
-                                                </td>
-                                                <td>
-                                                    Makus Igwe
-                                                </td>
-                                                <td>
-                                                    ₦50,000.00
-                                                </td>
-                                                <td>
-                                                    29 Ralmouf Street, Lekki phase 1
-                                                </td>
-                                                <td>
-                                                    081-954-8974
-                                                </td>
-                                                <td>
-                                                    makusigwe@somebody.com
-                                                </td>
-                                                <td>
-                                                    <span class="label label-primary">Success</span>
-                                                </td>
-
-                                                <td>
-                                                    12 Williams Street
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Lekki
-                                                </td>
-                                                <td>
-                                                    Post Paid
-                                                </td>
-                                                <td>
-                                                    Business
-                                                </td>
-                                            </tr>
-
-
-
-
-
-
 
                                     </tbody>
                                     <tfoot>

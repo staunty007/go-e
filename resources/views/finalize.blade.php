@@ -49,8 +49,8 @@
         <div id="app">
         <input type="hidden" value="{{ session('smsNumber') }}" id='number'/>
         <input type="hidden" value="{{ session('smsRef') }}" id='ref'/>
-        {{-- <input type="hidden" value="{{ session('payment_type') }} " id="paymentType">
-        <input type="hidden" value="{{ session('paid_amount') }}" id="paidAmount"> --}}
+        <input type="hidden" value="{{ session('payment_type') }} " id="paymentType">
+        <input type="hidden" value="{{ session('paid_amount') }}" id="paidAmount">
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title">
@@ -59,7 +59,7 @@
                         Connecting.... 
                     </div>
                     <div v-else>   
-                        <div v-if="sent">
+                        <div v-if="sent || redir">
                             Sms Sent Successfully.
                         </div>
                         <div v-else>
@@ -92,8 +92,9 @@
                     smsNumber: document.querySelector('#number').value,
                     smsRef: document.querySelector('#ref').value,
                     paymentType: document.querySelector("#paymentType").value,
-                    textMsg = "",
-                    paidAmount = document.querySelector("#paymentType").value,
+                    textMsg: "",
+                    paidAmount: document.querySelector("#paidAmount").value,
+                    apiReq: "",
                     error: false,
                     sent: false,
                     loading: true,
@@ -101,7 +102,7 @@
                 },
                 mounted: function() {
                     this.loading = false
-                   this.sendSMS()
+                    this.sendSMS()
                 },
                 // created:  {
                 //     this.sendSMS();
@@ -110,8 +111,10 @@
                     sendSMS: function() {
 
                     this.textMsg = "Meter Token: 424289848298928.\nYour Eko Electricity Distribution Company Plc" + this.paymentType+" payment of NGN "+this.paidAmount+" was successfull.\nREF: "+this.smsRef+". \nFor support call 0700 000000000";
-                        //var app = this
-                    axios.get("http://api.ebulksms.com:8080/sendsms?username=codergab@gmail.com&apikey=13c346d8195b64ae915347fac6e4249d9ca668f2&sender=GOENERGEE&messagetext="+this.textMsg+"&flash=0&recipients="+this.smsNumber+"")
+                    
+                    this.apiReq = "http://portal.bulksmsnigeria.net/api/?username=codergab@gmail.com&password=Ayomideg@7&message="+this.textMsg+"&sender=GOENERGEE&mobiles="+this.smsNumber+"";
+
+                    axios.get(this.apiReq, { crossdomain: true })
                         .then(response => {
                             this.sent = true
                             console.log

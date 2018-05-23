@@ -1,6 +1,6 @@
 @extends('layouts.admin') @section('content')
 
-<div class="row">
+{{-- <div class="row">
 
     <div class="col-sm-4">
         <h1 class="m-b-xs">
@@ -113,7 +113,7 @@
 
     </div>
 
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col-lg-12">
@@ -128,15 +128,15 @@
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Year</span>
-                    <span class="label label-primary pull-right">Month</span>
+                    {{-- <span class="label label-primary pull-right">Year</span>
+                    <span class="label label-primary pull-right">Month</span> --}}
                     <h5>Income</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">₦40 886,200</h1>
-                    <div class="stat-percent font-bold text-success">98%
+                    {{-- <div class="stat-percent font-bold text-success">98%
                         <i class="fa fa-bolt"></i>
-                    </div>
+                    </div> --}}
                     <small>Total income</small>
                 </div>
             </div>
@@ -144,15 +144,15 @@
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Year</span>
-                    <span class="label label-primary pull-right">Month</span>
+                    {{-- <span class="label label-primary pull-right">Year</span>
+                    <span class="label label-primary pull-right">Month</span> --}}
                     <h5>Avg Daily Earning</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">₦230,000</h1>
-                    <div class="stat-percent font-bold text-info">20%
+                    {{-- <div class="stat-percent font-bold text-info">20%
                         <i class="fa fa-level-up"></i>
-                    </div>
+                    </div> --}}
                     <small>Average Daily Transaction per customer</small>
                 </div>
             </div>
@@ -174,10 +174,10 @@
                 <div class="ibox-content">
                     <h1 class="no-margins">Balance =
                         <span>&#8358;</span> {{ $data['wallet_balance'] }}</h1>
-                    <div class="stat-percent font-bold text-success">5 days
+                    {{-- <div class="stat-percent font-bold text-success">5 days
                         <i class="fa fa-bolt"></i>
                     </div>
-                    <small>Remaining days to finish</small>
+                    <small>Remaining days to finish</small> --}}
                 </div>
             </div>
         </div>
@@ -191,8 +191,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label" for="order_id">Order ID</label>
-                            <input type="number" id="order_id" name="order_id" value="" placeholder="Order ID" class="form-control">
+                            <label class="control-label" for="order_id">Transaction Reference</label>
+                            <input type="number" id="order_id" name="transaction_ref" value="" placeholder="Transaction Reference" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-4">

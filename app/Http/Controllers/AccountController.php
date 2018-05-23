@@ -123,12 +123,12 @@ class AccountController extends Controller
             
             $prepaid->save();
 
-            $smsNumber = "+234".$paymentDetails['mobile'];
+            $smsNumber = $paymentDetails['mobile'];
             $amountPaid = $paymentDetails['amount'];
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
             session()->put(['paid_amount' => $amountPaid]);
-            session()->put(['paymemtType' => 'Prepaid']);
+            session()->put(['payment_type' => 'Prepaid']);
             
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
@@ -164,12 +164,14 @@ class AccountController extends Controller
                 }
             }
             if ($mobile) {
-                $smsNumber = "234".$mobile;
+                $smsNumber = $mobile;
+
+                $amountPaid = $paymentDetails['amount'][$key];
                 
                 session()->put(['smsNumber' => $smsNumber]);
                 session()->put(['smsRef' => $ref]);
-                session()->put(['paid_amount' => $paymentDetails['amount']]);
-                session()->put(['paymemtType' => 'PostPaid']);
+                session()->put(['paid_amount' => $amountPaid]);
+                session()->put(['payment_type' => 'Prepaid']);
 
                 return redirect()->route('finalize', [$smsNumber,$ref]);
             }
@@ -193,7 +195,8 @@ class AccountController extends Controller
                 return view('users.agent.financial')->withDetails($agent);
                 break;
             case '3':
-                return view('users.distributor.home');
+                // return view('users.distributor.finance');
+                return redirect('/distributor/finance');
                 break;
             default:
                 return view('customer.dashboard');
@@ -239,6 +242,7 @@ class AccountController extends Controller
         $meterRequest->first_name = $request->first_name;
         $meterRequest->last_name = $request->last_name;
         $meterRequest->email_address = $request->email;
+        $meterRequest->phone_number = $request->phone;
         $meterRequest->home_address = $request->address;
         $meterRequest->closest_bus_stop = $request->closest_bus_stop;
         $meterRequest->dist_company = $request->dist_company;

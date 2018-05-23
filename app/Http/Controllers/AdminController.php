@@ -103,8 +103,13 @@ class AdminController extends Controller
 
         $admin = AdminBiodata::find(1);
         
-
-        return view($this->prefix.'customer_report')->withData(array_collapse($data));
+        $totalCustomers = User::where('role_id',0)->count();
+        $dailySignup = User::where('created_at',new Carbon('today'))->count();
+        return view($this->prefix.'customer_report')
+                ->withData(array_collapse($data))
+                ->withCustomers($totalCustomers)
+                ->withDailySignup($dailySignup)
+                ;
     }
     public function payment_history()
     {
