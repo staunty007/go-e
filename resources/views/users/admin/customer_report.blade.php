@@ -21,10 +21,10 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 {{-- <span class="label label-primary pull-right">Today</span> --}}
-                                <h5>Visits</h5>
+                                <h5>Prepaid Payments</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">106,120</h1>
+                                <h1 class="no-margins">{{ $prepaids }}</h1>
                                 {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
                                 <small>New visits</small> --}}
                             </div>
@@ -36,10 +36,10 @@
                             <div class="ibox-title">
 
 
-                                <h5>Daily Sign up</h5>
+                                <h5>Postpaid Payments</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ $dailySignup }}</h1>
+                                <h1 class="no-margins">{{ $postpaids }}</h1>
                                 {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
                                 <small># of daily Customer sign Up</small> --}}
                             </div>

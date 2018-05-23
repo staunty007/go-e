@@ -115,14 +115,6 @@
 
 </div> --}}
 
-<div class="row">
-    <div class="col-lg-12">
-
-
-
-    </div>
-</div>
-
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-4">
@@ -133,7 +125,7 @@
                     <h5>Income</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">₦40 886,200</h1>
+                    <h1 class="no-margins">₦{{ number_format($data['income']) }}</h1>
                     {{-- <div class="stat-percent font-bold text-success">98%
                         <i class="fa fa-bolt"></i>
                     </div> --}}
@@ -146,14 +138,14 @@
                 <div class="ibox-title">
                     {{-- <span class="label label-primary pull-right">Year</span>
                     <span class="label label-primary pull-right">Month</span> --}}
-                    <h5>Avg Daily Earning</h5>
+                    <h5>Avg Earning</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">₦230,000</h1>
+                    <h1 class="no-margins">₦{{number_format($data['avg_daily'])}}</h1>
                     {{-- <div class="stat-percent font-bold text-info">20%
                         <i class="fa fa-level-up"></i>
                     </div> --}}
-                    <small>Average Daily Transaction per customer</small>
+                    {{-- <small>Average Daily Transaction per customer</small> --}}
                 </div>
             </div>
         </div>

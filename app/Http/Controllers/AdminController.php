@@ -71,7 +71,21 @@ class AdminController extends Controller
         $admin = AdminBiodata::find(1);
         $data['wallet_balance'] = $admin->wallet_balance;
 
-        //return $data['wallet_balance'];
+        //Income
+        $incomePrepaid = PrepaidPayment::sum('total_amount');
+        $incomePostpaid = PostpaidPayment::sum('total_amount');
+        $income = $incomePrepaid + $incomePostpaid;
+        $data['income'] = $income;
+
+        // Avg Daily Earning
+        $countPrepaid = PrepaidPayment::all()->count();
+        $countPostpaid = PostpaidPayment::all()->count();
+
+        $allTransaction = $countPrepaid + $countPostpaid;
+        $averageDaily = $income / $allTransaction;
+
+        $data['avg_daily'] = $averageDaily;
+
         return $this->v('finance', $data);
     }
     public function profile()
@@ -95,20 +109,22 @@ class AdminController extends Controller
     {
         $data=[];
 
-        $prepaidPayments = PrepaidPayment::all();
+        $prepaidPayments = PrepaidPayment::all()->count();
 
-        $postpaidPayments = PostpaidPayment::all();
+        $postpaidPayments = PostpaidPayment::all()->count();
 
         $data = collect([$prepaidPayments,$postpaidPayments]);
 
         $admin = AdminBiodata::find(1);
         
         $totalCustomers = User::where('role_id',0)->count();
-        $dailySignup = User::where('created_at',new Carbon('today'))->count();
+        // $dailySignup = User::where('created_at',new Carbon('today'))->count();
         return view($this->prefix.'customer_report')
                 ->withData(array_collapse($data))
                 ->withCustomers($totalCustomers)
-                ->withDailySignup($dailySignup)
+                ->withPrepaids($prepaidPayments)
+                ->withPostpaids($postpaidPayments)
+                // ->withDailySignup($dailySignup)
                 ;
     }
     public function payment_history()

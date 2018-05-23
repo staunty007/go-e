@@ -817,7 +817,7 @@
 					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
 					email: document.querySelector('.meter-email').value,
 					amount: chargedAmount + "00",
-					ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
 
 					callback: function (response) {
 						swal('Yay!', 'Payment Successful', 'success');
