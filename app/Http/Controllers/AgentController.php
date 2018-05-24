@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\AgentBiodata;
 use App\AdminBiodata;
+use App\PrepaidPayment;
+use App\PostpaidPayment;
 
 class AgentController extends Controller
 {
@@ -29,6 +31,12 @@ class AgentController extends Controller
 
     public function paymentHistory()
     {
+        $prepaidAgent = PrepaidPayment::where('is_agent',1)->get();
+        $postpaidAgent = PostpaidPayment::where('is_agent',1)->get();
+
+        $combine = collect($prepaidAgent,$postpaidAgent);
+
+        return $combine;
         return $this->v('payment_history');
     }
     public function buyToken()

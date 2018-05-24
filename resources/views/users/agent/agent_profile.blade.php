@@ -384,10 +384,7 @@
 
                 </div>
 @push('scripts')
-     <!-- Custom and plugin javascript -->
-     <script src="j/s/inspinia.js"></script>
-     <script src="/js/plugins/pace/pace.min.js"></script>
- 
+
      <!-- Steps -->
      <script src="/js/plugins/steps/jquery.steps.min.js"></script>
  

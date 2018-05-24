@@ -83,6 +83,7 @@ class AccountController extends Controller
     }
     public function paymentHolder(Request $request)
     {
+        //return $request;
         // Check if payment sending is not greater than that of admin
         $adminDetails = AdminBiodata::where('user_id',1)->first();
 

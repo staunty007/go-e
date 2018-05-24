@@ -412,32 +412,7 @@
 
         });
     </script>
-	<script src="https://js.paystack.co/v1/inline.js"></script>
-    <script>
-        
-        function payWithPaystack() {
-            // alert('This payment is not yet completed');
-            var amount = document.querySelector('#topup-amount').value;
-            var handler = PaystackPop.setup({
-                key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-                email: "admin@goenergee.com",
-                amount: amount + "00",
-                ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-
-                callback: function (response) {
-                    // swal('Yay!', 'Payment Successfull', 'success');
-                    setTimeout(() => {
-                        window.location.href = '/agent/topup-agent/success/'+amount;
-                    }, 1000);
-                },
-                onClose: function () {
-                    alert('Payment Cancelled');
-                    $('#topUPBtn').html('Top up');
-                }
-            });
-            handler.openIframe();
-        }
-    </script>
-    {{-- @stack('popups') @stack('scripts') --}}
+	
+    @stack('popups') @stack('scripts')
 </body>
 </html>

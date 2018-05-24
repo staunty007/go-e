@@ -56,7 +56,7 @@
                         </div>
                         <div class="ibox-content">
                             {{-- @if(isset($before)) --}}
-                            <form action="" method="POST" class="meterSelf">
+                            <form action="{{ url('payment/hold') }}" method="POST" class="meterSelf">
                                 {{ csrf_field()}}
                                 <div class="form-group">
                                     <label>Meter No.</label>
@@ -203,11 +203,16 @@
               $(".pay-meter1").click((e) => {
                   e.preventDefault();
                   $(this).prop('disabled',true);
+                  $('.pay-meter').html('Connecting to Gateway');
   
                   var formdata = $('.meterSelf').serialize();
+
+                  var payUri = $('.meterSelf').attr('action');
+
+                  //console.log(payUri);
   
                   $.ajax({
-                      url: 'payment/hold',
+                      url: payUri,
                       method: 'POST',
                       data: formdata,
                       success: (response) => {
@@ -217,67 +222,30 @@
                       }
                   })
               })
-              $(".pay-meter2").click((e) => {
-                  e.preventDefault();$('.pay-meter2').prop('disabled',true).html('Loading...');
-  
-                  var formdata = $('.meterOthers').serialize();
-  
-                  $.ajax({
-                      url: 'payment/hold',
-                      method: 'POST',
-                      data: formdata,
-                      success: (response) => {
-                          if(response.code == "ok") {
-                              payWithPaystack2();
-                          }
-                      }
-                  })
-              })
-              function payWithPaystack(){
-                  var amountMeter = document.querySelector('.meter-amount').value;
+                function payWithPaystack(){
+                    var amountMeter = document.querySelector('.meter-amount').value;
                   
-                  var chargedAmount = parseInt(amountMeter) + 100;
+                    var chargedAmount = parseInt(amountMeter) + 100;
                     console.log(chargedAmount);
-                var handler = PaystackPop.setup({
-                  key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-                  email: document.querySelector('.meter-email').value,
-                  amount: chargedAmount+"00",
-                  ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                  
-                  callback: function(response){
-                    //   swal('Yay!','Payment Successfull','success');
-                      setTimeout(() => {
-                          window.location.href='/payment-agent/'+response.reference+'/success';
-                      },1000);
-                  },
-                  onClose: function(){
-                      alert('Payment Cancelled');
-                  }
-                });
-                handler.openIframe();
+                    var handler = PaystackPop.setup({
+                    key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+                    email: document.querySelector('.meter-email').value,
+                    amount: chargedAmount+"00",
+                    ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                    
+                    callback: function(response){
+                        //   swal('Yay!','Payment Successfull','success');
+                        setTimeout(() => {
+                            window.location.href='/payment-agent/'+response.reference+'/success';
+                        },1000);
+                    },
+                    onClose: function(){
+                        alert('Payment Cancelled');
+                    }
+                    });
+                    handler.openIframe();
               }
-              function payWithPaystack2(){
-                  var amountMeter = document.querySelector('.meter-amount-2').value;
-                  var chargedAmount = parseInt(amountMeter) + 100;
-                    console.log(chargedAmount);
-                var handler = PaystackPop.setup({
-                  key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-                  email: document.querySelector('.meter-email-2').value,
-                  amount: chargedAmount+"00",
-                  ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                  
-                  callback: function(response){
-                      swal('Yay!','Payment Successfull','success');
-                      setTimeout(() => {
-                          window.location.href='/payment-agent-customer/'+response.reference+'/success';
-                      },1000);
-                  },
-                  onClose: function(){
-                      alert('Payment Cancelled');
-                  }
-                });
-                handler.openIframe();
-              }
+              
             </script>
     <script src="/customer/js/bootstrap.min.js"></script>
 

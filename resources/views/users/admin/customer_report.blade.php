@@ -188,7 +188,7 @@
                                             <td>Lekki</td>
                                             <td>9807 2676</td>
                                             <td>254</td>
-                                            <td>₦{{$d->conv_fee }}</td>
+                                            <td>₦{{ $d->conv_fee }}</td>
                                             <td>₦{{ (2/100) * $d->amount }}</td>
                                             <td>₦{{ $d->total_amount }}</td>
                                             <td>₦{{$d->amount }}</td>
