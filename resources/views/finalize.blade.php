@@ -110,7 +110,7 @@
                 methods: {
                     sendSMS: function() {
 
-                    this.textMsg = "Meter Token: 424289848298928.\nYour Eko Electricity Distribution Company Plc" + this.paymentType+" payment of NGN "+this.paidAmount+" was successfull.\nREF: "+this.smsRef+". \nFor support call 0700 000000000";
+                    this.textMsg = "Meter Token: 424289848298928.\nYour Eko Electricity Distribution Company Plc. " + this.paymentType+" payment of NGN "+this.paidAmount+" was successfull.\nREF: "+this.smsRef+". \nFor support call 0700 000000000";
                     
                     this.apiReq = "http://portal.bulksmsnigeria.net/api/?username=codergab@gmail.com&password=Ayomideg@7&message="+this.textMsg+"&sender=GOENERGEE&mobiles="+this.smsNumber+"";
 
@@ -122,7 +122,12 @@
                         .catch(err => {
                             console.log(err);
                         })
-                        .finally(() => this.redir = true)
+                        .finally(() => {
+                            this.redir = true
+                            // setTimeout(() => {
+                            //     window.location.href="{{ url('home') }}"
+                            // },1000)
+                        })
                     }
                 }
             })

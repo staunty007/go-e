@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Auth;
 use App\AgentBiodata;
 use App\AdminBiodata;
-use App\PrepaidPayment;
-use App\PostpaidPayment;
+use App\Payment;
+use App\AgentTransaction;
+use DB;
+
 
 class AgentController extends Controller
 {
@@ -31,15 +33,21 @@ class AgentController extends Controller
 
     public function paymentHistory()
     {
-        $prepaidAgent = PrepaidPayment::where('is_agent',1)->get();
-        $postpaidAgent = PostpaidPayment::where('is_agent',1)->get();
+        $prepaidAgent = Payment::where([
+            ['user_type','=',1],
+            ['is_agent','=',1]
+        ])->get();
+        $postpaidAgent = Payment::where([
+            ['user_type','=',1],
+            ['is_agent','=',1]
+        ])->get();
 
         $combine = collect($prepaidAgent,$postpaidAgent);
 
-        return $combine;
+        //return $combine;
         return $this->v('payment_history');
     }
-    public function buyToken()
+    public function prepaidToken()
     {
         $isNotViolated = "";
         // check if amount to buy token is not violated
@@ -48,12 +56,12 @@ class AgentController extends Controller
         // Fetch Agent
         $fetchAgent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
 
-        if($fetchAdmin->wallet_balance < $fetchAgent->wallet_balance) {
+        if($fetchAdmin->wallet_balance < $fetchAgent->wallet_balance || $fetchAgent->wallet_balance == 0) {
             $isNotViolated = "Yes";
         }
        
 
-        return view($this->prefix.'buy-token')->withViolated($isNotViolated);
+        return view($this->prefix.'prepaid-token')->withViolated($isNotViolated);
     }
 
     public function meterManagement()
@@ -84,23 +92,64 @@ class AgentController extends Controller
             $paymentDetails = session('payment_details');
 
             // Insert into prepaid_payment
-            $prepaid = new PrepaidPayment;
+            $prepaid = new Payment;
+            $transaction = new AgentTransaction;
+            $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
 
-            $prepaid->first_name = $paymentDetails['first_name'];
-            $prepaid->last_name = $paymentDetails['last_name'];
-            $prepaid->phone_number = $paymentDetails['mobile'];
-            $prepaid->meter_no = $paymentDetails['meter_no'];
-            $prepaid->email = $paymentDetails['email'];
-            $prepaid->amount = $paymentDetails['amount'];
-            $prepaid->conv_fee = 100;
-            $prepaid->total_amount = $paymentDetails['amount'] + 100;
-            $prepaid->transaction_ref = $ref;
-            $prepaid->payment_type = "Prepaid";
-            $prepaid->save();
+            $paymentId = DB::table('payments')->insertGetId([
+                'first_name' => $paymentDetails['first_name'],
+                'last_name' => $paymentDetails['last_name'],
+                'email' => $paymentDetails['email'],
+                'phone_number' => $paymentDetails['mobile'],
+                'meter_no' => $paymentDetails['meter_no'],
+                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
+                'user_type' => 1,
+                'transaction_type' => "Web",
+                'transaction_ref' => $ref,
+                'value_of_kwh' => $paymentDetails['amount'] / 12.85,
+                'is_agent' => true,
+                'created_at' => new Carbon('now'),
+                'updated_at' => new Carbon('now'),
+            ]);
+
+            $transaction->payment_id = $paymentId;
+            $transaction->agent_id = $agentBio->agent_id;
+            $transaction->initial_amount = $paymentDetails['amount'];
+            $transaction->conv_fee = 100;
+
+            $total_amount = $paymentDetails['amount'] + 100;
+            $commission = $paymentDetails['amount'] * 0.02;
+            $pgp = $total_amount * 0.015;
+            $bal = (100 + $commission) - $pgp;
+            $spec = round($bal * 0.1,2);
+            $ralmuof = round($bal * 0.9,2);
+            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $netAmount = $paymentDetails['amount'] - $commission;
+
+            $transaction->total_amount = $total_amount;
+            $transaction->commission = $commission;
+            $transaction->pgp = $pgp;
+            $transaction->agent = 0.085 * $paymentDetails['amount'];
+            $transaction->bal = $bal;
+            $transaction->spec = $spec;
+            $transaction->ralmuof = $ralmuof;
+            $transaction->total_split = $totalSplit;
+            $transaction->net_amount = $netAmount;
+
+            // Wallet Balance
+            $adminBio = AdminBiodata::first();
+
+            //return $adminBio;
+
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+
+            $transaction->wallet_bal = $adminBio->wallet_balance;
+
+            $transaction->save();
+            $adminBio->save();
 
             $smsNumber = $paymentDetails['mobile'];
-
-            $amountPaid = $paymentDetails['amount'];
+            $amountPaid = $total_amount;
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
             session()->put(['paid_amount' => $amountPaid]);
@@ -122,7 +171,7 @@ class AgentController extends Controller
             $paymentDetails = session('payment_details');
 
             // Insert into prepaid_payment
-            $prepaid = new PrepaidPayment;
+            $prepaid = new Payment;
 
             $prepaid->first_name = $paymentDetails['first_name'];
             $prepaid->last_name = $paymentDetails['last_name'];

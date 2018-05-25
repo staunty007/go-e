@@ -15,6 +15,9 @@ class CreateCustomerBiodatasTable extends Migration
     {
         Schema::create('customer_biodatas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
+            $table->text('address')->nullable();
+            $table->string('meter_no')->nullable();
             $table->timestamps();
         });
     }

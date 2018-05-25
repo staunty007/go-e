@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PrepaidPayment;
-use App\PostpaidPayment;
+use App\Payment;
+use App\Transaction;
 use Carbon\Carbon;
 use App\User;
 use Auth;
@@ -36,30 +36,36 @@ class AdminController extends Controller
     public function finance()
     {
         $data=[];
-        $firstdayofmonth =date("Y-m-01");
-        $monthlysalesprepaid=PrepaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        $monthlysalespostpaid = PostpaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        $data['salesthismonth']= $monthlysalesprepaid+ $monthlysalespostpaid;
-        $today=date("Y-m-d 00:00:00");
-        $salesprepaid = PrepaidPayment::where('created_at', '>', $today)->count();
-        $salespostpaid = PostpaidPayment::where('created_at', '>', $today)->count();
-        $data['salestoday']= $salesprepaid+ $salespostpaid;
+        // $firstdayofmonth = date("Y-m-01");
+
+        // $monthlysalesprepaid = Payment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
+        // $monthlysalespostpaid = Payment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
+
+        // $data['salesthismonth'] = $monthlysalesprepaid+ $monthlysalespostpaid;
+
+        // $today=date("Y-m-d 00:00:00");
+
+        // $salesprepaid = Payment::where('created_at', '>', $today)->count();
+        // $salespostpaid = Payment::where('created_at', '>', $today)->count();
+
+        // $data['salestoday']= $salesprepaid+ $salespostpaid;
         
 
-        $start = new Carbon('first day of last month');
-        $end = new Carbon('last day of last month');
-        $incomelastmonthprepaid = PrepaidPayment::whereBetween('created_at', [$start,$end])->sum('total_amount');
-        $incomelastmonthpostpaid = PostpaidPayment::whereBetween('created_at', [$start, $end])->sum('total_amount');
-        
-        $data['incomelastmonth']= $incomelastmonthprepaid + $incomelastmonthpostpaid;
-        $start = new Carbon('first day of this year');
-        
-        $salescurrentyearprepaid = PrepaidPayment::where('created_at', '>', $start)->sum('total_amount');
-        $salescurrentyearpostpaid = PostpaidPayment::where('created_at', '>', $start)->sum('total_amount');
+        // $start = new Carbon('first day of last month');
+        // $end = new Carbon('last day of last month');
 
-        $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
+        // $incomelastmonthprepaid = Payment::whereBetween('created_at', [$start,$end])->sum('total_amount');
+        // $incomelastmonthpostpaid = Payment::whereBetween('created_at', [$start, $end])->sum('total_amount');
+        
+        // $data['incomelastmonth']= $incomelastmonthprepaid + $incomelastmonthpostpaid;
+        // $start = new Carbon('first day of this year');
+        
+        // $salescurrentyearprepaid = Payment::where('created_at', '>', $start)->sum('total_amount');
+        // $salescurrentyearpostpaid = Payment::where('created_at', '>', $start)->sum('total_amount');
 
-        $data['registeredcustomers']= User::where('role_id', 3)->count();
+        // $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
+
+        $data['registeredcustomers']= User::where('role_id', 0)->count();
         $data['registeredagents'] = User::where('role_id', 2)->count();
 
         // Wallet Balance
@@ -72,27 +78,37 @@ class AdminController extends Controller
         $data['wallet_balance'] = $admin->wallet_balance;
 
         //Income
-        $incomePrepaid = PrepaidPayment::sum('total_amount');
-        $incomePostpaid = PostpaidPayment::sum('total_amount');
-        $income = $incomePrepaid + $incomePostpaid;
-        $data['income'] = $income;
+        // $incomePrepaid = Payment::where('user_type',1)->with('transaction')->get();
+        // //eturn $incomePrepaid;
+        // $incomePostpaid = Payment::where('user_type',2)->with('transaction')->sum('total_amount');
+        
+        // $income = $incomePrepaid + $incomePostpaid;
+        $data['income'] = 0;
 
         // Avg Daily Earning
-        $countPrepaid = PrepaidPayment::all()->count();
-        $countPostpaid = PostpaidPayment::all()->count();
+        $countPrepaid = Payment::where('user_type',1)->count();
+        $countPostpaid = Payment::where('user_type',2)->count();
 
-        $allTransaction = $countPrepaid + $countPostpaid;
-        $averageDaily = $income / $allTransaction;
+        // $allTransaction = $countPrepaid + $countPostpaid;
+        // $averageDaily = $income / $allTransaction;
 
-        $data['avg_daily'] = $averageDaily;
+        $data['avg_daily'] = 1;
 
         return $this->v('finance', $data);
     }
+
+
+
+
     public function profile()
     {
         $user=Auth::user();
         return $this->v('profile', $user);
     }
+
+
+
+
     public function updateprofile(UpdateUser $request)
     {
         $user=User::find(Auth::user()->id);
@@ -105,15 +121,63 @@ class AdminController extends Controller
         $user->save();
         return back();
     }
+
+
+    public function directTransactions()
+    {
+        // Direct Payment
+        $payment = Payment::where('is_agent',0)->with('transaction')->get();
+        // All Customers
+        $customers = User::where('role_id',0)->count();
+        // All Prepaid Payments
+        $prepaids = Payment::where('user_type',1)->count();
+        // All Postpaid Payments
+        $postpaids = Payment::where('user_type',2)->count();
+
+        return view($this->prefix.'direct-payment')
+            ->withPayment($payment)
+            ->withCustomers($customers)
+            ->withPrepaids($prepaids)
+            ->withPostpaids($postpaids)
+            ;
+        
+    }
+    public function agentTransactions()
+    {
+        // Direct Payment
+        $payment = Payment::where('is_agent',1)->with('agent_transaction')->get();
+
+        // return $payment;
+        // All Customers
+        $customers = User::where('role_id',0)->count();
+        // All Prepaid Payments
+        $prepaids = Payment::where('user_type',1)->count();
+        // All Postpaid Payments
+        $postpaids = Payment::where('user_type',2)->count();
+
+        return view($this->prefix.'agent-payment')
+            ->withPayment($payment)
+            ->withCustomers($customers)
+            ->withPrepaids($prepaids)
+            ->withPostpaids($postpaids)
+            ;
+    }
+
     public function customer_report()
     {
         $data=[];
 
-        $prepaidPayments = PrepaidPayment::all()->count();
+        $prepaidCount = PrepaidPayment::all()->count();
 
-        $postpaidPayments = PostpaidPayment::all()->count();
+        $postpaidCount = PostpaidPayment::all()->count();
+
+        $prepaidPayments = PrepaidPayment::all();
+
+        $postpaidPayments = PostpaidPayment::all();
 
         $data = collect([$prepaidPayments,$postpaidPayments]);
+
+        // return $data->collapse();
 
         $admin = AdminBiodata::find(1);
         
@@ -122,15 +186,23 @@ class AdminController extends Controller
         return view($this->prefix.'customer_report')
                 ->withData(array_collapse($data))
                 ->withCustomers($totalCustomers)
-                ->withPrepaids($prepaidPayments)
-                ->withPostpaids($postpaidPayments)
+                ->withPrepaids($prepaidCount)
+                ->withPostpaids($postpaidCount)
                 // ->withDailySignup($dailySignup)
                 ;
     }
+
+
+
+
     public function payment_history()
     {
         return $this->v('payment_history');
     }
+
+
+
+
     public function demographics()
     {
         return $this->v('demographics');

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,8 +11,60 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert(
-             ['role_id'=>'4','first_name' => "Distributor","provider"=>'twitter',"provider_id"=>'465645','last_name' => "Account",'is_activated'=>1,"mobile"=>'','email'=>'distributor@goenergee.com','password'=> bcrypt('password')]
-        );
+        DB::table('users')->insert([
+            [
+                'role_id' => 1,
+                'first_name' => 'Administrator',
+                'last_name' => 'GOENERGEE',
+                'is_activated' => 1,
+                'mobile' => '123456789',
+                'email' => 'admin@goenergee.com',
+                'password' => bcrypt('password'),
+                'is_completed' => 1,
+                'provider' => '',
+                'provider_id' => '',
+                'access_token' => '',
+            ],
+            [
+                'role_id' => 2,
+                'first_name' => 'Agent',
+                'last_name' => 'GOENERGEE',
+                'is_activated' => 1,
+                'mobile' => '123456789',
+                'email' => 'agent@goenergee.com',
+                'password' => bcrypt('password'),
+                'is_completed' => 1,
+                'provider' => '',
+                'provider_id' => '',
+                'access_token' => '',
+            ],
+            [
+                'role_id' => 3,
+                'first_name' => 'Disco',
+                'last_name' => 'GOENERGEE',
+                'is_activated' => 1,
+                'mobile' => '123456789',
+                'email' => 'disco@goenergee.com',
+                'password' => bcrypt('password'),
+                'is_completed' => 1,
+                'provider' => '',
+                'provider_id' => '',
+                'access_token' => '',
+            ],
+        ]);
+
+        DB::table('admin_biodatas')->insert([
+            'user_id' => 1,
+            'wallet_balance' => 0,
+            'avatar' => '',
+        ]);
+
+        DB::table('agent_biodatas')->insert([
+            'user_id' => 2,
+            'agent_id' => 'GO-LEK12345',
+            'wallet_balance' => 0,
+            'profit' => 0,
+            'avatar' => '',
+        ]);
     }
 }

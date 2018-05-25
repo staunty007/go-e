@@ -4,6 +4,9 @@
 Route::get('/', function () {
     return view('index');
 });
+
+Route::post('/meter/api','MeterApiController@validateMeterUser');
+
 Route::get('finalize/{number}/{ref}', function () {
     return view('finalize');
 })->name('finalize');
@@ -19,9 +22,12 @@ Route::get('registration/verify', 'AccountController@sendAccountMail')->name('se
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
 
-Route::get('payment/postpaid', function () {
-    return view('make_payments');
-})->name('postpaid');
+
+Route::middleware('auth')->group(function() {
+    Route::get('home','AccountController@home')->name('home');
+});
+
+
 Route::get('postpaidpayment', function () {
     return view('postpaidpayment');
 })->name('postpaid');
@@ -37,12 +43,15 @@ Route::get('postpaidpayment/{ref}/success', 'AccountController@postpaidpaymentSu
 Route::post('payment/hold', 'AccountController@paymentHolder');
 // User Dashboard
 
-Route::middleware('auth')->group(function () {
-    Route::get('home', 'AccountController@home')->name('home')->middleware('auth');
-    Route::get('customer-profile', 'AccountController@customerProfile')->name('customer-profile');
-    Route::get('make-payment', 'AccountController@makePayment')->name('make-payment');
+Route::prefix('customer')->middleware('auth')->group(function () {
+    Route::get('home', 'AccountController@home')->name('customer.home');
+    Route::get('profile', 'AccountController@customerProfile')->name('customer.profile');
+    Route::post('profile/update','AccountController@updateProfile')->name('customer.update-profile');
+    Route::get('prepaid-payment', 'AccountController@prepaidPayment')->name('customer.prepaid-payment');
+    Route::get('postpaid-payment', 'AccountController@postpaidPayment')->name('customer.postpaid-payment');
     Route::get('payment-frame','AccountController@paymentFrame');
-    Route::post('make-payment', 'AccountController@postPayment');
+    Route::post('prepaid-payment', 'AccountController@postPrepaidPayment');
+    Route::post('postpaid-payment', 'AccountController@postPostpaidPayment');
     Route::get('meter-request', 'AccountController@meterRequest')->name('meter.request');
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
@@ -62,7 +71,8 @@ Route::prefix('backend')->group(function () {
     Route::get('administrator', 'AdminController@home')->name('admin.home');
     Route::get('finance', 'AdminController@finance')->name('admin.finance');
     Route::get('profile', 'AdminController@profile')->name('admin.profile');
-    Route::get('customer_report', 'AdminController@customer_report')->name('admin.customer_report');
+    Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
+    Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
     Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
     Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
     Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
@@ -78,7 +88,8 @@ Route::prefix('agent')->group(function() {
     Route::get('payment-history','AgentController@paymentHistory')->name('agent.payHistory');
     Route::get('meter-management','AgentController@meterManagement')->name('agent.meter');
     Route::post('meter-management','AccountController@postMeterRequest')->name('meter.post-request');
-    Route::get('buy-token','AgentController@buyToken')->name('agent.buy-token');
+    Route::get('prepaid-token','AgentController@prepaidToken')->name('agent.prepaid-token');
+    Route::get('postpaid-token','AgentController@postpaidToken')->name('agent.postpaid-token');
     Route::get('dashboard','AgentController@dashboard')->name('agent.dashboard');
     Route::get('check-admin-balance','AgentController@checkAdminBalance');
     Route::get('topup-agent/success/{amount}','AgentController@completeTopup');

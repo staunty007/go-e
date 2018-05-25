@@ -1,53 +1,8 @@
-<!DOCTYPE html>
+@extends('customer.master')
 
-<head>
-
-    <title>GOENERGEE</title>
-
-    <link href="images/favicon.png" rel="shortcut icon" type="image/png">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <link href="/css/main.css" rel='stylesheet' type='text/css'>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> -->
-    <style>
-        table .error {
-            font-size: 12px;
-            color: #e21709;
-        }
-    </style>
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            function tally(selector) {
-                $(selector).each(function () {
-                    var total = 0,
-                        column = $(this).siblings(selector).andSelf().index(this);
-                    $(this).parents().prevUntil(':has(' + selector + ')').each(function () {
-                        total += parseFloat($('td.sum:eq(' + column + ')', this).html()) || 0;
-                    })
-                    $(this).html(total);
-                });
-            }
-            tally('td.subtotal');
-            tally('td.total');
-        });
-    </script>
-
-
+@section('customer-section')
+  
+    {{-- @push('scripts') --}}
 
     <script type="text/javascript">
         function num(id) {
@@ -80,6 +35,7 @@
             }
         }
     </script>
+    {{-- @endpush --}}
     <style>
         @media only screen and (min-width: 1500px) {
             .body-container {
@@ -121,7 +77,7 @@
                             <span style="color:#80c636">Postpaid payments</span> here!</h4>
                         <div class="hr-line-dashed"></div>
                         <form action="POST" class="meter">
-                            <table class="table table-bordered table-responsive" id="postpaiditems" style="width:100%;">
+                            <table class="table table-bordered table-responsive">
                                 <thead>
                                     <tr>
 
@@ -135,117 +91,117 @@
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Postpaid" />
                                             <label>Account or Meter #<label>
-                                            <input type="text" name="account_number[]" id="meter_number1">
+                                            <input type="text" class="form-control" name="account_number[]" id="meter_number1">
                                         </td>
                                         <td>
                                             <label>Email Address</label>
-                                            <input type="email" name="email[]" id="email_1" size="35">
+                                            <input  class="form-control" type="email" name="email[]" id="email_1" size="35">
                                         </td>
                                         <td>
                                             <label>Mobile Number</label>
-                                            <input type="text" name="mobile[]" id="mobile_1">
+                                            <input  class="form-control" type="text" name="mobile[]" id="mobile_1">
                                         </td>
                                         <td>
                                             <label>Amount</label>
-                                            <input type="text" class="txt" name="amount[]" id="amount_1" class="theConvert">
+                                            <input  class="form-control" type="text" class="txt" name="amount[]" id="amount_1" class="theConvert">
                                         </td>
                                         <td>Convenience Fee
                                            
-                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                            <input  class="form-control" type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
-                                            <input type="text" name="subtotal_1" id="subtotal_1" placeholder="" disabled="">
+                                            <input  class="form-control" type="text" name="subtotal_1" id="subtotal_1" placeholder="" disabled="">
                                         </td>
                                     </tr>
                                     <tr>
 
                                         <td>Penalties</td>
                                         <td>
-                                            <input type="hidden" name="payment_type[]" value="Penalties" />
+                                            <input  class="form-control" type="hidden" name="payment_type[]" value="Penalties" />
                                             <label>Account or Meter #</label>
-                                            <input type="text" name="account_number[]" id="meter_number2">
+                                            <input  class="form-control" type="text" name="account_number[]" id="meter_number2">
                                         </td>
                                         <td>
                                             <label for="">Email Address</label>
-                                            <input type="email" name="email[]" id="email_2" size="35">
+                                            <input  class="form-control" type="email" name="email[]" id="email_2" size="35">
                                         </td>
                                         <td>
                                             <label for="">Mobile Number</label>
-                                            <input type="text" name="mobile[]" id="mobile_2">
+                                            <input  class="form-control" type="text" name="mobile[]" id="mobile_2">
                                         </td>
                                         <td>
                                             <label for="">Amount</label>
-                                            <input type="text" name="amount[]" class="txt" id="amount_2" class="theConvert">
+                                            <input  class="form-control" type="text" name="amount[]" class="txt" id="amount_2" class="theConvert">
                                         </td>
                                         <td>Convenience Fee
                                             
-                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                            <input  class="form-control" type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
-                                            <input type="text" name="subtotal_2" id="subtotal_2" placeholder="" disabled="">
+                                            <input  class="form-control" type="text" name="subtotal_2" id="subtotal_2" placeholder="" disabled="">
                                         </td>
                                     </tr>
                                     <tr>
 
                                         <td>Loss of Revenue</td>
                                         <td>
-                                            <input type="hidden" name="payment_type[]" value="Loss of Revenue" />
+                                            <input  class="form-control" type="hidden" name="payment_type[]" value="Loss of Revenue" />
                                             <label for="">Account or Meter #</label>
-                                            <input type="text" name="account_number[]" id="meter_number3">
+                                            <input  class="form-control" type="text" name="account_number[]" id="meter_number3">
                                         </td>
                                         <td>
                                             <label for="">Email Address</label>
-                                            <input type="email" name="email[]" id="email_3" size="35">
+                                            <input  class="form-control" type="email" name="email[]" id="email_3" size="35">
                                         </td>
                                         <td>
                                             <label for="">Mobile Number</label>
-                                            <input type="text" name="mobile[]" id="mobile_3">
+                                            <input  class="form-control" type="text" name="mobile[]" id="mobile_3">
                                         </td>
                                         <td>
                                             <label for="">Amount</label>
-                                            <input type="text" name="amount[]" class="txt" id="amount_3" class="theConvert">
+                                            <input  class="form-control" type="text" name="amount[]" class="txt" id="amount_3" class="theConvert">
                                         </td>
                                         <td>Convenience Fee
                                             
-                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                            <input  class="form-control" type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
-                                            <input type="text" name="subtotal_3" id="subtotal_3" placeholder="" disabled="">
+                                            <input  class="form-control" type="text" name="subtotal_3" id="subtotal_3" placeholder="" disabled="">
                                         </td>
                                     </tr>
                                     <tr>
 
                                         <td>Reconnection Fee</td>
                                         <td>
-                                            <input type="hidden" name="payment_type[]" value="Reconnection Fee" />
+                                            <input  class="form-control" type="hidden" name="payment_type[]" value="Reconnection Fee" />
                                             <label for="">Account or Meter #</label>
-                                            <input type="text" name="account_number[]" id="meter_number4">
+                                            <input  class="form-control" type="text" name="account_number[]" id="meter_number4">
                                         </td>
                                         <td>
                                             <label for="">Email Address</label>
-                                            <input type="email" name="email[]" id="email_4" size="35">
+                                            <input  class="form-control" type="email" name="email[]" id="email_4" size="35">
                                         </td>
                                         <td>
                                             <label for="">Mobile Number</label>
-                                            <input type="text" name="mobile[]" id="mobile_4">
+                                            <input  class="form-control" type="text" name="mobile[]" id="mobile_4">
                                         </td>
                                         <td>
                                             <label for="">Amount</label>
-                                            <input type="text" name="amount[]" class="txt" id="amount_4" class="theConvert">
+                                            <input  class="form-control" type="text" name="amount[]" class="txt" id="amount_4" class="theConvert">
                                         </td>
                                         <td>Convenience Fee
                                             
-                                            <input type="text" name="convienience" placeholder="N100.00" disabled="">
+                                            <input  class="form-control" type="text" name="convienience" placeholder="N100.00" disabled="">
                                         </td>
                                         <td>Subtotal
-                                            <input type="text" name="subtotal_4" id="subtotal_4" placeholder="" disabled="">
+                                            <input  class="form-control" type="text" name="subtotal_4" id="subtotal_4" placeholder="" disabled="">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="6" style="text-align:right;">Total Fee</td>
                                         <td>(Sum of the subtotal)
-                                            <input type="text" name="sum" id="sum" placeholder="" disabled="">
-                                            <input type="hidden" name="totalPayblleAmount" id="totalPayblleAmount" value=" ">
+                                            <input  class="form-control" type="text" name="sum" id="sum" placeholder="" disabled="">
+                                            <input  class="form-control" type="hidden" name="totalPayblleAmount" id="totalPayblleAmount" value=" ">
                                         </td>
                                     </tr>
 
@@ -265,6 +221,7 @@
             </div>
         </div>
     </div>
+    @push('scripts')
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="/js/sweetalert.min.js"></script>
     <script>
@@ -304,42 +261,6 @@
 
 
     <script type="text/javascript">
-        // $('#amount1').keyup(function () {
-        //     var x = 100;
-        //     var total_amount = Number($(this).val()) + Number(x)
-        //     $("#subtotal1").val(total_amount);
-        //     total_amount_paid = total_amount1;
-        //     $("#totalPayblleAmount").val(total_amount);
-
-        //     //.toFixed() method will roundoff the final sum to 2 decimal places
-        //     $("#sum").html(sum.toFixed(2));
-        // });
-        // $('#amount2').keyup(function () {
-        //     var x = 100;
-        //     var total_amount = Number($(this).val()) + Number(x)
-        //     $("#subtotal2").val(total_amount);
-        //     total_amount_paid2 = Number(total_amount) + Number(total_amount_paid);
-        //     $("#totalPayblleAmount").val(total_amount);
-        // });
-        // $('#amount3').keyup(function () {
-        //     var x = 100;
-        //     var total_amount = Number($(this).val()) + Number(x)
-        //     $("#subtotal3").val(total_amount);
-        //     total_amount_paid3 = Number(total_amount) + Number(total_amount_paid2);
-        //     $("#totalPayblleAmount").val(total_amount);
-        // });
-        // $('#amount4').keyup(function () {
-        //     var x = 100;
-        //     var total_amount = Number($(this).val()) + Number(x)
-        //     $("#subtotal4").val(total_amount);
-        //     total_amount_paid4 = Number(total_amount) + Number(total_amount_paid3);
-        //     $("#totalPayblleAmount").val(total_amount);
-
-        // });
-
-
-        //.toFixed() method will roundoff the final sum to 2 decimal places
-        // $("#sum").html(sum.toFixed(2));
         $("#paynow").click((e) => {
             e.preventDefault();
             $('#paynow').prop('disabled', true);
@@ -511,9 +432,5 @@
                 
         }
     </script>
-
-
-
-</body>
-
-</html>
+    @endpush
+@endsection

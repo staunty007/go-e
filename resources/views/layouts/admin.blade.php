@@ -78,11 +78,12 @@
                             </a>
                         </li>
 
-                        <li class="{{$current_route_name =="admin.customer_report" ? 'active' : ''}}">
-                            <a href="{{route('admin.customer_report')}}">
-                                <i class="fa fa-user"></i>
-                                <span class="nav-label">Payment History</span>
-                            </a>
+                        <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' || Request::is('backend/agent-transactions') ? 'active' :'' }}">
+                            <a><i class="fa fa-users"></i> <span class="nav-label">Payment History</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.direct-transactions') }}">Direct Transactions</a></li>
+                                <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent Transactions</a></li>
+                            </ul>
                         </li>
 
                         <li class="{{$current_route_name =="admin.payment_history" ? 'active' : ''}}">

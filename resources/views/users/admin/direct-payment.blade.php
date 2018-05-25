@@ -163,7 +163,7 @@
                                         <th data-hide="phone">Amount Chrgd</th>
                                         <th data-hide="phone">Unit Purchased</th>
                                         <th data-hide="phone">PGP</th>
-                                        <th data-hide="phone">Agent #</th>
+                                        {{-- <th data-hide="phone">Agent #</th> --}}
                                         {{-- <th>BAL</th> --}}
                                         <th data-hide="phone">SPEC</th>
                                         <th data-hide="phone">RKL</th>
@@ -174,31 +174,36 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach($data as $d)
+                                    @foreach($payment as $p)
                                         <tr>
-                                            <td>{{ date('d/m/Y', strtotime($d->created_at)) }}</td>
-                                            <td>{{ $d->transaction_ref }}</td>
-                                            <td>Web</td>
-                                            <td>{{ $d->payment_type }}</td>
-                                            <td>{{ $d->first_name }} {{ $d->last_name }}</td>
+                                            <td>{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
+                                            <td>{{ $p->transaction_ref }}</td>
+                                            <td>{{ $p->transaction_type }}</td>
+                                            <td>
+                                                @if ($p->user_type == 1)
+                                                    {{ 'Prepaid' }}
+                                                @else
+                                                    {{ 'Postpaid' }}
+                                                @endif
+                                            </td>
+                                            <td>{{ $p->first_name }} {{ $p->last_name }}</td>
                                             <td>
                                                 <span class="label label-primary">Successful</span>
                                             </td>
-                                            <td>{{ $d->meter_no }}</td>
+                                            <td>{{ $p->meter_no }}</td>
                                             <td>Lekki</td>
-                                            <td>9807 2676</td>
-                                            <td>254</td>
-                                            <td>₦{{ $d->conv_fee }}</td>
-                                            <td>₦{{ (2/100) * $d->amount }}</td>
-                                            <td>₦{{ $d->total_amount }}</td>
-                                            <td>₦{{$d->amount }}</td>
-                                            <td>₦{{ (1.5/100) * $d->total_amount }}</td>
-                                            <td>₦{{ (0.85/100) * $d->amount }}</td>
-                                            <td>₦{{ $d->balance * 0.1 }}</td>
-                                            <td>₦{{$d->balance * 0.9 }}</td>
-                                            <td>₦{{ ((1.5/100) * $d->total_amount) + ((0.85/100) * $d->amount) + ($d->balance * 0.1) + ($d->balance * 0.9) }}</td>
-                                            <td>₦{{ $d->amount + (2/100) * $d->amount }}</td>
-                                            <td>₦</td>
+                                            <td>{{ $p->recharge_pin }}</td>
+                                            <td>{{ round($p->value_of_kwh,1) }}</td>
+                                            <td>₦{{ $p->transaction->conv_fee }}</td>
+                                            <td>₦{{ $p->transaction->commission }}</td>
+                                            <td>₦{{ $p->transaction->total_amount }}</td>
+                                            <td>₦{{$p->transaction->initial_amount }}</td>
+                                            <td>₦{{ $p->transaction->pgp }}</td>
+                                            <td>₦{{ $p->transaction->spec }}</td>
+                                            <td>₦{{ $p->transaction->ralmuof }}</td>
+                                            <td>₦{{ $p->transaction->total_split }}</td>
+                                            <td>₦{{ $p->transaction->net_amount }}</td>
+                                            <td>₦{{ $p->transaction->wallet_bal }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

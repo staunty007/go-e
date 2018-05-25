@@ -50,8 +50,15 @@
                 <li class="{{ Request::is('agent/payment-history') ? 'active': '' }}">
                     <a href="{{ route('agent.payHistory') }}"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
                 </li>
-                <li class="{{ Request::is('agent/buy-token') ? 'active': '' }}">
+                {{-- <li class="{{ Request::is('agent/buy-token') ? 'active': '' }}">
                    <a href="{{ route('agent.buy-token') }}"><i class="fa fa-money"></i> <span class="nav-label">Buy Token</span></a>
+                </li> --}}
+                <li class="{{ Request::is('agent/prepaid-token') ? 'active' :'' || Request::is('agent/postpaid-token') ? 'active' :'' }}">
+                    <a><i class="fa fa-money"></i> <span class="nav-label"> Buy Token</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="{{ Request::is('agent/prepaid-token') ? 'active' :'' }}"><a href="{{ route('agent.prepaid-token') }}">Prepaid Token</a></li>
+                        <li class="{{ Request::is('agent/postpaid-token') ? 'active' :'' }}"><a href="{{ route('agent.postpaid-token') }}">Postpaid Token</a></li>
+                    </ul>
                 </li>
 				<li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
                    <a href="{{ route('agent.meter') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
@@ -397,7 +404,6 @@
                         grid: {
                             hoverable: true,
                             clickable: true,
-
                             borderWidth: 2,
                             color: 'transparent'
                         },
@@ -412,7 +418,31 @@
 
         });
     </script>
-	
+
+	<script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+       
+        function payWithPaystack() {
+            var topupAmount = document.querySelector('#topup-amount').value;
+            var handler = PaystackPop.setup({
+            key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+            email: "agent@goenergee.com",
+            amount: topupAmount + "00",
+            ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN",
+            callback: function (response) {
+                setTimeout(() => {
+                    window.location.href = '/agent/topup-agent/success/'+topupAmount;
+                }, 1000);
+            },
+            onClose: function () {
+                alert('Payment Cancelled');
+                $('#topUPBtn').html('Top up');
+            }
+        });
+            handler.openIframe();
+        }
+    </script>
+
     @stack('popups') @stack('scripts')
 </body>
 </html>

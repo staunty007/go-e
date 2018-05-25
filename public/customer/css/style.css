@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -4246,10 +4247,10 @@ a.close-canvas-menu:hover {
   float: left;
 }
 .modal-backdrop {
-  z-index: 2040 !important;
+  z-index: 99 !important;
 }
 .modal {
-  z-index: 2050 !important;
+  z-index: 999 !important;
 }
 .spiner-example {
   height: 200px;
@@ -8560,3 +8561,4 @@ body.md-skin {
     margin: 0;
   }
 }
+

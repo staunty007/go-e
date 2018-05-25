@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPhoneNumberColumnToMeterRequests extends Migration
+class AddAgentidToAgentTransactions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPhoneNumberColumnToMeterRequests extends Migration
      */
     public function up()
     {
-        Schema::table('meter_requests', function (Blueprint $table) {
-            $table->text('phone_number')->after('email_address');
+        Schema::table('agent_transactions', function (Blueprint $table) {
+            $table->string('agent_id')->after('payment_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddPhoneNumberColumnToMeterRequests extends Migration
      */
     public function down()
     {
-        Schema::table('meter_requests', function (Blueprint $table) {
-            $table->dropColumn('phone_number');
+        Schema::table('agent_transactions', function (Blueprint $table) {
+            $table->dropColumn('agent_id');
         });
     }
 }

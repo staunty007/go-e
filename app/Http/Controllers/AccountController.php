@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use Mail;
 use Session;
 use App\User;
 use Validator;
 use App\MeterRequest;
-use App\PrepaidPayment;
+use App\Payment;
 use Illuminate\Http\Request;
 use App\Mail\AccountActivation;
 use App\PostpaidPayment;
 use App\AdminBiodata;
 use App\AgentBiodata;
+use App\CustomerBiodata;
+use Carbon\Carbon;
+use App\Transaction;
 
 class AccountController extends Controller
 {
@@ -29,23 +33,30 @@ class AccountController extends Controller
     {
         $checkMail = User::where('email', $request->email)->get();
 
-    
         if (count($checkMail) == 1) {
             return response()->json(['err' => 'Email Already Exists']);
         }
-        $user = new User;
 
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->mobile = $request->mobile;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-
+        $bio = new CustomerBiodata;
+        
         $access_token = str_random(50);
 
-        $user->access_token = $access_token;
-
-        $user->save();
+        $userID = DB::table('users')->insertGetId([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'mobile' => $request->mobile,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'access_token' => $access_token,
+            'created_at' => new Carbon('now'),
+            'updated_at' => new Carbon('now'),
+        ]);
+        $bio->user_id = $userID;
+        $bio->meter_no = "";
+        $bio->address = "";
+        $bio->save();
+        
+        $user = User::where('id',$userID)->first();
 
         session(['account_info' => $user]);
 
@@ -74,6 +85,8 @@ class AccountController extends Controller
 
         Auth::login($user, true);
 
+        session()->forget('account_info');
+
         return view('activating');
     }
 
@@ -85,11 +98,11 @@ class AccountController extends Controller
     {
         //return $request;
         // Check if payment sending is not greater than that of admin
-        $adminDetails = AdminBiodata::where('user_id',1)->first();
+        $adminDetails = AdminBiodata::first();
 
         //return $adminDetails;
 
-        if($adminDetails->wallet_balance < $request->totalPayblleAmount) {
+        if($adminDetails->wallet_balance < $request->amount) {
 
             return $request;
 
@@ -100,32 +113,82 @@ class AccountController extends Controller
         return response()->json(['code' => 'ok']);
     }
 
+    public function prepaidPayment()
+    {
+        $bio = $this->customerData();
+        return view('customer.prepaid-payment')->withBio($bio);
+    }
+
+    public function postpaidPayment()
+    {
+        $bio = $this->customerData();
+        return view('customer.postpaid-payment')->withBio($bio);
+        //return "We are working on this <a href='/home'>Back</a>";
+    }
+
+
     public function paymentSuccess($ref)
     {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
 
             // Insert into prepaid_payment
-            $prepaid = new PrepaidPayment;
+            $prepaid = new Payment;
+            $transaction = new Transaction;
 
-            $prepaid->first_name = $paymentDetails['first_name'];
-            $prepaid->last_name = $paymentDetails['last_name'];
-            $prepaid->phone_number = $paymentDetails['mobile'];
-            $prepaid->meter_no = $paymentDetails['meter_no'];
-            $prepaid->email = $paymentDetails['email'];
-            $prepaid->amount = $paymentDetails['amount'];
-            $prepaid->conv_fee = 100;
-            $prepaid->total_amount = $paymentDetails['amount'] + 100;
-            $prepaid->transaction_ref = $ref;
-            $prepaid->payment_type = "Prepaid";
+            $paymentId = DB::table('payments')->insertGetId([
+                'first_name' => $paymentDetails['first_name'],
+                'last_name' => $paymentDetails['last_name'],
+                'email' => $paymentDetails['email'],
+                'phone_number' => $paymentDetails['mobile'],
+                'meter_no' => $paymentDetails['meter_no'],
+                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
+                'user_type' => 1,
+                'transaction_type' => "Web",
+                'transaction_ref' => $ref,
+                'value_of_kwh' => $paymentDetails['amount'] / 12.85,
+                'is_agent' => false,
+                'created_at' => new Carbon('now'),
+                'updated_at' => new Carbon('now'),
+            ]);
 
-            $prepaid->balance = ((2/100) * $paymentDetails['amount'] + 100 ) - ((1.5/100) * $paymentDetails['amount'] + 100 + (0.85/100) * $paymentDetails['amount']);
+            $transaction->payment_id = $paymentId;
+            $transaction->initial_amount = $paymentDetails['amount'];
+            $transaction->conv_fee = 100;
 
-            
-            $prepaid->save();
+            $total_amount = $paymentDetails['amount'] + 100;
+            $commission = $paymentDetails['amount'] * 0.02;
+            $pgp = $total_amount * 0.015;
+            $bal = (100 + $commission) - $pgp;
+            $spec = round($bal * 0.1,2);
+            $ralmuof = round($bal * 0.9,2);
+            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $netAmount = $paymentDetails['amount'] - $commission;
+
+            $transaction->total_amount = $total_amount;
+            $transaction->commission = $commission;
+            $transaction->pgp = $pgp;
+            $transaction->bal = $bal;
+            $transaction->spec = $spec;
+            $transaction->ralmuof = $ralmuof;
+            $transaction->total_split = $totalSplit;
+            $transaction->net_amount = $netAmount;
+
+            // Wallet Balance
+            $adminBio = AdminBiodata::first();
+
+            //return $adminBio;
+
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+
+            $transaction->wallet_bal = $adminBio->wallet_balance;
+
+            $transaction->save();
+            $adminBio->save();
 
             $smsNumber = $paymentDetails['mobile'];
-            $amountPaid = $paymentDetails['amount'];
+            $amountPaid = $total_amount;
+
             session()->put(['smsNumber' => $smsNumber]);
             session()->put(['smsRef' => $ref]);
             session()->put(['paid_amount' => $amountPaid]);
@@ -145,11 +208,15 @@ class AccountController extends Controller
     {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
+
+            //return $paymentDetails;
             $mobile=false;
             foreach ($paymentDetails['email'] as $key => $payment) {
                 if ($paymentDetails['amount'][$key]>0) {
                     
-                    $postpaid = new PostpaidPayment;
+                    $postpaid = new Payment;
+                    $postpaid->first_name = "NULL";
+                    $postpaid->last_name = "NULL";
                     $postpaid->payment_type = $paymentDetails['payment_type'][$key];
                     $postpaid->phone_number = $paymentDetails['mobile'][$key];
                     $postpaid->meter_no = $paymentDetails['account_number'][$key];
@@ -159,7 +226,8 @@ class AccountController extends Controller
                     $postpaid->total_amount = $paymentDetails['amount'][$key] + 100;
                     $postpaid->transaction_ref = $ref;
                     $postpaid->payment_type = "Postpaid";
-                    $postpaid->balance = ((2/100) * $paymentDetails['amount'] + 100 ) - ((1.5/100) * $paymentDetails['amount'][$key] + 100 + (0.85/100) * $paymentDetails['amount'][$key]);
+                    // $postpaid->balance = (2/100) * $paymentDetails['amount'] + 100 - (1.5/100) * $paymentDetails['amount'] + 100 + 0.85 * $paymentDetails['amount'];
+                    $postpaid->balance = 0;
                     $postpaid->save();
                     $mobile=$postpaid->phone_number;
                 }
@@ -207,30 +275,47 @@ class AccountController extends Controller
 
     public function customerProfile()
     {
-        // Fetch User Profile From Meter payment
-        $fetch = PrepaidPayment::where('email',\Auth::user()->email)->first();
-        if($fetch !== NULL) {
-            $meterNo = $fetch->meter_no;
-        }else {
-            $meterNo = "";
-        }
-                        
-        return view('customer.customer_profile')->withMeterNo($meterNo);
+        // Fetch User Profile From CustomerBiodata
+        $profile = User::where('id',\Auth::user()->id)->with('customer')->first();
+        // return $profile;
+        return view('customer.customer_profile')->withProfile($profile);
     }
+
+    public function updateProfile(Request $request)
+    {
+        if($request->meter_no !== '123456') {
+            return back()->withErrors('Invalid Meter No.');
+        }
+        $user = User::find($request->customer_id);
+        $user->is_completed = 1;
+
+        $bio = CustomerBiodata::where('user_id',$request->customer_id)->first();
+        
+        $bio->meter_no = $request->meter_no;
+        $bio->address = $request->address;
+
+        if ($request->hasFile('profile_pic')) {
+            $user->avatar = $request->file('profile_pic')->store('avatars', 'public');
+        }
+
+        $user->save();
+        $bio->save();
+
+        return back()->withSuccess('Account Updated Successfull');
+    }
+
     public function makePayment()
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
         
-        $prepaid = PrepaidPayment::where('email', $userEmail)->first();
+        $prepaid = Payment::where('email', $userEmail)->first();
         //return $prepaid;
         return view('customer.make-payment')->withBefore($prepaid);
     }
 
-    public function postPayment()
-    {
-        return "We are working on this <a href='/home'>Back</a>";
-    }
+
+
     public function meterRequest()
     {
         return view('customer.meter_request');
@@ -262,7 +347,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        $prepaid = PrepaidPayment::where('email', $userEmail)->paginate(10);
+        $prepaid = Payment::where('email', $userEmail)->paginate(10);
         return view('customer.payment_history')->withPayments($prepaid);
     }
 
@@ -274,4 +359,9 @@ class AccountController extends Controller
         return redirect('/');
     }
 
+    public function customerData()
+    {
+        return User::where('id',\Auth::user()->id)->with('customer')->first();
+        
+    }
 }

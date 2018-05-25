@@ -16,7 +16,9 @@ class CreateAgentBiodatasTable extends Migration
         Schema::create('agent_biodatas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->string('agent_id');
             $table->bigInteger('wallet_balance')->default(0);
+            $table->bigInteger('profit')->default(0);
             $table->string('avatar')->nullable();
             $table->timestamps();
         });

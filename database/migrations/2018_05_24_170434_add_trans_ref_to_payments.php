@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddBalanceToPrepaidPayment extends Migration
+class AddTransRefToPayments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddBalanceToPrepaidPayment extends Migration
      */
     public function up()
     {
-        Schema::table('prepaid_payment', function (Blueprint $table) {
-            $table->string('balance');
+        Schema::table('payments', function (Blueprint $table) {
+            $table->text('transaction_ref')->after('transaction_type');
         });
     }
 
@@ -25,8 +25,8 @@ class AddBalanceToPrepaidPayment extends Migration
      */
     public function down()
     {
-        Schema::table('prepaid_payment', function (Blueprint $table) {
-            $table->dropColumn('balance');
+        Schema::table('payments', function (Blueprint $table) {
+            $table->dropColumn('transaction_ref');
         });
     }
 }

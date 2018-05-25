@@ -22,10 +22,11 @@ class CreateUsersTable extends Migration
             $table->text('mobile',50)->nullable();
             $table->string('password');
             $table->text('access_token')->nullable();
-            $table->boolean('is_activated')->default(false);
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->string("avatar", 500)->nullable();
+            $table->boolean('is_activated')->default(false);
+            $table->boolean('is_completed')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

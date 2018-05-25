@@ -18,6 +18,7 @@ class CreateMeterRequestsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email_address');
+            $table->text('phone_number');
             $table->text('home_address');
             $table->string('closest_bus_stop');
             $table->string('dist_company');
