@@ -80,13 +80,11 @@
                             <table class="table table-bordered table-responsive">
                                 <thead>
                                     <tr>
-
                                         <th colspan="8">Postpaid</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-
                                         <td>Postpaid</td>
                                         <td>
                                             <input type="hidden" name="payment_type[]" value="Postpaid" />
@@ -233,8 +231,6 @@
         var sum = 0;
         $(document).ready(function () {
             $('.carousel').carousel();
-            //iterate through each textboxes and add keyup
-            //handler to trigger sum event
             $(".txt").each(function () {
 
                 $(this).keyup(function () {
@@ -265,17 +261,39 @@
             e.preventDefault();
             $('#paynow').prop('disabled', true);
             var formdata = $('.meter').serialize();
-
+            
+            
             $.ajax({
-                url: 'payment/hold',
+                url: "{{ url('/meter/api') }}",
+                method: 'POST',
+                data: {
+                    'meter_no': $("#meter_number1").val()
+                },
+                success: (response) => {
+                    if(response.code == 419) {
+                        swal('Ooops','Invalid Meter Number','error');
+                        $('#paynow').prop('disabled', false);
+                    }else {
+                        continuePayment();
+                        
+                    }
+                }
+            })
+            
+
+            function continuePayment() {
+                $.ajax({
+                url: "{{ url('payment/hold/postpaid') }}",
                 method: 'POST',
                 data: formdata,
                 success: (response) => {
                     if (response.code == "ok") {
                         payWithPaystack();
-                    }else {
+                    }else if(response.code == "no") {
                         swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
                         $('#paynow').prop('disabled', false);
+                    }else {
+                        swal('Ooops',''+response.errorText+'','error');
                     }
                 },
                 error: (err) => {
@@ -283,6 +301,8 @@
                 }
             });
             $('#paynow').prop('disabled', false);
+            }
+            
         })
 
         function validEmail(email) {
@@ -404,7 +424,7 @@
                 return false;
             }
             var NRI = 100;
-            var amount_to_be_paid = Number($("#totalPayblleAmount").val()) * Number(NRI);;
+            var amount_to_be_paid = Number($("#totalPayblleAmount").val()) + Number(NRI);;
             console.log(amount_to_be_paid);
             //alert(amount_to_be_paid);
 

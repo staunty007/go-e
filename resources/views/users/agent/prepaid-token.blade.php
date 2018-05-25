@@ -31,7 +31,7 @@
                         
                         <div class="ibox-content">
                             {{-- @if(isset($before)) --}}
-                            <form action="{{ url('payment/hold') }}" method="POST" class="meterSelf">
+                            <form action="{{ url('payment/hold/agent') }}" method="POST" class="meterSelf">
                                 {{ csrf_field()}}
                                 <div class="form-group">
                                     <label>Meter No.</label>
@@ -116,32 +116,51 @@
                 var newMeterValue = "";
 
               $(".pay-meter").click((e) => {
-                  e.preventDefault();
-                  $(this).prop('disabled',true);
-                  $('.pay-meter').html('Connecting to Gateway');
-  
-                  var formdata = $('.meterSelf').serialize();
-                  newMeterValue = document.querySelector('.meter-email').value;
+                    e.preventDefault();
+                    $(this).prop('disabled',true);
+                    $('.pay-meter').html('Connecting to Gateway');
+    
+                    var formdata = $('.meterSelf').serialize();
+                    newMeterValue = document.querySelector('.meter-email').value;
 
-                  var payUri = $('.meterSelf').attr('action');
+                    var payUri = $('.meterSelf').attr('action');
 
-                  //console.log(payUri);
-  
-                  $.ajax({
-                      url: payUri,
-                      method: 'POST',
-                      data: formdata,
-                      success: (response) => {
-                          if(response.code == "ok") {
-                              payPrepaidMeter();
-                          }else if(response.code == "no"){
-                            swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
-                            $("#ifAdmin").css({'display':'block'});
-                          }else {
-                              swal('Ooops',''+response.text+'','error');
-                          }
-                      }
-                  })
+                    $.ajax({
+                        url: "{{ url('meter/api') }}",
+                        method: "POST",
+                        data: {
+                            'meter_no': $('input[name=meter_no]').val(),
+                            '_token': "{{ csrf_token() }}"
+
+                        },
+                        success: (response) => {
+                            if(response.code == 419) {
+                                swal('Oops!','Invalid Meter No','error');
+
+                                $('.pay-meter').html('Make Payment');
+                            }else {
+                                continueToPay();
+                            }
+                        }
+                    })
+
+                  function continueToPay() {
+                    $.ajax({
+                        url: payUri,
+                        method: 'POST',
+                        data: formdata,
+                        success: (response) => {
+                            if(response.code == "ok") {
+                                payPrepaidMeter();
+                            }else if(response.code == "no"){
+                                swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
+                                $("#ifAdmin").css({'display':'block'});
+                            }else {
+                                swal('Ooops',''+response.errorText+'','error');
+                            }
+                        }
+                    })
+                  }
               })
                 function payPrepaidMeter(){
                     var amountMeter = document.querySelector('.meter-amount').value;
@@ -152,13 +171,13 @@
                     key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
                     email: document.querySelector('.meter-email').value,
                     amount: chargedAmount+"00",
-                    ref: 'GOENERGEE'+Math.floor((Math.random() * 1000000000) + 1)+"TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                    ref: Math.floor((Math.random() * 1000000000) + 1)+"GOEPAY", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                     
                     callback: function(response){
                         //   swal('Yay!','Payment Successfull','success');
                         setTimeout(() => {
                             // if(agentValue !== newMeterValue) {
-                                window.location.href='/payment-agent/'+response.reference+'/success';
+                                window.location.href='/agent/payment-agent/'+response.reference+'/success';
                             // }else {
                             //   /  window.location.href='/payment-agent-customer/'+response.reference+'/success';
                             // }

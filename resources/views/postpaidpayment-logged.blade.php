@@ -92,15 +92,15 @@
                         <form class="postpay" action="" method="POST">
                             <div class="form-group">
                                 <label for="">Account or Meter Number</label>
-                                <input type="text" name="meter_no" class="meterno">
+                                <input type="text" name="meter_no" class="meterno" value="{{ $user->meter_no }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Email Address</label>
-                                <input type="text" name="email" class="email">
+                                <input type="text" name="email" class="email" value="{{ Auth::user()->email }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Phone Number</label>
-                                <input type="text" name="mobile" class="mobile">
+                                <input type="text" name="mobile" class="mobile" value="{{ Auth::user()->mobile }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Convenience Fee</label>
@@ -109,8 +109,15 @@
                             <div class="form-group">
                                 <label for="">Amount</label>
                                 <input type="text" name="amount" placeholder="0.00" class="amount">
-                            </div><br>
+                            </div>
+
+                            <br>
                             <input type="hidden" id="payType" value="" />
+                            @if(Auth::user()->id == 2)
+                            <input type="hidden" id="is_agent" value="1" name="is_agent"/>
+                            @else
+                            <input type="hidden" id="is_agent" value="0" name="is_agent"/>
+                            @endif
                             <div class="form-group">
                                 <button class="btn btn-success btn-block" id="payPostpaid">Continue</button>
                             </div>
@@ -235,7 +242,7 @@
             $('#payPostpaid').prop('disabled', true);
             $('#payPostpaid').html('Verifying...');
 
-            formdata = $(".postpay").serialize();
+            
             
             $.ajax({
                 url: '/meter/api',
@@ -253,8 +260,9 @@
             })
             
             function continuePay() {
+                var formdata = $(".postpay").serialize();
                 $.ajax({
-                url: payUrl,
+                url: '/payment/hold/postpaid',
                 method: 'POST',
                 data: formdata,
                 success: (response) => {
@@ -284,8 +292,19 @@
                 ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 callback: function (response) {
                     // console.log(response);
+                    // var is_agent = false;
+                    // var redirUrl = "";
+                    // var getUser = document.querySelector('#is_agent').value;
+                    
+                    // if(getUser == 1) {
+                        // redirUrl = 'postpaidpayment/agent/' + response.reference +'/success';
+                    // }else {
+                        redirUrl = 'postpaidpayment/' + response.reference +'/success';
+                    // }
+
+
                     setTimeout(() => {
-                        window.location.href = '/postpaidpayment/' + response.reference +'/success';
+                        window.location.href = redirUrl;
                     }, 1000);
                     
                 },

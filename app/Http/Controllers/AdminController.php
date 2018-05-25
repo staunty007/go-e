@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Payment;
-use App\Transaction;
 use Carbon\Carbon;
+use App\Transaction;
+use App\AgentTransaction;
 use App\User;
 use Auth;
 use App\Http\Requests\UpdateUser;
 use App\MeterRequest;
 use App\AdminBiodata;
+use App\CustomerBiodata;
 
 class AdminController extends Controller
 {
@@ -36,7 +38,7 @@ class AdminController extends Controller
     public function finance()
     {
         $data=[];
-        // $firstdayofmonth = date("Y-m-01");
+        //$firstdayofmonth = date("Y-m-01");
 
         // $monthlysalesprepaid = Payment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
         // $monthlysalespostpaid = Payment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
@@ -51,11 +53,17 @@ class AdminController extends Controller
         // $data['salestoday']= $salesprepaid+ $salespostpaid;
         
 
-        // $start = new Carbon('first day of last month');
-        // $end = new Carbon('last day of last month');
+        $start = new Carbon('first day of last month');
+        $end = new Carbon('last day of last month');
 
-        // $incomelastmonthprepaid = Payment::whereBetween('created_at', [$start,$end])->sum('total_amount');
-        // $incomelastmonthpostpaid = Payment::whereBetween('created_at', [$start, $end])->sum('total_amount');
+        $transactionDirectMonth = Transaction::whereBetween('created_at', [$start,$end])->sum('total_amount');
+        $transactionAgentMonth = AgentTransaction::whereBetween('created_at', [$start,$end])->sum('total_amount');
+
+        $data['avgMonthlySales'] = $transactionDirectMonth + $transactionAgentMonth / 30;
+
+
+    // $incomelastmonthprepaid = Payment::whereBetween('created_at', [$start,$end])->sum('total_amount');
+    // $incomelastmonthpostpaid = Payment::whereBetween('created_at', [$start, $end])->sum('total_amount');
         
         // $data['incomelastmonth']= $incomelastmonthprepaid + $incomelastmonthpostpaid;
         // $start = new Carbon('first day of this year');
@@ -64,9 +72,6 @@ class AdminController extends Controller
         // $salescurrentyearpostpaid = Payment::where('created_at', '>', $start)->sum('total_amount');
 
         // $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
-
-        $data['registeredcustomers']= User::where('role_id', 0)->count();
-        $data['registeredagents'] = User::where('role_id', 2)->count();
 
         // Wallet Balance
         /**
@@ -82,18 +87,51 @@ class AdminController extends Controller
         // //eturn $incomePrepaid;
         // $incomePostpaid = Payment::where('user_type',2)->with('transaction')->sum('total_amount');
         
-        // $income = $incomePrepaid + $incomePostpaid;
-        $data['income'] = 0;
+        /**
+         * Income = 
+         * TotalDirectTransaction('ralmuof') / TotalDirectCount 
+         * + 
+         * TotalAgentTransaction('ralmuof') + TotalAgentCount
+         */
+        $income = Transaction::sum('ralmuof') + AgentTransaction::sum('ralmuof');
+        $data['income'] = $income;
 
-        // Avg Daily Earning
-        $countPrepaid = Payment::where('user_type',1)->count();
+        // Avg Earning
+        $transaction_counts = Transaction::all()->count() + AgentTransaction::all()->count();
+        $avgEarn = $income / $transaction_counts;
+
         $countPostpaid = Payment::where('user_type',2)->count();
 
         // $allTransaction = $countPrepaid + $countPostpaid;
         // $averageDaily = $income / $allTransaction;
 
-        $data['avg_daily'] = 1;
+        $data['avg_earn'] = $avgEarn;
 
+        // customer base
+        $customers = User::where('role_id',0)->count();
+        $data['customers'] = $customers;
+        $data['agents'] = User::where('role_id', 2)->count();
+
+        $totalAmounts = Transaction::sum('total_amount') + AgentTransaction::sum('total_amount');
+        $data['avg_transaction'] = $totalAmounts / $transaction_counts;
+        $data['postpaid_users'] = CustomerBiodata::where('user_type',2)->count();
+        $data['prepaid_users'] = CustomerBiodata::where('user_type',1)->count();
+
+        // Average Daily Profit
+        $todayStarted = Carbon::today();
+        $endofToday =   date('Y-m-d 23:59:59');
+        $transactionDirectToday = Transaction::whereBetween('created_at', [$todayStarted,$endofToday])->sum('total_amount');
+        $transactionAgentToday = AgentTransaction::whereBetween('created_at', [$todayStarted,$endofToday])->sum('total_amount');
+        $transactionDirectTodayCount = Transaction::whereBetween('created_at', [$todayStarted,$endofToday])->count();
+        $transactionAgentTodayCount = AgentTransaction::whereBetween('created_at', [$todayStarted,$endofToday])->count();
+
+        $todayCount = $transactionDirectTodayCount + $transactionAgentTodayCount;
+
+        //return $todayCount;
+        $totalToday = $transactionDirectToday + $transactionAgentToday;
+        //return $totalToday;
+        $avg_profit_daily = $totalToday / $todayCount;
+        $data['avg_daily_p'] = $avg_profit_daily;
         return $this->v('finance', $data);
     }
 

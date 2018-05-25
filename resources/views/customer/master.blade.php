@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GOENREGEE | Customer profile Update</title>
+    <title>GOENREGEE | Customer Dashboard</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
     <link href="/customer/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -45,7 +45,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
-                            <img alt="image" class="img-circle" src="{{asset('images/profile_small.png')}}" />
+                            <img alt="image" class="img-circle" src='/storage/{{ Auth::user()->avatar }}' width="100"/>
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> 
@@ -65,7 +65,7 @@
 				<li>
                     <li class="{{ Request::is('customer/profile') ? 'active' :'' }}">
                         <a href="{{ route('customer.profile') }}">
-                            <i class="fa fa-podcast"></i> <span class="nav-label">My Profile</span>
+                            <i class="fa fa-podcast"></i> <span class="nav-label">My Profile <span class="badge badge-danger">*</span>
                         </a>
                     </li>
                 </li>
@@ -81,7 +81,7 @@
                     <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid Payment</a></li>
-                        <li class="{{ Request::is('customer/postpaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
+                        <li><a href="{{ route('postpaid') }}" target="_blank">Postpaid Payment</a></li>
                     </ul>
                 </li>
                 
@@ -136,7 +136,7 @@
                         </div>
                         <div class="modal-body">
                             <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                            <a href="{{ route('customer.postpaid-payment') }}" class="btn btn-success">Postpaid</a>
+                            <a href="{{ route('postpaid') }}" target="_blank" class="btn btn-success">Postpaid</a>
                         </div>
                     </div>
 
@@ -206,7 +206,13 @@
 
     <!-- Jquery Validate -->
     <script src="/customer/js/plugins/validate/jquery.validate.min.js"></script>
-    
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @stack('scripts')
 
 </body>

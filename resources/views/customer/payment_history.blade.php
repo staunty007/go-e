@@ -31,11 +31,17 @@
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
                                 <td>Successful</td>
-                                <td>Pre-Paid</td>
+                                <td>
+                                    @if($pay->user_type == 1) 
+                                        Prepaid
+                                    @else
+                                        Postpaid
+                                    @endif
+                                </td>
                                 <td>{{ $pay->meter_no }}</td>
-                                <td>N{{ number_format($pay->total_amount) }}</td>
-                                <td>3500 6584 8754 1254</td>
-                                <td>650</td>                 
+                                <td>N{{ number_format($pay->transaction->total_amount) }}</td>
+                                <td>{{ $pay->recharge_pin }}</td>
+                                <td>{{ round($pay->value_of_kwh,2) }}</td>                 
                             </tr>
                         @endforeach
                     </tbody>

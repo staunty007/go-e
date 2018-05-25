@@ -94,6 +94,8 @@ class AccountController extends Controller
     {
         return view('postpaidpayment-frame');
     }
+
+
     public function paymentHolder(Request $request)
     {
         //return $request;
@@ -104,9 +106,64 @@ class AccountController extends Controller
 
         if($adminDetails->wallet_balance < $request->amount) {
 
-            return $request;
+            return response()->json(['code' => 'no']);
+        }
+        session(['payment_details' => $request->all()]);
+
+        return response()->json(['code' => 'ok']);
+    }
+
+
+    public function paymentAgentPrepaidHolder(Request $request)
+    {
+
+        $agentDetails = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+        if($agentDetails->wallet_balance < $request->amount)  {
+            return response()->json(['errorText' => 'Insufficient Balance to complete the payment, Please Topup']);
+        }
+        session(['payment_details' => $request->all()]);
+
+        return response()->json(['code' => 'ok']);
+    }
+
+    public function paymentPostpaidHolder(Request $request)
+    {
+        //return $request;
+        // Check if payment sending is not greater than that of admin
+        $adminDetails = AdminBiodata::first();
+
+        //return $adminDetails;
+
+        if($request->is_agent == 1) {
+            return $this->paymentAgentPostpaidHolder($request);
+        }
+
+        if($adminDetails->wallet_balance < $request->amount) {
 
             return response()->json(['code' => 'no']);
+        }
+        session(['payment_details' => $request->all()]);
+
+        return response()->json(['code' => 'ok']);
+    }
+
+    public function paymentAgentPostpaidHolder(Request $request)
+    {
+        
+        // Check if payment sending is not greater than that of admin
+        $adminDetails = AdminBiodata::first();
+        $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+        //return $adminDetails;
+
+        if($adminDetails->wallet_balance < $request->amount) {
+
+            return response()->json(['code' => 'no']);
+        }
+
+        if($agentBio->wallet_balance < $request->amount) {
+            return response()->json(['errorText'=>'Insufficient Funds, Please Topup']);
         }
         session(['payment_details' => $request->all()]);
 
@@ -179,7 +236,7 @@ class AccountController extends Controller
 
             //return $adminBio;
 
-            $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
@@ -204,54 +261,185 @@ class AccountController extends Controller
 
         return redirect('/');
     }
+
+
     public function postpaidpaymentSuccess($ref)
     {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
 
-            //return $paymentDetails;
-            $mobile=false;
-            foreach ($paymentDetails['email'] as $key => $payment) {
-                if ($paymentDetails['amount'][$key]>0) {
-                    
-                    $postpaid = new Payment;
-                    $postpaid->first_name = "NULL";
-                    $postpaid->last_name = "NULL";
-                    $postpaid->payment_type = $paymentDetails['payment_type'][$key];
-                    $postpaid->phone_number = $paymentDetails['mobile'][$key];
-                    $postpaid->meter_no = $paymentDetails['account_number'][$key];
-                    $postpaid->email = $paymentDetails['email'][$key];
-                    $postpaid->amount = $paymentDetails['amount'][$key];
-                    $postpaid->conv_fee = 100;
-                    $postpaid->total_amount = $paymentDetails['amount'][$key] + 100;
-                    $postpaid->transaction_ref = $ref;
-                    $postpaid->payment_type = "Postpaid";
-                    // $postpaid->balance = (2/100) * $paymentDetails['amount'] + 100 - (1.5/100) * $paymentDetails['amount'] + 100 + 0.85 * $paymentDetails['amount'];
-                    $postpaid->balance = 0;
-                    $postpaid->save();
-                    $mobile=$postpaid->phone_number;
-                }
-            }
-            if ($mobile) {
-                $smsNumber = $mobile;
+            // Insert into prepaid_payment
+            $prepaid = new Payment;
+            $transaction = new Transaction;
 
-                $amountPaid = $paymentDetails['amount'][$key];
-                
-                session()->put(['smsNumber' => $smsNumber]);
-                session()->put(['smsRef' => $ref]);
-                session()->put(['paid_amount' => $amountPaid]);
-                session()->put(['payment_type' => 'Prepaid']);
+            $is_agent = false;
 
-                return redirect()->route('finalize', [$smsNumber,$ref]);
+            $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+            if($paymentDetails['is_agent'] == 1) {
+                $is_agent = true;
             }
+            $paymentId = DB::table('payments')->insertGetId([
+                'first_name' => 'Postpaid',
+                'last_name' => 'Payment',
+                'email' => $paymentDetails['email'],
+                'phone_number' => $paymentDetails['mobile'],
+                'meter_no' => $paymentDetails['meter_no'],
+                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
+                'user_type' => 2,
+                'transaction_type' => "Web",
+                'transaction_ref' => $ref,
+                'value_of_kwh' => $paymentDetails['amount'] / 12.85,
+                'is_agent' => $is_agent,
+                'created_at' => new Carbon('now'),
+                'updated_at' => new Carbon('now'),
+            ]);
+
+            $transaction->payment_id = $paymentId;
+            $transaction->initial_amount = $paymentDetails['amount'];
+            $transaction->conv_fee = 100;
+
+            $total_amount = $paymentDetails['amount'] + 100;
+            $commission = $paymentDetails['amount'] * 0.02;
+            $pgp = $total_amount * 0.015;
+            $bal = (100 + $commission) - $pgp;
+            $spec = round($bal * 0.1,2);
+            $ralmuof = round($bal * 0.9,2);
+            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $netAmount = $paymentDetails['amount'] - $commission;
+
+            $transaction->total_amount = $total_amount;
+            $transaction->commission = $commission;
+            $transaction->pgp = $pgp;
+            $transaction->bal = $bal;
+            $transaction->spec = $spec;
+            $transaction->ralmuof = $ralmuof;
+            $transaction->total_split = $totalSplit;
+            $transaction->net_amount = $netAmount;
+
+            // Wallet Balance
+            $adminBio = AdminBiodata::first();
+
+            $adminBio->wallet_balance -= $paymentDetails['amount'];
             
-            request()->session()->forget('payment_details');
+            $transaction->wallet_bal = $adminBio->wallet_balance;
 
-            return redirect('/');
+            if($paymentDetails['is_agent'] == 1) {
+                
+                $agentBio->wallet_balance -= $paymentDetails['amount'];
+                $agentBio->save();
+            }
+
+            $transaction->save();
+            $adminBio->save();
+
+            $smsNumber = $paymentDetails['mobile'];
+            $amountPaid = $total_amount;
+
+            session()->put(['smsNumber' => $smsNumber]);
+            session()->put(['smsRef' => $ref]);
+            session()->put(['paid_amount' => $amountPaid]);
+            session()->put(['payment_type' => 'Prepaid']);
+            
+
+            return redirect()->route('finalize', [$smsNumber,$ref]);
+
+            session()->forget('payment_details');
+
+            return back();
         }
-
-        return redirect('/');
     }
+
+    public function loggedPostpaidPaymentSuccess($ref) {
+        if (session()->exists('payment_details')) {
+            $paymentDetails = session('payment_details');
+
+            // Insert into prepaid_payment
+            $prepaid = new Payment;
+            $transaction = new Transaction;
+
+            $is_agent = false;
+
+            $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+            if($paymentDetails['is_agent'] == 1) {
+                $is_agent = true;
+            }
+            $paymentId = DB::table('payments')->insertGetId([
+                'first_name' => 'Postpaid',
+                'last_name' => 'Payment',
+                'email' => $paymentDetails['email'],
+                'phone_number' => $paymentDetails['mobile'],
+                'meter_no' => $paymentDetails['meter_no'],
+                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
+                'user_type' => 2,
+                'transaction_type' => "Web",
+                'transaction_ref' => $ref,
+                'value_of_kwh' => $paymentDetails['amount'] / 12.85,
+                'is_agent' => $is_agent,
+                'created_at' => new Carbon('now'),
+                'updated_at' => new Carbon('now'),
+            ]);
+
+            $transaction->payment_id = $paymentId;
+            $transaction->initial_amount = $paymentDetails['amount'];
+            $transaction->conv_fee = 100;
+
+            $total_amount = $paymentDetails['amount'] + 100;
+            $commission = $paymentDetails['amount'] * 0.02;
+            $pgp = $total_amount * 0.015;
+            $bal = (100 + $commission) - $pgp;
+            $spec = round($bal * 0.1,2);
+            $ralmuof = round($bal * 0.9,2);
+            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $netAmount = $paymentDetails['amount'] - $commission;
+
+            $transaction->total_amount = $total_amount;
+            $transaction->commission = $commission;
+            $transaction->pgp = $pgp;
+            $transaction->bal = $bal;
+            $transaction->spec = $spec;
+            $transaction->ralmuof = $ralmuof;
+            $transaction->total_split = $totalSplit;
+            $transaction->net_amount = $netAmount;
+
+            // Wallet Balance
+            $adminBio = AdminBiodata::first();
+
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+            
+            $transaction->wallet_bal = $adminBio->wallet_balance;
+
+            if($paymentDetails['is_agent'] == 1) {
+                $transaction->agent_id = $agentBio->agent_id;
+                $agentBio->wallet_balance -= $total_amount;
+                $agentBio->save();
+            }
+
+            $transaction->save();
+            $adminBio->save();
+
+            $smsNumber = $paymentDetails['mobile'];
+            $amountPaid = $total_amount;
+
+            session()->put(['smsNumber' => $smsNumber]);
+            session()->put(['smsRef' => $ref]);
+            session()->put(['paid_amount' => $amountPaid]);
+            session()->put(['payment_type' => 'Prepaid']);
+            
+
+            return redirect()->route('finalize', [$smsNumber,$ref]);
+
+            session()->forget('payment_details');
+
+            return back();
+        }
+    }
+
+    // public function loggedAgentPostpaidPaymentSuccess($ref)
+    // {
+        
+    // }
     public function home()
     {
         $role = \Auth::user()->role_id;
@@ -347,7 +535,8 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        $prepaid = Payment::where('email', $userEmail)->paginate(10);
+        $prepaid = Payment::where('email', $userEmail)->with('transaction')->paginate(10);
+        //return $prepaid;
         return view('customer.payment_history')->withPayments($prepaid);
     }
 

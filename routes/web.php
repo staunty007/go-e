@@ -1,6 +1,10 @@
 <?php
 
 
+use Illuminate\Support\Facades\Auth;
+use App\CustomerBiodata;
+use App\AgentBiodata;
+
 Route::get('/', function () {
     return view('index');
 });
@@ -29,18 +33,46 @@ Route::middleware('auth')->group(function() {
 
 
 Route::get('postpaidpayment', function () {
-    return view('postpaidpayment');
+    if(Auth::check()) {
+        // check if visiting user is not an agent
+        if(Auth::user()->id !== 2) {
+            $loggedDetails = CustomerBiodata::where('user_id',Auth::user()->id)->first();
+        }else {
+            // The User is an agent
+            $loggedDetails = AgentBiodata::where('user_id',Auth::user()->id)->first();
+        }
+        return view('postpaidpayment-logged')->withUser($loggedDetails);
+    }
+
+    $loggedDetails['meter_no'] = "";
+
+    //return $loggedDetails;
+    return view('postpaidpayment')->withUser($loggedDetails);
 })->name('postpaid');
+
+Route::get('postpaid-payment', function() {
+
+})->name('postpaid-logged');
 
 Route::post('account/login', 'AccountController@loginUser');
 Route::post('account/register', 'AccountController@registerUser')->name('signup');
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
+
+
 Route::get('postpaidpayment/{ref}/success', 'AccountController@postpaidpaymentSuccess');
+Route::get('postpaidpayment/logged/{ref}/success','AccountController@loggedPostpaidPaymentSuccess');
 
-
+// Prepaid Payment Holder
 Route::post('payment/hold', 'AccountController@paymentHolder');
+// Prepaid Agent Holder
+Route::post('payment/hold/agent', 'AccountController@paymentAgentPrepaidHolder');
+
+// Postpaid Payment Holder
+Route::post('payment/hold/postpaid','AccountController@paymentPostpaidHolder');
+Route::post('payment/hold/agent/postpaid','AccountController@paymentAgentPostpaidHolder');
+
 // User Dashboard
 
 Route::prefix('customer')->middleware('auth')->group(function () {

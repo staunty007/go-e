@@ -9,6 +9,7 @@ use App\AdminBiodata;
 use App\Payment;
 use App\AgentTransaction;
 use DB;
+use Carbon\Carbon;
 
 
 class AgentController extends Controller
@@ -138,15 +139,16 @@ class AgentController extends Controller
 
             // Wallet Balance
             $adminBio = AdminBiodata::first();
-
             //return $adminBio;
 
             $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+            $agentBio->wallet_balance -= $total_amount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
             $transaction->save();
             $adminBio->save();
+            $agentBio->save();
 
             $smsNumber = $paymentDetails['mobile'];
             $amountPaid = $total_amount;
@@ -165,8 +167,7 @@ class AgentController extends Controller
         return redirect('/');
     }
 
-    public function agentCustomerTokenSuccess($ref)
-    {
+    public function agentCustomerTokenSuccess($ref) {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
 

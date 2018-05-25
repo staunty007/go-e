@@ -54,26 +54,30 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title">
-                    Finalizing Your Payment   
+                      Finalizing Your Payment <br>
                     <div v-if="loading">
+                        
                         Connecting.... 
                     </div>
                     <div v-else>   
                         <div v-if="sent || redir">
-                            Sms Sent Successfully.
+                                <p>Sms Sent successfully</p>
+                                <img src="/images/mail-sent.gif" width="150"/>
                         </div>
                         <div v-else>
                             <div v-if="!sent">
-                                Sending sms...
+                                    <p>Sending SMS</p>
+                                
+                                <img src="/images/loading.gif" width="150"/>
                             </div>
                         </div>
                     </div>
 
                     <div v-if='redir'>
                         @if (Auth::check())
-                            <a href="/home">Back to Home</a>
+                            <p><a href="/home"><small> Back to Home</small></a></p>
                         @else
-                            <a href="/">Back to Home</a>
+                            <h5><a href="/">Back to Home</a></h5>
                         @endif
                         {{-- <a href="/home">Back to Home</a> --}}
                     </div>
