@@ -98,7 +98,11 @@ class AdminController extends Controller
 
         // Avg Earning
         $transaction_counts = Transaction::all()->count() + AgentTransaction::all()->count();
-        $avgEarn = $income / $transaction_counts;
+
+        $avgEarn = 0;
+        if($transaction_counts !== 0) {
+            $avgEarn = $income / $transaction_counts;
+        }
 
         $countPostpaid = Payment::where('user_type',2)->count();
 

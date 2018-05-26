@@ -40,7 +40,6 @@ Route::get('postpaidpayment', function () {
 
     $loggedDetails['meter_no'] = "";
 
-    //return $loggedDetails;
     return view('postpaidpayment')->withUser($loggedDetails);
 })->name('postpaid');
 
@@ -105,6 +104,7 @@ Route::prefix('backend')->group(function () {
     Route::get('settings', 'AdminController@settings')->name('admin.settings');
     Route::get('sms', 'AdminController@sms')->name('admin.sms');
     Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
+    Route::resource('manage/users','UserManagerController');
 
 
 });
