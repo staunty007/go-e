@@ -5,18 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use App\CustomerBiodata;
 use App\AgentBiodata;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', function () { return view('index'); });
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
 
-Route::get('finalize/{number}/{ref}', function () {
-    return view('finalize');
-})->name('finalize');
-Route::get('faq', function () {
-    return view('faq');
-});
+Route::get('finalize/{number}/{ref}', function () { return view('finalize'); })->name('finalize');
+Route::get('faq', function () { return view('faq'); });
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 

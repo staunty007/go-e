@@ -62,9 +62,9 @@ class AdminController extends Controller
         $data['avgMonthlySales'] = $transactionDirectMonth + $transactionAgentMonth / 30;
 
 
-    // $incomelastmonthprepaid = Payment::whereBetween('created_at', [$start,$end])->sum('total_amount');
-    // $incomelastmonthpostpaid = Payment::whereBetween('created_at', [$start, $end])->sum('total_amount');
-        
+        // $incomelastmonthprepaid = Payment::whereBetween('created_at', [$start,$end])->sum('total_amount');
+        // $incomelastmonthpostpaid = Payment::whereBetween('created_at', [$start, $end])->sum('total_amount');
+            
         // $data['incomelastmonth']= $incomelastmonthprepaid + $incomelastmonthpostpaid;
         // $start = new Carbon('first day of this year');
         
@@ -129,14 +129,16 @@ class AdminController extends Controller
 
         //return $todayCount;
         $totalToday = $transactionDirectToday + $transactionAgentToday;
-        //return $totalToday;
-        $avg_profit_daily = $totalToday / $todayCount;
-        $data['avg_daily_p'] = $avg_profit_daily;
+
+        $data['avg_daily_p'] = 0;
+        if($totalToday !== 0) {
+            $avg_profit_daily = $totalToday / $todayCount;
+            $data['avg_daily_p'] = $avg_profit_daily;
+        }
+    
+    
         return $this->v('finance', $data);
     }
-
-
-
 
     public function profile()
     {
@@ -144,14 +146,16 @@ class AdminController extends Controller
         return $this->v('profile', $user);
     }
 
-
-
-
     public function updateprofile(UpdateUser $request)
     {
         $user=User::find(Auth::user()->id);
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
+        $user->mobile = $request->phone;
+
+        if($request->password !== NULL) {
+            $user->password = bcrypt($request->password);
+        }
 
         if ($request->hasFile('avatar')) {
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
@@ -159,7 +163,6 @@ class AdminController extends Controller
         $user->save();
         return back();
     }
-
 
     public function directTransactions()
     {
@@ -230,16 +233,10 @@ class AdminController extends Controller
                 ;
     }
 
-
-
-
     public function payment_history()
     {
         return $this->v('payment_history');
     }
-
-
-
 
     public function demographics()
     {

@@ -85,6 +85,10 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
+                                        <label for="">Phone Number</label>
+                                        <input id="phone" name="phone" value="{{ $data->mobile }}" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
                                         <label>Password *</label>
                                         <input id="password" name="password" type="text" class="form-control">
                                     </div>
