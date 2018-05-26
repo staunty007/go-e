@@ -5,18 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use App\CustomerBiodata;
 use App\AgentBiodata;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', function () { return view('index'); });
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
 
-Route::get('finalize/{number}/{ref}', function () {
-    return view('finalize');
-})->name('finalize');
-Route::get('faq', function () {
-    return view('faq');
-});
+Route::get('finalize/{number}/{ref}', function () { return view('finalize'); })->name('finalize');
+Route::get('faq', function () { return view('faq'); });
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
@@ -46,7 +40,6 @@ Route::get('postpaidpayment', function () {
 
     $loggedDetails['meter_no'] = "";
 
-    //return $loggedDetails;
     return view('postpaidpayment')->withUser($loggedDetails);
 })->name('postpaid');
 
@@ -111,6 +104,7 @@ Route::prefix('backend')->group(function () {
     Route::get('settings', 'AdminController@settings')->name('admin.settings');
     Route::get('sms', 'AdminController@sms')->name('admin.sms');
     Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
+    Route::resource('manage/users','UserManagerController');
 
 
 });

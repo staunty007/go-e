@@ -1,6 +1,6 @@
 @extends('layouts.admin') @section('content')
 
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 <div class="row">
                    <div class="col-lg-4">
                         <div class="ibox float-e-margins">
@@ -80,12 +80,12 @@
 
 
                 <div class="col-lg-14" style="width:100%">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            GOENERGEE Customer Transaction
-                                        </div>
-                                        <div class="ibox-content m-b-sm border-bottom">
-                <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        GOENERGEE Customer Transaction
+                    </div>
+                    <div class="ibox-content m-b-sm border-bottom">
+                {{-- <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="control-label" for="order_id">Transaction ID</label>
@@ -143,9 +143,10 @@
                 </div>
                  <button type="button" class="btn btn-primary btn-md">Search</button>
 
-            </div>
-                                    <div class="ibox" style="overflow-x:auto;">
-                <table class="table table-striped table-responsive toggle-arrow-tiny" data-page-size="3">
+            </div> --}}
+                                    <div style="overflow-x:auto;">
+                                                    <div class="ibox-content">
+                <table class="table" id="myTable" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th data-hide="phone">Trans Date</th>
@@ -397,6 +398,15 @@
         });
 
 
+    </script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
     </script>
     @endpush
 @endsection

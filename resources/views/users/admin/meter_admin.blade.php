@@ -1,4 +1,5 @@
 @extends('layouts.admin') @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 
 <div class="row">
 
@@ -9,75 +10,7 @@
                     Meter Administration - GOENERGEE
                 </div>
                 <div class="ibox-content m-b-sm border-bottom">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="order_id">Request ID</label>
-                                <input type="number" id="request_id" name="request_id" value="" placeholder="Request ID" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="status">Request status</label>
-                                <select class="form-control" name="status">
-                                    <option value="0">Select Request Status</option>
-                                    <option value="0">Pending</option>
-                                    <option value="2">Processing</option>
-                                    <option value="3">Delivered</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="customer">Customer Name</label>
-                                <input type="text" id="customer" name="customer" value="" placeholder="Customer Name" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="customer">Amount Paid</label>
-                                <input type="number" id="meter#" name="Meter#" value="" placeholder="Meter Number" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="date_added">Preferred date</label>
-                                <div class="input-group date">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
-                                    <input id="date_added" type="text" class="form-control" value="03/04/2018">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="date_modified">Date To</label>
-                                <div class="input-group date">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
-                                    <input id="date_modified" type="text" class="form-control" value="03/06/2018">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="amount">Email ID</label>
-                                <input type="text" id="email" name="email" value="" placeholder="Enter Email" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label" for="amount">District</label>
-                                <input type="text" id="district" name="district" value="" placeholder="Enter District" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary btn-md">Search</button>
+                    
 
 
                 <div class="row">
@@ -85,7 +18,7 @@
                         <div class="ibox">
                             <div class="ibox-content">
 
-                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="4">
+                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="4" id="myTable">
                                     <thead>
                                         <tr>
 
@@ -366,4 +299,13 @@
         });
     });
 </script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
 @endpush @endsection
