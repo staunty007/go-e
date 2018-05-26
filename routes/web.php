@@ -8,6 +8,7 @@ use App\AgentBiodata;
 Route::get('/', function () { return view('index'); });
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
+Route::get('/meter/api','MeterApiController@validateMeterReturn');
 
 Route::get('finalize/{number}/{ref}', function () { return view('finalize'); })->name('finalize');
 Route::get('faq', function () { return view('faq'); });
@@ -105,6 +106,7 @@ Route::prefix('backend')->group(function () {
     Route::get('sms', 'AdminController@sms')->name('admin.sms');
     Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
     Route::resource('manage/users','UserManagerController');
+    Route::resource('manage/agents','AgentManagerController');
 
 
 });

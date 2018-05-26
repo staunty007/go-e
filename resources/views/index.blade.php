@@ -98,7 +98,26 @@
 
 
 	<body class="bg-img">
+			<div class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
+						<h4 class="modal-title">Confirm Details</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input class="form-control" value="" id="fullname" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 		<!-- header navbar -->
+		<button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-5 col-md-3 col-lg-3">
@@ -787,11 +806,12 @@
 
 
 		<script>
+			
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
 				$('.pay-meter').html('Connecting to Gateway...');
 				var formdata = $('.meter').serialize();
-
+				toggleMod();
 				$.ajax({
 					url: 'payment/hold',
 					method: 'POST',
@@ -831,6 +851,9 @@
 					}
 				});
 				handler.openIframe();
+			}
+			function toggleMod() {
+				$('.modal').modal('toggle');
 			}
 		</script>
 	</body>

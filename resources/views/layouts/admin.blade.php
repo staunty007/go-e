@@ -112,12 +112,19 @@
                                 <span class="nav-label">Admin Profile</span>
                             </a>
                         </li>
-                        <li class="{{$current_route_name =="admin.settings" ? 'active' : ''}}">
+                        <li class="{{ Request::is('backend/manage/users/*') ? 'active' :'' || Request::is('backend/manage/agents/*') ? 'active' :'' }}">
+                            <a><i class="fa fa-users"></i> <span class="nav-label">User Manager</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li class="{{ Request::is('backend/manage/users/*') ? 'active' :'' }}"><a href="{{ route('users.index') }}">Manage Users</a></li>
+                                <li class="{{ Request::is('backend/manage/agents/*') ? 'active' :'' }}"><a href="{{ route('agents.index') }}">Manage Agents</a></li>
+                            </ul>
+                        </li>
+                        {{-- <li class="{{$current_route_name =="admin.settings" ? 'active' : ''}}">
                             <a href="{{route('admin.settings')}}">
                                 <i class="fa fa-address-card"></i>
                                 <span class="nav-label">User Manager</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="{{$current_route_name =="admin.sms" ? 'active' : ''}}">
                             <a href="{{route('admin.sms')}}">
                                 <i class="fa fa-envelope"></i>
