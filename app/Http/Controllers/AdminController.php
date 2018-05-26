@@ -292,4 +292,13 @@ class AdminController extends Controller
     
         return redirect('home')->withSuccess('Topup Successfull');
     }
+
+    public function topupTracker()
+    {
+        return view($this->prefix.'topup-tracker');
+    }
+    public function agentTopupTracker()
+    {
+        return view($this->prefix.'agent-topup-tracker');
+    }
 }

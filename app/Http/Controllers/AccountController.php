@@ -449,11 +449,13 @@ class AccountController extends Controller
                 break;
             case '2':
                 $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
                 return view('users.agent.financial')->withDetails($agent);
                 break;
             case '3':
                 // return view('users.distributor.finance');
-                return redirect('/distributor/finance');
+                // return redirect('/distributor/customer_');
+                return "Logged In";
                 break;
             default:
                 return view('customer.dashboard');

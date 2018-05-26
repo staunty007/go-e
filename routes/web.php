@@ -82,6 +82,9 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
 });
 
+
+
+
 // Admin
 Route::prefix('backend')->group(function () {
     Route::get('/', function () {
@@ -105,7 +108,8 @@ Route::prefix('backend')->group(function () {
     Route::get('sms', 'AdminController@sms')->name('admin.sms');
     Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
     Route::resource('manage/users','UserManagerController');
-
+    Route::get('admin-topup-trackers','AdminController@topupTracker')->name('admin.admin-topup-track');
+    Route::get('agent-topup-trackers','AdminController@agentTopupTracker')->name('admin.agent-topup-track');
 
 });
 

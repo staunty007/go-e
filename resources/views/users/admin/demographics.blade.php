@@ -126,15 +126,13 @@
                                 <th>Id #</th>
                                 <th>Dates</th>
                                 <th>Agbara</th>
-                                <th>Ajele</th>
-                                <th>Apapa</th>
+                                <th>Oki</th>
                                 <th>Festac</th>
-                                <th>Ibeju</th>
-                                <th>Isolo</th>
+                                <th>Ijora</th>
                                 <th>Mushin</th>
-                                <th>Ojo</th>
-                                <th>Lekki</th>
-                                <th>Orile</th>
+                                <th>Apapa</th>
+                                 <th>Lekki</th>
+                                <th>Island</th>
 
 
                             </tr>
@@ -149,10 +147,9 @@
                                 <td>900</td>
                                 <td>800</td>
                                 <td>600</td>
-                                <td>450</td>
-                                <td>254</td>
-                                <td>100</td>
-                                <td>270</td>
+                                <td>800</td>
+                                <td>600</td>
+                              
 
 
 
