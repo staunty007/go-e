@@ -117,7 +117,13 @@ class AdminController extends Controller
         $data['agents'] = User::where('role_id', 2)->count();
 
         $totalAmounts = Transaction::sum('total_amount') + AgentTransaction::sum('total_amount');
-        $data['avg_transaction'] = $totalAmounts / $transaction_counts;
+
+        $data['avg_transaction'] = 0;
+
+        if($totalAmounts !== 0){
+            $data['avg_transaction'] = $totalAmounts / $transaction_counts;
+        }
+        
         $data['postpaid_users'] = CustomerBiodata::where('user_type',2)->count();
         $data['prepaid_users'] = CustomerBiodata::where('user_type',1)->count();
 
