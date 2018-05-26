@@ -80,7 +80,7 @@
                             <table class="table table-bordered table-responsive">
                                 <thead>
                                     <tr>
-                                        <th colspan="8">Postpaid</th>
+                                        <th colspan="5">Postpaid</th>
                                     </tr>
                                 </thead>
                                 <tbody>

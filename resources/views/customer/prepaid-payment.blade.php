@@ -62,12 +62,12 @@
  
             <div class="row">
                 
-                <div class="col-lg-8" >
+                <div class="col-lg-5" >
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Make new bill payment
+                            Purchase Prepaid Meter Token
                         </div>
-                        
+                      
                         <div class="ibox-content">
                             {{-- @if(isset($before)) --}}
                             <form action="" method="POST" class="meterSelf">
@@ -77,12 +77,13 @@
                                     <input type="text" name="meter_no" class="form-control" value="{{ $bio->customer->meter_no }}" />
                                 </div>
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" name="first_name" class="form-control"  value="{{ Auth::user()->first_name }}" />
+                                    <label>Meter Owner's Name</label>
+                                    <input type="text" name="meter_owner" disabled class="form-control" value="{{ $bio->customer->meter_owner }}" />
                                 </div>
+                                
                                 <div class="form-group">
-                                    <label>Lastname</label>
-                                    <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}"  />
+                                    <label>Your Name</label>
+                                    <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}" + {{ Auth::user()->first_name }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Email Address</label>
@@ -106,6 +107,39 @@
                             </form>
 
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Information Portal</h5>
+                        </div>
+                        <div class="ibox-content ">
+                            <div class="carousel slide" id="carousel2">
+                                <ol class="carousel-indicators">
+                                    <li data-slide-to="0" data-target="#carousel2"  class="active"></li>
+                                    <li data-slide-to="1" data-target="#carousel2"></li>
+                                    <li data-slide-to="2" data-target="#carousel2" class=""></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img alt="image"  class="img-responsive" src="/customer/img/p_big1.png">
+                                        
+                                    </div>
+                                    <div class="item ">
+                                        <img alt="image"  class="img-responsive" src="/customer/img/p_big2.jpg">
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a data-slide="next" href="#carousel2" class="right carousel-control">
+                                    <span class="icon-next"></span>
+                                </a>
+                            </div>
+                            </div>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center" id="ifAdmin">
