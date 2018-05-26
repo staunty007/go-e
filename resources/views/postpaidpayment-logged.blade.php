@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-5">
 
                     <div class="form-group">
                         <select name="" id="selectCat" class="form-control">
@@ -88,11 +88,16 @@
                     </div>
 
                     <div id="postpaid">
-                        <h4>Please fill in your details for <span class="holder"></span></h4>
+                        <h3>Provide details for <span class="holder"></span></h3>
                         <form class="postpay" action="" method="POST">
+                            
+                            <div class="form-group">
+                                <label for="">Meter or Account Name</label>
+                                <input type="text" name="meter_no" class="meterno" value="{{ $user->meter_no }}">
+                            </div>
                             <div class="form-group">
                                 <label for="">Account or Meter Number</label>
-                                <input type="text" name="meter_no" class="meterno" value="{{ $user->meter_no }}">
+                                <input type="text" name="account_meter_name" disabled class="account_meter_name" disabledvalue="{{ $user->account_meter_name }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Email Address</label>
@@ -126,38 +131,37 @@
 
                 </div>
 
-                <div class="col-lg-3" id="side-banner">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Information Portal</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <div class="col-lg-7">
+                  <h5>Information Portal</h5> 
+                  <div id="carousel2" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                                    <li data-slide-to="0" data-target="#carousel2"  class="active"></li>
+                                    <li data-slide-to="1" data-target="#carousel2"></li>
+                                    <li data-slide-to="2" data-target="#carousel2" class=""></li>
                                 </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img alt="image" class="img-responsive" src="{{asset('images/banne.jpg')}}">
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
 
-                        </div>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                      <div class="item active">
+                         <img alt="image"  class="img-responsive" src="/customer/img/p_big1.png" style="width:100%;">
+                      </div>
+
+                      <div class="item">
+                        <img alt="image"  class="img-responsive" src="/customer/img/p_big2.jpg" style="width:100%;">
+                      </div>
+                    
+                      
                     </div>
+
+                    <!-- Left and right controls -->
+                    <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a data-slide="next" href="#carousel2" class="right carousel-control">
+                                    <span class="icon-next"></span>
+                                </a>
+                  </div>
                 </div>
             </div>
         </div>
@@ -317,8 +321,10 @@
         }
     </script>
 
-
-
+@push('scripts')
+                
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+                <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </body>
 
 </html>

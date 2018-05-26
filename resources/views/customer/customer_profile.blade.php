@@ -13,7 +13,7 @@
         </div>
         @endif
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-5">
                     <div class="widget-head-color-box navy-bg p-lg text-center">
                         
                         {{-- <img src="/customer/img/a4.jpg" class="img-circle circle-border m-b-md" alt="profile"> --}}
@@ -48,21 +48,19 @@
                     </div>
                     </div>
                    
-                <div class="col-lg-9">
+                <div class="col-lg-7">
                     <div class="ibox">
                         <div class="ibox-title">
                             <h5>Customer Profile Update</h5>
                         </div>
                         <div class="ibox-content">
-                            <h2>
-                                    Please provide valid information to update your profile.
-                            </h2>
+                          
                             
 
                             <form id="profile-update" action="{{ route('customer.update-profile') }}" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <fieldset style="box-shadow: 0px 0px 3px 4px #f3f3f48a; padding: 2em">
-                                    <h2>Account Information</h2>
+                                    
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
@@ -71,7 +69,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <textarea name="address" class="form-control" required rows="4" style="resize:none">{{ $profile->customer->address }}</textarea>
+                                                <textarea name="address" class="form-control" required rows="2" style="resize:none">{{ $profile->customer->address }}</textarea>
                                             </div>
                                             <div class="form-group">
                                                 @if(Auth::user()->avatar !== NULL)
@@ -86,60 +84,8 @@
                                                 <button class="btn btn-primary" id="profileUpdate">Update Account</button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="carousel slide" id="carousel2">
-                                                <ol class="carousel-indicators">
-                                                    <li data-slide-to="0" data-target="#carousel2"  class="active"></li>
-                                                    <li data-slide-to="1" data-target="#carousel2"></li>
-                                                    <li data-slide-to="2" data-target="#carousel2" class=""></li>
-                                                </ol>
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/1.png">
-                                                        
-                                                    </div>
-                                                    <div class="item ">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/2.png">
-                                                        
-                                                    </div>
-                                                    
-                                                    <div class="item ">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/4.png">
-                                                        
-                                                    </div>
-                                                
-                                                
-                                                    <div class="item ">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/7.png">
-                                                        
-                                                    </div>
-                                                    <div class="item ">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/8.png">
-                                                        
-                                                    </div>
-                                                    <div class="item ">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/9.png">
-                                                        
-                                                    </div>
-                                                    <div class="item ">
-                                                        <img alt="image"  class="img-responsive" src="/customer/img/10.png">
-                                                        
-                                                    </div>
-
-                                                </div>
-                                                {{-- <a data-slide="prev" href="#carousel2" class="left carousel-control">
-                                                    <span class="icon-prev"></span>
-                                                </a>
-                                                <a data-slide="next" href="#carousel2" class="right carousel-control">
-                                                    <span class="icon-next"></span>
-                                                </a> --}}
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-
+                                    
+                                    
                                 </fieldset>
                                 
 
