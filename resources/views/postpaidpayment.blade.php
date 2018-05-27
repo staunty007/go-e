@@ -46,9 +46,9 @@
     
 </head>
 
-<body>
+<body style="background-image: url('/images/transformers-info.png');">
 
-    <div style=" min-height:100vh; max-height: 100%;">
+    <div style=" min-height:100vh; max-height: 100%; background: #ffffff80">
         <div class="body-container">
 
 
@@ -59,16 +59,16 @@
                     </a>
                     <div class="navbar" style="margin-top:6px;right:23px;">
                         @if(Auth::check())
-                        <a href="/home">
-                            <button type="button" id="support_btn" class="grad-box">
+                        <a href="/home"  class="btn btn-sm">
+                            
                                 <i class="fas fa-home"></i> Back to Home
-                            </button>
+                           
                         </a>
                         @else
-                        <a href="/">
-                            <button type="button" id="support_btn" class="grad-box">
+                        <a href="/"  class="btn btn-sm btn-default">
+                            
                                 <i class="fas fa-home"></i> Back to Home
-                            </button>
+                            
                         </a>
                         @endif
                     </div>

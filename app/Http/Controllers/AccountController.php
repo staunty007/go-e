@@ -110,7 +110,7 @@ class AccountController extends Controller
         }
         session(['payment_details' => $request->all()]);
 
-        return response()->json(['code' => 'ok']);
+        return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
     }
 
 

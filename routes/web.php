@@ -8,7 +8,7 @@ use App\AgentBiodata;
 Route::get('/', function () { return view('index'); });
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
-Route::get('/meter/api','MeterApiController@validateMeterReturn');
+Route::get('/meter/api/','MeterApiController@validateMeterReturn');
 
 Route::get('finalize/{number}/{ref}', function () { return view('finalize'); })->name('finalize');
 Route::get('faq', function () { return view('faq'); });
@@ -92,8 +92,6 @@ Route::prefix('backend')->group(function () {
     Route::post('login', 'BackendController@userLogin')->name('backend-login');
 
     Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
-
-    // Administrator
     Route::get('administrator', 'AdminController@home')->name('admin.home');
     Route::get('finance', 'AdminController@finance')->name('admin.finance');
     Route::get('profile', 'AdminController@profile')->name('admin.profile');
@@ -108,6 +106,7 @@ Route::prefix('backend')->group(function () {
     Route::resource('manage/users','UserManagerController');
     Route::resource('manage/agents','AgentManagerController');
 
+    Route::get('finance/admin-income-report',['uses' => 'AdminController@adminIncomeReport']);
 
 });
 
