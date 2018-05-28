@@ -83,6 +83,9 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
 });
 
+
+
+
 // Admin
 Route::prefix('backend')->group(function () {
     Route::get('/', function () {

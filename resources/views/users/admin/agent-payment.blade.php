@@ -152,17 +152,20 @@
                                         <th data-hide="phone">Trans Date</th>
                                         <th data-hide="phone">Trans Ref</th>
                                         <th data-hide="phone">Trans type</th>
-                                        <th data-hide="phone">Meter Type</th>
-                                        <th data-hide="phone">Customer Name</th>
                                         <th data-hide="phone">Status</th>
-                                        <th data-hide="phone">Meter #</th>
+                                        <th data-hide="phone">Customer Name</th>
+                                        <th data-hide="phone">Meter Type</th>
+                                        <th data-hide="phone">Agent Name</th>
+                                        <th data-hide="phone">Agent ID</th>
                                         <th data-hide="phone">District</th>
+                                        <th data-hide="phone">Meter #</th>
+                                       <th data-hide="phone">Value Purchased</th>
                                         <th data-hide="phone">PIN</th>
                                         <th data-hide="phone">KwH</th>
                                         <th data-hide="phone">Conv. Fee</th>
                                         <th data-hide="phone">Commission</th>
                                         <th data-hide="phone">Amount Chrgd</th>
-                                        <th data-hide="phone">Unit Purchased</th>
+                                       
                                         <th data-hide="phone">PGP</th>
                                         <th data-hide="phone">Agent #</th>
                                         {{-- <th>BAL</th> --}}
@@ -181,24 +184,29 @@
                                             <td>{{ $p->transaction_ref }}</td>
                                             <td>{{ $p->transaction_type }}</td>
                                             <td>
+                                                <span class="label label-primary">Successful</span>
+                                            </td>
+                                            <td>{{ $p->first_name }} {{ $p->last_name }}</td>
+                                            <td>
                                                 @if ($p->user_type == 1)
                                                     {{ 'Prepaid' }}
                                                 @else
                                                     {{ 'Postpaid' }}
                                                 @endif
                                             </td>
-                                            <td>{{ $p->first_name }} {{ $p->last_name }}</td>
-                                            <td>
-                                                <span class="label label-primary">Successful</span>
-                                            </td>
-                                            <td>{{ $p->meter_no }}</td>
+                                            
+                                            <td></td>
+                                            <td></td>
                                             <td>Lekki</td>
+                                            <td>{{ $p->meter_no }}</td>
+                                            <td>₦{{$p->agent_transaction->initial_amount }}</td>
+                                            
                                             <td>{{ $p->recharge_pin }}</td>
                                             <td>{{ round($p->value_of_kwh,1) }}</td>
                                             <td>₦{{ $p->agent_transaction->conv_fee }}</td>
                                             <td>₦{{ $p->agent_transaction->commission }}</td>
                                             <td>₦{{ $p->agent_transaction->total_amount }}</td>
-                                            <td>₦{{$p->agent_transaction->initial_amount }}</td>
+                                            
                                             <td>₦{{ $p->agent_transaction->pgp }}</td>
                                             <td>₦{{ $p->agent_transaction->agent }}</td>
                                             <td>₦{{ $p->agent_transaction->spec }}</td>

@@ -105,7 +105,6 @@ class AccountController extends Controller
         //return $adminDetails;
 
         if($adminDetails->wallet_balance < $request->amount) {
-
             return response()->json(['code' => 'no']);
         }
         session(['payment_details' => $request->all()]);
@@ -449,11 +448,13 @@ class AccountController extends Controller
                 break;
             case '2':
                 $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
                 return view('users.agent.financial')->withDetails($agent);
                 break;
             case '3':
-                // return view('users.distributor.finance');
+                //return view('users.distributor.finance');
                 return redirect('/distributor/finance');
+                //return "Logged In";
                 break;
             default:
                 return view('customer.dashboard');

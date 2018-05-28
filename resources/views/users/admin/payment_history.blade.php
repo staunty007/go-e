@@ -156,6 +156,8 @@
                                             <td>0.90%</td>
                                         </tr>
                                         <tr>
+                                            <td></td>
+                                            <td></td>
                                             <td>5000 - 9999</td>
                                             <td>0</td>
                                             <td>0</td>
@@ -171,6 +173,8 @@
                                             <td>0.90%</td>
                                         </tr>
                                         <tr>
+                                            <td></td>
+                                            <td></td>
                                             <td>10000-50000</td>
                                             <td>0</td>
                                             <td>0</td>
@@ -225,11 +229,7 @@
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr>
-                                            <td colspan="7">
-                                                <ul class="pagination pull-right"></ul>
-                                            </td>
-                                        </tr>
+                                       
                                     </tfoot>
                                 </table>
 

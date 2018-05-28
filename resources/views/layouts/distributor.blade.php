@@ -76,12 +76,12 @@
                             </a>
                         </li>
 
-                        <li class="{{$current_route_name =="distributor.customer_payment" ? 'active' : ''}}">
+                        {{-- <li class="{{$current_route_name =="distributor.customer_payment" ? 'active' : ''}}">
                             <a href="{{route('distributor.customer_payment')}}">
                                 <i class="fa fa-user"></i>
                                 <span class="nav-label">Customer Report</span>
                             </a> 
-                        </li>
+                        </li> --}}
 
 
                         <li class="{{$current_route_name =="distributor.demographics" ? 'active' : ''}}">

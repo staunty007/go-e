@@ -85,7 +85,7 @@
                     </ul>
                 </li>
                 
-                <li class="{{ Request::is('customer/meter-request') ? 'active' :'' }}"><a href="meter-request"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
+                <li class="{{ Request::is('customer/meter-request') ? 'active' :'' }}"><a href="{{ route('meter.request') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
                 </li>
                 <li class="{{ Request::is('customer/profile') ? 'active' :'' }}">
                     <a href="{{ route('customer.profile') }}">

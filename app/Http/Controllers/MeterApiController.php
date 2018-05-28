@@ -8,6 +8,8 @@ class MeterApiController extends Controller
 {
     public function validateMeterUser(Request $request) {
 
+        //return $request;
+
         if($request->meter_no !== '123456') {
             return response()->json(['code' => '419']);
         }

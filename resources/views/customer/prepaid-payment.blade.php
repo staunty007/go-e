@@ -74,17 +74,21 @@
                                 {{ csrf_field()}}
                                 <div class="form-group">
                                     <label>Meter No.</label>
-                                    <input type="text" name="meter_no" class="form-control" value="{{ $bio->customer->meter_no }}" />
+                                    <input type="text" name="meter_no" id="meter_no" class="form-control" value="{{ $bio->customer->meter_no }}" />
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label>Meter Owner's Name</label>
                                     <input type="text" name="meter_owner" disabled class="form-control" value="{{ $bio->customer->meter_owner }}" />
-                                </div>
+                                </div> --}}
                                 
                                 <div class="form-group">
-                                    <label>Your Name</label>
-                                    <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}" + {{ Auth::user()->first_name }}" />
+                                    <label>Your FirstName</label>
+                                    <input type="text" name="first_name" class="form-control" value="{{Auth::user()->first_name }}" />
                                 </div>
+                                <div class="form-group">
+                                        <label>Your LastName</label>
+                                        <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}" />
+                                    </div>
                                 <div class="form-group">
                                     <label>Email Address</label>
                                     <input type="text" name="email" class="form-control meter-email" value="{{ Auth::user()->email }}"  />
@@ -197,11 +201,27 @@
             <script>
                 $(".pay-meter1").click((e) => {
                     e.preventDefault();
-                    $(this).prop('disabled',true);
+                    $(".pay-meter1").prop('disabled',true).html('Validating  ....');
     
-                    var formdata = $('.meterSelf').serialize();
-    
+                    var meterNo = document.querySelector('#meter_no').value;
+
                     $.ajax({
+                        url: '/meter/api',
+                        method: 'POST',
+                        data: { meter_no: meterNo},
+                        success: (res) => {
+                            if(res.code == '419') {
+                                swal('Ooops!','Invalid Meter No','error');
+                                $(".pay-meter1").prop('disabled',false).html('Make Payment');
+                            }else {
+                                continuePay();
+                            }
+                        }
+                    })
+                    function continuePay() {
+
+                        var formdata = $('.meterSelf').serialize();
+                        $.ajax({
                         url: "{{ url('payment/hold') }}",
                         method: 'POST',
                         data: formdata,
@@ -213,7 +233,9 @@
                                 $("#ifAdmin").css({'display':'block'});
                             }
                         }
-                    })
+                    });
+                    }
+                    $(".pay-meter1").prop('disabled',false).html('Make Payment');
                 });
                 function payWithPaystack(){
                     var amountMeter = document.querySelector('.meter-amount').value;
@@ -234,6 +256,7 @@
                     },
                     onClose: function(){
                         alert('Payment Cancelled');
+                        $(".pay-meter1").prop('disabled',false).html('Make Payment');
                     }
                     });
                     handler.openIframe();

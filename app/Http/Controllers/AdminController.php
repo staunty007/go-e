@@ -293,9 +293,12 @@ class AdminController extends Controller
         return redirect('home')->withSuccess('Topup Successfull');
     }
 
-    public function adminIncomeReport() {
-        // We now have a basic method but we nned to return a file / serve the user a view
-
-        return view($this->prefix."admin-income-report");
+    public function topupTracker()
+    {
+        return view($this->prefix.'topup-tracker');
+    }
+    public function agentTopupTracker()
+    {
+        return view($this->prefix.'agent-topup-tracker');
     }
 }

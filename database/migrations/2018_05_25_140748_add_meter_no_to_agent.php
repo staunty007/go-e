@@ -14,7 +14,7 @@ class AddMeterNoToAgent extends Migration
     public function up()
     {
         Schema::table('agent_biodatas', function (Blueprint $table) {
-            $table->string('meter_no')->after('agent_id');
+            $table->string('meter_no')->after('agent_id')->nullable();
         });
     }
 

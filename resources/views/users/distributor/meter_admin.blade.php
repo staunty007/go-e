@@ -1,5 +1,5 @@
 @extends('layouts.distributor') @section('content')
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 <div class="row">
 
     <div class="col-lg-14">
@@ -9,7 +9,7 @@
                     Meter Administration - GOENERGEE
                 </div>
                 <div class="ibox-content m-b-sm border-bottom">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label" for="order_id">Request ID</label>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-md">Search</button>
+                <button type="button" class="btn btn-primary btn-md">Search</button> --}}
 
 
                 <div class="row">
@@ -85,7 +85,7 @@
                         <div class="ibox">
                             <div class="ibox-content">
 
-                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="4">
+                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="4" id="myTable">
                                     <thead>
                                         <tr>
 
@@ -98,8 +98,6 @@
                                             <th data-hide="phone">Change Status</th>
                                             <th data-hide="phone"># of Meters</th>
                                             <th data-hide="phone">District</th>
-
-
                                             <th data-hide="phone">Meter Type</th>
                                             <th data-hide="phone">House Type</th>
 
@@ -111,44 +109,49 @@
                                         <h3>
                                             <u>Meter Request Data</u>
                                         </h3>
+                                        @foreach ($requests as $req)
                                         <tr>
                                             <td>
-                                                01
+                                                {{ $req->id }}
                                             </td>
                                             <td>
-                                                Makus Igwe
+                                                {{ $req->first_name ." ". $req->last_name }}
                                             </td>
                                             
                                             <td>
-                                                29 Ralmouf Street, Lekki phase 1
+                                                {{ $req->home_address}}
                                             </td>
                                             <td>
-                                                081-954-8974
+                                                {{ $req->phone_number}}
                                             </td>
                                             <td>
-                                                makusigwe@somebody.com
+                                                {{ $req->email_address}}
                                             </td>
                                             <td>
                                                 <span class="label label-warning">Pending</span>
                                             </td>
 
                                             <td>
-                                                12 Williams Street
+                                                <div class="btn-group">
+                                                    <button class="btn btn-sm btn-success">Delivered</button>
+                                                    <button class="btn btn-sm btn-warning">Not Available</button>
+                                                    <button class="btn btn-sm btn-info">Processing</button>
+                                                </div>
                                             </td>
                                             <td>
                                                 2
                                             </td>
                                             <td>
-                                                Lekki
+                                                {{ $req->district }}
                                             </td>
                                             <td>
-                                                Pre Paid
+                                                {{ $req->meter_type}}
                                             </td>
                                             <td>
-                                                Residential
+                                                {{ $req->house_type}}
                                             </td>
                                         </tr>
-
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -382,5 +385,14 @@
             },
         });
     });
+</script>
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
 </script>
 @endpush @endsection

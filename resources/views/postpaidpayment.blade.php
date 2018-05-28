@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link href="css/main.css" rel='stylesheet' type='text/css'>
+    {{-- <link href="css/main.css" rel='stylesheet' type='text/css'> --}}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -41,43 +41,49 @@
             background: none;
             border: 1px solid #dcdcdc;
         }
+        .form-control {
+            border-radius: 0;
+        }
     </style>
 
     
 </head>
 
-<body style="background-image: url('/images/transformers-info.png');">
+<body>
 
-    <div style=" min-height:100vh; max-height: 100%; background: #ffffff80">
-        <div class="body-container">
-
-
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <a href="{{ url('/')}}">
-                        <img src="images/logo.png" style="float:left;margin-top:6px; padding:4px;">
-                    </a>
-                    <div class="navbar" style="margin-top:6px;right:23px;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 2rem 3rem; background: rgba(255,255,255,1) !important; border-bottom:5px solid #ED1F24">
+            <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="images/logo.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                        
+                    <div class="nav-item">
                         @if(Auth::check())
-                        <a href="/home"  class="btn btn-sm">
-                            
-                                <i class="fas fa-home"></i> Back to Home
-                           
-                        </a>
+                        <a class="btn btn-danger" href="/home"><i class="fas fa-home"></i> Go Home</a>
                         @else
-                        <a href="/"  class="btn btn-sm btn-default">
-                            
-                                <i class="fas fa-home"></i> Back to Home
-                            
-                        </a>
+                        <a class="btn btn-danger" href="/"><i class="fas fa-home"></i> Go Home</a>
                         @endif
                     </div>
-                </div>
+                </ul>
             </div>
+            </div>
+        </nav>
+        <div class="container" style="background: white;">
+            <br><br><br>
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-6">
 
                     <div class="form-group">
+                        <label>Select a Payment Category</label>
+                        <div class="btn-group">
+                            <button id="" class="btn btn-success btn-md">Postpaid Payment</button>
+                        </div>
                         <select name="" id="selectCat" class="form-control">
                             <option value="" selected>Select a Payment Category</option>
                             <option value="1">Postpaid Payment</option>
@@ -92,23 +98,23 @@
                         <form class="postpay" action="" method="POST">
                             <div class="form-group">
                                 <label for="">Account or Meter Number</label>
-                                <input type="text" name="meter_no" class="meterno">
+                                <input type="text" name="meter_no" class="meterno form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Email Address</label>
-                                <input type="text" name="email" class="email">
+                                <input type="email" name="email" class="email form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Phone Number</label>
-                                <input type="text" name="mobile" class="mobile">
+                                <input type="text" name="mobile" class="mobile form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Convenience Fee</label>
-                                <input type="text" name="conv_fee" value="100.00" readonly>
+                                <input type="text" name="conv_fee" value="100.00" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">Amount</label>
-                                <input type="text" name="amount" placeholder="0.00" class="amount">
+                                <input type="text" name="amount" placeholder="0.00" class="amount form-control">
                             </div><br>
                             <input type="hidden" id="payType" value="" />
                             <div class="form-group">
@@ -119,12 +125,12 @@
 
                 </div>
 
-                <div class="col-lg-3" id="side-banner">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                <div class="col-lg-6" id="side-banner">
+                        <div class="row">
+                            <div class="col-12">
+
                             <h5>Information Portal</h5>
-                        </div>
-                        <div class="ibox-content">
+
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -149,8 +155,7 @@
                                 </a>
                             </div>
 
-                        </div>
-                    </div>
+                            </div> 
                 </div>
             </div>
         </div>
@@ -158,7 +163,7 @@
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="/js/sweetalert.min.js"></script>
 
-    <footer>
+    <footer style="padding: 1rem 2rem; background-color: #333; color: #fff; text-align: center">
         Powered by GOENERGEE
     </footer>
 

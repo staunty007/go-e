@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PrepaidPayment;
-use App\PostpaidPayment;
+use App\Payment;
+use App\Transaction;
 use Carbon\Carbon;
+use App\MeterRequest;
 use App\User;
 
 class DistributorController extends Controller
@@ -26,43 +27,42 @@ class DistributorController extends Controller
     public function finance()
     {
         $data = [];
-        $firstdayofmonth = date("Y-m-01");
-        $monthlysalesprepaid = PrepaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        $monthlysalespostpaid = PostpaidPayment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        $data['salesthismonth'] = $monthlysalesprepaid + $monthlysalespostpaid;
-        $today = date("Y-m-d 00:00:00");
-        $salesprepaid = PrepaidPayment::where('created_at', '>', $today)->count();
-        $salespostpaid = PostpaidPayment::where('created_at', '>', $today)->count();
-        $data['salestoday'] = $salesprepaid + $salespostpaid;
+        // $firstdayofmonth = date("Y-m-01");
+        // $monthlysalesprepaid = Transaction::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
+        // $monthlysalespostpaid = Transaction::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
+        // $data['salesthismonth'] = $monthlysalesprepaid + $monthlysalespostpaid;
+        // $today = date("Y-m-d 00:00:00");
+        // $salesprepaid = Transaction::where('created_at', '>', $today)->count();
+        // $salespostpaid = Transaction::where('created_at', '>', $today)->count();
+        // $data['salestoday'] = $salesprepaid + $salespostpaid;
 
 
-        $start = new Carbon('first day of last month');
-        $end = new Carbon('last day of last month');
-        $incomelastmonthprepaid = PrepaidPayment::whereBetween('created_at', [$start, $end])->sum('total_amount');
-        $incomelastmonthpostpaid = PostpaidPayment::whereBetween('created_at', [$start, $end])->sum('total_amount');
+        // $start = new Carbon('first day of last month');
+        // $end = new Carbon('last day of last month');
+        // $incomelastmonthprepaid = Transaction::whereBetween('created_at', [$start, $end])->sum('total_amount');
+        // $incomelastmonthpostpaid = Transaction::whereBetween('created_at', [$start, $end])->sum('total_amount');
 
-        $data['incomelastmonth'] = $incomelastmonthprepaid + $incomelastmonthpostpaid;
-        $start = new Carbon('first day of this year');
+        // $data['incomelastmonth'] = $incomelastmonthprepaid + $incomelastmonthpostpaid;
+        // $start = new Carbon('first day of this year');
 
-        $salescurrentyearprepaid = PrepaidPayment::where('created_at', '>', $start)->sum('total_amount');
-        $salescurrentyearpostpaid = PostpaidPayment::where('created_at', '>', $start)->sum('total_amount');
+        // $salescurrentyearprepaid = Transaction::where('created_at', '>', $start)->sum('total_amount');
+        // $salescurrentyearpostpaid = Transaction::where('created_at', '>', $start)->sum('total_amount');
 
-        $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
+        // $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
 
-        $data['registeredcustomers'] = User::where('role_id', 3)->count();
-        $data['registeredagents'] = User::where('role_id', 2)->count();
+        // $data['registeredcustomers'] = User::where('role_id', 3)->count();
+        // $data['registeredagents'] = User::where('role_id', 2)->count();
 
 
-        $prepaidPayments = PrepaidPayment::orderBy('created_at','desc')->get();
-        $postpaidPayments = PostpaidPayment::orderBy('created_at','desc')->get();
+        $prepaidPayments = Payment::where('user_type',1)->with('transaction')->orderBy('created_at','desc')->get();
+        $postpaidPayments = Payment::where('user_type',2)->with('transaction')->orderBy('created_at','desc')->get();
+        // $postpaidPayments = Payment::with('agent_transaction')->orderBy('created_at','desc')->get();
 
         $payments = collect([$prepaidPayments,$postpaidPayments]);
 
-        //return $payments;
+        //return $payments->collapse();
 
-        return view($this->prefix.'finance')
-                ->withData($payments->collapse())
-                ;
+        return view($this->prefix.'finance')->withFinances($payments->collapse());
     }
     public function profile()
     {
@@ -84,7 +84,8 @@ class DistributorController extends Controller
     }
     public function meter_admin()
     {
-        return $this->v('meter_admin');
+        $meters = MeterRequest::orderBy('created_at','desc')->get();
+        return $this->v('meter_admin')->withRequests($meters);
     }
     public function settings()
     {
