@@ -135,7 +135,13 @@
 
         </nav>
         </div>
-           
+           @if($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $e)
+                        {{ $e }}
+                    @endforeach
+                </div>
+            @endif
             @yield('content')
                
                
@@ -199,7 +205,7 @@
             pos: 'top-right'
             }); 
     </script>
-@endif
+    @endif
 
     <!-- jQuery UI -->
     <script src="/js/plugins/jquery-ui/jquery-ui.min.js"></script>

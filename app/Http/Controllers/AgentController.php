@@ -84,7 +84,10 @@ class AgentController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {   
+    {
+        $request->validate([
+            'avatar' => 'max:1000',
+        ]);
         $user=User::find(Auth::user()->id);
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;

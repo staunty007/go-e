@@ -477,6 +477,9 @@ class AccountController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $request->validate([
+            'profile_pic' => 'max:1000',
+        ]);
         if($request->meter_no !== '123456') {
             return back()->withErrors('Invalid Meter No.');
         }
