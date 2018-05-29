@@ -8,6 +8,7 @@ use App\Transaction;
 use Carbon\Carbon;
 use App\MeterRequest;
 use App\User;
+use App\AdminBiodata;
 
 class DistributorController extends Controller
 {
@@ -54,15 +55,14 @@ class DistributorController extends Controller
         // $data['registeredagents'] = User::where('role_id', 2)->count();
 
 
-        $prepaidPayments = Payment::where('user_type',1)->with('transaction')->orderBy('created_at','desc')->get();
-        $postpaidPayments = Payment::where('user_type',2)->with('transaction')->orderBy('created_at','desc')->get();
-        // $postpaidPayments = Payment::with('agent_transaction')->orderBy('created_at','desc')->get();
+        $payments = Payment::where('is_agent',0)->with('transaction')->orderBy('created_at','desc')->get();
 
-        $payments = collect([$prepaidPayments,$postpaidPayments]);
-
-        //return $payments->collapse();
-
-        return view($this->prefix.'finance')->withFinances($payments->collapse());
+        //return $payments;
+        $wallet_balance = AdminBiodata::first();
+        return view($this->prefix.'finance')
+            ->withFinances($payments)
+            ->withBalance($wallet_balance->wallet_balance)
+            ;
     }
     public function profile()
     {

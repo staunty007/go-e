@@ -56,80 +56,6 @@
          
 
          <div class="wrapper wrapper-content animated fadeInRight ecommerce">
-
-
-            <div class="ibox-content m-b-sm border-bottom">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="Transaction_id">Transaction reference</label>
-                            <input type="text" id="Transaction_id" name="Transaction_id" value="" placeholder="Transaction Reference" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="status">Channel</label>
-							<select class="form-control m-b" name="account" id="channel" name="channel" value="" placeholder="Payment Channel">
-                                 <option>Web</option>
-                                  <option>POS</option>
-                                  <option>mCash</option>
-								   <option>USSD</option>
-                                  <option>mVisa</option>
-                                 
-                              </select>
-                            
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="customer">Customer Name</label>
-                            <input type="text" id="customer" name="customer" value="" placeholder="Customer Name" class="form-control">
-                        </div>
-                    </div>
-					<div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="customer">Meter Number</label>
-                            <input type="text" id="Meter_No" name="Meter_No" value="" placeholder="Meter Number" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="date_added">Date From</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_added" type="text" class="form-control" value="03/04/2018">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="date_modified">Date To</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_modified" type="text" class="form-control" value="03/06/2018">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="amount">Amount</label>
-                            <input type="text" id="amount" name="amount" value="" placeholder="Amount" class="form-control">
-                        </div>
-                    </div>
-					<div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="amount">Customer Type</label>
-                            <select class="form-control m-b" name="customer_type" id="customer_type" name="customer-type" value="" placeholder="Customer Type">
-                                 <option>PrePaid</option>
-                                  <option>Post Paid</option>
-                                  
-                              </select>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
@@ -160,50 +86,38 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                       2/5/2018
-                                    </td>
-                                    <td>
-                                        3WQ
-                                    </td>
-                                    <td>
-                                        Web
-                                    </td>
-                                    <td>
-                                        Pre-Paid
-                                    </td>
-				                    <td>
-                                        Emeka Chig
-                                    </td>
-                                    
-                                    <td>
-                                        <span class="label label-primary">Successful</span>
-                                    </td>
-                                    
-									<td>
-                                        45897421
-                                    </td>
-									<td>
+                                    @foreach ($history as $h)
+                                    <tr>
+                                        <td>2/5/2018</td>
+                                        <td>3WQ</td>
+                                        <td> Web</td>
+                                        <td>Pre-Paid</td>
+                                        <td>Emeka Chig</td>
+                                        
+                                        <td>
+                                            <span class="label label-primary">Successful</span>
+                                        </td>
+                                        
+                                        <td>45897421</td>
+                                        <td>GET API</td>
+                                        <td>
+                                            <span>&#8358;</span>5,000.00	
+                                        </td>
+                                        <td>
+                                            GET API
+                                        </td>
+                                        <td>
                                         GET API
-                                    </td>
-                                    <td>
-                                        <span>&#8358;</span>5,000.00	
-                                    </td>
-                                    <td>
-                                        GET API
-                                    </td>
-                                    <td>
-                                       GET API
-                                    </td>
-									<td>
-                                        <span>&#8358;</span>100
-                                    </td>
-                                    
-                                    <td>
-                                        <span>&#8358;</span>5,100
-                                    </td>    
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <span>&#8358;</span>100
+                                        </td>
+                                        
+                                        <td>
+                                            <span>&#8358;</span>5,100
+                                        </td>    
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                                 
                             </table>

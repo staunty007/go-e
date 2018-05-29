@@ -18,6 +18,7 @@ use App\AgentBiodata;
 use App\CustomerBiodata;
 use Carbon\Carbon;
 use App\Transaction;
+use App\AgentTransaction;
 
 class AccountController extends Controller
 {
@@ -448,8 +449,12 @@ class AccountController extends Controller
                 break;
             case '2':
                 $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+                $allProfit = AgentTransaction::sum('agent');
 
-                return view('users.agent.financial')->withDetails($agent);
+                return view('users.agent.financial')
+                    ->withDetails($agent)
+                    ->withProfit($allProfit)
+                    ;
                 break;
             case '3':
                 //return view('users.distributor.finance');
@@ -475,8 +480,11 @@ class AccountController extends Controller
         if($request->meter_no !== '123456') {
             return back()->withErrors('Invalid Meter No.');
         }
+
+        //return $request;
         $user = User::find($request->customer_id);
         $user->is_completed = 1;
+        $user->mobile = $request->phone;
 
         $bio = CustomerBiodata::where('user_id',$request->customer_id)->first();
         

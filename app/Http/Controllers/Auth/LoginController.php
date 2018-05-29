@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
 use Auth;
+use DB;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -57,7 +58,10 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($provider)
     {
+
         $user = Socialite::driver($provider)->user();
+
+        //return $user;
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
         return redirect($this->redirectTo);
@@ -71,21 +75,29 @@ class LoginController extends Controller
      */
     public function findOrCreateUser($user, $provider)
     {
+        //return $user;
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
             return $authUser;
         }
         $name = $this->split_name($user->name);
 
-        return User::create([
+        $userID =  User::create([
             'first_name' => $name['0'],
             'last_name' => @$name['1'],
             'email' => $user->email,
-            'role_id'=>'3',
+            'role_id'=>'0',
             'password' => Hash::make(str_random(8)),
             'provider' => $provider,
-            'provider_id' => $user->id
+            'provider_id' => $user->id,
+            'is_activated' => 1
         ]);
+
+        DB::table('customer_biodata')->insert([
+            'user_id' => $userID
+        ]);
+
+        return $userID;
     }
     public function split_name($name)
     {

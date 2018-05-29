@@ -18,6 +18,7 @@
 	
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/snackbar.min.css" rel="stylesheet">
 	<link rel="icon" href="/img/favicon.png" type='/image/x-icon'>
 	
 	    <!-- orris -->
@@ -31,7 +32,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"><span>
-                        <img alt="image" class="img-circle" src="{{asset('images/profile_small.png')}}" />
+                            <img src="/storage/{{ Auth::user()->avatar }}" class="img-circle img-responsive" width="70">
                     </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Patrick Chigbata</strong>
@@ -58,7 +59,9 @@
                     <a><i class="fa fa-money"></i> <span class="nav-label"> Buy Token</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li class="{{ Request::is('agent/prepaid-token') ? 'active' :'' }}"><a href="{{ route('agent.prepaid-token') }}">Prepaid Token</a></li>
-                        <li class="{{ Request::is('agent/postpaid-token') ? 'active' :'' }}"><a href="{{ route('agent.postpaid-token') }}">Postpaid Token</a></li>
+
+                        
+                        <li class="{{ Request::is('agent/postpaid-token') ? 'active' :'' }}"><a href="{{ route('postpaid') }}" target="_blank">Postpaid Token</a></li>
                     </ul>
                 </li>
 				<li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
@@ -132,11 +135,7 @@
 
         </nav>
         </div>
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+           
             @yield('content')
                
                
@@ -190,9 +189,17 @@
     <!-- Sparkline -->
     <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
 	
-	<!-- Custom and plugin javascript -->
-    <script src="/js/inspinia.js"></script>
-    <script src="/js/plugins/pace/pace.min.js"></script>
+
+    <script src="/js/snackbar.min.js"></script>
+    @if(session('success'))
+    <script>
+        var textt = "{{ session('success') }}";
+        Snackbar.show({
+            text: textt,
+            pos: 'top-right'
+            }); 
+    </script>
+@endif
 
     <!-- jQuery UI -->
     <script src="/js/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -425,22 +432,22 @@
        
         function payWithPaystack() {
             var topupAmount = document.querySelector('#topup-amount').value;
-            var handler = PaystackPop.setup({
-            key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-            email: "agent@goenergee.com",
-            amount: topupAmount + "00",
-            ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN",
-            callback: function (response) {
+            // var handler = PaystackPop.setup({
+            // key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+            // email: "agent@goenergee.com",
+            // amount: topupAmount + "00",
+            // ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN",
+            // callback: function (response) {
                 setTimeout(() => {
                     window.location.href = '/agent/topup-agent/success/'+topupAmount;
                 }, 1000);
-            },
-            onClose: function () {
-                alert('Payment Cancelled');
-                $('#topUPBtn').html('Top up');
-            }
-        });
-            handler.openIframe();
+        //     },
+        //     onClose: function () {
+        //         alert('Payment Cancelled');
+        //         $('#topUPBtn').html('Top up');
+        //     }
+        // });
+        //     handler.openIframe();
         }
     </script>
     <script>

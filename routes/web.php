@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Auth;
 use App\CustomerBiodata;
 use App\AgentBiodata;
+use App\AdminBiodata;
 
 Route::get('/', function () { return view('index'); });
 
@@ -29,14 +30,21 @@ Route::middleware('auth')->group(function() {
 
 Route::get('postpaidpayment', function () {
     if(Auth::check()) {
+        $violated = "";
         // check if visiting user is not an agent
         if(Auth::user()->id !== 2) {
             $loggedDetails = CustomerBiodata::where('user_id',Auth::user()->id)->first();
         }else {
             // The User is an agent
             $loggedDetails = AgentBiodata::where('user_id',Auth::user()->id)->first();
+            $adminDetails = AdminBiodata::where('user_id',1)->first();
+            $agentBalance = $loggedDetails->wallet_balance;
+            $adminBalance = $adminDetails->wallet_balance;
+            if($adminBalance < $agentBalance) {
+                $violated = "Yes";
+            }
         }
-        return view('postpaidpayment-logged')->withUser($loggedDetails);
+        return view('postpaidpayment-logged')->withUser($loggedDetails)->withViolated($violated);
     }
 
     $loggedDetails['meter_no'] = "";
@@ -108,13 +116,15 @@ Route::prefix('backend')->group(function () {
     Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
     Route::resource('manage/users','UserManagerController');
     Route::resource('manage/agents','AgentManagerController');
-
-    Route::get('finance/admin-income-report',['uses' => 'AdminController@adminIncomeReport']);
+    Route::get('finance/admin-income-report','AdminController@adminIncomeReport');
+    Route::get('admin-topup-trackers','AdminController@topupTracker')->name('admin.admin-topup-track');
+    Route::get('agent-topup-trackers','AdminController@agentTopupTracker')->name('admin.agent-topup-track');
 
 });
 
 Route::prefix('agent')->group(function() {
     Route::get('profile','AgentController@profile')->name('agent.profile');
+    Route::post('profile','AgentController@updateProfile')->name('agent.update');
     Route::get('payment-history','AgentController@paymentHistory')->name('agent.payHistory');
     Route::get('meter-management','AgentController@meterManagement')->name('agent.meter');
     Route::post('meter-management','AccountController@postMeterRequest')->name('meter.post-request');

@@ -27,17 +27,21 @@
                          <li>
                              <span class="fa fa-home m-r-xs"></span>
                              <label>Address:</label>
-                             {{ $profile->customer->address}}
+                            @if(Auth::user()->is_completed == 1)
+                                {{ $profile->customer->address}}
+                            @endif
                          </li>
                          <li>
                             <span class="fa fa-phone m-r-xs"></span>
-                            <label>Contact 1:</label>
+                            <label>Contact:</label>
                             {{ $profile->mobile}}
                          </li>
                          <li>
                              <span class="fa fa-table m-r-xs"></span>
                             <label>Meter Number:</label>
+                            @if(Auth::user()->is_completed == 1)
                             {{ $profile->customer->meter_no }}
+                            @endif
                          </li>
                          <li>
                              <span class="fa fa-map-marker m-r-xs"></span>
@@ -64,12 +68,16 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label>Meter or Account Number *</label>
-                                            <input id="meter_no" name="meter_no" type="text" class="form-control" required value="{{ $profile->customer->meter_no }}">
+                                                <label>Meter or Account Number <span style="color: red">*</span></label>
+                                            <input id="meter_no" name="meter_no" type="text" class="form-control" required @if(Auth::user()->is_completed == 1)value="{{ $profile->customer->meter_no }}"@endif>
                                             </div>
                                             <div class="form-group">
+                                                <label>Phone Number <span style="color: red">*</span></label>
+                                                <input id="phone" name="phone" type="text" class="form-control" required value="{{ $profile->mobile }}">
+                                                </div>
+                                            <div class="form-group">
                                                 <label>Address</label>
-                                                <textarea name="address" class="form-control" required rows="2" style="resize:none">{{ $profile->customer->address }}</textarea>
+                                                <textarea name="address" class="form-control" required rows="2" style="resize:none">@if(Auth::user()->is_completed == 1){{ $profile->customer->address }}@endif</textarea>
                                             </div>
                                             <div class="form-group">
                                                 @if(Auth::user()->avatar !== NULL)

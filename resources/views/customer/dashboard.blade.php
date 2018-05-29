@@ -99,24 +99,7 @@
                     </div>
                 </div>
             </div>
-     
-
-               
-               
-                </div>
-              
-        </div>
-        <div class="footer">
-            
-            <div>
-                <strong>Powered by</strong> GOENERGEE &copy; 2018
-            </div>
-        </div>
-        </div>
-        
-
-
-
+    
         </div>
     </div>
       <!-- Mainly scripts -->
