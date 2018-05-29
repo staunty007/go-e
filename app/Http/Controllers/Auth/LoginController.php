@@ -94,7 +94,7 @@ class LoginController extends Controller
         ]);
 
         DB::table('customer_biodatas')->insert([
-            'user_id' => $userID
+            'user_id' => $userID->id
         ]);
 
         return $userID;
