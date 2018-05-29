@@ -49,7 +49,7 @@ class AgentController extends Controller
         $combine = collect($prepaidAgent,$postpaidAgent);
 
         $payments = array_flatten($combine);
-        //return $payments;
+        // return $payments;
         return view($this->prefix.'payment_history')->withHistory($payments);
     }
     public function prepaidToken()

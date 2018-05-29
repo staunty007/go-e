@@ -118,8 +118,9 @@ class AccountController extends Controller
     {
 
         $agentDetails = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+        $adminDetails = AdminBiodata::first();
 
-        if($agentDetails->wallet_balance < $request->amount)  {
+        if($agentDetails->wallet_balance < $request->amount || $request->amount < $adminDetails->wallet_balance)  {
             return response()->json(['errorText' => 'Insufficient Balance to complete the payment, Please Topup']);
         }
         session(['payment_details' => $request->all()]);
@@ -523,6 +524,7 @@ class AccountController extends Controller
     }
     public function postMeterRequest(Request $request)
     {
+        // return $request;
         $meterRequest = new MeterRequest;
 
         $meterRequest->first_name = $request->first_name;

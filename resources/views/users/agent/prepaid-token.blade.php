@@ -7,7 +7,7 @@
     }
 </style>
             <div class="row">
-                @if($violated == "Yes")
+                {{-- @if($violated == "Yes")
                     <div class="col-md-12 text-center">
                         <div class="alert alert-danger">
                             Please Contact Admin to Buy Token or Make Payment
@@ -22,7 +22,7 @@
                             display: none;
                         }
                     </style>
-                @endif
+                @endif --}}
                 <div class="col-lg-8" id="mtrR">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
