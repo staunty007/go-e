@@ -93,7 +93,7 @@ class LoginController extends Controller
             'is_activated' => 1
         ]);
 
-        DB::table('customer_biodata')->insert([
+        DB::table('customer_biodatas')->insert([
             'user_id' => $userID
         ]);
 
