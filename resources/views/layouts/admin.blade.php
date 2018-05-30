@@ -185,10 +185,10 @@
                                 <i class="fa fa-cogs"></i>
                                 <span class="nav-label">CRM</span>
                         </li> --}}
-                        <li class="{{$current_route_name =="admin.sms" ? 'active' : ''}}">
-                            <a href="{{route('admin.sms')}}">
+                        <li class="{{$current_route_name =="admin.crm" ? 'active' : ''}}">
+                            <a href="{{route('admin.crm')}}">
                                 <i class="fa fa-envelope"></i>
-                                <span class="nav-label">SMS Gateway</span>
+                                <span class="nav-label">CRM</span>
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li class="{{ Request::is('backend/customerlist') ? 'active' :'' }}"><a href="{{ route('admin.customerlist') }}">Customer List</a></li>
