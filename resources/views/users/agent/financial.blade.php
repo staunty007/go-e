@@ -1,8 +1,8 @@
 @extends('layouts.agent') @section('content')
 
-             <!-- <div class="wrapper wrapper-content animated fadeIn">
-             
-                <div class="p-w-md m-t-sm">
+             <div class="wrapper wrapper-content animated fadeIn">
+
+                {{-- <div class="p-w-md m-t-sm">
                     <div class="row">
              
                         <div class="col-sm-4">
@@ -106,13 +106,10 @@
              
              
                         </div>
-             
-                  
-                             
-                    <div class="row">
-                                 
-                        
-                    </div> -->
+
+                   --}}
+				
+                    
 <div class="wrapper wrapper-content">
         <div class="row">
         <div class="col-lg-4">
@@ -136,7 +133,7 @@
                             <li>
                                 <span class="fa fa-envelope m-r-xs text-left"></span>
                                 <label>Agent ID</label>
-                                GO-OJO1254
+                                {{ $details->agent_id}}
                             </li>
                             <li>
                                 <span class="fa fa-home m-r-xs"></span>
@@ -160,7 +157,7 @@
                             <h3 class="font-bold no-margins">
                                 From Inception to date
                             </h3><span>&#8358;</span>
-                           10,000,000
+                           {{ $profit }}
                         </div>
                     </div>
             

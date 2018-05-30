@@ -14,7 +14,7 @@
 	<link href="/css/emojione.min.css" rel="stylesheet">
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="{{asset('css/custom.css')}}" rel="stylesheet">
-	<!---Bootstrap CDN---->
+	<!---Bootstrap CDN-->
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -47,17 +47,6 @@
 </head>
 
 <body class="bg-img">
-
-	<!-- header navbar -->
-
-
-
-
-	<div id="boot_msg">
-		<div class="bootstrap_msg">
-		</div>
-	</div>
-
 
 	<style type="text/css">
 		/* @media only screen and (min-width: 480px) { */
@@ -96,9 +85,8 @@
 	</style>
 
 
-
-	<body class="bg-img">
 		<!-- header navbar -->
+		
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-5 col-md-3 col-lg-3">
@@ -489,32 +477,7 @@
 												<label for="Meter_number">
 													<b>Meter Number</b>
 												</label>
-												<input type="text" class="form-control" placeholder="Enter Your Pre Paid Meter Number" required autofocus name="meter_no">
-											</div>
-											<div class="form-group">
-												<label for="first_name">
-													<b>First Name</b>
-												</label>
-												<input type="text" name="first_name" class="form-control" placeholder="Enter Your First name" required autofocus>
-											</div>
-											<div class="form-group">
-												<label for="last_name">
-													<b>Last Name</b>
-												</label>
-												<input type="text" name="last_name" class="form-control" placeholder="Enter Your Last name" required autofocus>
-											</div>
-											<div class="form-group">
-												<label for="email">
-													<b>Email</b>
-												</label>
-												<input type="email" name="email" class="form-control meter-email" placeholder="Enter Valid Email Address" required autofocus>
-											</div>
-
-											<div class="form-group">
-												<label for="mobile">
-													<b>Mobile Number</b>
-												</label>
-												<input type="text" class="form-control" placeholder="Enter Your Mobile Number" required autofocus name="mobile">
+												<input id="meterno" type="text" class="form-control" placeholder="Enter Your Pre Paid Meter Number" required autofocus name="meter_no">
 											</div>
 											<div class="form-group">
 												<label for="convinience_fee">
@@ -526,11 +489,11 @@
 												<label for="amount">
 													<b>Amount</b>
 												</label>
-												<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount">
+												<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount" id="amount">
 											</div>
 
 											<button class="btn btn-success btn-block pay-meter" type="submit">
-												Pay</button>
+												Continue</button>
 											<label style="padding:20px;" class="checkbox ">
 												<input type="checkbox" value="remember-me"> Remember me
 											</label>
@@ -660,7 +623,49 @@
 
 				});
 			</script>
-
+			<div class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
+						<h4 class="modal-title">Confirm Details</h4>
+					</div>
+					<div class="modal-body">
+						<form id="payForm" method="POST" action="">
+							<div class="form-group">
+								<label>Meter No</label>
+								<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
+							</div>
+							<div class="form-group">
+								<label>Firstname</label>
+								<input class="form-control" value="" id="firstname" name="first_name" readonly/>
+							</div>
+							<div class="form-group">
+								<label>lastname</label>
+								<input class="form-control" value="" id="lastname" name="last_name" readonly/>
+							</div>
+							<div class="form-group">
+								<label>Email</label>
+								<input class="form-control" value="" id="emailret" name="email" readonly/>
+							</div>
+							<div class="form-group">
+								<label>Phone Number</label>
+								<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
+							</div>
+							<div class="form-group">
+								<label>Total Amount</label>
+								<input class="form-control" value="" id="total" name="amount" readonly/>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						
+						<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
+					</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 
 			<footer>
 				Powered by GOENERGEE
@@ -782,32 +787,72 @@
 			})
 		</script>
 
-		<!-------modal---->
+		<!---modal-->
 		<script src="https://js.paystack.co/v1/inline.js"></script>
-
-
 		<script>
+			
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
-				$('.pay-meter').html('Connecting to Gateway...');
-				var formdata = $('.meter').serialize();
+				$('.pay-meter').html('Validating....');
+				// var formdata = $('.meter').serialize();
+				var meter_no = $('#meterno').val();
+				//toggleMod();	
+				$.ajax({
+					url: 'meter/api',
+					method: 'GET',
+					data: { meter_no: meter_no},
+					success: (res) => {
+						if(res.code == 419) {
+							swal('Ooops','Invalid Meter No.','error');
+							$('.pay-meter').html('Continue');
+						}else {
+							console.log(res);
+							$("#firstname").val(res.first_name);
+							$("#lastname").val(res.last_name);
+							$("#emailret").val(res.email);
+							$("#phoneret").val(res.phone);
+							$("#meter_no").val($("#meterno").val());
+							$("#total").val(parseInt($(".meter-amount").val()) + 100);
+							toggleMod();
+							
+						}
+						// console.log(res);
+					}
+				});
 
+				
+				//$('.pay-meter').prop('disabled', false);
+			})
+			$("#ctnPay").click((e) => {
+				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
+				e.preventDefault();
+				var toBeTransported = {
+					'meter_no': ''+$("#meterno").val()+'',
+					'first_name': ''+$('#firstname').val()+'',
+					'last_name': ''+$('#lastname').val()+'',
+					'email': ''+$('#emailret').val()+'',
+					'mobile': ''+$('#phoneret').val()+'',
+					'amount': ''+$('.meter-amount').val()+'',
+				};
+				continuePay(toBeTransported);
+			});
+
+				function continuePay(toBeTransported) {
 				$.ajax({
 					url: 'payment/hold',
 					method: 'POST',
-					data: formdata,
+					data: toBeTransported,
 					success: (response) => {
 						if (response.code == "ok") {
+							console.log(response.text);
 							payWithPaystack();
 						}
 					},
 					error: (err) => {
-						$('.pay-meter').html('Pay');
+						$('.pay-meter').html('Continue');
 					}
-				})
-				//$('.pay-meter').prop('disabled', false);
-			})
-
+				});
+				}
 			function payWithPaystack() {
 				var amountMeter = document.querySelector('.meter-amount').value;
 
@@ -815,22 +860,24 @@
 
 				var handler = PaystackPop.setup({
 					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-					email: document.querySelector('.meter-email').value,
+					email: document.querySelector('#emailret').value,
 					amount: chargedAmount + "00",
-					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-
+					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
 					callback: function (response) {
-						swal('Yay!', 'Payment Successful', 'success');
+						// swal('Yay!', 'Payment Successful', 'success');
 						setTimeout(() => {
 							window.location.href = '/payment/' + response.reference + '/success';
-						}, 3000);
+						}, 1000);
 					},
 					onClose: function () {
 						alert('Payment Cancelled');
-						$('.pay-meter').html('Pay');
+						$('.pay-meter').html('Continue');
 					}
 				});
 				handler.openIframe();
+			}
+			function toggleMod() {
+				$('.modal').modal('toggle');
 			}
 		</script>
 	</body>

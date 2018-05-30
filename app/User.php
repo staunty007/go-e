@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\CustomerBiodata;
+use App\AgentBiodata;
 
 class User extends Authenticatable
 {
@@ -35,5 +36,9 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->hasOne(CustomerBiodata::class);
+    }
+
+    public function agent() {
+        return $this->hasOne(AgentBiodata::class);
     }
 }

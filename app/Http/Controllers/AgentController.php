@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use App\AgentBiodata;
 use App\AdminBiodata;
 use App\Payment;
@@ -37,16 +38,19 @@ class AgentController extends Controller
         $prepaidAgent = Payment::where([
             ['user_type','=',1],
             ['is_agent','=',1]
-        ])->get();
+        ])->with('agent_transaction')->get();
+
+        //return $prepaidAgent;
         $postpaidAgent = Payment::where([
-            ['user_type','=',1],
+            ['user_type','=',2],
             ['is_agent','=',1]
-        ])->get();
+        ])->with('agent_transaction')->get();
 
         $combine = collect($prepaidAgent,$postpaidAgent);
 
-        //return $combine;
-        return $this->v('payment_history');
+        $payments = array_flatten($combine);
+        // return $payments;
+        return view($this->prefix.'payment_history')->withHistory($payments);
     }
     public function prepaidToken()
     {
@@ -72,9 +76,38 @@ class AgentController extends Controller
 
     public function profile()
     {
-        return $this->v('agent_profile');
+        $profile = AgentBiodata::where('user_id',\Auth::user()->id)->with('user')->first();
+        // return $profile;
+        return view($this->prefix.'agent_profile')
+            ->withProfile($profile)
+        ;
     }
 
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'max:1000',
+        ]);
+        $user=User::find(Auth::user()->id);
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+        $user->mobile = $request->mobile;
+
+        // if($request->password !== NULL) {
+        //     $user->password = bcrypt($request->password);
+        // }
+
+        $agentBio = AgentBiodata::where('user_id',$user->id)->first();
+        $agentBio->address = $request->address;
+
+        if ($request->hasFile('avatar')) {
+            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+        $user->save();
+        $agentBio->save();
+
+        return back()->withSuccess('Profile Updated Successfully');
+    }
     // complete admin topup
     public function completeTopup($amount) {
         //return $amount;

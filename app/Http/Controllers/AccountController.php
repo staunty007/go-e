@@ -18,6 +18,7 @@ use App\AgentBiodata;
 use App\CustomerBiodata;
 use Carbon\Carbon;
 use App\Transaction;
+use App\AgentTransaction;
 
 class AccountController extends Controller
 {
@@ -105,12 +106,11 @@ class AccountController extends Controller
         //return $adminDetails;
 
         if($adminDetails->wallet_balance < $request->amount) {
-
             return response()->json(['code' => 'no']);
         }
         session(['payment_details' => $request->all()]);
 
-        return response()->json(['code' => 'ok']);
+        return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
     }
 
 
@@ -118,8 +118,9 @@ class AccountController extends Controller
     {
 
         $agentDetails = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+        $adminDetails = AdminBiodata::first();
 
-        if($agentDetails->wallet_balance < $request->amount)  {
+        if($agentDetails->wallet_balance < $request->amount || $request->amount < $adminDetails->wallet_balance)  {
             return response()->json(['errorText' => 'Insufficient Balance to complete the payment, Please Topup']);
         }
         session(['payment_details' => $request->all()]);
@@ -449,13 +450,17 @@ class AccountController extends Controller
                 break;
             case '2':
                 $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+                $allProfit = AgentTransaction::sum('agent');
 
-                return view('users.agent.financial')->withDetails($agent);
+                return view('users.agent.financial')
+                    ->withDetails($agent)
+                    ->withProfit($allProfit)
+                    ;
                 break;
             case '3':
-                // return view('users.distributor.finance');
-                // return redirect('/distributor/customer_');
-                return "Logged In";
+                //return view('users.distributor.finance');
+                return redirect('/distributor/finance');
+                //return "Logged In";
                 break;
             default:
                 return view('customer.dashboard');
@@ -473,11 +478,17 @@ class AccountController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $request->validate([
+            'profile_pic' => 'max:1000',
+        ]);
         if($request->meter_no !== '123456') {
             return back()->withErrors('Invalid Meter No.');
         }
+
+        //return $request;
         $user = User::find($request->customer_id);
         $user->is_completed = 1;
+        $user->mobile = $request->phone;
 
         $bio = CustomerBiodata::where('user_id',$request->customer_id)->first();
         
@@ -513,6 +524,7 @@ class AccountController extends Controller
     }
     public function postMeterRequest(Request $request)
     {
+        // return $request;
         $meterRequest = new MeterRequest;
 
         $meterRequest->first_name = $request->first_name;

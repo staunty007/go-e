@@ -1,5 +1,5 @@
   @extends('layouts.distributor') @section('content')
-
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-4">
@@ -36,7 +36,7 @@
                     <h5>Remaining Amount in GOENERGEE Wallet</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">₦530,000</h1>
+                    <h1 class="no-margins">₦{{ number_format($balance) }}</h1>
                    
                     {{-- <small>5 days before next Top Up</small> --}}
                 </div>
@@ -51,7 +51,7 @@
                         Financial Performance – Distribution Company
                 </div>
                 <div class="ibox-content m-b-sm border-bottom">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="order_id">Transaction ID</label>
@@ -91,14 +91,14 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-md">Search</button>
+                    <button type="button" class="btn btn-primary btn-md">Search</button> --}}
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox">
                             <div class="ibox-content" style="overflow-x: auto">
                                 
-                                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10">
+                                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" id="myTable">
     
                                         <thead>
                                             <tr>
@@ -124,12 +124,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($data as $d)
+                                            @foreach ($finances as $d)
                                             <tr>
                                                 <td>{{ date('d/m/y', strtotime($d->created_at) ) }}</td>
                                                 <td>{{ $d->transaction_ref }}</td>
                                                 <td>Web</td>
-                                                <td>{{ $d->payment_type }}</td>
+                                                <td>
+                                                    @if($d->user_type == 1) 
+                                                        {{ 'Prepaid' }}
+                                                    @else
+                                                        {{ 'Postpaid'}}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $d->first_name." ". $d->last_name }}</td>
     
                                                 <td>
@@ -143,22 +149,24 @@
                                                     Lekki
                                                 </td>
                                                 <td>
-                                                    ₦{{ number_format($d->amount)}}
+                                                    
+                                                    ₦{{ number_format($d->transaction->total_amount)}}
+                                                    
                                                 </td>
                                                 <td>
-                                                    9807 2676
+                                                    {{ $d->recharge_pin }}
                                                 </td>
                                                 <td>
-                                                    254
+                                                    {{ round($d->transaction->total_amount / 12.85,2)}}
                                                 </td>
                                                 <td>
                                                     ₦100
                                                 </td>
                                                 <td>
-                                                    ₦{{ (2/100) * $d->amount }}
+                                                    ₦{{ (2/100) * $d->transaction->initial_amount }}
                                                 </td>
                                                 <td>
-                                                    ₦{{ number_format($d->total_amount)}}
+                                                    ₦{{ number_format($d->transaction->total_amount)}}
                                                 </td>
     
     
@@ -203,3 +211,14 @@
 
 
 @endsection
+@push('scripts')
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
+@endpush

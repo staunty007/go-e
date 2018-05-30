@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\CustomerBiodata;
-class UserManagerController extends Controller
+use App\AgentBiodata;
+
+
+class AgentManagerController extends Controller
 {
-    private $prefix = "users.admin.customers";
+    private $prefix = "users.admin.agents.";
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +17,9 @@ class UserManagerController extends Controller
      */
     public function index()
     {
-        //
+        $agents = User::where('role_id',2)->with('agent')->get();
+        //return $agents;
+        return view($this->prefix.'index')->withAgents($agents);
     }
 
     /**
@@ -81,6 +85,6 @@ class UserManagerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return User::findorFail($id);
     }
 }
