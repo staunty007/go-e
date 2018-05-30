@@ -40,9 +40,9 @@ Route::get('postpaidpayment', function () {
             $adminDetails = AdminBiodata::where('user_id',1)->first();
             $agentBalance = $loggedDetails->wallet_balance;
             $adminBalance = $adminDetails->wallet_balance;
-            if($adminBalance < $agentBalance) {
-                $violated = "Yes";
-            }
+            // if($adminBalance < $agentBalance) {
+            //     $violated = "Yes";
+            // }
         }
         return view('postpaidpayment-logged')->withUser($loggedDetails)->withViolated($violated);
     }
