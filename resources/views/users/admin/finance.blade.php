@@ -126,9 +126,9 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">₦{{ number_format($data['income']) }}</h1>
-                    {{-- <div class="stat-percent font-bold text-success">98%
+                    <!--<div class="stat-percent font-bold text-success">98%
                         <i class="fa fa-bolt"></i>
-                    </div> --}}
+                    </div>-->
                     <small>Total income</small>
                 </div>
             </div>
@@ -142,10 +142,10 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">₦{{number_format($data['avg_earn'])}}</h1>
-                    {{-- <div class="stat-percent font-bold text-info">20%
+                    <!--<div class="stat-percent font-bold text-info">20%
                         <i class="fa fa-level-up"></i>
-                    </div> --}}
-                    {{-- <small>Average Daily Transaction per customer</small> --}}
+                    </div>-->
+                   <small>Average Income for GOENERGEE</small>
                 </div>
             </div>
         </div>
@@ -166,10 +166,10 @@
                 <div class="ibox-content">
                     <h1 class="no-margins">Balance =
                         <span>&#8358;</span> {{ number_format($data['wallet_balance']) }}</h1>
-                    {{-- <div class="stat-percent font-bold text-success">5 days
-                        <i class="fa fa-bolt"></i>
-                    </div>
-                    <small>Remaining days to finish</small> --}}
+                    
+                    
+                    <small>Admin Wallet is </small>50%
+                        of Agent Wallet 
                 </div>
             </div>
         </div>

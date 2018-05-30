@@ -1,10 +1,10 @@
 @extends('layouts.agent') @section('content')
 
-             <div class="wrapper wrapper-content animated fadeIn">
-
+             <!-- <div class="wrapper wrapper-content animated fadeIn">
+             
                 <div class="p-w-md m-t-sm">
                     <div class="row">
-
+             
                         <div class="col-sm-4">
                             <h1 class="m-b-xs"><span>&#8358;</span>
                                 26,900
@@ -18,7 +18,7 @@
                                     <small class="stats-label">Pages / Visit</small>
                                     <h4>236 321</h4>
                                 </div>
-
+             
                                 <div class="col-xs-4">
                                     <small class="stats-label">% New Visits</small>
                                     <h4>46.11%</h4>
@@ -28,7 +28,7 @@
                                     <h4>432</h4>
                                 </div>
                             </div>
-
+             
                         </div>
                         <div class="col-sm-4">
                             <h1 class="m-b-xs"><span>&#8358;</span>
@@ -43,7 +43,7 @@
                                     <small class="stats-label">Pages / Visit</small>
                                     <h4>166 781</h4>
                                 </div>
-
+             
                                 <div class="col-xs-4">
                                     <small class="stats-label">% New Visits</small>
                                     <h4>22.45%</h4>
@@ -53,11 +53,11 @@
                                     <h4>86</h4>
                                 </div>
                             </div>
-
-
+             
+             
                         </div>
                         <div class="col-sm-4">
-
+             
                             <div class="row m-t-xs">
                                 <div class="col-xs-6">
                                     <h5 class="m-b-xs">Income last month</h5>
@@ -70,19 +70,19 @@
                                     <div class="font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
                                 </div>
                             </div>
-
-					
+             
+                                 
                             <table class="table small m-t-sm">
                                 <tbody>
                                 <tr>
                                     <td>
                                         <strong>230</strong> Customers
-
+             
                                     </td>
                                     <td>
                                         <strong>22</strong> Messages
                                     </td>
-
+             
                                 </tr>
                                 <tr>
                                     <td>
@@ -102,17 +102,17 @@
                                 </tr>
                                 </tbody>
                             </table>
-
-
-
+             
+             
+             
                         </div>
-
+             
                   
-				
+                             
                     <div class="row">
-					
+                                 
                         
-                    </div>
+                    </div> -->
 <div class="wrapper wrapper-content">
         <div class="row">
         <div class="col-lg-4">

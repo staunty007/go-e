@@ -105,12 +105,15 @@ Route::prefix('backend')->group(function () {
     Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
     Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
     Route::get('settings', 'AdminController@settings')->name('admin.settings');
-    Route::get('sms', 'AdminController@sms')->name('admin.sms');
+    Route::get('crm', 'AdminController@crm')->name('admin.crm');
     Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
     Route::resource('manage/users','UserManagerController');
     Route::get('admin-topup-trackers','AdminController@topupTracker')->name('admin.admin-topup-track');
     Route::get('agent-topup-trackers','AdminController@agentTopupTracker')->name('admin.agent-topup-track');
-
+    Route::get('agentsales','AdminController@agentSales')->name('admin.agentsales');
+    Route::get('income','AdminController@income')->name('admin.income');
+    Route::get('customerlist','AdminController@customerlist')->name('admin.customerlist');
+    Route::get('managecustomers','AdminController@managecustomers')->name('admin.managecustomers');
 });
 
 Route::prefix('agent')->group(function() {
@@ -141,7 +144,7 @@ Route::prefix('distributor')->group(function () {
     Route::get('customer_payment', 'DistributorController@customer_payment')->name('distributor.customer_payment');
     Route::get('demographics', 'DistributorController@demographics')->name('distributor.demographics');
     Route::get('meter_admin', 'DistributorController@meter_admin')->name('distributor.meter_admin');
-    Route::get('settings', 'DistributorController@settings')->name('admin.settings');
+    //Route::get('settings', 'DistributorController@settings')->name('admin.settings');
     
 });
 
