@@ -180,6 +180,7 @@
                                 <span class="nav-label">User Manager</span>
                             </a>
                         </li>
+                        --}}
                         <li class="{{$current_route_name =="admin.crm" ? 'active' : ''}}">
                             <a href="{{route('admin.crm')}}">
                                 <i class="fa fa-cogs"></i>
