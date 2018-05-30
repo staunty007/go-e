@@ -125,7 +125,7 @@
                                         <tr>
                                             <td style="vertical-align:middle" rowspan="2">3</td>
                                             <td style="vertical-align:middle" rowspan="2">mCash</td>
-                                            <td style="vertical-align:middle" rowspan="4" colspan="2">100</td>
+                                            <td style="vertical-align:middle" rowspan="4" colspan="2">&ensp;&ensp;&ensp;&ensp;&ensp;100</td>
                                             <td>50-1999</td>
                                             <td>0</td>
                                             <td>0</td>

@@ -1,158 +1,36 @@
 @extends('layouts.admin') @section('content')
 
-<div class="row">
-
-    <div class="col-sm-4">
-        <h1 class="m-b-xs">
-            <span>&#8358;</span>
-            26,900
-        </h1>
-        <small>
-            Sales in current month
-        </small>
-        <div id="sparkline1" class="m-b-sm"></div>
-        <div class="row">
-            <div class="col-xs-4">
-                <small class="stats-label">Pages / Visit</small>
-                <h4>236,321</h4>
-            </div>
-
-            <div class="col-xs-4">
-                <small class="stats-label">% New Visits</small>
-                <h4>46.11%</h4>
-            </div>
-            <div class="col-xs-4">
-                <small class="stats-label">Last week</small>
-                <h4>432</h4>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-sm-4">
-        <h1 class="m-b-xs">
-            <span>&#8358;</span>
-            98,100
-        </h1>
-        <small>
-            Sales in last 24h
-        </small>
-        <div id="sparkline2" class="m-b-sm"></div>
-        <div class="row">
-            <div class="col-xs-4">
-                <small class="stats-label">Pages / Visit</small>
-                <h4>166,781</h4>
-            </div>
-
-            <div class="col-xs-4">
-                <small class="stats-label">% New Visits</small>
-                <h4>22.45%</h4>
-            </div>
-            <div class="col-xs-4">
-                <small class="stats-label">Last week</small>
-                <h4>862</h4>
-            </div>
-        </div>
-
-
-    </div>
-    <div class="col-sm-4">
-
-        <div class="row m-t-xs">
-            <div class="col-xs-6">
-                <h5 class="m-b-xs">Income last month</h5>
-                <h1 class="no-margins">
-                    <span>&#8358;</span>160,000</h1>
-                <div class="font-bold text-navy">98%
-                    <i class="fa fa-bolt"></i>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <h5 class="m-b-xs">Sales current year</h5>
-                <h1 class="no-margins">
-                    <span>&#8358;</span>42,120</h1>
-                <div class="font-bold text-navy">98%
-                    <i class="fa fa-bolt"></i>
-                </div>
-            </div>
-        </div>
-
-
-        <table class="table small m-t-sm">
-            <tbody>
-                <tr>
-                    <td>
-                        <strong>230</strong> Customers
-
-                    </td>
-                    <td>
-                        <strong>22</strong> Messages
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <strong>61</strong> Comments
-                    </td>
-                    <td>
-                        <strong>3</strong> Reported issues
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>12</strong> Agents
-                    </td>
-                    <td>
-                        <strong>3</strong> Payment Channels
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
 
 
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
 
 
-
-    </div>
-</div>
 
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Year</span>
-                    <span class="label label-primary pull-right">Month</span>
-                    <h5>Income</h5>
+                   
+                    <h5>Customer</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">₦40 886,200</h1>
-                    <div class="stat-percent font-bold text-success">98%
-                        <i class="fa fa-bolt"></i>
-                    </div>
-                    <small>Total income</small>
+                    <h1 class="no-margins"></h1>
+                   
+                    <small>Total Number of Customers</small>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">Year</span>
-                    <span class="label label-primary pull-right">Month</span>
-                    <h5>Avg Daily Earning</h5>
+                  
+                    <h5>Direct Customers</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">₦230,000</h1>
-                    <div class="stat-percent font-bold text-info">20%
-                        <i class="fa fa-level-up"></i>
-                    </div>
-                    <small>Average Daily Transaction per customer</small>
+                    <h1 class="no-margins"></h1>
+                    
+                    <small>Total Number of Direct Customers</small>
                 </div>
             </div>
         </div>
@@ -162,57 +40,18 @@
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal6">
-                        Top up Wallet Account
-                    </button>
-
-                    <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">
-                                        <span aria-hidden="true">&times;</span>
-                                        <span class="sr-only">Close</span>
-                                    </button>
-                                    <h4 class="modal-title">Top Up Wallet</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <form id="admin_amount">
-                                            <div class="form-group">
-                                                <label>Amount</label>
-                                                <input id="amount" placeholder="Enter Amount" class="form-control">
-                                            </div>
-                                            <div>
-                                            </div>
-                                        </form>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="payWithPaystack()">
-                                            <strong>Top Up Now</strong>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-                    <script src="https://js.paystack.co/v1/inline.js"></script>
-                    <script src="app.js"></script>
-
+                  
+                    <h5>Direct Customers</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">Balance =
-                        <span>&#8358;</span>886,200</h1>
-                    <div class="stat-percent font-bold text-success">5 days
-                        <i class="fa fa-bolt"></i>
-                    </div>
-                    <small>Remaining days to finish</small>
+                    <h1 class="no-margins"></h1>
+                    
+                    <small>Total Number of Direct Customers</small>
                 </div>
             </div>
         </div>
-    </div>
+
+</div>
     <div class="col-lg-14">
         <div class="panel panel-primary">
             <div class="panel-heading">

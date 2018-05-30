@@ -126,7 +126,7 @@
                                 <th>Id #</th>
                                 <th>Dates</th>
                                 <th>Agbara</th>
-                                <th>Oki</th>
+                                <th>Ojo</th>
                                 <th>Festac</th>
                                 <th>Ijora</th>
                                 <th>Mushin</th>

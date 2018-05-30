@@ -262,11 +262,18 @@ class AdminController extends Controller
     {
         return $this->v('settings');
     }
-    public function sms()
+    public function crm()
     {
-        return $this->v('sms');
+        return $this->v('crm');
     }
-
+    public function customerlist()
+    {
+        return $this->v('customerlist');
+    }
+    public function managecustomers()
+    {
+        return $this->v('managecustomers');
+    }
     // complete admin topup
     public function completeTopup($amount) {
 
@@ -301,4 +308,16 @@ class AdminController extends Controller
     {
         return view($this->prefix.'agent-topup-tracker');
     }
+
+    public function agentSales(){
+
+
+        return view($this->prefix.'agent-sales');
+    }
+     public function income(){
+
+
+         return view($this->prefix.'income');
+     }
+      
 }

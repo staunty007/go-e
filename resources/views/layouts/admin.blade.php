@@ -6,9 +6,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>GOENERGEE | Meter Administration</title>
+        <title>GOENERGEE </title>
 
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/tab.css')}}" rel="stylesheet">
         <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
         <link href="{{ asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
         <link href="{{ asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
@@ -16,13 +17,57 @@
         <link href="{{asset('css/style.css')}}" rel="stylesheet">
 
         <link href="{{asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/table1.css')}}" rel="stylesheet">
 
         <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
 
         <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
         <link rel="icon" href="{{asset('images/favicon.png')}}" type='image/x-icon'>
         <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+<script> $(document).ready(function() {
+    $('#example').DataTable( {
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 4 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 4, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 4 ).footer() ).html(
+                '$'+pageTotal +' ( $'+ total +' total)'
+            );
+        }
+    } );
+} );</script>
 
+        <script type="text/javascript" class="init">
+            
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+
+            </script>
     </head>
 
     <body>
@@ -41,7 +86,7 @@
                                         <span class="block m-t-xs">
                                             <strong class="font-bold"> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</strong>
                                         </span>
-                                        <span class="text-muted text-xs block">GOENERGEE
+                                        <span class="text-muted text-xs block">
                                             <b class="caret"></b>
                                         </span>
                                     </span>
@@ -50,12 +95,7 @@
                                     <li>
                                         <a href="{{route('admin.profile')}}">Profile</a>
                                     </li>
-                                    <li>
-                                        <a href="contacts.html">Contacts</a>
-                                    </li>
-                                    <li>
-                                        <a href="mailbox.html">Mailbox</a>
-                                    </li>
+                                    
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
@@ -71,21 +111,36 @@
                         </li>
 
                         <li class="{{$current_route_name =="admin.finance" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
-                            <a href="{{route('admin.finance')}}">
-                                <span>&#8358;</span>
-                                </i>
-                                <span class="nav-label">&nbsp;Financial</span>
-                            </a>
+                            <a><i class="fa fa-credit-card"></i> <span class="nav-label">Admin Dashboard</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
+                                <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income Report</a></li>
+                                    </ul>
+                                </li>
+                        <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' || Request::is('backend/agent-topup-trackers') ? 'active' :'' }}">
+                            <a><i class="fa fa-clone"></i> <span class="nav-label">Topup Trackers</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' }}"><a href="{{ route('admin.admin-topup-track') }}">Admin Topup</a></li>
+                                <li class="{{ Request::is('backend/agent-topup-trackers') ? 'active' :'' }}"><a href="{{ route('admin.agent-topup-track') }}">Agent Topup</a></li>
+                            </ul>
+                        </li>
+                            
                         </li>
 
                         <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' || Request::is('backend/agent-transactions') ? 'active' :'' }}">
-                            <a><i class="fa fa-users"></i> <span class="nav-label">Payment History</span> <span class="fa arrow"></span></a>
+                            <a><i class="fa fa-credit-card"></i> <span class="nav-label">Payment History</span> <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.direct-transactions') }}">Direct Transactions</a></li>
                                 <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent Transactions</a></li>
+                                
+                                
                             </ul>
                         </li>
-
+                        <li class="{{ Request::is('backend/agentsales') ? 'active' :'' }}"><a href="{{ route('admin.agentsales') }}">
+                                <i class="fa fa-money"></i>
+                                <span class="nav-label">Agent Sales</span>
+                            </a>
+                        </li>
                         <li class="{{$current_route_name =="admin.payment_history" ? 'active' : ''}}">
                             <a href="{{route('admin.payment_history')}}">
                                 <i class="fa fa-cc-visa"></i>
@@ -121,25 +176,31 @@
                         </li>
                         {{-- <li class="{{$current_route_name =="admin.settings" ? 'active' : ''}}">
                             <a href="{{route('admin.settings')}}">
-                                <i class="fa fa-address-card"></i>
+                                <i class="  fa fa-child"></i>
                                 <span class="nav-label">User Manager</span>
                             </a>
+                        </li>
+                        <li class="{{$current_route_name =="admin.crm" ? 'active' : ''}}">
+                            <a href="{{route('admin.crm')}}">
+                                <i class="fa fa-cogs"></i>
+                                <span class="nav-label">CRM</span>
                         </li> --}}
                         <li class="{{$current_route_name =="admin.sms" ? 'active' : ''}}">
                             <a href="{{route('admin.sms')}}">
                                 <i class="fa fa-envelope"></i>
                                 <span class="nav-label">SMS Gateway</span>
                             </a>
-                        </li>
-
-                        <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' || Request::is('backend/agent-topup-trackers') ? 'active' :'' }}">
-                            <a><i class="fa fa-clone"></i> <span class="nav-label">Topup Trackers</span> <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' }}"><a href="{{ route('admin.admin-topup-track') }}">Admin Topup</a></li>
-                                <li class="{{ Request::is('backend/agent-topup-trackers') ? 'active' :'' }}"><a href="{{ route('admin.agent-topup-track') }}">Agent Topup</a></li>
+                                <li class="{{ Request::is('backend/customerlist') ? 'active' :'' }}"><a href="{{ route('admin.customerlist') }}">Customer List</a></li>
+                                <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.managecustomers') }}">Manage Customer </a></li>
+                                
+                                
                             </ul>
                         </li>
-                    </ul>
+                       
+                        
+                        
+                   
 
 
             </nav>
@@ -221,6 +282,9 @@
 
         <!-- Mainly scripts -->
         <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+        <script src="{{asset('js/table.js')}}"></script>
+        <script src="{{asset('js/tab.js')}}"></script>
+        <script src="{{asset('js/table1.js')}}"></script>
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
         <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
         <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>

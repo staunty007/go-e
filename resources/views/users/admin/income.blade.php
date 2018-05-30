@@ -1,90 +1,20 @@
 @extends('layouts.admin') @section('content')
+
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 
-<div class="row">
-                   <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                {{-- <span class="label label-info pull-right">Annual</span> --}}
-                                <h5>Total Customers</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">{{ $customers }}</h1>
-                                {{-- <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small>Customers</small> --}}
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                {{-- <span class="label label-primary pull-right">Today</span> --}}
-                                <h5>Prepaid Payments</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">{{ $prepaids }}</h1>
-                                {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
-                                <small>New visits</small> --}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-
-
-                                <h5>Postpaid Payments</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">{{ $postpaids }}</h1>
-                                {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
-                                <small># of daily Customer sign Up</small> --}}
-                            </div>
-                        </div>
-            </div>
-            </div>
             <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Current Fluctuations
-
-                            </h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="lineChart" height="140"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Customer Meter Type Profile - Pre & Post Paid</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="barChart" height="140"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+               
 
 
 
 
                 <div class="col-lg-14" style="width:100%">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            GOENERGEE Customer Transaction
-                                        </div>
-                                        <div class="ibox-content m-b-sm border-bottom">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        INCOME REPORT
+                    </div>
+                    <div class="ibox-content m-b-sm border-bottom">
                 {{-- <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -144,75 +74,42 @@
                  <button type="button" class="btn btn-primary btn-md">Search</button>
 
             </div> --}}
-
-             <div class="ibox" style="overflow-x:auto;">
-                   <div class="ibox-content">
-                <table id="myTable" class="table table-striped table-responsive toggle-arrow-tiny" data-page-size="">
+                                    <div style="overflow-x:auto;">
+                                                    <div class="ibox-content">
+                <table class="table" id="myTable" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th data-hide="phone">Trans Date</th>
-                                        <th data-hide="phone">Trans Ref</th>
-                                        <th data-hide="phone">Customer Name</th>
-                                        <th data-hide="phone">Trans type</th>
-                                        <th data-hide="phone">Status</th>
-                                        <th data-hide="phone">Meter Type</th>
-                                       <th data-hide="phone">District</th>
-                                      
-                                        <th data-hide="phone">Meter #</th>
-                                       <th data-hide="phone">Value Purchased</th>
-                                        <th data-hide="phone">PIN</th>
-                                        <th data-hide="phone">KwH</th>
-                                        <th data-hide="phone">Conv. Fee</th>
-                                        <th data-hide="phone">Commission</th>
-                                        <th data-hide="phone">Amount Chrgd</th>
-                                        
-                                        <th data-hide="phone">PGP</th>
-                                        {{-- <th data-hide="phone">Agent #</th> --}}
+                                        <th data-hide="phone">NIBBS</th>
+                                        <th data-hide="phone">Interswtich</th>
+                                        <th data-hide="phone">ITEX</th>
+                                       
+                                        <th data-hide="phone">Paystack</th>
+                                        <th data-hide="phone">Agents</th>
                                         {{-- <th>BAL</th> --}}
                                         <th data-hide="phone">SPEC</th>
                                         <th data-hide="phone">RKL</th>
                                         <th data-hide="phone">Total</th>
-                                        <th data-hide="phone">Net Amt</th>
-                                        <th data-hide="phone">Wallet Balance</th>
+                                      
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach($payment as $p)
+                                   
                                         <tr>
-                                            <td>{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
-                                            <td>{{ $p->transaction_ref }}</td>
-                                            <td>{{ $p->first_name }} {{ $p->last_name }}</td>
-                                            <td>{{ $p->transaction_type }}</td>
-                                            <td>
-                                                <span class="label label-primary">Successful</span>
-                                            </td>
-                                            <td>
-                                                @if ($p->user_type == 1)
-                                                    {{ 'Prepaid' }}
-                                                @else
-                                                    {{ 'Postpaid' }}
-                                                @endif
-                                            </td>
-                                           
-                                            <td>Lekki</td>
-                                            <td>{{ $p->meter_no }}</td>
-                                            <td>₦{{$p->transaction->initial_amount }}</td>
                                             
-                                            <td>{{ $p->recharge_pin }}</td>
-                                            <td>{{ round($p->value_of_kwh,1) }}</td>
-                                            <td>₦{{ $p->transaction->conv_fee }}</td>
-                                            <td>₦{{ $p->transaction->commission }}</td>
-                                            <td>₦{{ $p->transaction->total_amount }}</td>
                                             
-                                            <td>₦{{ $p->transaction->pgp }}</td>
-                                            <td>₦{{ $p->transaction->spec }}</td>
-                                            <td>₦{{ $p->transaction->ralmuof }}</td>
-                                            <td>₦{{ $p->transaction->total_split }}</td>
-                                            <td>₦{{ $p->transaction->net_amount }}</td>
-                                            <td>₦{{ $p->transaction->wallet_bal }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
-                                    @endforeach
+                                  
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -404,14 +301,14 @@
 
 
     </script>
-        <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    
-    
-        <script>
-            $(document).ready( function () {
-                $('#myTable').DataTable();
-            } );
-        </script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
     @endpush
 @endsection
