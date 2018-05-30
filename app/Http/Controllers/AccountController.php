@@ -237,7 +237,7 @@ class AccountController extends Controller
 
             //return $adminBio;
 
-            $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
@@ -321,7 +321,7 @@ class AccountController extends Controller
             // Wallet Balance
             $adminBio = AdminBiodata::first();
 
-            $adminBio->wallet_balance -= $paymentDetails['amount'];
+            $adminBio->wallet_balance -= $netAmount;
             
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
@@ -407,7 +407,7 @@ class AccountController extends Controller
             // Wallet Balance
             $adminBio = AdminBiodata::first();
 
-            $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
             
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
