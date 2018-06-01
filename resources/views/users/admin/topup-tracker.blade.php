@@ -10,7 +10,7 @@
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins"></h1>
-                                 <h3>N3434</h3>
+                                 <h3>N{{ $totalTops }}</h3>
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             <div class="ibox-content">
                                 <h1 class="no-margins"></h1>
                                  
-                                <h3>N3434</h3>
+                                <h3>N{{ $adminTotalTops }}</h3>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins"></h1>
-                               <h3>N3434</h3>
+                               <h3>N{{ $agentTotalTops }}</h3>
                             </div>
                         </div>
             
@@ -81,23 +81,18 @@
                                         </thead>
 
                                         <tbody>
-                                            
+                                            @foreach ($topups as $topup)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        
-                                                    </td>
-                                                    <td></td>
-                                                    
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                
-                                                    
+                                                    <td>{{ $topup->id }}</td> 
+                                                    <td>{{ date('d/m/Y', strtotime($topup->created_at)) }}</td>
+                                                    <td>{{ $topup->trans_ref }}</td> 
+                                                    <td>{{ $topup->admin_id }}</td> 
+                                                    <td>{{ $topup->admin_name }}</td> 
+                                                    <td>N{{ $topup->topup_amount }}</td> 
+                                                    <td>N{{ $topup->wallet_balance }}</td> 
                                                 </tr>
+                                            @endforeach
+                                                
                                           
                                         </tbody>
                                         <tfoot>

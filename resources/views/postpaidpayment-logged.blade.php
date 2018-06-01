@@ -117,9 +117,18 @@
                     <div id="postpaid">
                         <h4>Please fill in your details for <span class="holder"></span></h4>
                         <form class="postpay" action="" method="POST">
+
                             <div class="form-group">
                                 <label for="">Account or Meter Number</label>
                                 <input type="text" name="meter_no" class="meterno form-control" value="{{ $user->meter_no }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Firstname</label>
+                                <input type="text" name="first_name" class="meterno form-control" value="{{ Auth::user()->first_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Lastname</label>
+                                <input type="text" name="last_name" class="meterno form-control" value="{{ Auth::user()->last_name }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Email Address</label>

@@ -103,6 +103,14 @@
                                 <input type="text" name="meter_no" class="meterno form-control">
                             </div>
                             <div class="form-group">
+                                <label for="">Firstname</label>
+                                <input type="text" name="first_name" class="meterno form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Lastname</label>
+                                <input type="text" name="last_name" class="meterno form-control">
+                            </div>
+                            <div class="form-group">
                                 <label for="">Email Address</label>
                                 <input type="email" name="email" class="email form-control">
                             </div>

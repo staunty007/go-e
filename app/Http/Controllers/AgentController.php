@@ -113,7 +113,20 @@ class AgentController extends Controller
         //return $amount;
         $biodata = AgentBiodata::where('user_id',Auth::user()->id)->first();
 
-        $biodata->wallet_balance += $amount;
+        $bal = $biodata->wallet_balance += $amount;
+
+        $trans_ref = str_random(20);
+
+        DB::table('agent_topups')->insert([
+            'trans_ref' => $trans_ref,
+            'agent_id' => $biodata->agent_id,
+            'agent_name' => \Auth::user()->first_name." ".\Auth::user()->last_name,
+            'topup_amount' => $amount,
+            'wallet_balance' => $bal,
+            'created_at' => new Carbon('now'),
+            'updated_at' => new Carbon('now')
+        ]);
+
 
         $biodata->save();
 

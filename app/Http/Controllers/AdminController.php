@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateUser;
 use App\MeterRequest;
 use App\AdminBiodata;
 use App\CustomerBiodata;
+use DB;
 
 class AdminController extends Controller
 {
@@ -268,7 +269,22 @@ class AdminController extends Controller
     }
     public function customerlist()
     {
-        return $this->v('customerlist');
+        $customers = [];
+        $countCustomers = Payment::count();
+        $customers['total'] = $countCustomers;
+
+        $directCustomers = Payment::where('is_agent',0)->count();
+        $customers['direct'] = $directCustomers;
+        $agentCustomers = Payment::where('is_agent',1)->count();
+        $customers['agent'] = $agentCustomers;
+
+        $directCustomersCollection = Payment::where('is_agent',0)->get();
+        $agentCustomersCollection = Payment::where('is_agent',1)->get();
+        return view($this->prefix.'customerlist')
+            ->withCustomers($customers)
+            ->withDirectCollection($directCustomersCollection)
+            ->withAgentCollection($agentCustomersCollection)
+            ;
     }
     public function managecustomers()
     {
@@ -292,7 +308,24 @@ class AdminController extends Controller
             return redirect('home')->withSuccess('Topup Successfull');
         }
 
-        $biodata->wallet_balance += $amount;
+        $bal = $biodata->wallet_balance += $amount;
+
+        //return $bal;
+
+        $trans_ref = str_random(20);
+        $adminID = "Admin001";
+        $adminName = "Admin Goenergee";
+
+        DB::table('admin_topups')->insert([
+            'trans_ref' => $trans_ref,
+            'admin_id' => $adminID,
+            'admin_name' => $adminName,
+            'topup_amount' => $amount,
+            'wallet_balance' => $bal,
+            'created_at' => new Carbon('now'),
+            'updated_at' => new Carbon('now')
+        ]);
+        
 
         $biodata->save();
 
@@ -302,22 +335,69 @@ class AdminController extends Controller
 
     public function topupTracker()
     {
-        return view($this->prefix.'topup-tracker');
+        $adminTotalTopups = DB::table('admin_topups')->sum('topup_amount');
+        $agentTotalTopups = DB::table('agent_topups')->sum('topup_amount');
+        $totalTops = $adminTotalTopups + $agentTotalTopups;
+
+        $allAdminTopups = DB::table('admin_topups')->get();
+        // return $adminTotalTopups;
+        return view($this->prefix.'topup-tracker')
+            ->withAdminTotalTops($adminTotalTopups)
+            ->withAgentTotalTops($agentTotalTopups)
+            ->withTotalTops($totalTops)
+            ->withTopups($allAdminTopups)
+            ;
     }
     public function agentTopupTracker()
     {
-        return view($this->prefix.'agent-topup-tracker');
+        $adminTotalTopups = DB::table('admin_topups')->sum('topup_amount');
+        $agentTotalTopups = DB::table('agent_topups')->sum('topup_amount');
+        $totalTops = $adminTotalTopups + $agentTotalTopups;
+
+        $allAgentTopups = DB::table('agent_topups')->get();
+        return view($this->prefix.'agent-topup-tracker')
+            ->withAdminTotalTops($adminTotalTopups)
+            ->withAgentTotalTops($agentTotalTopups)
+            ->withTotalTops($totalTops)
+            ->withTopups($allAgentTopups)
+        ;
     }
 
     public function agentSales(){
-
-
         return view($this->prefix.'agent-sales');
     }
-     public function income(){
 
 
-         return view($this->prefix.'income');
-     }
+    public function income() {
+        //  totals
+        $totals = [];
+
+        // Paystack Income Colllection
+        $transactions = Transaction::all('pgp','ralmuof','spec','created_at');
+        $agenttransactions = AgentTransaction::all('pgp','ralmuof','spec','agent','created_at');
+
+        // return $transactions;
+        $pgpAgent = AgentTransaction::all()->pluck('pgp');
+        
+        $pgpDirectTotal = Transaction::all()->sum('pgp');
+        $pgpAgentTotal = AgentTransaction::all()->sum('pgp');
+
+        $pgpTotal = $pgpDirectTotal + $pgpAgentTotal;
+        $pgpCollection = array_flatten(collect([$transactions,$agenttransactions]));
+
+        // return array_flatten($pgpCollection);
+        $totals['pgp'] = $pgpTotal;
+
+        // Agents Income Collection
+        $agents = AgentTransaction::all();
+        $agentTotal = AgentTransaction::all()->sum('agent');
+
+
+        //return $pgpCollection;
+
+        return view($this->prefix.'income')->withIncomes($pgpCollection);
+    }
+
+     
       
 }

@@ -281,8 +281,8 @@ class AccountController extends Controller
                 $is_agent = true;
             }
             $paymentId = DB::table('payments')->insertGetId([
-                'first_name' => 'Postpaid',
-                'last_name' => 'Payment',
+                'first_name' => $paymentDetails['first_name'],
+                'last_name' => $paymentDetails['last_name'],
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
                 'meter_no' => $paymentDetails['meter_no'],
@@ -367,8 +367,8 @@ class AccountController extends Controller
                 $is_agent = true;
             }
             $paymentId = DB::table('payments')->insertGetId([
-                'first_name' => 'Postpaid',
-                'last_name' => 'Payment',
+                'first_name' => $paymentDetails['first_name'],
+                'last_name' => $paymentDetails['last_name'],
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
                 'meter_no' => $paymentDetails['meter_no'],
@@ -443,29 +443,34 @@ class AccountController extends Controller
     // }
     public function home()
     {
-        $role = \Auth::user()->role_id;
-        switch ($role) {
-            case '1':
-                return redirect('/backend/finance');
-                break;
-            case '2':
-                $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
-                $allProfit = AgentTransaction::sum('agent');
+        if(\Auth::check()) {
+            $role = \Auth::user()->role_id;
+            switch ($role) {
+                case '1':
+                    return redirect('/backend/finance');
+                    break;
+                case '2':
+                    $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+                    $allProfit = AgentTransaction::sum('agent');
 
-                return view('users.agent.financial')
-                    ->withDetails($agent)
-                    ->withProfit($allProfit)
-                    ;
-                break;
-            case '3':
-                //return view('users.distributor.finance');
-                return redirect('/distributor/finance');
-                //return "Logged In";
-                break;
-            default:
-                return view('customer.dashboard');
-                break;
+                    return view('users.agent.financial')
+                        ->withDetails($agent)
+                        ->withProfit($allProfit)
+                        ;
+                    break;
+                case '3':
+                    //return view('users.distributor.finance');
+                    return redirect('/distributor/finance');
+                    //return "Logged In";
+                    break;
+                default:
+                    return view('customer.dashboard');
+                    break;
+            }
+        }else {
+            return redirect('/')->withError('Session Expired, Please Login');
         }
+        
     }
 
     public function customerProfile()

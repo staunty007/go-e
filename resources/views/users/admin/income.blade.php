@@ -2,78 +2,14 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 
-            <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-               
-
-
-
-
-                <div class="col-lg-14" style="width:100%">
+                <div class="col-lg-12" style="width:100%">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         INCOME REPORT
                     </div>
                     <div class="ibox-content m-b-sm border-bottom">
-                {{-- <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="order_id">Transaction ID</label>
-                            <input type="number" id="order_id" name="order_id" value="" placeholder="Transaction ID" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="status">Transaction status</label>
-                            <input type="text" id="status" name="status" value="" placeholder="Status" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="customer">Customer Name</label>
-                            <input type="text" id="customer" name="customer" value="" placeholder="Customer Name" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="customer">Meter #</label>
-                            <input type="number" id="meter#" name="Meter#" value="" placeholder="Meter Number" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="date_added">Date From</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_added" type="text" class="form-control" value="03/04/2018">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="date_modified">Date To</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_modified" type="text" class="form-control" value="03/06/2018">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="amount">Amount</label>
-                            <input type="text" id="amount" name="amount" value="" placeholder="Amount" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="control-label" for="amount">District</label>
-                            <input type="text" id="district" name="district" value="" placeholder="District" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                 <button type="button" class="btn btn-primary btn-md">Search</button>
-
-            </div> --}}
                                     <div style="overflow-x:auto;">
                                                     <div class="ibox-content">
                 <table class="table" id="myTable" style="width:100%">
@@ -83,9 +19,9 @@
                                         <th data-hide="phone">NIBBS</th>
                                         <th data-hide="phone">Interswtich</th>
                                         <th data-hide="phone">ITEX</th>
-                                       
+                                        <th data-hide="phone">Agent</th>
                                         <th data-hide="phone">Paystack</th>
-                                        <th data-hide="phone">Agents</th>
+                                        
                                         {{-- <th>BAL</th> --}}
                                         <th data-hide="phone">SPEC</th>
                                         <th data-hide="phone">RKL</th>
@@ -95,21 +31,19 @@
                                 </thead>
 
                                 <tbody>
-                                   
+                                    @foreach ($incomes as $income)
                                         <tr>
-                                            
-                                            
+                                            <td>{{ $income->created_at }}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{ $income->agent }}</td>
+                                            <td>{{ $income->pgp}}</td>
+                                            <td>{{ $income->spec }}</td>
+                                            <td>{{ $income->ralmuof }}</td>
                                         </tr>
-                                  
+                                    @endforeach
+                                        
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -117,6 +51,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            
                         </div>
                     </div>
 
@@ -130,6 +65,9 @@
                 </div>
 
             </div>
+
+
+            
 
         </div>
         @push('scripts')

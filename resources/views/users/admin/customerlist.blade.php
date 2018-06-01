@@ -9,7 +9,7 @@
                     <h5>Customer</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"></h1>
+                  <h1 class="no-margins">{{ $customers['total'] }}</h1>
                    
                     <small>Total Number of Customers</small>
                 </div>
@@ -22,7 +22,7 @@
                     <h5>Direct Customers</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"></h1>
+                    <h1 class="no-margins">{{ $customers['direct'] }}</h1>
                     
                     <small>Total Number of Direct Customers</small>
                 </div>
@@ -38,7 +38,7 @@
                     <h5>Agent Customers</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"></h1>
+                    <h1 class="no-margins">{{ $customers['agent'] }}</h1>
                     
                     <small>Total Number of Customers via Agent Portal</small>
                 </div>
@@ -96,50 +96,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      
-     
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-  
+    @foreach ($directCollection as $direct)
+      <tr>
+        <th scope="row">{{ $direct->id }}</th>
+        <td>{{ $direct->meter_no }}</td>
+        <td>{{ $direct->first_name ." ". $direct->last_name }}</td>
+        <td>{{ $direct->phone_number }}</td>
+        <td>{{ $direct->email}}</td>
+        <td>{{ 'Not Included' }}</td>
+        <td>{{ $direct->total_amount }}</td>
+      </tr>
+    @endforeach
     
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      
-      
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-   
-     
-    </tr>
+    
   </tbody>
 </table>
                 </div>
@@ -319,50 +288,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              
-             
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-          
+            @foreach ($agentCollection as $agent)
+              <tr>
+                <th scope="row">{{ $agent->id }}</th>
+                <td>{{ $agent->first_name ." ". $agent->last_name }}</td>
+                <td>{{ $agent->phone_number }}</td>
+                <td>{{ $agent->email }}</td>
+                <td>{{ 'Not Included' }}</td>
+                <td>{{ $agent->total_amount }}</td>
+                
+              </tr>
+            @endforeach
             
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              
-              
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-           
-             
-            </tr>
+            
           </tbody>
         </table>
                         </div>
@@ -839,7 +777,6 @@
     </script>
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
 
     <script>
         $(document).ready( function () {

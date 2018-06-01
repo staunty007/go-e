@@ -174,18 +174,6 @@
                                 <li class="{{ Request::is('backend/manage/agents/*') ? 'active' :'' }}"><a href="{{ route('agents.index') }}">Manage Agents</a></li>
                             </ul>
                         </li>
-                        {{-- <li class="{{$current_route_name =="admin.settings" ? 'active' : ''}}">
-                            <a href="{{route('admin.settings')}}">
-                                <i class="  fa fa-child"></i>
-                                <span class="nav-label">User Manager</span>
-                            </a>
-                        </li>
-                        --}}
-                        <li class="{{$current_route_name =="admin.crm" ? 'active' : ''}}">
-                            <a href="{{route('admin.crm')}}">
-                                <i class="fa fa-cogs"></i>
-                                <span class="nav-label">CRM</span>
-                        </li> --}}
                         <li class="{{$current_route_name =="admin.crm" ? 'active' : ''}}">
                             <a href="{{route('admin.crm')}}">
                                 <i class="fa fa-envelope"></i>
@@ -195,15 +183,10 @@
                                 <li class="{{ Request::is('backend/customerlist') ? 'active' :'' }}"><a href="{{ route('admin.customerlist') }}">Customer List</a></li>
                                 <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.managecustomers') }}">Manage Customer </a></li>
                                 
-                                
                             </ul>
                         </li>
-                       
-                        
-                        
-                   
-
-
+                    </ul>
+                </div>
             </nav>
 
             <div id="page-wrapper" class="gray-bg">
@@ -360,24 +343,24 @@
         <script>
             function payWithPaystack() {
 				var amount = document.querySelector('#topup-amount').value;
-				var handler = PaystackPop.setup({
-					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-					email: "admin@goenergee.com",
-					amount: amount + "00",
-					ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+				// var handler = PaystackPop.setup({
+				// 	key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+				// 	email: "admin@goenergee.com",
+				// 	amount: amount + "00",
+				// 	ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
 
-					callback: function (response) {
+				// 	callback: function (response) {
 						// swal('Yay!', 'Payment Successfull', 'success');
 						setTimeout(() => {
 							window.location.href = '/backend/topup-admin/success/'+amount;
 						}, 1000);
-					},
-					onClose: function () {
-						alert('Payment Cancelled');
-						document.querySelector('#topUpBtn').innerHTML = "Top up Now";
-					}
-				});
-				handler.openIframe();
+				// 	},
+				// 	onClose: function () {
+				// 		alert('Payment Cancelled');
+				// 		document.querySelector('#topUpBtn').innerHTML = "Top up Now";
+				// 	}
+				// });
+				// handler.openIframe();
 			}
         </script>
         @stack('popups') @stack('scripts')
