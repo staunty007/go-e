@@ -369,7 +369,7 @@
                 key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
                 email: document.querySelector('.email').value,
                 amount: parseInt(document.querySelector('.amount').value) + 100 + "00",
-                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                ref: 'GOEPOS' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 callback: function (response) {
                     // console.log(response);
                     setTimeout(() => {

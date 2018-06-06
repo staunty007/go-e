@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Session;
 use App\User;
+use Carbon\Carbon;
 use App\AgentBiodata;
+
 
 
 class AgentManagerController extends Controller
@@ -29,7 +33,7 @@ class AgentManagerController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->prefix.'create');
     }
 
     /**
@@ -40,7 +44,34 @@ class AgentManagerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = new User;
+
+        // Insert into database and return the id
+        $userId = DB::table('users')->insertGetId([
+            'role_id' => 2,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'password' => bcrypt('password'),
+            'is_activated' => 1,
+            'created_at' => new Carbon('now'),
+            'updated_at' => new Carbon('now')
+        ]);
+        
+        // Insert into Agent Biodata
+        $updatebio = DB::table('agent_biodatas')->insert([
+            'user_id' => $userId,
+            'agent_id' => $request->agent_id,
+            'address' => $request->address
+        ]);
+        
+        if($updatebio) {
+            Session::flash('Agent Created Successfully');
+            return redirect()->route('agents.index');
+        }
+        return back();
     }
 
     /**
@@ -62,7 +93,8 @@ class AgentManagerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $agent = User::where('id',$id)->with('agent')->first();
+        return $agent;
     }
 
     /**

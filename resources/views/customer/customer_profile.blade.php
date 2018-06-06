@@ -89,8 +89,13 @@
                                             </div>
                                             <input type="hidden" name="customer_id" value="{{ Auth::user()->id }}" />
                                             <div class="form-group">
+                                                <label>Change Password</label>
+                                                <input type="password" class="form-control" name="password" />
+                                            </div>
+                                            <div class="form-group">
                                                 <button class="btn btn-primary" id="profileUpdate">Update Account</button>
                                             </div>
+                                            
                                         </div>
                                     
                                     

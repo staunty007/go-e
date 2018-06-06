@@ -100,7 +100,7 @@
                                             <th data-hide="phone">District</th>
                                             <th data-hide="phone">Meter Type</th>
                                             <th data-hide="phone">House Type</th>
-
+                                            <th data-hide="phone">Date Requested</th>
 
 
                                         </tr>
@@ -150,6 +150,7 @@
                                             <td>
                                                 {{ $req->house_type}}
                                             </td>
+                                            <td> {{ date('d/m/Y', strtotime($req->created_at ))}}
                                         </tr>
                                         @endforeach
                                     </tbody>

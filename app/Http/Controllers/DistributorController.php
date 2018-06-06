@@ -54,8 +54,11 @@ class DistributorController extends Controller
         // $data['registeredcustomers'] = User::where('role_id', 3)->count();
         // $data['registeredagents'] = User::where('role_id', 2)->count();
 
-
+        // All Direct Payment
         $payments = Payment::where('is_agent',0)->with('transaction')->orderBy('created_at','desc')->get();
+
+        // TotalWalletDeposit
+        $deps = DB::table('admin_topups')->sum('topup_amount');
 
         //return $payments;
         $wallet_balance = AdminBiodata::first();

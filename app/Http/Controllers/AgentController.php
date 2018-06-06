@@ -35,6 +35,16 @@ class AgentController extends Controller
 
     public function paymentHistory()
     {
+        $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+        
+        $allTopups = DB::table('agent_topups')->where('agent_id','=',$agent->agent_id)->get();
+
+        $lastTopup = [];
+        foreach(last($allTopups) as $topup) {
+            $lastTopup['amount'] = $topup->topup_amount;
+        }
+
+        // return $lastTopup['amount'];
         $prepaidAgent = Payment::where([
             ['user_type','=',1],
             ['is_agent','=',1]
@@ -49,8 +59,23 @@ class AgentController extends Controller
         $combine = collect($prepaidAgent,$postpaidAgent);
 
         $payments = array_flatten($combine);
+
+        // Total Sellage
+        $allSellage = Payment::where('is_agent','=',1)->with('agent_transaction')->get();
+        
+        $sold = 0;
+
+        foreach ($allSellage as $sells) {
+            $sold += $sells->agent_transaction->total_amount;
+        }
+        //return $sold;
         // return $payments;
-        return view($this->prefix.'payment_history')->withHistory($payments);
+        return view($this->prefix.'payment_history')
+            ->withHistory($payments)
+            ->withBalance($agent->wallet_balance)
+            ->withTheLast($lastTopup['amount'])
+            ->withAllSold($sold)
+            ;
     }
     public function prepaidToken()
     {

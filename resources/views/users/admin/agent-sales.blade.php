@@ -11,7 +11,7 @@
                                 <h5>Total Agent Sales</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins"></h1>
+                                <h1 class="no-margins">{{ $sales['totalSales'] }}</h1>
                                 {{-- <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
                                 <small>Customers</small> --}}
                             </div>
@@ -41,7 +41,7 @@
                                 <h5>Total Wallet Deposit</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins"></h1>
+                                <h1 class="no-margins">{{ $sales['totalDeposit'] }}</h1>
                                 {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>
                                 <small># of daily Customer sign Up</small> --}}
                             </div>

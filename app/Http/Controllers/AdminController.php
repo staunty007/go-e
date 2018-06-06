@@ -278,8 +278,8 @@ class AdminController extends Controller
         $agentCustomers = Payment::where('is_agent',1)->count();
         $customers['agent'] = $agentCustomers;
 
-        $directCustomersCollection = Payment::where('is_agent',0)->get();
-        $agentCustomersCollection = Payment::where('is_agent',1)->get();
+        $directCustomersCollection = Payment::where('is_agent',0)->with('transaction')->get();
+        $agentCustomersCollection = Payment::where('is_agent',1)->with('agent_transaction')->get();
         return view($this->prefix.'customerlist')
             ->withCustomers($customers)
             ->withDirectCollection($directCustomersCollection)
@@ -364,7 +364,18 @@ class AdminController extends Controller
     }
 
     public function agentSales(){
-        return view($this->prefix.'agent-sales');
+        $sales = [];
+
+        $totalAgentSales = Payment::where('is_agent',1)->count();
+        $sales['totalSales'] = $totalAgentSales;
+
+        $totalWalletDep = DB::table('agent_topups')->where('agent_id','=',\Auth::user()->id)->sum('topup_amount');
+        $sales['totalDeposit'] = $totalWalletDep;
+
+        return view($this->prefix.'agent-sales')
+            ->withSales($sales)
+            
+            ;
     }
 
 
@@ -398,6 +409,6 @@ class AdminController extends Controller
         return view($this->prefix.'income')->withIncomes($pgpCollection);
     }
 
-     
-      
+    
+    
 }

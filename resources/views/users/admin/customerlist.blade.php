@@ -104,7 +104,7 @@
         <td>{{ $direct->phone_number }}</td>
         <td>{{ $direct->email}}</td>
         <td>{{ 'Not Included' }}</td>
-        <td>{{ $direct->total_amount }}</td>
+        <td>{{ $direct->transaction->total_amount }}</td>
       </tr>
     @endforeach
     
@@ -276,7 +276,6 @@
             <tr>
               <th>#</th>
               <th class="col-md-2 col-xs-2">Meter or Account Number</th>
-              
               <th class="col-md-2 col-xs-2">Full Name</th>
               <th class="col-md-2 col-xs-1">Telephone</th>
               <th class="col-md-2 col-xs-2">Email</th>
@@ -291,11 +290,12 @@
             @foreach ($agentCollection as $agent)
               <tr>
                 <th scope="row">{{ $agent->id }}</th>
+                <td>{{ $agent->meter_no }}</td>
                 <td>{{ $agent->first_name ." ". $agent->last_name }}</td>
                 <td>{{ $agent->phone_number }}</td>
                 <td>{{ $agent->email }}</td>
                 <td>{{ 'Not Included' }}</td>
-                <td>{{ $agent->total_amount }}</td>
+                <td>{{ $agent->agent_transaction->total_amount }}</td>
                 
               </tr>
             @endforeach

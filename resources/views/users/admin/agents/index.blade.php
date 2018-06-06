@@ -2,8 +2,12 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
+
     <div class="wrapper wrapper-content">
         <div class="row">
+            <div class="col-lg-12">
+                <a href="{{ route('agents.create') }}" class="btn btn-info"><i class="fa fa-plus"></i> Create New Agent</a>
+            </div>
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">

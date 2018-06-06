@@ -140,7 +140,6 @@
                                 $('.pay-meter').html('Make Payment');
                             }else {
                                 continueToPay();
-                                
                             }
                         }
                     })
@@ -165,7 +164,7 @@
               })
                 function payPrepaidMeter(){
                     var amountMeter = document.querySelector('.meter-amount').value;
-                    var reference = Math.floor((Math.random() * 1000000000) + 1)+"GOEPAY";
+                    var reference = "GOEPRE"+Math.floor((Math.random() * 1000000000) + 1);
                     // var chargedAmount = parseInt(amountMeter) + 100;
                     // console.log(chargedAmount);
                     // var handler = PaystackPop.setup({

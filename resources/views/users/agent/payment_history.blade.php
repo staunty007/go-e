@@ -6,12 +6,12 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                
-                                <h5>Current Balance</h5>
+                                <h5>Wallet Balance</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
+                                <h1 class="no-margins"><span>&#8358;</span>{{ number_format($balance) }}</h1>
                                 <!--<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>-->
-                                <small>Customers</small>
+                                {{-- <small>Customers</small> --}}
                             </div>
                         </div>
                     </div>
@@ -20,12 +20,12 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 
-                                <h5>Average Daily Income</h5>
+                                <h5>Last Topup Amount</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins"><span>&#8358;</span>120</h1>
-                                <div class="stat-percent font-bold text-navy">4% <i class="fa fa-level-up"></i></div>
-                                <small>Average daily amount received</small>
+                                <h1 class="no-margins"><span>&#8358;</span>{{ number_format($theLast) }}</h1>
+                                {{-- <div class="stat-percent font-bold text-navy">4% <i class="fa fa-level-up"></i></div> --}}
+                                {{-- <small>Average daily amount received</small> --}}
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <h5>Total Year to date Transaction</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins"><span>&#8358;</span>100,000</h1>
+                                <h1 class="no-margins"><span>&#8358;</span>{{ number_format($allSold) }}</h1>
                                 <!--<div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>-->
                                 <small>Cumulative Transacted Amount</small>
                             </div>
