@@ -55,13 +55,14 @@
                                 <thead>
                                     <tr>
                                         <th>Total</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Null</th>
+                                        <th>Null</th>
+                                        <th>Null</th>
+                                        <th>Null</th>
+                                        <th>N{{ $totals['agent'] }}</th>
+                                        <th>N{{ $totals['pgp'] }}</th>
+                                        <th>N{{ $totals['spec'] }}</th>
+                                        <th>N{{ $totals['ralmuof'] }}</th>
                                         
                                     </tr>
                                 </thead>

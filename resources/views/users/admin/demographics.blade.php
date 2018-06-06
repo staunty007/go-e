@@ -1,5 +1,39 @@
 @extends('layouts.admin') @section('content')
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+        window.onload = function () {
+            
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+ 
+            axisX:{
+                interval: 1
+            },
+            axisY2:{
+                interlacedColor: "rgba(163, 225, 212,.2)",
+                gridColor: "rgba(26, 179, 148,.1)",
 
+            },
+            data: [{
+                type: "bar",
+                name: "districts",
+                axisYType: "secondary",
+                color: "#014D65",
+                dataPoints: [
+                    { y: 3, label: "Orile" },
+                    { y: 7, label: "Ojo" },
+                    { y: 5, label: "Island" },
+                    { y: 9, label: "Ijora" },
+                    { y: 7, label: "Festac" },
+                    { y: 7, label: "Apapa" },
+                    { y: 9, label: "Agbara" },
+                ]
+            }]
+        });
+        chart.render();
+        
+        }
+        </script>
 <div class="row">
 
 
@@ -52,36 +86,19 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Energy Consumption by District</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
+                        
                     </div>
                     <div class="ibox-content">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-bar-chart"></div>
-                            </div>
+                        <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                     </div>
                 </div>
+                </div>
             </div>
-            <div class="col-lg-6">
+            {{-- <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Live Power Consumption</h5>
@@ -111,7 +128,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            <style>
+                    a.canvasjs-chart-credit {
+                        display: none !important;
+                        visibility: hidden !important;
+                    }
+                </style>
         <div class="col-lg-14">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">

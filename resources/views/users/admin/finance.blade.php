@@ -168,8 +168,8 @@
                         <span>&#8358;</span> {{ number_format($data['wallet_balance']) }}</h1>
                     
                     
-                    <small>Admin Wallet is </small>50%
-                        of Agent Wallet 
+                    {{-- <small>Admin Wallet is </small>50%
+                        of Agent Wallet  --}}
                 </div>
             </div>
         </div>

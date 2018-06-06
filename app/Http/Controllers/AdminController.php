@@ -397,16 +397,28 @@ class AdminController extends Controller
         $pgpCollection = array_flatten(collect([$transactions,$agenttransactions]));
 
         // return array_flatten($pgpCollection);
+        $totals['pgp'] = 0;
         $totals['pgp'] = $pgpTotal;
 
         // Agents Income Collection
         $agents = AgentTransaction::all();
         $agentTotal = AgentTransaction::all()->sum('agent');
+        $totals['agent'] = 0;
+        $totals['agent'] = $agentTotal;
 
-
+        // Spec Totals
+        $specDirectTotal = Transaction::all()->sum('spec');
+        $specAgentTotal = AgentTransaction::all()->sum('spec');
+        $totals['spec'] = 0;
+        $totals['spec'] = $specDirectTotal + $specAgentTotal;
         //return $pgpCollection;
 
-        return view($this->prefix.'income')->withIncomes($pgpCollection);
+        $ralmuofDirectTotal = Transaction::all()->sum('ralmuof');
+        $ralmuofAgentTotal = AgentTransaction::all()->sum('ralmuof');
+        $totals['ralmuof'] = 0;
+        $totals['ralmuof'] = $ralmuofDirectTotal + $ralmuofAgentTotal;
+
+        return view($this->prefix.'income')->withIncomes($pgpCollection)->withTotals($totals);
     }
 
     
