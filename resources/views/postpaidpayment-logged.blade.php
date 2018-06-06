@@ -117,44 +117,64 @@
                     <div id="postpaid">
                         <h4>Please fill in your details for <span class="holder"></span></h4>
                         <form class="postpay" action="" method="POST">
-
-                            <div class="form-group">
-                                <label for="">Account or Meter Number</label>
-                                <input type="text" name="meter_no" class="meterno form-control" value="{{ $user->meter_no }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Firstname</label>
-                                <input type="text" name="first_name" class="meterno form-control" value="{{ Auth::user()->first_name }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Lastname</label>
-                                <input type="text" name="last_name" class="meterno form-control" value="{{ Auth::user()->last_name }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email Address</label>
-                                <input type="email" name="email" class="email form-control" value="{{ Auth::user()->email }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Phone Number</label>
-                                <input type="text" name="mobile" class="mobile form-control" value="{{ Auth::user()->mobile }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Convenience Fee</label>
-                                <input type="text" name="conv_fee" value="100.00" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Amount</label>
-                                <input type="text" name="amount" placeholder="0.00" class="amount form-control">
-                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Account or Meter Number</label>
+                                        <input type="text" name="meter_no" class="meterno form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Firstname</label>
+                                        <input type="text" name="first_name" class="meterno form-control" value="{{ Auth::user()->first_name }}">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Lastname</label>
+                                        <input type="text" name="last_name" class="meterno form-control" value="{{ Auth::user()->last_name }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email Address</label>
+                                        <input type="email" name="email" class="email form-control" value="{{ Auth::user()->email }}">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Phone Number</label>
+                                        <input type="text" name="mobile" class="mobile form-control" value="{{ Auth::user()->mobile }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Convenience Fee</label>
+                                        <input type="text" name="conv_fee" value="100.00" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Amount</label>
+                                        <input type="text" name="amount" placeholder="0.00" class="amount form-control">
+                                    </div>
+                                </div>
                             <input type="hidden" id="payType" value="" />
                             @if(Auth::user()->id == 2)
                             <input type="hidden" id="is_agent" value="1" name="is_agent"/>
                             @else
                             <input type="hidden" id="is_agent" value="0" name="is_agent"/>
                             @endif
+                            <div class="col-md-12">
                             <div class="form-group">
                                 <button class="btn btn-block" id="payPostpaid">Continue</button>
                             </div>
+                            </div>
+                        </div>
                     </div>
 
 

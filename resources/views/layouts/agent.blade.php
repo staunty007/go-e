@@ -47,6 +47,11 @@
                         GO
                     </div>
                 </li>
+                @if(Auth::user()->is_completed == 0)
+                <li class="{{ Request::is('agent/profile') ? 'active': '' }}"> 
+                    <a href="{{ route('agent.profile') }}"><i class="fa fa-podcast"></i> <span class="nav-label">Agent Profile <span style='color:red'>*</span></a>
+                </li>
+                @else
                 <li class="{{ Request::is('home') ? 'active': '' }}"><a href="{{ route('agent.dashboard') }}"><span>&#8358;</span></i> <span class="nav-label">&nbsp;My Dashboard</span></a>
                 </li>
                 <li class="{{ Request::is('agent/payment-history') ? 'active': '' }}">
@@ -67,9 +72,10 @@
 				<li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
                    <a href="{{ route('agent.meter') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
                 </li>
-                 <li class="{{ Request::is('agent/profile') ? 'active': '' }}"> 
+                <li class="{{ Request::is('agent/profile') ? 'active': '' }}"> 
                     <a href="{{ route('agent.profile') }}"><i class="fa fa-podcast"></i> <span class="nav-label">Agent Profile</span></a>
                 </li>
+                @endif
                 
                 
     </nav>

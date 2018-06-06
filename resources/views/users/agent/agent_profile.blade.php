@@ -57,6 +57,14 @@
                             <form id="form" action="{{ route('agent.update') }}" enctype="multipart/form-data" method="POST">
                                 {{ csrf_field()}}
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Meter No</label>
+                                            <input type="text" class="form-control" name="meter_no" value="{{ $profile->meter_no }}">
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="clearfix"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Firstname</label>
@@ -93,6 +101,13 @@
                                         </div>
                                         
                                     </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Update Password</label>
+                                            <input type="text" class="form-control" name="password">
+                                        </div>
+                                    </div>
                                    
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -100,6 +115,7 @@
                                             <textarea class="form-control" name="address" rows="4">{{ $profile->address }}</textarea>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Choose Profile Picture</label>

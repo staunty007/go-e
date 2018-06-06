@@ -40,6 +40,7 @@ class AgentController extends Controller
         $allTopups = DB::table('agent_topups')->where('agent_id','=',$agent->agent_id)->get();
 
         $lastTopup = [];
+        $lastTopup['amount'] = 0;
         foreach(last($allTopups) as $topup) {
             $lastTopup['amount'] = $topup->topup_amount;
         }
@@ -117,6 +118,7 @@ class AgentController extends Controller
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
         $user->mobile = $request->mobile;
+        $user->is_completed = 1;
 
         // if($request->password !== NULL) {
         //     $user->password = bcrypt($request->password);
@@ -124,9 +126,14 @@ class AgentController extends Controller
 
         $agentBio = AgentBiodata::where('user_id',$user->id)->first();
         $agentBio->address = $request->address;
+        $agentBio->meter_no = $request->meter_no;
 
         if ($request->hasFile('avatar')) {
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+
+        if($request->has('password')) {
+            $user->password = bcrypt($request->password);
         }
         $user->save();
         $agentBio->save();
