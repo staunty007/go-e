@@ -33,7 +33,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                    
-                    <h5>Remaining Amount in GOENERGEE Wallet</h5>
+                    <h5>Remaining Wallet Balance</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">₦{{ number_format($balance) }}</h1>

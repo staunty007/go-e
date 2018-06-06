@@ -32,12 +32,12 @@
                         <li class="nav-header">
                             <div class="dropdown profile-element">
                                 <span>
-                                    <img alt="image" class="img-circle" src="{{asset('images/profile_small.png')}}" />
+                                    <img alt="image" class="img-responsive img-circle" src="{{asset('images/ekedc.jpg')}}" height="200"/>
                                 </span>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <span class="clear">
                                         <span class="block m-t-xs">
-                                            <strong class="font-bold">Patrick Chigbata</strong>
+                                            <strong class="font-bold">EKEDC</strong>
                                         </span>
                                         <span class="text-muted text-xs block">GOENERGEE
                                         | Disco
