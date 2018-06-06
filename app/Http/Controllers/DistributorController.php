@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\MeterRequest;
 use App\User;
 use App\AdminBiodata;
+use DB;
 
 class DistributorController extends Controller
 {

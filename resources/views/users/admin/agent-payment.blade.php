@@ -48,21 +48,23 @@
             </div>
             <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Current Fluctuations
-
-                            </h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="lineChart" height="140"></canvas>
-                            </div>
+                <div class="col-lg-4">
+                    
+                               
+                    <div class="widget yellow-bg p-lg text-center">
+                        <div class="m-b-md">
+                            <i class="fa fa-thumbs-up fa-4x"></i>
+                            <h1 class="m-xs">Wallet Deposit</h1>
+                            <h3 class="font-bold no-margins">
+                                Current Balance is
+                            </h3>
+                            <span>&#8358;</span>
                         </div>
                     </div>
+                                
+                       
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Customer Meter Type Profile - Pre & Post Paid</h5>
