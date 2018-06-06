@@ -25,7 +25,7 @@
                                         {{-- <th>BAL</th> --}}
                                         <th data-hide="phone">SPEC</th>
                                         <th data-hide="phone">RKL</th>
-                                        <th data-hide="phone">Total</th>
+                                        
                                       
                                     </tr>
                                 </thead>
@@ -51,7 +51,21 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
 
