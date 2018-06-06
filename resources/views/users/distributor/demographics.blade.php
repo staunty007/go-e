@@ -1,4 +1,39 @@
 @extends('layouts.distributor') @section('content')
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+        window.onload = function () {
+            
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+ 
+            axisX:{
+                interval: 1
+            },
+            axisY2:{
+                interlacedColor: "rgba(163, 225, 212,.2)",
+                gridColor: "rgba(26, 179, 148,.1)",
+
+            },
+            data: [{
+                type: "bar",
+                name: "districts",
+                axisYType: "secondary",
+                color: "#014D65",
+                dataPoints: [
+                    { y: 3, label: "Orile" },
+                    { y: 7, label: "Ojo" },
+                    { y: 5, label: "Island" },
+                    { y: 9, label: "Ijora" },
+                    { y: 7, label: "Festac" },
+                    { y: 7, label: "Apapa" },
+                    { y: 9, label: "Agbara" },
+                ]
+            }]
+        });
+        chart.render();
+        
+        }
+        </script>
 <div class="row">
 
 
@@ -56,30 +91,11 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Energy Consumption by District</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#">Config option 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
+                    
                 </div>
                 <div class="ibox-content">
-                    <div class="flot-chart">
-                        <div class="flot-chart-content" id="flot-bar-chart"></div>
-                    </div>
+                        <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+                        
                 </div>
             </div>
         </div>
@@ -87,25 +103,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Live Power Consumption</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#">Config option 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
+                    
                 </div>
                 <div class="ibox-content">
 
@@ -120,6 +118,12 @@
 
     
 </div>
+<style>
+    a.canvasjs-chart-credit {
+        display: none !important;
+        visibility: hidden !important;
+    }
+</style>
 <div class="col-lg-14">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -133,16 +137,14 @@
                     <tr>
                         <th>Id #</th>
                         <th>Dates</th>
-                        <th>Agbara</th>
-                        <th>Ajele</th>
-                        <th>Apapa</th>
-                        <th>Festac</th>
-                        <th>Ibeju</th>
-                        <th>Isolo</th>
-                        <th>Mushin</th>
-                        <th>Ojo</th>
-                        <th>Lekki</th>
                         <th>Orile</th>
+                        <th>Ojo</th>
+                        <th>Island</th>
+                        <th>Ijora</th>
+                        <th>Festac</th>
+                        <th>Apapa</th>
+                        <th>Agbara</th>
+                        
 
 
                     </tr>
@@ -158,11 +160,6 @@
                         <td>800</td>
                         <td>600</td>
                         <td>450</td>
-                        <td>254</td>
-                        <td>100</td>
-                        <td>270</td>
-
-
 
                     </tr>
 

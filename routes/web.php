@@ -155,6 +155,8 @@ Route::prefix('distributor')->group(function () {
     Route::get('demographics', 'DistributorController@demographics')->name('distributor.demographics');
     Route::get('meter_admin', 'DistributorController@meter_admin')->name('distributor.meter_admin');
     //Route::get('settings', 'DistributorController@settings')->name('admin.settings');
+    Route::get('meter/change-status/{id}','DistributorController@getChangeStatus')->name('meter.change');
+    Route::post('meter/change-status/{id}','DistributorController@postChangeStatus')->name('meter.update');
     
 });
 

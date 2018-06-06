@@ -35,7 +35,7 @@
                             <img src="/storage/{{ Auth::user()->avatar }}" class="img-circle img-responsive" width="70">
                     </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Patrick Chigbata</strong>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->first_name." ".Auth::user()->last_name }}</strong>
                              </span> <span class="text-muted text-xs block">GOENERGEE - AGENT<b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                            

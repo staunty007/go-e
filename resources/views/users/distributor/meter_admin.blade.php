@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox">
-                            <div class="ibox-content">
+                            <div class="ibox-content" style="overflow-x:auto">
 
                                 <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="4" id="myTable">
                                     <thead>
@@ -128,14 +128,25 @@
                                                 {{ $req->email_address}}
                                             </td>
                                             <td>
-                                                <span class="label label-warning">Pending</span>
+                                                @switch($req->status)
+                                                    @case(1)
+                                                        <span class="label label-info">Processing</span>
+                                                        @break
+                                                    @case(2)
+                                                    <span class="label label-danger">Not Available</span>
+                                                        @break
+                                                    @case(3)
+                                                    <span class="label label-success">Delivered</span>
+                                                        @break
+                                                    @default
+                                                    <span class="label label-warning">Pending</span>
+                                                @endswitch
+                                                
                                             </td>
 
                                             <td>
                                                 <div class="btn-group">
-                                                    <button class="btn btn-sm btn-success">Delivered</button>
-                                                    <button class="btn btn-sm btn-warning">Not Available</button>
-                                                    <button class="btn btn-sm btn-info">Processing</button>
+                                                    <a href="{{ route('meter.change',$req->id) }}" class="btn btn-sm btn-danger">Change status</a>
                                                 </div>
                                             </td>
                                             <td>

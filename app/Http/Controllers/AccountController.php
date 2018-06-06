@@ -493,6 +493,7 @@ class AccountController extends Controller
         //return $request;
         $user = User::find($request->customer_id);
         $user->is_completed = 1;
+        $user->is_activated = 1;
         $user->mobile = $request->phone;
 
         $bio = CustomerBiodata::where('user_id',$request->customer_id)->first();

@@ -99,4 +99,21 @@ class DistributorController extends Controller
     {
         return $this->v('sms');
     }
+    public function getChangeStatus($id) {
+        // Find Meter Row via ID
+        $meter = MeterRequest::find($id);
+        // Return a view for the meter
+        return view($this->prefix.'meter-change')->withMeter($meter);
+    }
+
+    public function postChangeStatus(Request $request, $id) {
+        // Find the meter with the respective id
+        $meter = MeterRequest::find($id);
+
+        $meter->status = $request->status;
+
+        $meter->save();
+
+        return redirect()->route('distributor.meter_admin');
+    }
 }

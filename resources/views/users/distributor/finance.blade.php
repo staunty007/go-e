@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-lg-4">
+        {{-- <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                 
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        
+         --}}
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
