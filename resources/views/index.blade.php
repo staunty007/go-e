@@ -41,7 +41,9 @@
 			data: payload,
 			headers: {
 				'Content-Type':'application/x-www-form-urlencoded',
-				'Access-Control-Allow-Origin': '*'
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Request-Method': 'POST',
+				'Access-Control-Request-Headers': '',
 			},
 			success: (response) => {
 				accessToken = response.access_token;
