@@ -55,10 +55,6 @@ h1,h2, h3, h4, h5, h6, p, footer, li, a, tr, td, th, button{
 
 
 
-.carousel-inner img{
-	height: 240px;
-
-}
 
 .navbar{
 	float:right;
@@ -121,7 +117,7 @@ footer{
 	color:#229fd9;
 	padding:20px 40px;
 	background: white;
-	border-radius:5%;
+	border-radius:0.3em;
 	border:1px solid #229fd9; 
 	box-shadow:0 4px 7px 0 rgba(0, 0, 0, 0.2);
 	text-align:center;
@@ -160,7 +156,7 @@ footer{
 }
 .text-insert{
 	background-color:#ffffff;
-	border-radius:5%;
+	border-radius:0.3em;
 	padding:7px;
 	color:#6c757d;
 }
@@ -170,7 +166,7 @@ footer{
 }
 .side-img{
 	width:100%;
-	border-radius:10px;
+	border-radius:0.3em;
 	max-height:372px;
 }
 

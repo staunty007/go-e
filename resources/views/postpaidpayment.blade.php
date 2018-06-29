@@ -98,38 +98,59 @@
                     <div id="postpaid">
                         <h4>Please fill in your details for <span class="holder"></span></h4>
                         <form class="postpay" action="" method="POST">
-                            <div class="form-group">
-                                <label for="">Account or Meter Number</label>
-                                <input type="text" name="meter_no" class="meterno form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Firstname</label>
-                                <input type="text" name="first_name" class="meterno form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Lastname</label>
-                                <input type="text" name="last_name" class="meterno form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email Address</label>
-                                <input type="email" name="email" class="email form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Phone Number</label>
-                                <input type="text" name="mobile" class="mobile form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Convenience Fee</label>
-                                <input type="text" name="conv_fee" value="100.00" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Amount</label>
-                                <input type="text" name="amount" placeholder="0.00" class="amount form-control">
-                            </div><br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Account or Meter Number</label>
+                                        <input type="text" name="meter_no" class="meterno form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Firstname</label>
+                                        <input type="text" name="first_name" class="meterno form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Lastname</label>
+                                        <input type="text" name="last_name" class="meterno form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email Address</label>
+                                        <input type="email" name="email" class="email form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Phone Number</label>
+                                        <input type="text" name="mobile" class="mobile form-control" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Convenience Fee</label>
+                                        <input type="text" name="conv_fee" value="100.00" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Amount</label>
+                                        <input type="text" name="amount" placeholder="0.00" class="amount form-control">
+                                    </div>
+                                </div>
                             <input type="hidden" id="payType" value="" />
-                            <div class="form-group">
-                                <button class="btn btn-block" id="payPostpaid">Continue</button>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button class="btn btn-block" id="payPostpaid">Continue</button>
+                                </div>
                             </div>
+                        </div>
                     </div>
 
 
@@ -226,38 +247,6 @@
             $("#postpaidBtn").hide();
             $("#cardy").hide();
         });
-        // $(document).ready(function() {
-        //     $('#selectCat').select2();
-        //     $("#selectCat").change(function(){
-        //         var selected = this.value;
-        //         console.log(selected);
-        //         switch (selected) {
-        //             case '1':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Postpaid Payment";
-        //                 $("#payType").val("Postpaid");
-        //                 break;
-        //             case '2':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Reconnection Fee";
-        //                 $("#payType").val("Reconnection");
-        //                 break;
-        //             case '3':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Penalties Fee";
-        //                 $("#payType").val("Penalties");
-        //                 break;
-        //             case '4':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Loss of Revenue";
-        //                 $("#payType").val("Loss of Revenue");
-        //                 break;
-        //             default:
-        //             $("#postpaid").css({'display':'none'});
-        //                 break;
-        //         }
-        //     });
-        // });
 
         var sum = 0;
         $(document).ready(function () {

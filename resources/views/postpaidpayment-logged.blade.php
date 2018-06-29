@@ -271,39 +271,7 @@
             $("#postpaidBtn").hide();
             $("#cardy").hide();
         });
-        // $(document).ready(function() {
-        //     $('#selectCat').select2();
-        //     $("#selectCat").change(function(){
-        //         var selected = this.value;
-        //         console.log(selected);
-        //         switch (selected) {
-        //             case '1':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Postpaid Payment";
-        //                 $("#payType").val("Postpaid");
-        //                 break;
-        //             case '2':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Reconnection Fee";
-        //                 $("#payType").val("Reconnection");
-        //                 break;
-        //             case '3':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Penalties Fee";
-        //                 $("#payType").val("Penalties");
-        //                 break;
-        //             case '4':
-        //                 $("#postpaid").css({'display':'block'});
-        //                 document.querySelector('.holder').innerHTML = "Loss of Revenue";
-        //                 $("#payType").val("Loss of Revenue");
-        //                 break;
-        //             default:
-        //             $("#postpaid").css({'display':'none'});
-        //                 break;
-        //         }
-        //     });
-        // });
-
+        
         var sum = 0;
         $(document).ready(function () {
             $('.carousel').carousel();

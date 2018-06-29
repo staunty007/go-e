@@ -24,6 +24,61 @@
         <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
         <link rel="icon" href="{{asset('images/favicon.png')}}" type='image/x-icon'>
         <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+        <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+        <script>
+                // Credit Account
+                const creditPayload = {
+                    "hash":"12345",
+                    "amount": 1000,
+                    "accountNumber": "0051212352",
+                    "sourceAccount": "0051212352",
+                    "transactionReference": "string",
+                    "transactionNaration": "Initial Tests Credit"
+                };
+                const accessToken = localStorage.getItem('access_token');
+
+                fetch('https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit', {
+                    body: creditPayload,
+                    mode: 'cors',
+                    headers: {
+                    //     'content-type':'application/json',
+                        'authorization': `Bearer ${accessToken}`,
+                    },
+                    method: 'POST',
+                })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                })
+                .catch(err => console.log(err));
+
+
+
+                // console.log(accessToken);
+
+                // $.ajax({
+                //     url: "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
+                //     type: "POST",
+                //     data: creditPayload,
+                //     headers: {
+                //         // "Content-Type":"application/json",
+                //         "Authorization": `Bearer ${accessToken}`
+                //     },
+                //     success: (response) => {
+                //         if(typeof response == "undefined") {
+                //             // Request not successfull
+                            
+                //         }else {
+                //             // Dump amount in the database
+                //             localStorage.setItem('current_amount', creditPayload.amount);
+                //         }
+                //     },
+                //     error: (err) => {
+                //         console.error(err);
+                //     }
+    
+                // });
+            </script>
 <script> $(document).ready(function() {
     $('#example').DataTable( {
         "footerCallback": function ( row, data, start, end, display ) {
@@ -265,7 +320,8 @@
         </div>
 
         <!-- Mainly scripts -->
-        <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+       
+            
         <script src="{{asset('js/table.js')}}"></script>
         <script src="{{asset('js/tab.js')}}"></script>
         <script src="{{asset('js/table1.js')}}"></script>
@@ -339,7 +395,7 @@
 
             });
         </script>
-        <script src="https://js.paystack.co/v1/inline.js"></script>
+        {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
         <script>
             function payWithPaystack() {
 				var amount = document.querySelector('#topup-amount').value;

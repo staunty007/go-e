@@ -21,7 +21,38 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
 
+		const baseUrl = "https://certify.diamondbank.com/diamondconnecttest/";
+		let accessToken = "";
+		
+		// Connect to Diamond Initialization
+		const payload = { 
+			'grant_type': 'client_credentials', 
+			'client_id': '4E6979C7F4E140E',
+			'client_secret' : 'QUEzQjY4MTctQkJDOS00NkRGLTgyRTUtN0QyQjkzQzA3MzUw'
+		};
+		
+
+		// Get Access token and store
+		$.ajax({
+			url: `${baseUrl}oauth/token`,
+			method: 'POST',
+			data: payload,
+			headers: {
+				'Content-Type':'application/x-www-form-urlencoded'
+			},
+			success: (response) => {
+				accessToken = response.access_token;
+				// Store Access token for later use
+				localStorage.setItem('access_token',accessToken);
+			},
+			error: (err) => {
+				console.error(err);
+			}
+		});
+
+	</script>
 	<script>
 		$.ajaxSetup({
 			headers: {
@@ -149,11 +180,11 @@
 							<li data-target="#myCarousel" data-slide-to="3"></li>
 							<li data-target="#myCarousel" data-slide-to="4"></li>
 
+							<li data-target="#myCarousel" data-slide-to="5"></li>
+							<li data-target="#myCarousel" data-slide-to="6"></li>
 							<li data-target="#myCarousel" data-slide-to="7"></li>
 							<li data-target="#myCarousel" data-slide-to="8"></li>
 							<li data-target="#myCarousel" data-slide-to="9"></li>
-							<li data-target="#myCarousel" data-slide-to="10"></li>
-							<li data-target="#myCarousel" data-slide-to="11"></li>
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
@@ -307,23 +338,19 @@
 										<img src="/images/logo.png"> </div>
 
 									<div class="account-wall" style="text-align:center;">
-
 										<hr>
 										<form class="login-form" action="" method="POST">
 											<div class="form-group">
 												<input type="text" class="form-control" name="email" placeholder="Email" required autofocus>
 											</div>
-
 											<div class="form-group">
 												<input type="password" class="form-control" placeholder="Password" name="password" required>
 											</div>
-
 											<button class="btn btn-info btn-block login-btn" type="submit">
 												Login</button>
 											<label class="checkbox">
 												<input type="checkbox" value="remember-me"> Remember me
 											</label>
-
 										</form>
 									</div>
 
@@ -459,9 +486,55 @@
 									</div>
 									<div class="radio" id="two">
 										<label>
-											<input type="radio" name="two" disabled>Other Payments
+											<input type="radio" name="two">AEDC Meter Payment
 										</label>
 									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">BEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">EEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">IBEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">IKEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">JEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">KNEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">KEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">PHEDC Meter Payment
+										</label>
+									</div>
+									<div class="radio" id="two">
+										<label>
+											<input type="radio" name="two">YEDC Meter Payment
+										</label>
+									</div>
+									
 								</form>
 
 								<button class="btn btn-rounded" id="three">Prepaid</button>
