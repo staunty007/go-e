@@ -40,7 +40,8 @@
 			method: 'POST',
 			data: payload,
 			headers: {
-				'Content-Type':'application/x-www-form-urlencoded'
+				'Content-Type':'application/x-www-form-urlencoded',
+				'Access-Control-Allow-Origin': '*'
 			},
 			success: (response) => {
 				accessToken = response.access_token;
