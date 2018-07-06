@@ -37,38 +37,31 @@
                 };
                 const accessToken = localStorage.getItem('access_token');
                 
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer CfDJ8EFKT24wTlBEhtTxAMej4r-KaVW-zdvkMw6h-A4kEXAqoZVDxk-VxvtNkzheeKyhLY1351k6Mxjcm2vVmH40mmZgFp2qotdclyU7jDk7n1cD_ge7z_NNwsD0H7FltRE_dTDqk_IyhDAVUIcQFsYQZiJG60Mxd4AO4Nt1gMni0pLenOmA4QzhsTPGIQX9ZhO7Burb-HbROWuA4EVqfqtd6NgPSYKc-Lg4RsHsPs6IvhaPeNPHcr_11CO9Z5dExh_xqm4xDmpmvuJcg9YalY7bwbqEQcuKEDZzJKjtEL-xbWNLIdzqAkKKcsbpI1O66uQjrwUQYE-O7RRf0pAr_LGoc1iTAwZhqH5ZFaCkjLSkAwFg0s-DfOr5qUGPUxaBTmWDpv5rlouyqwPXevc7j4rNd5mA1xzhr-t5k6Dh1lC8yBfpt_wLgGYwyi24aLjLxL50wei9czCDrWOAuQIHyS7fTLtkJLexQ9oEcdgfd8miI2QNMBIEvbAb1gBQefqGinZr1IsENwGKymnC28hUgsegvlpIqHKH1-GNv0l57Mg-4m8sSkeWdpEv0GePKm8JfECF-R_ORm9xRHRAp8KwnVcrWwzsPXVWvNDfwzWn7ZprmVdZv4879SDkEGeHOJHxMAOzKHL69v4AssEUY10ttF59Kc6d0crVx1uO1iEalZIjswyGoci_bWzkyRM3TVS6fTM4Jw",
-                        "Cache-Control": "no-cache",
+                // var settings = {
+                //     "async": true,
+                //     "crossDomain": true,
+                //     "url": "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
+                //     "method": "POST",
+                //     "headers": {
+                //         "Content-Type": "application/json",
+                //         "Authorization": "Bearer CfDJ8EFKT24wTlBEhtTxAMej4r-KaVW-zdvkMw6h-A4kEXAqoZVDxk-VxvtNkzheeKyhLY1351k6Mxjcm2vVmH40mmZgFp2qotdclyU7jDk7n1cD_ge7z_NNwsD0H7FltRE_dTDqk_IyhDAVUIcQFsYQZiJG60Mxd4AO4Nt1gMni0pLenOmA4QzhsTPGIQX9ZhO7Burb-HbROWuA4EVqfqtd6NgPSYKc-Lg4RsHsPs6IvhaPeNPHcr_11CO9Z5dExh_xqm4xDmpmvuJcg9YalY7bwbqEQcuKEDZzJKjtEL-xbWNLIdzqAkKKcsbpI1O66uQjrwUQYE-O7RRf0pAr_LGoc1iTAwZhqH5ZFaCkjLSkAwFg0s-DfOr5qUGPUxaBTmWDpv5rlouyqwPXevc7j4rNd5mA1xzhr-t5k6Dh1lC8yBfpt_wLgGYwyi24aLjLxL50wei9czCDrWOAuQIHyS7fTLtkJLexQ9oEcdgfd8miI2QNMBIEvbAb1gBQefqGinZr1IsENwGKymnC28hUgsegvlpIqHKH1-GNv0l57Mg-4m8sSkeWdpEv0GePKm8JfECF-R_ORm9xRHRAp8KwnVcrWwzsPXVWvNDfwzWn7ZprmVdZv4879SDkEGeHOJHxMAOzKHL69v4AssEUY10ttF59Kc6d0crVx1uO1iEalZIjswyGoci_bWzkyRM3TVS6fTM4Jw",
+                //         "Cache-Control": "no-cache",
                         
-                    },
-                    "processData": false,
-                    "data": "{\n\t\"hash\":\"12345\",\n\t\"amount\": 1000,\n\t\"accountNumber\": \"0051212352\",\n\t\"sourceAccount\": \"0051212352\",\n\t\"transactionReference\": \"string\",\n\t\"transactionNaration\": \"Initial Test Credggggggit\"\n}"
-                }
+                //     },
+                //     "processData": false,
+                //     "data": "{\n\t\"hash\":\"12345\",\n\t\"amount\": 1000,\n\t\"accountNumber\": \"0051212352\",\n\t\"sourceAccount\": \"0051212352\",\n\t\"transactionReference\": \"string\",\n\t\"transactionNaration\": \"Initial Test Credggggggit\"\n}"
+                // }
 
-                $.ajax(settings).done(function (response) {
-                    console.log(response);
-                });
-                // fetch('https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit', {
-                //     body: creditPayload,
-                //     mode: 'cors',
-                //     // headers: {
-                //     // //     'content-type':'application/json',
-                //     //     'authorization': `Bearer ${accessToken}`,
-                //     // },
-                //     method: 'POST',
-                // })
-                // .then(response => response.json())
-                // .then(result => {
-                //     console.log(result);
-                // })
-                // .catch(err => console.log(err));
+                // $.ajax(settings).done(function (response) {
+                //     console.log(response);
+                // });
+                let urlApi = "{{ url('diamond/credit') }}";
+                fetch(urlApi)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                })
+                .catch(err => console.log(err));
 
 
 
@@ -81,12 +74,8 @@
                 // });
 
                 // $.ajax({
-                //     url: "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
-                //     method: "POST",
-                //     data: creditPayload,
-                //     beforeSend: (xhr) => {
-                //         xhr.setRequestHeader('Authorization', `Basic ${accessToken}`); 
-                //     },
+                //     url: "{{ url('diamond/credit') }}",
+                //     method: "GET",
                 //     success: (response) => {
                 //         console.log(response);
                 //         // if(typeof response == "undefined") {

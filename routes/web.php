@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\CustomerBiodata;
 use App\AgentBiodata;
 use App\AdminBiodata;
+use App\User;
+use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () { return view('index'); });
 
@@ -160,6 +162,21 @@ Route::prefix('distributor')->group(function () {
     
 });
 
+// Diamond APIS
+
+// Credit aPI
+Route::get('diamond/credit','DiamondApiController@credit');
+
+
+// End to End API
+Route::get('e2e/api/customers', function() {
+
+    $token = Input::get('token_access');
+
+    if(empty($token)) return response()->json(['error' => 'Token not Provided'], 400);
+    
+    return User::where('role_id', 0)->get(['id','first_name']);
+});
 
 
 
