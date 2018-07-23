@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -1069,7 +1068,7 @@ button.dim:active:before {
 .label {
   background-color: #d1dade;
   color: #5e5e5e;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 600;
   padding: 3px 8px;
   text-shadow: none;
@@ -1081,7 +1080,7 @@ button.dim:active:before {
 .badge {
   background-color: #d1dade;
   color: #5e5e5e;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 600;
   padding-bottom: 4px;
@@ -2373,7 +2372,7 @@ div.dt-button-info {
   width: 100%;
   font-size: 0.75em;
   line-height: 1.333333em;
-  font-family: open sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
+  font-family: Nunito Sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
   padding: 5px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -3477,7 +3476,7 @@ body.tour-open .animated {
   border-bottom: 1px solid #e7eaec;
 }
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;
@@ -6830,7 +6829,7 @@ body.body-small .vote-icon {
 }
 body.landing-page {
   color: #676a6c;
-  font-family: 'Open Sans', helvetica, arial, sans-serif;
+  font-family: 'Nunito Sans', helvetica, arial, sans-serif;
   background-color: #fff;
 }
 .landing-page {
@@ -6912,7 +6911,7 @@ body.landing-page {
 }
 .landing-page .navbar-default .nav li a {
   color: #fff;
-  font-family: 'Open Sans', helvetica, arial, sans-serif;
+  font-family: 'Nunito Sans', helvetica, arial, sans-serif;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -8562,3 +8561,34 @@ body.md-skin {
 }
 
 
+.bg-img {
+  background: linear-gradient(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.20)), url('/images/transformers.jpg') no-repeat;
+}
+
+/* For mobile phones: */
+
+#boot_msg {
+  width: 60% !important;
+  z-index: 1028 !important;
+  position: fixed !important;
+  text-align: center !important;
+  top: 120px !important;
+  left: 20% !important;
+  right: 20% !important;
+}
+
+#boot_msg {
+  width: 25%;
+  z-index: 1028;
+  position: fixed;
+  text-align: center;
+  top: 90px;
+  left: 38%;
+  right: 33%
+}
+
+.bootstrap_msg .alert {
+  /*margin: 0 auto;*/
+  padding: 6px 28px 8px 13px;
+  margin-bottom: 0px;
+}

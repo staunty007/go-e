@@ -59,22 +59,23 @@ class AccountController extends Controller
         
         $user = User::where('id',$userID)->first();
 
-        session(['account_info' => $user]);
+        Mail::to($user->email)->send(new AccountActivation($user));
+        // session(['account_info' => $user]);
 
         return response()->json(['sus' => '1']);
     }
 
-    public function sendAccountMail()
-    {
-        if (session()->exists('account_info')) {
-            $accountInfo = session('account_info');
+    // public function sendAccountMail()
+    // {
+    //     if (session()->exists('account_info')) {
+    //         $accountInfo = session('account_info');
 
-            Mail::to($accountInfo->email)->send(new AccountActivation($accountInfo));
+    //         Mail::to($accountInfo->email)->send(new AccountActivation($accountInfo));
 
-            return view('emails.sent-success');
-        }
-        return redirect('/');
-    }
+    //         return view('emails.sent-success');
+    //     }
+    //     return redirect('/');
+    // }
 
     public function activateAccount($token)
     {
@@ -504,14 +505,14 @@ class AccountController extends Controller
         if ($request->hasFile('profile_pic')) {
             $user->avatar = $request->file('profile_pic')->store('avatars', 'public');
         }
-        if($request->has('password')) {
+        if($request->has('password') && strlen($request->password) > 1) {
             $user->password = bcrypt($request->password);
         }
 
         $user->save();
         $bio->save();
 
-        return back()->withSuccess('Account Updated Successfull');
+        return back()->withSuccess('Account Updated Successfully');
     }
 
     public function makePayment()
