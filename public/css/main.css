@@ -88,15 +88,16 @@ footer{
 	font-weight:bold;
 }
 .grad-box{
-	padding:30px 220px;
-	background:linear-gradient(45deg, #a9191e, #ff0404);
-	border-radius:5%;
-	border:none; 
-	box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
-	font-weight:bold;
-	z-index:20;
+    padding: 30px 220px;
+    background-color: #ed1f24;
+    border-radius: 3%;
+    border: none;
+    box-shadow: 0 4px 7px 0px rgba(0, 0, 0, 0.2);
+    font-weight: semibold;
 }
-
+.grad-box:hover {
+	background-color: #8ec53e;
+}
 .grad-box i {
 	display:block;
 	color:white;
@@ -116,13 +117,13 @@ footer{
 .grad-boxa{
 	color:#229fd9;
 	padding:20px 40px;
-	background: white;
+	background: #ed5565;
 	border-radius:0.3em;
 	border:1px solid #229fd9; 
 	box-shadow:0 4px 7px 0 rgba(0, 0, 0, 0.2);
 	text-align:center;
 	font-weight:bold;
-	z-index:20;
+	/* z-index:20; */
 }
 
 .grad-boxa a{
@@ -139,7 +140,7 @@ footer{
 }
 .grad-boxa  i {
 	display:block;
-	color:#8cc74e;
+	color:#fff;
 	font-size:25px;
 	margin-bottom:6px;
 }

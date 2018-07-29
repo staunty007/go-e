@@ -4,7 +4,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -66,97 +66,73 @@
 		})();
 	</script>
 	<!--End of Tawk.to Script-->
+	<style>
+		.input-group-addon {
+			background-color: transparent;
+			border: none;
+			border-radius: 0;
+			line-height: 0;
+			padding: 0;
+			
+		}
+	</style>
 </head>
 <body class="bg-img">
 		<div class="container">
-			<div class="row">
+			<div class="row" style="margin: 1em 0 3em 0">
 				<div class="col-xs-5 col-md-3 col-lg-3">
 					<a href="http://GOENERGEE.com/">
-						<img src="/images/logo.png">
+						<img src="/images/logo.png" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
-				<div class="col-xs-7 col-md-3 col-lg-9">
-					<div class="navbar headernav1">
-						<ul>
-							<li style="border-color:#28a9e0; background:#28a9e0;">
-								<a href="#">
-									<i class="fab fa-twitter" style="color:#ffffff;"></i>
-								</a>
-							</li>
-							<li style="border-color:#0b78b6; background:#0b78b6;">
-								<a href="#">
-									<i class="fab fa-linkedin-in" style="color:#ffffff;"></i>
-								</a>
-							</li>
-							<li style="border-color:#f20951; background:#f20951;">
-								<a href="#">
-									<i class="fab fa-instagram" style="color:#ffffff;"></i>
-								</a>
-							</li>
-							<li style="border-color:#3d578e; background:#3d578e;">
-								<a href="#">
-									<i class="fab fa-facebook-f" style="color:#ffffff;"></i>
-								</a>
-							</li>
-							<li style="border:0px;">
-								<form>
-									<input type="search" style="border:0px; padding:4px; border-radius: 10px 0 0 10px; width:86%;" placeholder="Search.." name="search">
-									<button type="submit" style="background-color:#a1c844; border-radius: 0 10px 10px 0px; border:0px; padding:4px; margin-left:-5px;">
-										<a href="#" style="color:white;">
-											<i class="fas fa-search"></i>
-										</a>
-									</button>
-								</form>
-							</li>
-							@if (Auth::check())
-							<li style="border: none; color: #fff;">
-								<p style="font-size: 1.5em">Welcome {{ Auth::user()->first_name}}</p>
-							</li>
-							@endif
-						</ul>
+				<div class="col-xs-7 col-md-9 col-lg-9">			
+					<div class="input-group" style="width: 100%; text-align: right;">
+							<input type="text" class="form-control" placeholder="Search For Services" aria-describedby="basic-addon1" style="
+							width: 60%;
+							float:  right;
+							padding: 1.5em;
+							border-radius:  0;
+							">
+							<button class="btn btn-success" style="
+								padding: .7em;
+								border-radius: 0;
+							"><i class="fas fa-search"></i></button>
+						</div>
 					</div>
 				</div>
-			</div>
+	
 			<div class="row">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
 						<ol class="carousel-indicators">
-							<li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="1"></li>
 							<li data-target="#myCarousel" data-slide-to="2"></li>
 							<li data-target="#myCarousel" data-slide-to="3"></li>
 							<li data-target="#myCarousel" data-slide-to="4"></li>
-
 							<li data-target="#myCarousel" data-slide-to="5"></li>
 							<li data-target="#myCarousel" data-slide-to="6"></li>
-							<li data-target="#myCarousel" data-slide-to="7"></li>
-							<li data-target="#myCarousel" data-slide-to="8"></li>
-							<li data-target="#myCarousel" data-slide-to="9"></li>
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
 								<img src="images/rev_image/1.png">
 							</div>
-
 							<div class="item">
 								<img src="images/rev_image/2.png">
 							</div>
-
 							<div class="item">
 								<img src="images/rev_image/3.png">
 							</div>
 							<div class="item">
 								<img src="images/rev_image/4.png">
 							</div>
-
-
 							<div class="item">
 								<img src="images/rev_image/7.png">
 							</div>
 							<div class="item">
 								<img src="images/rev_image/8.png">
 							</div>
-
 							<div class="item">
 								<img src="images/rev_image/9.png">
 							</div>
@@ -216,7 +192,7 @@
 							<div class="row" style="padding:0px;">
 								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
 									<div style="text-align:center;">
-										<button type="button" id="payment_btn" style="color:#80c636;margin:0; background-color:white; padding:40px 40px;" class="grad-boxa">
+										<button type="button" id="payment_btn" style="margin:0; background-color: #ed1f24d1 !important; padding:40px 40px; color: #fff;" class="grad-boxa">
 												<i class="far fa-credit-card"></i>
 												Make Payment
 										</button>
@@ -276,7 +252,7 @@
 											<div class="form-group">
 												<input type="password" class="form-control" placeholder="Password" name="password" required>
 											</div>
-											<button class="btn btn-info btn-block login-btn" type="submit">
+											<button class="btn btn-success btn-block login-btn" type="submit">
 												Login</button>
 											<label class="checkbox">
 												<input type="checkbox" value="remember-me"> Remember me
@@ -375,7 +351,7 @@
 												<i class="fab fa-google-plus-g"></i>
 											</a>
 										</p>
-										<input type="submit" value="Register" class="btn btn-info btn-block registerBtn">
+										<input type="submit" value="Register" class="btn btn-success btn-block registerBtn">
 									</div>
 								</form>
 							</div>
@@ -383,42 +359,75 @@
 							<!---make payments starts-->
 							<div id="make_payments" style="">
 								<div class="text-center login-title">
-									<img src="/images/logo.png"> </div>
-								<h4>Your Next Electricity Bill Payment</h4>
-								<h5>is just a few clicks away</h5>
-								<br>
-								<button class="btn btn-rounded" id="three">Prepaid</button>
-								<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
-									<button class="btn btn-rounded" id="four">Postpaid</button>
-								</a>
-								<div class="row form-section" style=" margin:6px auto; padding:4px;">
-									<div class="">
-										<form class="meter" method="post" action="">
-											<div class="form-group">
-												<label for="Meter_number">
-													<b>Meter Number</b>
-												</label>
-												<input id="meterno" type="text" class="form-control" placeholder="Enter Your Pre Paid Meter Number" required autofocus name="meter_no">
+									<img src="/images/logo.png"><br><br>
+								</div>
+								<h4 class="text-center">Choose From our Variety of Categories</h4>
+								{{-- Categories --}}
+								<div class="categories">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="category " id="electricity-bills">
+												Electricity Bills
 											</div>
-											<div class="form-group">
-												<label for="convinience_fee">
-													<b>Convenience Fee</b>
-												</label>
-												<input type="number" class="form-control" value="100.00" readonly>
+										</div>
+										{{-- <div class="col-md-6">
+											<div class="category red" id="water-bills">
+												Water Bills
 											</div>
-											<div class="form-group">
-												<label for="amount">
-													<b>Amount</b>
-												</label>
-												<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount" id="amount">
-											</div>
-											<button class="btn btn-success btn-block pay-meter" type="submit">
-												Continue</button>
-											<label style="padding:20px;" class="checkbox ">
-												<input type="checkbox" value="remember-me"> Remember me
-											</label>
+										</div> --}}
 									</div>
 								</div>
+								<div class="electricity">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="category" id="prepaid-meters">
+												Prepaid Meters
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="category red" id="postpaid-meters" onclick="window.location.href='postpaidpayment';">
+												Postpaid Meters
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="water">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="category">
+												A Water Biller
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="category red">
+												Another Biller
+											</div>
+										</div>
+									</div>
+								</div>
+								{{-- Meter Payment --}}
+								<div class="meter-payment">
+									<hr>
+									<form class="meter" method="post" action="">
+										<div class="form-group">
+											<label for="Meter_number"><b>Prepaid Meter Number</b></label>
+											<input id="meterno" type="text" class="form-control" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
+										</div>
+										<div class="form-group">
+											<label for="convinience_fee"><b>Convenience Fee</b></label>
+											<input type="number" class="form-control" value="100.00" readonly>
+										</div>
+										<div class="form-group">
+											<label for="amount"><b>Amount</b></label>
+											<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount" id="amount">
+										</div>
+										<button class="btn btn-success btn-block pay-meter" type="submit">Continue</button>
+									</form>
+								</div>
+								{{-- <button class="btn btn-rounded" id="three">Prepaid</button>
+								<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
+									<button class="btn btn-rounded" id="four">Postpaid</button>
+								</a> --}}
 							</div>
 							<!---make payments ends-->
 							<div id="support">
@@ -449,7 +458,19 @@
 			<!-- row ends -->
 			<br>
 			<script>
+				
 				$('document').ready(function () {
+					$('.electricity, .water, .meter-payment').hide();
+					$('#electricity-bills').click(() => {
+						$('.categories').hide();
+						$('.electricity').fadeIn(300);
+					});
+					
+					$("#prepaid-meters").click(() => {
+						$('.electricity').fadeOut(100);
+						$(".meter-payment").fadeIn(300);
+					});
+
 					$(".hidden-button").fadeOut();
 					$(".form-section").fadeOut();
 					$(".table-section").fadeOut();
@@ -459,7 +480,7 @@
 					$("#four").hide();
 
 					$("#one").click(function () {
-						$(".hidden-button").fadeToggle(500);
+						$(".hidden-button").fadeToggle(300);
 						$("#one").hide();
 						$("#two").hide();
 						$("#three").show();
@@ -472,7 +493,7 @@
 
 					$("#three").click(function () {
 						$(".table-section").fadeOut();
-						$(".form-section").fadeToggle(500);
+						$(".form-section").fadeToggle(300);
 						$("#one").hide();
 						$("#two").hide();
 						$("#postPaid").hide();
@@ -481,7 +502,7 @@
 
 					$("#four").click(function () {
 						$(".form-section").fadeOut();
-						$(".table-section").fadeToggle(500);
+						$(".table-section").fadeToggle(300);
 						$("#one").hide();
 						$("#two").hide();
 
@@ -495,7 +516,7 @@
 
 					$("#login_btn").click(function () {
 
-						$("#login").show(500);
+						$("#login").show(300);
 						$("#sign-up").hide();
 						$("#news").hide();
 						$("#make_payments").hide();
@@ -513,7 +534,7 @@
 					});
 
 					$("#payment_btn").click(function () {
-						$("#make_payments").show(600);
+						$("#make_payments").show(300);
 						$("#news").hide();
 						$("#login").hide();
 						$("#sign-up").hide();
@@ -537,43 +558,42 @@
 			<div class="modal fade" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-					<div class="modal-header">
-						{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
-						<h4 class="modal-title">Confirm Details</h4>
-					</div>
-					<div class="modal-body">
-						<form id="payForm" method="POST" action="">
-							<div class="form-group">
-								<label>Meter No</label>
-								<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
-							</div>
-							<div class="form-group">
-								<label>Firstname</label>
-								<input class="form-control" value="" id="firstname" name="first_name" readonly/>
-							</div>
-							<div class="form-group">
-								<label>lastname</label>
-								<input class="form-control" value="" id="lastname" name="last_name" readonly/>
-							</div>
-							<div class="form-group">
-								<label>Email</label>
-								<input class="form-control" value="" id="emailret" name="email" readonly/>
-							</div>
-							<div class="form-group">
-								<label>Phone Number</label>
-								<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
-							</div>
-							<div class="form-group">
-								<label>Total Amount</label>
-								<input class="form-control" value="" id="total" name="amount" readonly/>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						
-						<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
-					</div>
+						<div class="modal-header">
+							{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
+							<h4 class="modal-title">Confirm Details</h4>
+						</div>
+						<div class="modal-body">
+							<form id="payForm" method="POST" action="">
+								<div class="form-group">
+									<label>Meter No</label>
+									<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
+								</div>
+								<div class="form-group">
+									<label>Firstname</label>
+									<input class="form-control" value="" id="firstname" name="first_name" readonly/>
+								</div>
+								<div class="form-group">
+									<label>lastname</label>
+									<input class="form-control" value="" id="lastname" name="last_name" readonly/>
+								</div>
+								<div class="form-group">
+									<label>Email</label>
+									<input class="form-control" value="" id="emailret" name="email" readonly/>
+								</div>
+								<div class="form-group">
+									<label>Phone Number</label>
+									<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
+								</div>
+								<div class="form-group">
+									<label>Total Amount</label>
+									<input class="form-control" value="" id="total" name="amount" readonly/>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
+						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
