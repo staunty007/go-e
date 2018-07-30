@@ -648,10 +648,6 @@
 				</a>
 			</div>
 		</div>
-		
-
-
-
 		<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);
@@ -700,26 +696,26 @@
 				if($("#searchForm").val() !== '') {
 					$(".services-list-overlay").fadeIn(200);
 					$(".services-list-overlay").html('<center>Fetching Services...');
-					fetch("https://jsonplaceholder.typicode.com/users")
-					.then(res => res.json())
-					.then(results => {
-						let htmll = "";
-						for(const result of results){
-							console.log(result.username);
-							htmll += `<a href="${result.id}">${result.name}</a>`;
-							$(".services-list-overlay").html(htmll);
-						}
-						
-					})
-					.catch(err => console.log(err));
-						// setTimeout(() => {
-						// 	let html = "";
-						// 	for (let user in data) {
-						// 		console.log(data[user.id]);
-						// 		// htmll = `<a href="${data[id]}">${data[name]}</a>`;
-						// 	}
-						// 	// $(".services-list-overlay").html(htmll);
-						// },5000)
+					if(navigator.onLine) {
+						fetch("/lists/services")
+						.then(res => res.json())
+						.then(results => {
+							let htmll = "";
+							for(const result of results){
+								console.log(result.title);
+								htmll += `<a href="${result.link}">${result.title}</a>`;
+								setTimeout(() => {
+									$(".services-list-overlay").html(htmll);
+								}, 2000);
+							}
+						})
+						.catch(err => {
+							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong.</span></center>');
+						});
+					}else {
+						$(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
+					}
+
 				}else {
 					$(".services-list-overlay").fadeOut(200);
 				}

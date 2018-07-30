@@ -170,14 +170,15 @@ Route::get('diamond/credit','DiamondApiController@credit');
 
 // End to End API
 Route::get('e2e/api/customers', function() {
-
     $token = Input::get('token_access');
-
     if(empty($token)) return response()->json(['error' => 'Token not Provided'], 400);
-    
     return User::where('role_id', 0)->get(['id','first_name']);
 });
 
+Route::get('/lists/services', function(){
+    return DB::table('services_list')->latest()->get();
+});
 
+// Services 
 
 Route::post('logout', 'AccountController@logout')->middleware('auth')->name('logout');
