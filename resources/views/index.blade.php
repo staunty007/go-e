@@ -1,6 +1,12 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 	<title>GOENERGEE</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -76,16 +82,22 @@
 			
 		}
 	</style>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 </head>
 <body class="bg-img">
+	    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 		<div class="container">
 			<div class="row" style="margin: 1em 0 3em 0">
-				<div class="col-xs-5 col-md-3 col-lg-3">
+				<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
 					<a href="http://GOENERGEE.com/">
 						<img src="/images/logo.png" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
-				<div class="col-xs-7 col-md-9 col-lg-9">			
+				<div class="col-xs-12 col-md-9 col-lg-9 col-sm-12">			
 					<div class="input-group" style="width: 100%; text-align: right;">
 							<input type="text" class="form-control" placeholder="Search For Services" aria-describedby="basic-addon1" style="
 							width: 60%;
@@ -93,7 +105,7 @@
 							padding: 1.5em;
 							border-radius:  0;
 							">
-							<button class="btn btn-success" style="
+							<button class="btn btn-danger" style="
 								padding: .7em;
 								border-radius: 0;
 							"><i class="fas fa-search"></i></button>
@@ -192,7 +204,7 @@
 							<div class="row" style="padding:0px;">
 								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
 									<div style="text-align:center;">
-										<button type="button" id="payment_btn" style="margin:0; background-color: #ed1f24d1 !important; padding:40px 40px; color: #fff;" class="grad-boxa">
+										<button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;" class="grad-boxa">
 												<i class="far fa-credit-card"></i>
 												Make Payment
 										</button>
@@ -655,7 +667,6 @@
 		</script>
 		<script src="/js/sweetalert.min.js"></script>
 		<script>
-			
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
 				$('.registerBtn').prop('disabled', true);
@@ -670,12 +681,7 @@
 						if (response.sus == 1) {
 							swal('Successful', 'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account', 'success');
 							$(this).prop('disabled', false);
-							// setTimeout(() => {
-							// 	window.location.href = '/registration/verify';
-							// }, 2000);
-
 						} else {
-							//console.log(response);
 							swal('Ooops!', '' + response.err + '', 'error');
 							$('.registerBtn').prop('disabled', false);
 							$('.registerBtn').html('Sign Up');
@@ -708,26 +714,23 @@
 								}, 2000);
 							})
 						} else {
-							//console.log(response);
 							swal('Ooops!', '' + response.err + '', 'error');
 							$('.login-btn').prop('disabled', false);
+							$('.login-btn').html('Login');
 						}
 					}
 				})
 				$('.login-btn').prop('disabled', false);
+				$('.login-btn').html('Login');
 			})
 		</script>
-
-		<!---modal-->
 		<script src="https://js.paystack.co/v1/inline.js"></script>
 		<script>
 			
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
 				$('.pay-meter').html('Validating....');
-				// var formdata = $('.meter').serialize();
 				var meter_no = $('#meterno').val();
-				//toggleMod();	
 				$.ajax({
 					url: 'meter/api',
 					method: 'GET',
@@ -751,13 +754,13 @@
 					}
 				});
 
-				
+				// $('.pay-meter').html('Continue');
 				//$('.pay-meter').prop('disabled', false);
 			})
 			$("#ctnPay").click((e) => {
 				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
 				e.preventDefault();
-				var toBeTransported = {
+				let toBeTransported = {
 					'meter_no': ''+$("#meterno").val()+'',
 					'first_name': ''+$('#firstname').val()+'',
 					'last_name': ''+$('#lastname').val()+'',
@@ -803,6 +806,7 @@
 					onClose: function () {
 						alert('Payment Cancelled');
 						$('.pay-meter').html('Continue');
+						window.location.reload();
 					}
 				});
 				handler.openIframe();

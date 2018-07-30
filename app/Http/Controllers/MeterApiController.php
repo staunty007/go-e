@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Input;
 class MeterApiController extends Controller
 {
     public function validateMeterUser(Request $request) {
+        // Meter APIs
+        $meters = ['123456','324242','2422940','4393093094','934034'];
 
-        //return $request;
-
-        if($request->meter_no !== '123456') {
-            return response()->json(['code' => '419']);
+        if(!in_array($request->meter_no, $meters)) {
+            // if($request->meter_no !== $numbers) {
+                return response()->json(['code' => '419']);
+            // }
         }
     }
 
