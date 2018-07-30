@@ -8560,23 +8560,3 @@ body.md-skin {
     margin: 0;
   }
 }
-
-
-.category, .category.red {
-  padding: 1.5em 1em;
-  text-align: center;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 0.2em;
-  font-size: 1.2em;
-  margin-bottom: 0.5em;
-}
-.category {
-  background-color: #4bad50b8;
-}
-.category.red {
-  background-color: #c31e29bf;
-}
-.category:hover {
-  background-color: rgba(0, 0, 0, 0.301)
-} 

@@ -50,13 +50,7 @@
 			}
 		});
 	</script>
-	<script>
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-	</script>
+	
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 		var Tawk_API = Tawk_API || {},
@@ -104,13 +98,23 @@
 							float:  right;
 							padding: 1.5em;
 							border-radius:  0;
-							">
+							" onkeyup="listServices(this.value)" id="searchForm">
 							<button class="btn btn-danger" style="
 								padding: .7em;
 								border-radius: 0;
 							"><i class="fas fa-search"></i></button>
+
+							<div class="services-list-overlay" style="">
+									<a href=""> Service Demo</a>
+									<a href=""> Service Demo</a>
+									<a href=""> Service Demo</a>
+									<a href=""> Service Demo</a>
+									<a href=""> Service Demo</a>
+									<a href=""> Service Demo</a>
+								</div>
 						</div>
 					</div>
+					
 				</div>
 	
 			<div class="row">
@@ -610,9 +614,7 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
-			<footer>
-				Powered by GOENERGEE
-			</footer>
+			
 
 		</div>
 		</div>
@@ -620,7 +622,33 @@
 		</div>
 		<!--main div ends-->
 		</div>
+		<div style="
+		padding: 1em;
+		text-align: center;
+		color: #ffffffd1;
+		background: #111;
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		position: relative;
+		">
+				
+				Powered by GOENERGEE - 
+				<a href="#">
+					<i class="fab fa-twitter" style="color:#ffffffd1; font-size: 1em"></i>
+				</a>
+				<a href="#">
+					<i class="fab fa-linkedin-in" style="color:#ffffffd1; font-size: 1em"></i>
+				</a>
+				<a href="#">
+					<i class="fab fa-instagram" style="color:#ffffffd1; font-size: 1em"></i>
+				</a>
+				<a href="#">
+					<i class="fab fa-facebook-f" style="color:#ffffffd1; font-size: 1em"></i>
+				</a>
+			</div>
 		</div>
+		
 
 
 
@@ -667,6 +695,43 @@
 		</script>
 		<script src="/js/sweetalert.min.js"></script>
 		<script>
+			$(".services-list-overlay").hide();
+			listServices = (value) => {
+				if($("#searchForm").val() !== '') {
+					$(".services-list-overlay").fadeIn(200);
+					$(".services-list-overlay").html('<center>Fetching Services...');
+					fetch("https://jsonplaceholder.typicode.com/users")
+					.then(res => res.json())
+					.then(results => {
+						let htmll = "";
+						for(const result of results){
+							console.log(result.username);
+							htmll += `<a href="${result.id}">${result.name}</a>`;
+							$(".services-list-overlay").html(htmll);
+						}
+						
+					})
+					.catch(err => console.log(err));
+						// setTimeout(() => {
+						// 	let html = "";
+						// 	for (let user in data) {
+						// 		console.log(data[user.id]);
+						// 		// htmll = `<a href="${data[id]}">${data[name]}</a>`;
+						// 	}
+						// 	// $(".services-list-overlay").html(htmll);
+						// },5000)
+				}else {
+					$(".services-list-overlay").fadeOut(200);
+				}
+				console.log(value);
+			};
+	
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
 				$('.registerBtn').prop('disabled', true);

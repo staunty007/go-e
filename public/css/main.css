@@ -373,3 +373,50 @@ body{
 		 width:100vw;
 		}
 	}
+
+	
+
+.category, .category.red {
+	padding: 1.5em 1em;
+	text-align: center;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 0.2em;
+	font-size: 1.2em;
+	margin-bottom: 0.5em;
+  }
+  .category {
+	background-color: #4bad50b8;
+  }
+  .category.red {
+	background-color: #c31e29bf;
+  }
+  .category:hover {
+	background-color: rgba(0, 0, 0, 0.301)
+  } 
+  
+  .services-list-overlay {
+	width: 64.3%;
+	height: 350px;
+	z-index: 99999;
+	background-color: #fff;
+	text-align: left;
+	position: absolute;
+	right: 0%;
+	padding: 1em;
+	transition: all .3s ease;
+	box-shadow: 0px 1px 10px 0px #b0b0b047;
+  }
+  
+  .services-list-overlay a {
+	width: 100%;
+	padding: 0.3em 1.5em;
+	display: block;
+	border-bottom: 1px solid #333;
+	transition: all .3s ease-in-out;
+  }
+
+  .services-list-overlay a:hover {
+	  padding: 0.5 1.5em;
+	  color: #a9191e;
+  }
