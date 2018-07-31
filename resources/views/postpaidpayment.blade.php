@@ -27,6 +27,11 @@
     </script>
 
     <style>
+        body {
+            background-image: url(/images/transformers.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
         #postpaid {
             min-width: 50%;
             max-width: 100%;
@@ -53,8 +58,7 @@
 </head>
 
 <body>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 2rem 3rem; background: rgba(255,255,255,1) !important; border-bottom:5px solid #ED1F24">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 1.5rem 3rem; background: transparent !important;">
             <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="images/logo.png">
@@ -77,7 +81,7 @@
             </div>
             </div>
         </nav>
-        <div class="container" style="background: white; min-height: 100vh; max-height: 100%">
+        <div class="container" style="background: #ffffffe3; min-height: 100vh; max-height: 100%">
             <br><br><br>
             <div class="row">
                 <div class="col-lg-8">

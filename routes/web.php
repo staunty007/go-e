@@ -180,5 +180,7 @@ Route::get('/lists/services', function(){
 });
 
 // Services 
-
+Route::prefix('services')->group(function() {
+    Route::get('ekedc','ServicesController@ekedc');
+});
 Route::post('logout', 'AccountController@logout')->middleware('auth')->name('logout');

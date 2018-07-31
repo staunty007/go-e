@@ -104,14 +104,7 @@
 								border-radius: 0;
 							"><i class="fas fa-search"></i></button>
 
-							<div class="services-list-overlay" style="">
-									<a href=""> Service Demo</a>
-									<a href=""> Service Demo</a>
-									<a href=""> Service Demo</a>
-									<a href=""> Service Demo</a>
-									<a href=""> Service Demo</a>
-									<a href=""> Service Demo</a>
-								</div>
+							<div class="services-list-overlay" style=""></div>
 						</div>
 					</div>
 					
@@ -427,7 +420,7 @@
 									<form class="meter" method="post" action="">
 										<div class="form-group">
 											<label for="Meter_number"><b>Prepaid Meter Number</b></label>
-											<input id="meterno" type="text" class="form-control" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
+											<input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
 										</div>
 										<div class="form-group">
 											<label for="convinience_fee"><b>Convenience Fee</b></label>
@@ -473,9 +466,45 @@
 			</div>
 			<!-- row ends -->
 			<br>
+			<div class="modal fade prepaid-modal" tabindex="-1" role="dialog"  data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<h4 class="modal-title">EKEDC Prepaid Meter Payment</h4>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="Meter_number"><b>Prepaid Meter Number</b></label>
+									<input type="text" class="form-control" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
+								</div>
+								<div class="form-group">
+									<label for="convinience_fee"><b>Convenience Fee</b></label>
+									<input type="number" class="form-control" value="100.00" readonly>
+								</div>
+								<div class="form-group">
+									<label for="amount"><b>Amount</b></label>
+									<input type="text" class="form-control" placeholder="0.00" required name="amount">
+								</div>
+								<button class="btn btn-success btn-block" onclick="alert('Thanks for testing it out, we are still working on it.')" type="submit">Continue</button>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 			<script>
 				
 				$('document').ready(function () {
+					if (window.location.hash == "#prepaid-meter") {
+						$('.prepaid-modal').modal('toggle', {
+							backdrop: false
+						});
+						// console.log(window.location.hash);
+					}
 					$('.electricity, .water, .meter-payment').hide();
 					$('#electricity-bills').click(() => {
 						$('.categories').hide();
@@ -613,7 +642,7 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-
+			
 			
 
 		</div>
@@ -634,6 +663,8 @@
 		">
 				
 				Powered by GOENERGEE - 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;
 				<a href="#">
 					<i class="fab fa-twitter" style="color:#ffffffd1; font-size: 1em"></i>
 				</a>
@@ -703,10 +734,10 @@
 							let htmll = "";
 							for(const result of results){
 								console.log(result.title);
-								htmll += `<a href="${result.link}">${result.title}</a>`;
+								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
 								setTimeout(() => {
 									$(".services-list-overlay").html(htmll);
-								}, 2000);
+								}, 1000);
 							}
 						})
 						.catch(err => {
@@ -875,6 +906,7 @@
 			function toggleMod() {
 				$('.modal').modal('toggle');
 			}
+			
 		</script>
 	</body>
 
