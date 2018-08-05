@@ -100,6 +100,11 @@
 
             <div class="row" id="mtrR">
                 <div class="col-lg-8">
+                        <div class="text-center">
+                                <img src="/images/ekedc.jpg" width="80"/> 
+                                <span style="font-size: 16px"> Eko Electric Distribution Company </span>
+                            </div>
+                            <br>
                     <h3 class="text-center font-weight-light">Select a Payment Category</h3><br>
                     <div class="form-group text-center">
                        

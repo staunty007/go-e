@@ -175,8 +175,9 @@ Route::get('e2e/api/customers', function() {
     return User::where('role_id', 0)->get(['id','first_name']);
 });
 
-Route::get('/lists/services', function(){
-    return DB::table('services_list')->latest()->get();
+Route::get('/lists/services/{keyword}', function(){
+    $keyword = Input::get('keyword');
+    return DB::table('services_list')->where('title','LIKE','%' .$keyword)->get();
 });
 
 // Services 
@@ -184,3 +185,15 @@ Route::prefix('services')->group(function() {
     Route::get('ekedc','ServicesController@ekedc');
 });
 Route::post('logout', 'AccountController@logout')->middleware('auth')->name('logout');
+Route::post('password/email','\App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email')->middleware(['guest','web']);
+Route::get('password/reset','\App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request')->middleware(['guest','web']);
+Route::get('password/reset/{token}','\App\Http\Controllers\Auth\ResetPasswordController@showResetForm')->name('password.reset')->middleware(['guest','web']);
+Route::post('password/reset','\App\Http\Controllers\Auth\ResetPasswordController@reset')->middleware(['guest','web']);
+// Auth::routes(['except' => ['register']]);
+
+Route::get('login', function() {
+    return redirect('/');
+})->name('login');
+Route::get('register', function() {
+    return redirect('/');
+})->name('register');

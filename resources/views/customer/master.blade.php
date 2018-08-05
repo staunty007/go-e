@@ -45,7 +45,11 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
+                            @if(Auth::user()->avatar == null)
+                            <img alt="image" class="img-circle" src='/images/profile_small.png' width="100"/>
+                            @else
                             <img alt="image" class="img-circle" src='/storage/{{ Auth::user()->avatar }}' width="100"/>
+                            @endif
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> 

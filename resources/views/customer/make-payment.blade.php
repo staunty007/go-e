@@ -77,6 +77,8 @@
                         </div>
                         
                         <div class="ibox-content">
+                                <img src="/images/ekedc.jpg" width="80"/> 
+                                <span style="font-size: 16px"> Eko Electric Distribution Company </span>
                             {{-- @if(isset($before)) --}}
                             <form action="" method="POST" class="meterSelf">
                                 {{ csrf_field()}}

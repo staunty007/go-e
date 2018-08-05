@@ -420,3 +420,15 @@ body{
 	  padding: 0.5 1.5em;
 	  color: #a9191e;
   }
+
+  a.social-top-links {
+	  font-size: 32px;
+	  color: #ed1f24;
+	  transition: all .3s ease-in-out;
+	  padding-left: 0.2em;
+  }
+
+  a.social-top-links:hover {
+	  color: #8cc74e;
+	  transform: scale(1.1);
+  }

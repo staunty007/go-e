@@ -16,8 +16,8 @@
     {{-- <link href="css/main.css" rel='stylesheet' type='text/css'> --}}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> --}}
     <script>
         $.ajaxSetup({
             headers: {
@@ -85,6 +85,11 @@
             <br><br><br>
             <div class="row">
                 <div class="col-lg-8">
+                    <div class="text-center">
+                        <img src="/images/ekedc.jpg" width="80"/> 
+                        <span style="font-size: 16px"> Eko Electric Distribution Company </span>
+                    </div>
+                    <br>
                     <h3 class="text-center font-weight-light">Select a Payment Category</h3><br>
                     <div class="form-group text-center">
                        

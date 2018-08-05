@@ -91,25 +91,45 @@
 						<img src="/images/logo.png" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
-				<div class="col-xs-12 col-md-9 col-lg-9 col-sm-12">			
-					<div class="input-group" style="width: 100%; text-align: right;">
-							<input type="text" class="form-control" placeholder="Search For Services" aria-describedby="basic-addon1" style="
-							width: 60%;
-							float:  right;
-							padding: 1.5em;
-							border-radius:  0;
-							" onkeyup="listServices(this.value)" id="searchForm">
-							<button class="btn btn-danger" style="
-								padding: .7em;
-								border-radius: 0;
-							"><i class="fas fa-search"></i></button>
+				<div class="col-xs-12 col-md-9 col-lg-9 col-sm-12">	
+					<div class="row">
+						<div class="col-md-9">
+							<div class="input-group" style="width: 100%; text-align: right;">
+								<input type="text" class="form-control" placeholder="Search For Services" aria-describedby="basic-addon1" style="
+								width: 60%;
+								float:  right;
+								padding: 1.5em;
+								border-radius:  0;
+								" onkeyup="listServices(this.value)" id="searchForm">
+								<button class="btn btn-danger" style="
+									padding: .7em;
+									border-radius: 0;
+								"><i class="fas fa-search"></i></button>
 
-							<div class="services-list-overlay" style=""></div>
+								<div class="services-list-overlay" style=""></div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div>
+								<a href="#" class="social-top-links">
+									<i class="fab fa-twitter-square"></i>
+								</a>
+								<a href="#" class="social-top-links">
+									<i class="fab fa-linkedin"></i>
+								</a>
+								<a href="#" class="social-top-links">
+									<i class="fab fa-instagram"></i>
+								</a>
+								<a href="#" class="social-top-links">
+									<i class="fab fa-facebook"></i>
+								</a>
+							</div>
 						</div>
 					</div>
-					
 				</div>
-	
+					
+			</div>
+			
 			<div class="row">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -263,11 +283,14 @@
 											</div>
 											<button class="btn btn-success btn-block login-btn" type="submit">
 												Login</button>
-											<label class="checkbox">
+											{{-- <label class="checkbox">
 												<input type="checkbox" value="remember-me"> Remember me
-											</label>
+											</label> --}}
 										</form>
+										<p style="text-align: center;padding-top: 1em;"><a href="{{url('password/reset')}}">Forgot Password?
+										</a></p>
 									</div>
+									
 									<p style="text-align:center; font-size:13px;margin-top:15px;"> You can also login with:</p>
 									<p style="text-align:center; margin-top:-5px;">
 										<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
@@ -282,6 +305,8 @@
 										<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
 											<i class="fab fa-google-plus-g"></i>
 										</a>
+									</p>
+									</a>
 								</div>
 							</div>
 							<!---log in ends-->
@@ -416,6 +441,8 @@
 								</div>
 								{{-- Meter Payment --}}
 								<div class="meter-payment">
+										<img src="/images/ekedc.jpg" width="80"/> 
+										<span style="font-size: 16px"> Eko Electric Distribution Company </span>
 									<hr>
 									<form class="meter" method="post" action="">
 										<div class="form-group">
@@ -470,8 +497,10 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-
-							<h4 class="modal-title">EKEDC Prepaid Meter Payment</h4>
+							
+							<img src="/images/ekedc.jpg" width="80"/> 
+							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
+							{{-- <h4 class="modal-title">EKEDC Prepaid Meter Payment</h4> --}}
 						</div>
 						<div class="modal-body">
 							<form>
@@ -659,24 +688,13 @@
 		width: 100%;
 		left: 0;
 		bottom: 0;
-		position: relative;
+		position: fixed;
 		">
 				
-				Powered by GOENERGEE - 
+				Powered by GOENERGEE
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;
-				<a href="#">
-					<i class="fab fa-twitter" style="color:#ffffffd1; font-size: 1em"></i>
-				</a>
-				<a href="#">
-					<i class="fab fa-linkedin-in" style="color:#ffffffd1; font-size: 1em"></i>
-				</a>
-				<a href="#">
-					<i class="fab fa-instagram" style="color:#ffffffd1; font-size: 1em"></i>
-				</a>
-				<a href="#">
-					<i class="fab fa-facebook-f" style="color:#ffffffd1; font-size: 1em"></i>
-				</a>
+				
 			</div>
 		</div>
 		<script>
@@ -724,11 +742,13 @@
 		<script>
 			$(".services-list-overlay").hide();
 			listServices = (value) => {
+				console.log(value);
 				if($("#searchForm").val() !== '') {
+
 					$(".services-list-overlay").fadeIn(200);
 					$(".services-list-overlay").html('<center>Fetching Services...');
 					if(navigator.onLine) {
-						fetch("/lists/services")
+						fetch(`/lists/services/${value}`)
 						.then(res => res.json())
 						.then(results => {
 							let htmll = "";
@@ -741,7 +761,7 @@
 							}
 						})
 						.catch(err => {
-							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong.</span></center>');
+							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
 						});
 					}else {
 						$(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
@@ -781,10 +801,11 @@
 					},
 					error: (err) => {
 						console.log(err);
+						$('.registerBtn').prop('disabled', false);
+						$('.registerBtn').html('Sign Up');
 					}
 				})
-				$('.registerBtn').prop('disabled', false);
-				$('.registerBtn').html('Sign Up');
+				
 			})
 
 			$(".login-btn").click((e) => {
@@ -810,10 +831,13 @@
 							$('.login-btn').prop('disabled', false);
 							$('.login-btn').html('Login');
 						}
+					},
+					error: (err) => {
+						$('.login-btn').prop('disabled', false);
+						$('.login-btn').html('Login');
 					}
 				})
-				$('.login-btn').prop('disabled', false);
-				$('.login-btn').html('Login');
+				
 			})
 		</script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
