@@ -629,12 +629,14 @@
 
 				});
 			</script>
-			<div class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							{{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
 							<h4 class="modal-title">Confirm Details</h4>
+							<br>
+							<img src="/images/ekedc.jpg" width="80"/> 
+							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
 						</div>
 						<div class="modal-body">
 							<form id="payForm" method="POST" action="">
@@ -666,7 +668,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
+							<button type="button" class="btn btn-danger" onclick="window.location.reload()">Cancel Payment</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -914,7 +916,6 @@
 					amount: chargedAmount + "00",
 					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
 					callback: function (response) {
-						// swal('Yay!', 'Payment Successful', 'success');
 						setTimeout(() => {
 							window.location.href = '/payment/' + response.reference + '/success';
 						}, 1000);
@@ -928,7 +929,7 @@
 				handler.openIframe();
 			}
 			function toggleMod() {
-				$('.modal').modal('toggle');
+				$('#confirm-payment').modal('toggle');
 			}
 			
 		</script>

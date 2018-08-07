@@ -225,20 +225,22 @@
 
                         var formdata = $('.meterSelf').serialize();
                         $.ajax({
-                        url: "{{ url('payment/hold') }}",
-                        method: 'POST',
-                        data: formdata,
-                        success: (response) => {
-                            if(response.code == "ok") {
-                                payWithPaystack();
-                            }else {
-                                swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
-                                $("#ifAdmin").css({'display':'block'});
+                            url: "{{ url('payment/hold') }}",
+                            method: 'POST',
+                            data: formdata,
+                            success: (response) => {
+                                if(response.code == "ok") {
+                                    payWithPaystack();
+                                }else {
+                                    swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
+                                    $("#ifAdmin").css({'display':'block'});
+                                }
+                            },error: (err) => {
+                                $(".pay-meter1").prop('disabled',false).html('Make Payment');
                             }
-                        }
-                    });
+                        });
                     }
-                    $(".pay-meter1").prop('disabled',false).html('Make Payment');
+                    
                 });
                 function payWithPaystack(){
                     var amountMeter = document.querySelector('.meter-amount').value;
