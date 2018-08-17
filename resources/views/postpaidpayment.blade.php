@@ -84,7 +84,7 @@
         <div class="container" style="background: #ffffffe3; min-height: 100vh; max-height: 100%">
             <br><br><br>
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-md-offset-2">
+                <div class="col-lg-8 col-md-8 col-md-offset-2 m-auto">
                     <div class="text-center">
                         <img src="/images/ekedc.jpg" width="80"/> 
                         <span style="font-size: 16px"> Eko Electric Distribution Company </span>

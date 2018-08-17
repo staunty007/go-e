@@ -99,7 +99,7 @@
 
 
             <div class="row" id="mtrR">
-                <div class="col-lg-8 col-md-8 col-md-offset-2">
+                <div class="col-lg-8 col-md-8 col-md-offset-2 m-auto">
                         <div class="text-center">
                                 <img src="/images/ekedc.jpg" width="80"/> 
                                 <span style="font-size: 16px"> Eko Electric Distribution Company </span>
