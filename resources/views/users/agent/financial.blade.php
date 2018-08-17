@@ -247,5 +247,12 @@
                     </div>
                 </div>
             </div>
-    
+    {{-- {{ $details->all()}} --}}
 @endsection
+@push('scripts')
+    <script>
+        let agentDetails = {!! json_encode(session('agentDetails')) !!};
+        localStorage.setItem('ga_d', JSON.stringify(agentDetails));
+    </script>
+
+@endpush

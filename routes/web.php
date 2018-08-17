@@ -141,7 +141,8 @@ Route::prefix('agent')->group(function() {
     Route::get('payment-agent/{ref}/success','AgentController@agentTokenSuccess');
     Route::get('payment-agent-customer/{ref}/success','AgentController@agentCustomerTokenSuccess');
 });
-
+// Agent APIs
+Route::get('complete/agent-topup/{amount}','AgentController@completeTopup');
 
 Route::prefix('distributor')->group(function () {
     Route::get('/', function () {
@@ -163,9 +164,34 @@ Route::prefix('distributor')->group(function () {
 });
 
 // Diamond APIS
-
+// Initialize Access Token
+Route::get('diamond/access-token','DiamondApiController@generateAccessToken');
 // Credit aPI
-Route::get('diamond/credit','DiamondApiController@credit');
+Route::get('diamond/credit/{amount}','DiamondApiController@credit');
+// Debit API
+Route::get('diamond/debit/agent/{accountnumber}/{amount}','DiamondApiController@agentDebit');
+Route::get('diamond/debit/admin/{accountnumber}/{amount}','DiamondApiController@adminDebit');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // End to End API

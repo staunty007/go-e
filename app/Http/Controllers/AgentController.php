@@ -127,12 +127,14 @@ class AgentController extends Controller
         $agentBio = AgentBiodata::where('user_id',$user->id)->first();
         $agentBio->address = $request->address;
         $agentBio->meter_no = $request->meter_no;
-
+        $agentBio->account_number = $request->account_no;
         if ($request->hasFile('avatar')) {
-            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+            $avatar = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatar;
+            $agentBio->avatar = $avatar;
         }
 
-        if($request->has('password')) {
+        if($request->has('password') && strlen($request->password) > 1) {
             $user->password = bcrypt($request->password);
         }
         $user->save();
@@ -140,15 +142,12 @@ class AgentController extends Controller
 
         return back()->withSuccess('Profile Updated Successfully');
     }
-    // complete admin topup
+    // complete agent topup
     public function completeTopup($amount) {
         //return $amount;
         $biodata = AgentBiodata::where('user_id',Auth::user()->id)->first();
-
         $bal = $biodata->wallet_balance += $amount;
-
         $trans_ref = str_random(20);
-
         DB::table('agent_topups')->insert([
             'trans_ref' => $trans_ref,
             'agent_id' => $biodata->agent_id,
@@ -158,11 +157,13 @@ class AgentController extends Controller
             'created_at' => new Carbon('now'),
             'updated_at' => new Carbon('now')
         ]);
-
-
         $biodata->save();
+        
+        $adminBiodata = AdminBiodata::find(1);
+        $adminBiodata->wallet_balance -= $amount;
+        $adminBiodata->save();
 
-        return redirect('home')->withSuccess('Topup Successfull');
+        return response()->json(['success' => 'Topup Successfull']);
     }
 
     public function agentTokenSuccess($ref)

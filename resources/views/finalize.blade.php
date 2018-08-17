@@ -38,7 +38,7 @@
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-2">
                                     <div class="alert alert-success">
-                                        Your Payment Was Successfull
+                                        Your Payment Was Successful
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -71,18 +71,21 @@
                                                     <tr>
                                                         <th>Service Paid For.</th>
                                                         <th>Meter Type.</th>
+                                                        @if(session('payment_type') == 'Prepaid')
                                                         <th>Meter No.</th>
+                                                        @else
+                                                        <th>Meter No.</th>
+                                                        @endif
                                                         <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-
-                                                        <td>EKEDC Meter Recharge</td>
+                                                        <td>EKEDC {{ session('payment_type') }} Electricity Payment</td>
                                                         <td>{{ session('payment_type')}}
-                                                        <td>232344223432424</td>
+                                                        <td>{{ session('meter_no')}}</td>
                                                         <td>
-                                                            <span class="label label-success">Successfull</span>
+                                                            <span class="label label-success">Successful</span>
                                                         </td>
                                                 </tbody>
                                             </table>
@@ -93,11 +96,9 @@
                                                 <div>Total Amount: <span style="font-size: 2em">₦{{ session('paid_amount') }}</span></div>
                                                 <br>
                                                 <div style="margin-top: 1em">
-                                                    
-                                                        
-                                                        <a href="{{ url()->previous() }}" class="btn btn-success btn-lg">Pay Another</a>
-                                                    
-                                                <button class="btn-danger btn btn-lg" onclick="window.print()">Print Receipt</button>
+                                                    <a href="{{ url()->previous() }}" class="btn btn-success">Pay Another</a>
+                                                    <button class="btn-danger btn" onclick="window.print()">Print Receipt</button>
+                                                    <a href="" class="btn btn-info">Refer a Friend</a>
                                                 </div>
                                             </div>
                                         </div>

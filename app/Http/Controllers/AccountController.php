@@ -252,6 +252,7 @@ class AccountController extends Controller
             session()->put(['smsRef' => $ref]);
             session()->put(['paid_amount' => $amountPaid]);
             session()->put(['payment_type' => 'Prepaid']);
+            session()->put(['meter_no' => $paymentDetails['meter_no']]);
             
 
             return redirect()->route('finalize', [$smsNumber,$ref]);
@@ -447,13 +448,15 @@ class AccountController extends Controller
         if(\Auth::check()) {
             $role = \Auth::user()->role_id;
             switch ($role) {
+                // Admin is Logged in
                 case '1':
                     return redirect('/backend/finance');
                     break;
                 case '2':
+                // Agent is logged in
                     $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
                     $allProfit = AgentTransaction::sum('agent');
-
+                    session()->put(['agentDetails' => $agent]);
                     return view('users.agent.financial')
                         ->withDetails($agent)
                         ->withProfit($allProfit)

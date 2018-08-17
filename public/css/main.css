@@ -5,7 +5,9 @@ body{
 	overflow-x: hidden;
 	}
 	
-	
+	.logout-btn  {
+		text-transform: capitalize;
+	}
 	.bg-img{
 		background: url('/images/transformers.jpg') no-repeat; 
 		background-size:cover;
@@ -437,4 +439,8 @@ body{
 	color: #3c763d;
     background-color: #46db3c;
     border-color: #46db3c;
+}
+
+.modal-backdrop {
+	position: relative !important;
 }

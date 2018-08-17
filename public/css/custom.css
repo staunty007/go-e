@@ -4,7 +4,9 @@ body {
 .mt-10 {
     margin-top: 10px;
 }
-
+.logout-btn {
+    text-transform: capitalize;
+}
 footer {
     position: fixed;
     left: 0;

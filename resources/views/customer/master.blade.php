@@ -99,7 +99,7 @@
                  @endif
                 <li>
                     <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"><i class="fa fa-sign-out"></i> Logout</a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';"><i class="fa fa-sign-out"></i> Logout</a>
                     <form class="logout-form" method="POST" action="{{ route('logout') }}">
                         {{ csrf_field()}}
                     </form>

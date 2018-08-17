@@ -23,34 +23,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script>
-		const baseUrl = "https://certify.diamondbank.com/diamondconnecttest/";
-		let accessToken = "";
-		// Connect to Diamond Initialization
-		const payload = { 
-			'grant_type': 'client_credentials', 
-			'client_id': '4E6979C7F4E140E',
-			'client_secret' : 'QUEzQjY4MTctQkJDOS00NkRGLTgyRTUtN0QyQjkzQzA3MzUw'
-		};
-		// Get Access token and store
-		$.ajax({
-			url: `${baseUrl}oauth/token`,
-			method: 'POST',
-			data: payload,
-			headers: {
-				'Content-Type':'application/x-www-form-urlencoded',
-			},
-			success: (response) => {
-				accessToken = response.access_token;
-				// Store Access token for later use
-				localStorage.setItem('access_token',accessToken);
-			},
-			error: (err) => {
-				console.error(err);
-			}
-		});
-	</script>
-	
+
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 		var Tawk_API = Tawk_API || {},
@@ -137,20 +110,16 @@
 						<ol class="carousel-indicators">
 							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 							<li data-target="#myCarousel" data-slide-to="1"></li>
-							<li data-target="#myCarousel" data-slide-to="2"></li>
-							<li data-target="#myCarousel" data-slide-to="3"></li>
-							<li data-target="#myCarousel" data-slide-to="4"></li>
-							<li data-target="#myCarousel" data-slide-to="5"></li>
-							<li data-target="#myCarousel" data-slide-to="6"></li>
+							
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/rev_image/1.png">
-							</div>
-							<div class="item">
 								<img src="images/rev_image/2.png">
 							</div>
 							<div class="item">
+								<img src="images/rev_image/7.png">
+							</div>
+							{{-- <div class="item">
 								<img src="images/rev_image/3.png">
 							</div>
 							<div class="item">
@@ -164,7 +133,7 @@
 							</div>
 							<div class="item">
 								<img src="images/rev_image/9.png">
-							</div>
+							</div> --}}
 						</div>
 
 						<!-- Left and right controls -->
@@ -780,6 +749,16 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
+
+			// fetch('diamond/access-token')
+			// .then(res => res.json())
+			// .then(result => {
+			// 	let res = JSON.parse(result);
+			// 	localStorage.setItem('geac', res.access_token);
+			// })
+			// .catch(err => {
+			// 	alert('Something Went Wrong, Please Reload the Page');
+			// })
 
 			$(".registerBtn").click((e) => {
 				e.preventDefault();

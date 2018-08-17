@@ -164,7 +164,7 @@ class AdminController extends Controller
         $user->last_name=$request->last_name;
         $user->mobile = $request->phone;
 
-        if($request->password !== NULL) {
+        if($request->has('password') && strlen($request->password) > 1) {
             $user->password = bcrypt($request->password);
         }
 

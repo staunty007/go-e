@@ -4247,6 +4247,7 @@ a.close-canvas-menu:hover {
 }
 .modal-backdrop {
   z-index: 2040 !important;
+    position: relative !important;
 }
 .modal {
   z-index: 2050 !important;

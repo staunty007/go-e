@@ -5,7 +5,11 @@
             <div class="col-lg-4">
                     <div class="widget-head-color-box navy-bg p-lg text-center">
                         <center>
-                            <img src="/storage/{{ $profile->user->avatar }}" class="img-circle img-responsive" width="150">
+                            @if(Auth::user()->avatar == null)
+                            <img alt="image" class="img-circle" src='/images/profile_small.png' width="100"/>
+                            @else
+                            <img alt="image" class="img-circle" src='/storage/{{ Auth::user()->avatar }}' width="100"/>
+                            @endif
                         </center>
                         <div class="m-b-md">
                         <h2 class="font-bold no-margins">
@@ -21,8 +25,6 @@
                              <label> FullName:</label>
                              {{ $profile->user->first_name." ".$profile->user->last_name }}
                          </li>
-                         
-                        
                          <li>
                              <span class="fa fa-envelope m-r-xs"></span>
                              <label>Email:</label>
@@ -98,6 +100,13 @@
                                         <div class="form-group">
                                             <label>Agent ID</label>
                                             <input type="text" name="agent_id" class="form-control" value="{{ $profile->agent_id }}" readonly>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Your Diamond Account Number</label>
+                                            <input type="text" name="account_no" class="form-control" value="{{ $profile->account_number }}">
                                         </div>
                                         
                                     </div>
