@@ -18,39 +18,44 @@
                         
                         {{-- <img src="/customer/img/a4.jpg" class="img-circle circle-border m-b-md" alt="profile"> --}}
                         <ul class="list-unstyled m-t-md">
-                        <div class="text-left">
-                         <li>
-                             <span class="fa fa-envelope m-r-xs"></span>
-                             <label>Email:</label>
-                             {{ Auth::user()->email }}
-                         </li>
-                         <li>
-                             <span class="fa fa-home m-r-xs"></span>
-                             <label>Address:</label>
-                            @if(Auth::user()->is_completed == 1)
-                                {{ $profile->customer->address}}
-                            @endif
-                         </li>
-                         <li>
-                            <span class="fa fa-phone m-r-xs"></span>
-                            <label>Contact:</label>
-                            {{ $profile->mobile}}
-                         </li>
-                         <li>
-                             <span class="fa fa-table m-r-xs"></span>
-                            <label>Meter Number:</label>
-                            @if(Auth::user()->is_completed == 1)
-                            {{ $profile->customer->meter_no }}
-                            @endif
-                         </li>
-                         <li>
-                             <span class="fa fa-map-marker m-r-xs"></span>
-                            <label>District:</label>
-                             Lekki
-                         </li>
-                        </ul>
+                            <div class="text-left">
+                            <li>
+                                <span class="fa fa-envelope m-r-xs"></span>
+                                <label>Email:</label>
+                                {{ Auth::user()->email }}
+                            </li>
+                            <li>
+                                <span class="fa fa-home m-r-xs"></span>
+                                <label>Address:</label>
+                                @if(Auth::user()->is_completed == 1)
+                                    {{ $profile->customer->address}}
+                                @endif
+                            </li>
+                            <li>
+                                <span class="fa fa-phone m-r-xs"></span>
+                                <label>Contact:</label>
+                                {{ $profile->mobile}}
+                            </li>
+                            <li>
+                                <span class="fa fa-table m-r-xs"></span>
+                                <label>Meter Number:</label>
+                                @if(Auth::user()->is_completed == 1)
+                                {{ $profile->customer->meter_no }}
+                                @endif
+                            </li>
+                            <li>
+                                <span class="fa fa-map-marker m-r-xs"></span>
+                                <label>District:</label>
+                                Lekki
+                            </li>
+                            
+                            </ul>
+                        </div>
+                        <div class="widget-head-color-box navy-bg p-lg">
+                            <h3>Referral Link:</h3> 
+                        </div>
                     </div>
-                    </div>
+                    
                    
                 <div class="col-lg-7">
                     <div class="ibox">
