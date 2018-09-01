@@ -60,6 +60,8 @@ Route::get('postpaid-payment', function() {
 
 Route::post('account/login', 'AccountController@loginUser');
 Route::post('account/register', 'AccountController@registerUser')->name('signup');
+// Refereall Registration
+Route::get('signup/r/{ref}','AccountController@refReg');
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');

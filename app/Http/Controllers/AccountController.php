@@ -65,6 +65,17 @@ class AccountController extends Controller
         return response()->json(['sus' => '1']);
     }
 
+    public function refReg($ref)
+    {
+        $findRef = User::where('refer_id',$ref)->first();
+
+        if(empty($findRef)) {
+            return redirect('/');
+        }else {
+            return view('referral-signup')->withRef($findRef->refer_id);
+        }
+    }
+
     // public function sendAccountMail()
     // {
     //     if (session()->exists('account_info')) {

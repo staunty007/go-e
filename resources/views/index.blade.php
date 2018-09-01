@@ -102,7 +102,6 @@
 				</div>
 					
 			</div>
-			
 			<div class="row">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -494,6 +493,7 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
+			<script src="{{ asset('js/app.js') }}"></script>
 			<script>
 				
 				$('document').ready(function () {
