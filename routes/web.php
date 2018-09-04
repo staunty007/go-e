@@ -225,3 +225,7 @@ Route::get('login', function() {
 Route::get('register', function() {
     return redirect('/');
 })->name('register');
+
+
+// SOAP API TEST ROUTES
+Route::get('api/soap/start-session','TestSoapController@startSession');
