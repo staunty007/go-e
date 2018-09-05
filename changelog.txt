@@ -1,0 +1,6 @@
+================ Codergab Made Some changes ===================
+1.  I deleted all the extra migration files and add them to their original tables for simplicty sake
+
+
+=========== Things to do after pushing to production ===============
+1. Fill in admin Details with its biodata with a wallet balance 

@@ -1,0 +1,38 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: url(/images/bb.jpeg);
+    background-size: cover;
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.navbar {
+    padding: 1.5rem 1rem;
+}
+
+.bg-light {
+    background-color: transparent !important;
+}
+.rounded {
+    border-radius: 50px !important;
+}
+.custom-btn-search {
+    margin-left: -41px;
+    z-index: 999 !important;
+}
+.box {
+    background-color: #C82333;
+    color: #fff;
+    padding: 1em;
+}
+@media (min-width: 320px) {
+    .form-inline .input-group {
+        width: 100%;
+    }
+}
+@media (min-width: 576px) {
+    .form-inline .input-group {
+        width: 500px;
+    }
+}

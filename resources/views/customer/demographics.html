@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GOENERGEE | Energy Report</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+   <!-- orris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Patrick Chigbata</strong>
+                             </span> <span class="text-muted text-xs block">Developer <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="mailbox.html">Mailbox</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        GO
+                    </div>
+                </li>
+                <li>
+                    <li><a href="customer_report.html"><i class="fa fa-usd"></i> <span class="nav-label">My Report</span></a>
+                </li>
+                
+                        <li><a href="Payment_history.html"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
+                     <li>
+                    <li class="active"><a href="demographics.html"><i class="fa fa-yelp"></i> <span class="nav-label">Energy Consumption</span></a>
+                </li>
+                 <li>
+                    <li><a href="customer_Profile.html"><i class="fa fa-pie-chart"></i> <span class="nav-label">Customer Profile</span></a>
+                </li>
+                <li>
+                   <li><a href="meter_request.html"><i class="fa fa-table"></i> <span class="nav-label">Meter Resquest</span></a>
+                </li>  
+            
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome to Utility Meter Billing Platform.</span>
+                </li>
+                
+
+
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+
+            <div class="wrapper wrapper-content">
+        <div class="row">
+                   <div class="col-lg-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                
+                                <h5>Current Month Uptime</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">800hrs</h1>
+                                <div class="stat-percent font-bold text-info">80% <i class="fa fa-level-up"></i></div>
+                                <small>Measures Energy Uptime</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="col-lg-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                               
+                                <h5>Power Outage</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">200hrs</h1>
+                                <div class="stat-percent font-bold text-danger">20% <i class="fa fa-level-down"></i></div>
+                                <small>Measures Power Outage</small>
+                            </div>
+                        </div></div>
+                    <div class="col-lg-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                
+                               
+                                <h5> Meter Tamper </h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">2</h1>
+                                <div class="stat-percent font-bold text-success">22.4.2018<i class="fa fa-bolt"></i></div>
+                                <small>Deviations to energy flow and measurement</small>
+                            </div>
+                        </div>
+            </div>
+        </div>
+            
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Energy Consumption by District</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-bar-chart"></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Live Power Consumption</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Archive History Performance</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-line-chart-multi"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-14">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>GOENERGEE Demographics Energy Utilization Report</h4>
+                                        </div>
+                                    <div class="ibox float-e-margins">
+                    
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id #</th>
+                                <th>Dates</th>
+                                <th>Agbara</th>
+                                <th>Ajele</th>
+                                <th>Apapa</th>
+                                <th>Festac</th>
+                                <th>Ibeju</th>
+                                <th>Isolo</th>
+                                <th>Mushin</th>
+                                <th>Ojo</th>
+                                <th>Lekki</th>
+                                <th>Orile</th>
+                                
+                              
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>G0-01</td>
+                                <td>2/5/2018</td>
+                                <td>620</td>
+                                <td>500</td>
+                                <td>750</td>
+                                <td>900</td>
+                                <td>800</td>
+                                <td>600</td>
+                                <td>450</td>
+                                <td>254</td>
+                                <td>100</td>
+                                <td>270</td>
+                             
+                               
+                               
+                            </tr>
+                            
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+              
+        </div>
+        <div class="footer">
+            
+            <div>
+                <strong>Copyright</strong> GOENERGEE &copy; 2018
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Flot demo data -->
+    <script src="js/demo/flot-demo.js"></script>
+ 
+        <!-- Morris -->
+    <script src="js/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/plugins/morris/morris.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Morris demo data-->
+    <script src="js/demo/morris-demo.js"></script>
+
+
+</body>
+
+</html>

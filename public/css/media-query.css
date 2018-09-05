@@ -1,0 +1,233 @@
+@media(min-width: 320px) and (max-width: 568px){
+    .media-query-social {
+        display: none;
+    }
+    
+    .grad-box i {
+        
+        margin-top: -20px;
+    }
+    .media-query-logo{
+        margin-left: -42px!important;
+        height: 16px;
+        margin-top: -10px!important; 
+    }
+    .media-input-group {
+        margin-left: 50px;
+        margin-top: -40px;
+    }
+    .media-query-a{
+        display: none!important;
+    }
+    .grad-box{
+       height: 30px;
+       width: 40px;
+    }
+    #signup-body{
+        margin-left: 50px;
+    }
+    .side-img{
+        display: none!important;
+    }
+    .media-query-search{
+        margin-right: 2px;
+    }
+    #news{
+        display: none!important;
+    }
+    #login {
+        margin: auto;
+        height: 364px;
+        background-color: white;
+        padding: 18px;
+        width: 100%;
+    }
+    #sign-up {
+        overflow-y: scroll;
+        height: 400px;
+        margin-left: -20px;
+        background-color: white;
+        width: 300px;
+    }
+    #make_payments {
+        background-color: #ffffff;
+        height: 364px;
+        padding: 15px;
+        /*overflow-y: scroll;*/
+        /* margin-left: -23px; */
+        
+    }
+    #support {
+        background-color: #ffffff;
+        height: 364px;
+        padding: 15px;
+        /*overflow-y: scroll;*/
+        margin-left: -55px;
+        width: 300px;
+    }
+    .nav-bar {
+        margin: 0px -12px;
+        margin-top: -12px;
+    }
+    .nav-ul {
+        padding: 10px;
+        width: 450px!important;
+        margin-right: 20px!important;
+        margin-bottom: 12px;
+        display: flex;
+      
+    }
+    .mobile-wrapper{
+        display: flex;
+        margin-left: -30px!important;
+    }
+
+   .item {
+        padding: 5px;
+        background: #ed5565;
+        margin-right: 7px;
+        color: #fff;
+        margin-bottom: 12px;
+        display: flex;
+    /* flex-flow: column; */
+    }
+    .item a{
+        color: #fff;
+        margin-left: 4px;
+        font-size: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+  
+    .fas,.far {
+    color: white;
+    }
+   /* .grad-boxa{
+        height: 300px!important;
+    }*/
+    #static-section{
+        display: none;
+    }
+
+}
+@media(min-width: 568px) and (max-width: 768px){
+    #sign-up {
+        margin-left: -12px!important;
+         height: 600px;
+
+    }
+    #make_payments {
+         height: 400px;
+        margin-left: 20px;
+        
+    }
+}
+
+
+   
+@media(min-width: 768px){
+    .media-query-a{
+    display: none!important;
+    }
+    .media-query-search {
+        margin-left: 30px!important;
+        margin-top: 58px!important;
+        width: 70%!important;
+        padding: 10px!important;
+        float: right!important;
+    }
+    .media-query-row{
+        
+    }
+    .media-query-social {
+        display: none!important;
+    }
+  .media-query-logo{
+    margin-left:-23px;
+    margin-bottom: -40px;
+  }
+  .media-query-body{
+    margin-top:-65px!important;
+  }
+  .btn-danger {
+    
+    height: 34px!important;
+    }
+    .media-query-input{
+        padding: 0px!important;
+
+    }
+    a.social-top-links {
+        font-size: 28px!important;
+    }
+    .media-input-group{
+        margin-top: 2px!important;
+        margin-left: 12px!important;
+    }
+    .nav-bar{
+        display: none!important;
+    }
+    .side-img{
+        display: block!important;
+       
+    }
+  
+    #news{
+        display: block!important;
+    } 
+    .nav-ul{
+        display: none!important;
+    }
+}
+
+@media(min-width: 1024px){
+
+    .media-input-group {
+    margin-left: -90px!important;
+    margin-top: 20px!important;
+    }
+    .media-query-social {
+       margin-top: -42px!important;
+       display: block!important;
+    }
+     .media-query-a{
+    display: block!important;
+    margin-bottom: 30px!important;
+
+}
+.grad-box{
+   padding: 32px 32px!important;
+}
+
+#make_payments {
+    height: 400px;
+    margin-left: 20px;
+        
+    }
+
+}
+#sign-up {
+  
+    margin-left: 0px!important;
+   
+}
+.sideimg{
+    margin-left: 0px!important;
+}
+@media(min-width: 1025px){
+    .media-query-a{
+    display: block!important;
+    margin-bottom: 20px!important;
+  }
+  .media-query-social {
+    margin-top: 82px!important;
+}
+.mobile-wrapper{
+    display: none;
+}
+
+
+}
+
+.grid-style{
+    display: flex;
+}
