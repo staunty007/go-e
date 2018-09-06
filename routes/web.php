@@ -229,3 +229,4 @@ Route::get('register', function() {
 
 // SOAP API TEST ROUTES
 Route::get('api/soap/start-session','TestSoapController@startSession');
+Route::get('api/soap/login-session/{session}','TestSoapController@loginSession');

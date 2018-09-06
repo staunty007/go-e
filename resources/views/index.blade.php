@@ -750,16 +750,6 @@
 				}
 			});
 
-			// fetch('diamond/access-token')
-			// .then(res => res.json())
-			// .then(result => {
-			// 	let res = JSON.parse(result);
-			// 	localStorage.setItem('geac', res.access_token);
-			// })
-			// .catch(err => {
-			// 	alert('Something Went Wrong, Please Reload the Page');
-			// })
-
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
 				$('.registerBtn').prop('disabled', true);
@@ -911,6 +901,27 @@
 				$('#confirm-payment').modal('toggle');
 			}
 			
+
+			// start session for transactions
+			
+
+			fetch('api/soap/start-session')
+			.then(res => res.json())
+			.then(result => {
+				let newResult = JSON.parse(result);
+				// Store to session and login
+				localStorage.setItem('TAMSES',newResult.response.session);
+				fetch(`api/soap/login-session/${newResult.response.session}`)
+				.then(res => res.json())
+				.then(response => {
+					let result = JSON.parse(response);
+					// console.log(result);
+					if(result.response.retn !== 0) {
+						alert('Something Really Bad Went Wrong');
+					}
+				})
+				.catch(err => alert('Something Bad Went Wrong here'));
+			}).catch(err => alert('Something Bad Went Wrong'));
 		</script>
 	</body>
 
