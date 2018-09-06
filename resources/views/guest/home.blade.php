@@ -202,10 +202,10 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									<button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
 									<i class="fas fa-cogs"></i>
 										Support
-									</button>
+									</button></a>
 								</div>
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									<a href="faq">

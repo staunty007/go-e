@@ -154,19 +154,19 @@
 			
 				<li class="nav-item item">
 						<i class="fas fa-user-plus"></i>
-					<a class="nav-link" href="#">Sign Up</a>
+					<a class="nav-link" href="{{ route('guest.login') }}">Sign Ip</a>
 				</li>
 				<li class="nav-item item">
 						<i class="far fa-credit-card"></i>
-					<a class="nav-link" href="#">Services</a>
+					<a class="nav-link" href="{{ route('guest.services') }}">Services</a>
 				</li>
 				<li class="nav-item item">
 						<i class="fas fa-cogs"></i>
-					<a class="nav-link disabled" href="#">Support</a>
+					<a class="nav-link disabled" href="{{ route('guest.support') }}">Support</a>
 				</li>
 				<li class="nav-item item">
 						<i class="fas fa-question-circle"></i>
-					<a class="nav-link active" href="#">FAQ</a>
+					<a class="nav-link" href="faq">FAQ</a>
 				</li>
 			</ul>
 			
@@ -223,10 +223,10 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									<button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
 									<i class="fas fa-cogs"></i>
 										Support
-									</button>
+									</button></a>
 								</div>
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									<a href="faq">

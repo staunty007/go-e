@@ -36,7 +36,7 @@
         display: none!important;
     }
     #login {
-        margin: auto;
+        margin-left: 50px;
         height: 364px;
         background-color: white;
         padding: 18px;
@@ -57,14 +57,14 @@
         /* margin-left: -23px; */
         
     }
-    #support {
-        background-color: #ffffff;
-        height: 364px;
-        padding: 15px;
-        /*overflow-y: scroll;*/
-        margin-left: -55px;
-        width: 300px;
-    }
+   #support {
+    background-color: #ffffff;
+    height: 364px;
+    padding: 15px;
+    /* overflow-y: scroll; */
+    /* margin-left: -55px; */
+    width: 420px;
+}
     .nav-bar {
         margin: 0px -12px;
         margin-top: -12px;
@@ -83,9 +83,9 @@
     }
 
    .item {
-        padding: 5px;
+        padding: 10px;
         background: #ed5565;
-        margin-right: 7px;
+        margin-right: 20px;
         color: #fff;
         margin-bottom: 12px;
         display: flex;
@@ -168,6 +168,7 @@
     }
     .side-img{
         display: block!important;
+        height: 360px;
        
     }
   
@@ -197,9 +198,14 @@
 .grad-box{
    padding: 32px 32px!important;
 }
-
+#support {
+    background-color: #ffffff;
+    height: 360px;
+    padding: 15px;
+    width: 370px;
+}
 #make_payments {
-    height: 400px;
+   height: 370px;
     margin-left: 20px;
         
     }
