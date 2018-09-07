@@ -6299,6 +6299,13 @@ button.close {
     max-width: 500px;
     margin: 1.75rem auto;
   }
+<<<<<<< HEAD
+=======
+  .carousel {
+    position: relative;
+    display : none!important; 
+}
+>>>>>>> 76d1750661394f5eaf6ad4e69815c053e42feeec
 
   .modal-dialog-centered {
     min-height: calc(100% - (1.75rem * 2));
@@ -7256,7 +7263,11 @@ button.bg-dark:focus {
   .d-lg-none {
     display: none !important;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 76d1750661394f5eaf6ad4e69815c053e42feeec
   .d-lg-inline {
     display: inline !important;
   }

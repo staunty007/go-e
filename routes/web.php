@@ -8,7 +8,21 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 
-Route::get('/', function () { return view('index'); });
+// Route::get('/', function () { return view('index'); });
+Route::get('/', function () { return view('guest/home'); });
+
+
+Route::prefix('guest')->group(function () {
+    Route::get('home','GuestController@guestServices')->name('guest.services');
+    Route::get('login', 'GuestController@guestLogIn')->name('guest.login');
+    Route::get('signup', 'GuestController@guestSignUp')->name('guest.signup');
+    Route::get('service-type', 'GuestController@serviceType')->name('guest.service_type');
+    Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
+    Route::get('support', 'GuestController@support')->name('guest.support');
+
+});
+
+
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
 Route::get('/meter/api/','MeterApiController@validateMeterReturn');
