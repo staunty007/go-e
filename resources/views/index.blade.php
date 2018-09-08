@@ -670,23 +670,27 @@
 		<script>
 			$(".services-list-overlay").hide();
 			listServices = (value) => {
-				console.log(value);
+				// console.log(value);
 				if($("#searchForm").val() !== '') {
-
 					$(".services-list-overlay").fadeIn(200);
-					$(".services-list-overlay").html('<center>Fetching Services...');
+					$(".services-list-overlay").html('<center>Fetching Services...</center>');
 					if(navigator.onLine) {
 						fetch(`/lists/services/${value}`)
 						.then(res => res.json())
 						.then(results => {
-							let htmll = "";
-							for(const result of results){
-								console.log(result.title);
-								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-								setTimeout(() => {
-									$(".services-list-overlay").html(htmll);
-								}, 1000);
+							if(results.length === 0) {
+								$(".services-list-overlay").html('<center>No Results Found</center>');
+							}else {
+								let htmll = "";
+								for(const result of results){
+									console.log(result.title);
+									htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
+									setTimeout(() => {
+										$(".services-list-overlay").html(htmll);
+									}, 1000);
+								}
 							}
+							
 						})
 						.catch(err => {
 							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');

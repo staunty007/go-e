@@ -109,9 +109,6 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
 });
 
-
-
-
 // Admin
 Route::prefix('backend')->group(function () {
     Route::get('/', function () {
@@ -188,28 +185,6 @@ Route::get('diamond/credit/{amount}','DiamondApiController@credit');
 Route::get('diamond/debit/agent/{accountnumber}/{amount}','DiamondApiController@agentDebit');
 Route::get('diamond/debit/admin/{accountnumber}/{amount}','DiamondApiController@adminDebit');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // End to End API
 Route::get('e2e/api/customers', function() {
     $token = Input::get('token_access');
@@ -219,6 +194,7 @@ Route::get('e2e/api/customers', function() {
 
 Route::get('/lists/services/{keyword}', function(){
     $keyword = Input::get('keyword');
+    // return $keyword;
     return DB::table('services_list')->where('title','LIKE','%' .$keyword)->get();
 });
 
