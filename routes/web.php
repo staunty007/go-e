@@ -8,7 +8,10 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 
-Route::get('/', function () { return view('index'); });
+
+Route::get('/', function () { 
+    return view('index');
+ });
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
 Route::get('/meter/api/','MeterApiController@validateMeterReturn');
