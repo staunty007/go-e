@@ -449,3 +449,18 @@ body{
 .modal-backdrop {
 	position: relative !important;
 }
+
+.footi {
+	padding: 1em;
+	text-align: center;
+	color: #ffffffd1;
+	background: #111;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	position: fixed;
+}
+
+.services-list-overlay {
+	display: none;
+}

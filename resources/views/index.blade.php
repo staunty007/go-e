@@ -3,7 +3,6 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
 <head> 
 	<title>GOENERGEE</title>
 	<meta charset="utf-8">
@@ -496,6 +495,7 @@
 								<button class="btn btn-success btn-block" onclick="alert('Thanks for testing it out, we are still working on it.')" type="submit">Continue</button>
 							</form>
 						</div>
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Payment</button>
 						</div>
@@ -511,35 +511,25 @@
 						});
 						// console.log(window.location.hash);
 					}
-
-
-
 			
 					// $("#login").hide();
 					// $("#sign-up").hide();
 					// $("#make_payments").hide();
 					// $("#support").hide();
-
-
 					// $("#login_btn").click(function () {
-
 					// 	$("#login").show(300);
 					// 	$("#sign-up").hide();
 					// 	$("#news").hide();
 					// 	$("#make_payments").hide();
 					// 	$("#support").hide();
-
 					// });
-
 					// $("#sign_up_btn").click(function () {
 					// 	$("#sign-up").show(400);
 					// 	$("#news").hide();
 					// 	$("#login").hide();
 					// 	$("#make_payments").hide();
 					// 	$("#support").hide();
-
 					// });
-
 			
 						
 						//sign-up.style.display="none";
@@ -548,11 +538,8 @@
 							
 							
 						});
-
 					}
-
 				
-
 				});
 			</script>
 			<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
@@ -628,15 +615,12 @@
 		<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);
-
 			function plusSlides(n) {
 				showSlides(slideIndex += n);
 			}
-
 			function currentSlide(n) {
 				showSlides(slideIndex = n);
 			}
-
 			function showSlides(n) {
 				var i;
 				var slides = document.getElementsByClassName("mySlides");
@@ -662,7 +646,6 @@
 				}
 				slides[slideIndex - 1].style.display = "block";
 				dots[slideIndex - 1].className += " active";
-
 				setTimeout(showSlides, 3000); // Change image every 3 seconds
 			}
 		</script>
@@ -670,27 +653,22 @@
 		<script>
 			$(".services-list-overlay").hide();
 			listServices = (value) => {
-				// console.log(value);
+				console.log(value);
 				if($("#searchForm").val() !== '') {
 					$(".services-list-overlay").fadeIn(200);
-					$(".services-list-overlay").html('<center>Fetching Services...</center>');
+					$(".services-list-overlay").html('<center>Fetching Services...');
 					if(navigator.onLine) {
 						fetch(`/lists/services/${value}`)
 						.then(res => res.json())
 						.then(results => {
-							if(results.length === 0) {
-								$(".services-list-overlay").html('<center>No Results Found</center>');
-							}else {
-								let htmll = "";
-								for(const result of results){
-									console.log(result.title);
-									htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-									setTimeout(() => {
-										$(".services-list-overlay").html(htmll);
-									}, 1000);
-								}
+							let htmll = "";
+							for(const result of results){
+								console.log(result.title);
+								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
+								setTimeout(() => {
+									$(".services-list-overlay").html(htmll);
+								}, 1000);
 							}
-							
 						})
 						.catch(err => {
 							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
@@ -698,7 +676,6 @@
 					}else {
 						$(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
 					}
-
 				}else {
 					$(".services-list-overlay").fadeOut(200);
 				}
@@ -710,13 +687,20 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-
+			// fetch('diamond/access-token')
+			// .then(res => res.json())
+			// .then(result => {
+			// 	let res = JSON.parse(result);
+			// 	localStorage.setItem('geac', res.access_token);
+			// })
+			// .catch(err => {
+			// 	alert('Something Went Wrong, Please Reload the Page');
+			// })
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
 				$('.registerBtn').prop('disabled', true);
 				$('.registerBtn').html('Creating Account...');
 				var formdata = $(".form-signin").serialize();
-
 				$.ajax({
 					url: "account/register",
 					method: "POST",
@@ -739,12 +723,10 @@
 				})
 				
 			})
-
 			$(".login-btn").click((e) => {
 				e.preventDefault();
 				$('.login-btn').html('Logging In...');
 				var formData = $(".login-form").serialize();
-
 				$.ajax({
 					url: '/account/login',
 					method: 'POST',
@@ -801,7 +783,6 @@
 						// console.log(res);
 					}
 				});
-
 				// $('.pay-meter').html('Continue');
 				//$('.pay-meter').prop('disabled', false);
 			})
@@ -818,7 +799,6 @@
 				};
 				continuePay(toBeTransported);
 			});
-
 				function continuePay(toBeTransported) {
 				$.ajax({
 					url: 'payment/hold',
@@ -837,9 +817,7 @@
 				}
 			function payWithPaystack() {
 				var amountMeter = document.querySelector('.meter-amount').value;
-
 				var chargedAmount = parseInt(amountMeter) + 100;
-
 				var handler = PaystackPop.setup({
 					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
 					email: document.querySelector('#emailret').value,
@@ -862,25 +840,6 @@
 				$('#confirm-payment').modal('toggle');
 			}
 			
-
-			// start session for transactions
-			fetch('api/soap/start-session')
-			.then(res => res.json())
-			.then(result => {
-				let newResult = JSON.parse(result);
-				// Store to session and login
-				localStorage.setItem('TAMSES',newResult.response.session);
-				fetch(`api/soap/login-session/${newResult.response.session}`)
-				.then(res => res.json())
-				.then(response => {
-					let result = JSON.parse(response);
-					// console.log(result);
-					if(result.response.retn !== 0) {
-						alert('Something Really Bad Went Wrong');
-					}
-				})
-				.catch(err => alert('Something Bad Went Wrong here'));
-			}).catch(err => alert('Something Bad Went Wrong'));
 		</script>
 	</body>
 

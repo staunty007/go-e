@@ -450,16 +450,6 @@
 				}
 			});
 
-			// fetch('diamond/access-token')
-			// .then(res => res.json())
-			// .then(result => {
-			// 	let res = JSON.parse(result);
-			// 	localStorage.setItem('geac', res.access_token);
-			// })
-			// .catch(err => {
-			// 	alert('Something Went Wrong, Please Reload the Page');
-			// })
-
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
 				$('.registerBtn').prop('disabled', true);

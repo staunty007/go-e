@@ -217,6 +217,10 @@ Route::get('register', function() {
 })->name('register');
 
 
-// SOAP API TEST ROUTES
-Route::get('api/soap/start-session','TestSoapController@startSession');
-Route::get('api/soap/login-session/{session}','TestSoapController@loginSession');
+// SOAP API TEST ROUTES / REST APIs ROUTES
+Route::prefix('in-app/api')->group(function() {
+    Route::get('soap/start-session','TestSoapController@startSession');
+    Route::get('soap/login-session/{session}','TestSoapController@loginSession');
+    Route::get('soap/store-session/{session}','TestSoapController@storeSession');
+    Route::get('soap/validate-customer/{number}','TestSoapController@validateCustomer');
+});

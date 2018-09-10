@@ -13,17 +13,21 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	{{-- <script src="{{ asset('js/goenergee.js') }}"></script> --}}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link href="/css/animate.css" rel="stylesheet">
 	<!-- <link href="/css/application.css" rel="stylesheet"> -->
 	<link href="/css/emojione.min.css" rel="stylesheet">
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="{{asset('css/custom.css')}}" rel="stylesheet">
 	<link href="{{asset('css/media-query.css')}}" rel="stylesheet">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
@@ -283,17 +287,7 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-			<script>
-				
-				$('document').ready(function () {
-					if (window.location.hash == "#prepaid-meter") {
-						$('.prepaid-modal').modal('toggle', {
-							backdrop: false
-						});
-						// console.log(window.location.hash);
-					}
-				});
-			</script>
+
 			<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -347,24 +341,34 @@
 		</div>
 		<!--main div ends-->
 		</div>
-		<div style="
-		padding: 1em;
-		text-align: center;
-		color: #ffffffd1;
-		background: #111;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		position: fixed;
-		">
-				
+		<div class="footi">
 				Powered by GOENERGEE
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;
-				
 			</div>
 		</div>
+
+		<script src="/js/sweetalert.min.js"></script>
+		<script src="https://js.paystack.co/v1/inline.js"></script>
 		<script>
+			fetch('in-app/api/soap/start-session')
+				.then(res => res.json())
+				.then(result => {
+					let newResult = JSON.parse(result);
+					// Store to session and login
+					fetch(`in-app/api/soap/login-session/${newResult.response.session}`)
+					.then(res => res.json())
+					.then(response => {
+						fetch(`in-app/api/soap/store-session/${newResult.response.session}`)
+						.then(res => res.json())
+						.then(resulta => {
+							localStorage.setItem('TAMSES', newResult.response.session);
+						})
+						let result = JSON.parse(response);
+						if(result.response.retn !== 0) {
+							alert('Something Really Bad Went Wrong');
+						}
+					})
+					.catch(err => alert('Something Bad Went Wrong here'));
+				}).catch(err => alert('Something Bad Went Wrong'));
 			var slideIndex = 1;
 			showSlides(slideIndex);
 
@@ -404,209 +408,219 @@
 
 				setTimeout(showSlides, 3000); // Change image every 3 seconds
 			}
-		</script>
-		<script src="/js/sweetalert.min.js"></script>
-		<script>
-			$(".services-list-overlay").hide();
-			listServices = (value) => {
-				console.log(value);
-				if($("#searchForm").val() !== '') {
 
-					$(".services-list-overlay").fadeIn(200);
-					$(".services-list-overlay").html('<center>Fetching Services...');
-					if(navigator.onLine) {
-						fetch(`/lists/services/${value}`)
-						.then(res => res.json())
-						.then(results => {
-							let htmll = "";
-							for(const result of results){
-								console.log(result.title);
-								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-								setTimeout(() => {
-									$(".services-list-overlay").html(htmll);
-								}, 1000);
-							}
-						})
-						.catch(err => {
-							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-						});
-					}else {
-						$(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
-					}
+			// Slider script ends here
 
-				}else {
-					$(".services-list-overlay").fadeOut(200);
-				}
-				console.log(value);
-			};
-	
+			// Setup ajax for Ajax in-app requests
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
+			// Setup Ajax Ends
 
-			// fetch('diamond/access-token')
-			// .then(res => res.json())
-			// .then(result => {
-			// 	let res = JSON.parse(result);
-			// 	localStorage.setItem('geac', res.access_token);
-			// })
-			// .catch(err => {
-			// 	alert('Something Went Wrong, Please Reload the Page');
-			// })
 
-			$(".registerBtn").click((e) => {
-				e.preventDefault();
-				$('.registerBtn').prop('disabled', true);
-				$('.registerBtn').html('Creating Account...');
-				var formdata = $(".form-signin").serialize();
+    alert('Welcome');
+    /**
+     * Fetches the list of services here
+     */
+    // Hide the overlay div by default
+    $(".services-list-overlay").hide();
+    function listServices(value) {
+        // Check if value is not empty else hide overlay
+        if($("#searchForm").val() !== '') {
+            $(".services-list-overlay").fadeIn(200);
+            document.querySelector('.services-list-overlay').style.display = 'block';
+            if(navigator.onLine) {
+                fetch(`/lists/services/${value}`)
+                .then(res => res.json())
+                .then(results => {
+                    if(results.length === 0) {
+                        $(".services-list-overlay").html('<center>No Results Found</center>');
+                    }else {
+                        let htmll = "";
+                        for(const result of results){
+                            // console.log(result.title);
+                            htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
+                            setTimeout(() => {
+                                $(".services-list-overlay").html(htmll);
+                            }, 1000);
+                        }
+                    }
+                    
+                })
+                .catch(err => {
+                    $(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
+                });
+            }else {
+                $(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
+            }
 
-				$.ajax({
-					url: "account/register",
-					method: "POST",
-					data: formdata,
-					success: (response) => {
-						if (response.sus == 1) {
-							swal('Successful', 'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account', 'success');
-							$(this).prop('disabled', false);
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.registerBtn').prop('disabled', false);
-							$('.registerBtn').html('Sign Up');
-						}
-					},
-					error: (err) => {
-						console.log(err);
-						$('.registerBtn').prop('disabled', false);
-						$('.registerBtn').html('Sign Up');
-					}
-				})
-				
-			})
+        }else {
+            $(".services-list-overlay").fadeOut(200);
+        }
+        // console.log(value);
+    };
+    // Fetching Services Ends
+   // Register Ajax Requests
+    $(".registerBtn").click(function(e) {
+        e.preventDefault();
+        $('.registerBtn').prop('disabled', true);
+        $('.registerBtn').html('Creating Account...');
+        var formdata = $(".form-signin").serialize();
 
-			$(".login-btn").click((e) => {
-				e.preventDefault();
-				$('.login-btn').html('Logging In...');
-				var formData = $(".login-form").serialize();
+        $.ajax({
+            url: "account/register",
+            method: "POST",
+            data: formdata,
+            success: (response) => {
+                if (response.sus == 1) {
+                    swal('Successful', 'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account', 'success');
+                    $(this).prop('disabled', false);
+                } else {
+                    swal('Ooops!', '' + response.err + '', 'error');
+                    $('.registerBtn').prop('disabled', false);
+                    $('.registerBtn').html('Sign Up');
+                }
+            },
+            error: (err) => {
+                console.log(err);
+                $('.registerBtn').prop('disabled', false);
+                $('.registerBtn').html('Sign Up');
+            }
+        });
+    });
 
-				$.ajax({
-					url: '/account/login',
-					method: 'POST',
-					data: formData,
-					success: (response) => {
-						if (response.sus == 1) {
-							setTimeout(() => {
-								swal('Successful', 'Login Successful', 'success');
-								$(this).prop('disabled', false);
-								setTimeout(() => {
-									window.location.href = '/home';
-								}, 2000);
-							})
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.login-btn').prop('disabled', false);
-							$('.login-btn').html('Login');
-						}
-					},
-					error: (err) => {
-						$('.login-btn').prop('disabled', false);
-						$('.login-btn').html('Login');
-					}
-				})
-				
-			})
-		</script>
-		<script src="https://js.paystack.co/v1/inline.js"></script>
-		<script>
-			
-			$(".pay-meter").click((e) => {
-				e.preventDefault();
-				$('.pay-meter').html('Validating....');
-				var meter_no = $('#meterno').val();
-				$.ajax({
-					url: 'meter/api',
-					method: 'GET',
-					data: { meter_no: meter_no},
-					success: (res) => {
-						if(res.code == 419) {
-							swal('Ooops','Invalid Meter No.','error');
-							$('.pay-meter').html('Continue');
-						}else {
-							console.log(res);
-							$("#firstname").val(res.first_name);
-							$("#lastname").val(res.last_name);
-							$("#emailret").val(res.email);
-							$("#phoneret").val(res.phone);
-							$("#meter_no").val($("#meterno").val());
-							$("#total").val(parseInt($(".meter-amount").val()) + 100);
-							toggleMod();
-							
-						}
-						// console.log(res);
-					}
-				});
+    // Login Ajax Request
+    $(".login-btn").click(function(e){
+        e.preventDefault();
+        $('.login-btn').html('Logging In...');
+        var formData = $(".login-form").serialize();
 
-				// $('.pay-meter').html('Continue');
-				//$('.pay-meter').prop('disabled', false);
-			})
-			$("#ctnPay").click((e) => {
-				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
-				e.preventDefault();
-				let toBeTransported = {
-					'meter_no': ''+$("#meterno").val()+'',
-					'first_name': ''+$('#firstname').val()+'',
-					'last_name': ''+$('#lastname').val()+'',
-					'email': ''+$('#emailret').val()+'',
-					'mobile': ''+$('#phoneret').val()+'',
-					'amount': ''+$('.meter-amount').val()+'',
-				};
-				continuePay(toBeTransported);
-			});
+        $.ajax({
+            url: '/account/login',
+            method: 'POST',
+            data: formData,
+            success: (response) => {
+                if (response.sus == 1) {
+                    setTimeout(() => {
+                        swal('Successful', 'Login Successful', 'success');
+                        $(this).prop('disabled', false);
+                        setTimeout(() => {
+                            window.location.href = '/home';
+                        }, 2000);
+                    })
+                } else {
+                    swal('Ooops!', '' + response.err + '', 'error');
+                    $('.login-btn').prop('disabled', false);
+                    $('.login-btn').html('Login');
+                }
+            },
+            error: (err) => {
+                $('.login-btn').prop('disabled', false);
+                $('.login-btn').html('Login');
+            }
+        });
+    });
 
-				function continuePay(toBeTransported) {
-				$.ajax({
-					url: 'payment/hold',
-					method: 'POST',
-					data: toBeTransported,
-					success: (response) => {
-						if (response.code == "ok") {
-							console.log(response.text);
-							payWithPaystack();
-						}
-					},
-					error: (err) => {
-						$('.pay-meter').html('Continue');
-					}
-				});
-				}
-			function payWithPaystack() {
-				var amountMeter = document.querySelector('.meter-amount').value;
+    /**
+     * Paystack Payment Integration
+     * This handles payment for prepaid users
+     */
+    $(".pay-meter").click(function(e){
+        e.preventDefault();
+        $('.pay-meter').html('Validating....');
+        var meter_no = $('#meterno').val();
+        $.ajax({
+            url: 'meter/api',
+            method: 'GET',
+            data: { meter_no: meter_no},
+            success: (res) => {
+                if(res.code == 419) {
+                    swal('Ooops','Invalid Meter No.','error');
+                    $('.pay-meter').html('Continue');
+                }else {
+                    console.log(res);
+                    $("#firstname").val(res.first_name);
+                    $("#lastname").val(res.last_name);
+                    $("#emailret").val(res.email);
+                    $("#phoneret").val(res.phone);
+                    $("#meter_no").val($("#meterno").val());
+                    $("#total").val(parseInt($(".meter-amount").val()) + 100);
+                    toggleMod();
+                    
+                }
+                // console.log(res);
+            }
+        });
 
-				var chargedAmount = parseInt(amountMeter) + 100;
+        // $('.pay-meter').html('Continue');
+        //$('.pay-meter').prop('disabled', false);
+    });
+    // Continue
+// start session for transactions to Payment Modal
+    $("#ctnPay").click(function(e) {
+        $("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
+        e.preventDefault();
+        let toBeTransported = {
+            'meter_no': ''+$("#meterno").val()+'',
+            'first_name': ''+$('#firstname').val()+'',
+            'last_name': ''+$('#lastname').val()+'',
+            'email': ''+$('#emailret').val()+'',
+            'mobile': ''+$('#phoneret').val()+'',
+            'amount': ''+$('.meter-amount').val()+'',
+        };
+        continuePay(toBeTransported);
+    }); 
 
-				var handler = PaystackPop.setup({
-					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-					email: document.querySelector('#emailret').value,
-					amount: chargedAmount + "00",
-					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
-					callback: function (response) {
-						setTimeout(() => {
-							window.location.href = '/payment/' + response.reference + '/success';
-						}, 1000);
-					},
-					onClose: function () {
-						alert('Payment Cancelled');
-						$('.pay-meter').html('Continue');
-						window.location.reload();
-					}
-				});
-				handler.openIframe();
-			}
-			function toggleMod() {
-				$('#confirm-payment').modal('toggle');
-			}
-			
+
+// Continue to Pay Function Declared
+function continuePay(toBeTransported) {
+    $.ajax({
+        url: 'payment/hold',
+        method: 'POST',
+        data: toBeTransported,
+        success: (response) => {
+            if (response.code == "ok") {
+                console.log(response.text);
+                payWithPaystack();
+            }
+        },
+        error: (err) => {
+            $('.pay-meter').html('Continue');
+        }
+    });
+}
+// Paystack Payment Handler
+function payWithPaystack() {
+    var amountMeter = document.querySelector('.meter-amount').value;
+
+    var chargedAmount = parseInt(amountMeter) + 100;
+
+    var handler = PaystackPop.setup({
+        key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+        email: document.querySelector('#emailret').value,
+        amount: chargedAmount + "00",
+        ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
+        callback: function (response) {
+            setTimeout(() => {
+                window.location.href = '/payment/' + response.reference + '/success';
+            }, 1000);
+        },
+        onClose: function () {
+            alert('Payment Cancelled');
+            $('.pay-meter').html('Continue');
+            window.location.reload();
+        }
+    });
+    handler.openIframe();
+}
+function toggleMod() {
+    $('#confirm-payment').modal('toggle');
+}
+
+
+
 		</script>
 	</body>
 
