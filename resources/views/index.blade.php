@@ -607,8 +607,6 @@
 		">
 				
 				Powered by GOENERGEE
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;
 				
 			</div>
 		</div>
