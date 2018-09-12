@@ -8,10 +8,21 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 
+// Route::get('/', function () { return view('index'); });
+Route::get('/', function () { return view('guest/home'); });
 
-Route::get('/', function () { 
-    return view('index');
- });
+
+Route::prefix('guest')->group(function () {
+    Route::get('home','GuestController@guestServices')->name('guest.services');
+    Route::get('login', 'GuestController@guestLogIn')->name('guest.login');
+    Route::get('signup', 'GuestController@guestSignUp')->name('guest.signup');
+    Route::get('service-type', 'GuestController@serviceType')->name('guest.service_type');
+    Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
+    Route::get('support', 'GuestController@support')->name('guest.support');
+
+});
+
+
 
 Route::post('/meter/api','MeterApiController@validateMeterUser');
 Route::get('/meter/api/','MeterApiController@validateMeterReturn');
@@ -98,9 +109,6 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
 });
 
-
-
-
 // Admin
 Route::prefix('backend')->group(function () {
     Route::get('/', function () {
@@ -177,28 +185,6 @@ Route::get('diamond/credit/{amount}','DiamondApiController@credit');
 Route::get('diamond/debit/agent/{accountnumber}/{amount}','DiamondApiController@agentDebit');
 Route::get('diamond/debit/admin/{accountnumber}/{amount}','DiamondApiController@adminDebit');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // End to End API
 Route::get('e2e/api/customers', function() {
     $token = Input::get('token_access');
@@ -208,6 +194,7 @@ Route::get('e2e/api/customers', function() {
 
 Route::get('/lists/services/{keyword}', function(){
     $keyword = Input::get('keyword');
+    // return $keyword;
     return DB::table('services_list')->where('title','LIKE','%' .$keyword)->get();
 });
 
@@ -228,3 +215,12 @@ Route::get('login', function() {
 Route::get('register', function() {
     return redirect('/');
 })->name('register');
+
+
+// SOAP API TEST ROUTES / REST APIs ROUTES
+Route::prefix('in-app/api')->group(function() {
+    Route::get('soap/start-session','TestSoapController@startSession');
+    Route::get('soap/login-session/{session}','TestSoapController@loginSession');
+    Route::get('soap/store-session/{session}','TestSoapController@storeSession');
+    Route::get('soap/validate-customer/{number}','TestSoapController@validateCustomer');
+});

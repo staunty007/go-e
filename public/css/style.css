@@ -2662,6 +2662,9 @@ a.forum-item-title:hover {
     /* Comment this is you want to show forum info in small devices */
     display: none;
   }
+
+  /* things not to display at the smaller screen**/
+ 
   .forum-desc {
     float: none !important;
   }
@@ -2846,6 +2849,7 @@ a.forum-item-title:hover {
     padding: 1.6em;
     width: 45%;
   }
+  
   .center-orientation .vertical-timeline-content::before {
     top: 24px;
     left: 100%;
@@ -8560,4 +8564,118 @@ body.md-skin {
   #page-wrapper {
     margin: 0;
   }
+}
+/*
+
+@media(min-width: 320px){
+    .media-query-a{
+    display: none!important;
+  }
+ .media-query-search {
+    margin-left: 30px!important;
+    margin-top: 12px!important;
+    width: 70%!important;
+    padding: 10px!important;
+    float: left!important;
+}
+.media-query-row{
+    margin-top: 40px;
+}
+.media-query-social {
+    float: right!important;
+    margin-top: -45px!important;
+    margin-right: -35px!important;
+}
+  .media-query-logo{
+    margin-left:-23px;
+    margin-bottom: -60px;
+  }
+  .media-query-body{
+    margin-top:-65px!important;
+  }
+  .btn-danger {
+    
+    height: 34px!important;
+    }
+    .media-query-input{
+        padding: 0px!important;
+       
+
+    }
+    .media-input-group{
+        margin-top: -30px;
+        margin-left: -80px;
+    }
+    a.social-top-links {
+        font-size: 28px!important;
+    }
+}
+
+@media(min-width: 768px){
+    .media-query-a{
+    display: none!important;
+    }
+    .media-query-search {
+    margin-left: 30px!important;
+    margin-top: 12px!important;
+    width: 70%!important;
+    padding: 10px!important;
+    float: left!important;
+    }
+    .media-query-row{
+        
+    }
+    .media-query-social {
+        margin-top: 22px!important;
+    }
+  .media-query-logo{
+    margin-left:-23px;
+    margin-bottom: -40px;
+  }
+  .media-query-body{
+    margin-top:-65px!important;
+  }
+  .btn-danger {
+    
+    height: 34px!important;
+    }
+    .media-query-input{
+        padding: 0px!important;
+
+    }
+    a.social-top-links {
+        font-size: 28px!important;
+    }
+    .media-input-group{
+        margin-top: 2px!important;
+        margin-left: 12px!important;
+    } 
+}
+@media(min-width: 1024px){
+    .media-input-group {
+    margin-left: -90px!important;
+    margin-top: 20px!important;
+    }
+    .media-query-social {
+       margin-top: -42px!important;
+    }
+     .media-query-a{
+    display: block!important;
+    margin-bottom: 30px!important;
+
+
+
+}
+@media(min-width: 1025px){
+    .media-query-a{
+    display: block!important;
+    margin-bottom: 10px!important;
+  }
+  .media-query-social {
+    margin-top: 42px!important;
+}
+}*/
+
+.details-holder{
+  margin-top: 80px!important;
 }

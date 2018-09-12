@@ -116,33 +116,46 @@
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
                 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
                 <script>
-                    $("#profileUpdate").click((e) => {
+                    let profileUpdate = document.querySelector("#profileUpdate");
+                    profileUpdate.addEventListener('click',(e) => {
                         e.preventDefault();
-                        $(this).html("Updating Profile");
+                        let meterNo = document.querySelector("#meter_no").value;
+                        const sessID = "{{ session('TAMSES') }}";
+                        console.log(sessID);
+                        fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
+                        .then(res => res.json())
+                        .then(response => {
+                            console.log(response);
+                        })
+                        .catch(err => console.log(err));
+                    });
+                    // $("#profileUpdate").click((e) => {
+                    //     e.preventDefault();
+                    //     $(this).html("Updating Profile");
 
-                        var meterNo = $('#meter_no').val();
+                    //     var meterNo = $('#meter_no').val();
                         
 
-                        $.ajax({
-                            url: '/meter/api',
-                            method: 'POST',
-                            data: { 
-                                'meter_no': meterNo, 
-                                '_token': '{{ csrf_token() }}'
-                            },
-                            success: (response) => {
-                                if(response.code == 419) {
-                                    // Invalid Meter
-                                    toastr.error('Invalid Meter Number!');
-                                    $("#profileUpdate").html("Update Profile");
-                                }else {
-                                    $("#profile-update").submit();
-                                }
-                            }
-                        });
+                    //     $.ajax({
+                    //         url: '/meter/api',
+                    //         method: 'POST',
+                    //         data: { 
+                    //             'meter_no': meterNo, 
+                    //             '_token': '{{ csrf_token() }}'
+                    //         },
+                    //         success: (response) => {
+                    //             if(response.code == 419) {
+                    //                 // Invalid Meter
+                    //                 toastr.error('Invalid Meter Number!');
+                    //                 $("#profileUpdate").html("Update Profile");
+                    //             }else {
+                    //                 $("#profile-update").submit();
+                    //             }
+                    //         }
+                    //     });
 
-                        $("#profileUpdate").html("Update Profile");
-                    })
+                    //     $("#profileUpdate").html("Update Profile");
+                    // })
                 </script>
                 
             @endpush

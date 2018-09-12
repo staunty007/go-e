@@ -49,6 +49,7 @@ class AccountController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'access_token' => $access_token,
+            'refer_id' => str_random(10),
             'created_at' => new Carbon('now'),
             'updated_at' => new Carbon('now'),
         ]);

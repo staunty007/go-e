@@ -13,4 +13,8 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+<<<<<<< HEAD
 import Example from './components/Example';
+=======
+require('./components/Example');
+>>>>>>> 76d1750661394f5eaf6ad4e69815c053e42feeec
