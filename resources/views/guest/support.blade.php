@@ -24,7 +24,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+	<script src="{{ asset('js/app.js') }}"></script>
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 		var Tawk_API = Tawk_API || {},
@@ -54,7 +54,7 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
-<body class="bg-img">
+<body class="bg-img" id="banner">
 	    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -116,10 +116,10 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/rev_image/2.png">
+								<img src="/images/rev_image/2.png">
 							</div>
 							<div class="item">
-								<img src="images/rev_image/7.png">
+								<img src="/images/rev_image/7.png">
 							</div>
 							{{-- <div class="item">
 								<img src="images/rev_image/3.png">
@@ -163,7 +163,7 @@
 				</li>
 				<li class="nav-item item">
 						<i class="far fa-credit-card"></i>
-					<a class="nav-link" href="{{ route('guest.services') }}">Services</a>
+					<a class="nav-link" href="{{ route('guest.services') }}">Make Payment</a>
 				</li>
 				<li class="nav-item item">
 						<i class="fas fa-question-circle"></i>

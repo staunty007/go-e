@@ -15,7 +15,7 @@
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+	<script src="{{ asset('js/app.js') }}"></script>
 	{{-- <script src="{{ asset('js/goenergee.js') }}"></script> --}}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -58,7 +58,7 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
-<body class="bg-img">
+<body class="bg-img" id="banner">
 	    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -120,10 +120,10 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/rev_image/2.png">
+								<img src="/images/rev_image/2.png">
 							</div>
 							<div class="item">
-								<img src="images/rev_image/7.png">
+								<img src="/images/rev_image/7.png">
 							</div>
 							{{-- <div class="item">
 								<img src="images/rev_image/3.png">
@@ -348,7 +348,9 @@
 
 		<script src="/js/sweetalert.min.js"></script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
+		
 		<script>
+			
 			fetch('in-app/api/soap/start-session')
 				.then(res => res.json())
 				.then(result => {
@@ -409,6 +411,7 @@
 				setTimeout(showSlides, 3000); // Change image every 3 seconds
 			}
 
+
 			// Slider script ends here
 
 			// Setup ajax for Ajax in-app requests
@@ -462,6 +465,10 @@
         // console.log(value);
     };
     // Fetching Services Ends
+	
+		
+ 
+}
    // Register Ajax Requests
     $(".registerBtn").click(function(e) {
         e.preventDefault();

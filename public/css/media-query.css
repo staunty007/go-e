@@ -1,4 +1,4 @@
-@media(min-width: 320px) and (max-width: 568px){
+@media(min-width: 320px) and (max-width: 768px){
     .media-query-social {
         display: none;
     }
@@ -30,7 +30,7 @@
         display: none!important;
     }
     .media-query-search{
-        margin-right: 2px;
+        margin-right: -50px;
     }
     #news{
         display: none!important;
@@ -53,6 +53,7 @@
         background-color: #ffffff;
         height: 364px;
         padding: 15px;
+        border-radius: 10px;
         /*overflow-y: scroll;*/
         /* margin-left: -23px; */
         
@@ -75,6 +76,7 @@
         margin-right: 20px!important;
         margin-bottom: 12px;
         display: flex;
+        margin-left: -10px;
       
     }
     .mobile-wrapper{
@@ -85,7 +87,7 @@
    .item {
         padding: 10px;
         background: #ed5565;
-        margin-right: 20px;
+        margin-right: 3px;
         color: #fff;
         margin-bottom: 12px;
         display: flex;
@@ -109,18 +111,57 @@
     }
 
 }
-@media(min-width: 568px) and (max-width: 768px){
+/* @media(min-width: 568px) and (max-width: 768px){
     #sign-up {
         margin-left: -12px!important;
-         height: 600px;
+        height: 600px;
 
     }
     #make_payments {
-         height: 400px;
+        height: 400px;
         margin-left: 20px;
         
+    } */
+    /* .media-query-a{
+        display: none;
     }
-}
+    .media-query-social{
+        display: none;
+    }
+    .media-input-group {
+        float: right;
+        margin-top: -30px;
+        width: 70%!important;
+    }
+    .nav-ul {
+        padding: 10px;
+        width: 450px!important;
+        margin-right: 20px!important;
+        margin-bottom: 12px;
+        display: flex;
+        margin-left: -10px;
+      
+    }
+    .item {
+        padding: 10px;
+        background: #ed5565;
+        margin-right: 3px;
+        color: #fff;
+        margin-bottom: 12px;
+        display: flex;
+    /* flex-flow: column; */
+    /* }
+    .item a{
+        color: #fff;
+        margin-left: 4px;
+        font-size: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+  
+    .fas,.far {
+    color: white;
+    } */ 
+/* } */
 
 
    
@@ -129,11 +170,11 @@
     display: none!important;
     }
     .media-query-search {
-        margin-left: 30px!important;
+        margin-left: -23px!important;
         margin-top: 58px!important;
         width: 70%!important;
         padding: 10px!important;
-        float: right!important;
+        /* float: right!important; */
     }
     .media-query-row{
         
@@ -167,13 +208,13 @@
         display: none!important;
     }
     .side-img{
-        display: block!important;
-        height: 360px;
+        display: none!important;
+        /* height: 360px; */
        
     }
   
     #news{
-        display: block!important;
+        display: none!important;
     } 
     .nav-ul{
         display: none!important;
@@ -181,14 +222,22 @@
 }
 
 @media(min-width: 1024px){
-
+    .side-img{
+        display: block!important;
+        height: 360px;
+       
+    }
+    #news{
+        display: block!important;
+    } 
     .media-input-group {
-    margin-left: -90px!important;
+    margin-left: 10px!important;
     margin-top: 20px!important;
     }
     .media-query-social {
        margin-top: -42px!important;
        display: block!important;
+       float: right;
     }
      .media-query-a{
     display: block!important;
@@ -207,6 +256,8 @@
 #make_payments {
    height: 370px;
     margin-left: 20px;
+    border-radius: 10px;
+    margin-top: 3px;
         
     }
 
@@ -214,6 +265,7 @@
 #sign-up {
   
     margin-left: 0px!important;
+    border-radius: 10px;
    
 }
 .sideimg{
@@ -222,10 +274,11 @@
 @media(min-width: 1025px){
     .media-query-a{
     display: block!important;
-    margin-bottom: 20px!important;
+    margin-bottom: 1px!important;
   }
   .media-query-social {
     margin-top: 82px!important;
+    margin-right: -50px;
 }
 .mobile-wrapper{
     display: none;
@@ -236,4 +289,10 @@
 
 .grid-style{
     display: flex;
+}
+.carousel {
+    border-radius: 20px!important;
+    overflow: hidden!important;
+    margin-top: -30px;
+    margin-left: -10px;
 }
