@@ -94,15 +94,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <button class="btn btn-primary" id="profileUpdate">Update Account</button>
-                                            </div>
-                                            
-                                        </div>
-                                    
-                                    
+                                            </div>                                        
+                                        </div>                                
                                 </fieldset>
-                                
-
-                                
                             </form>
                         </div>
                     </div>
@@ -116,6 +110,7 @@
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
                 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
                 <script>
+                    const baseUrl = "{{ url('/') }}";
                     let profileUpdate = document.querySelector("#profileUpdate");
                     profileUpdate.addEventListener('click',(e) => {
                         e.preventDefault();
@@ -124,38 +119,12 @@
                         console.log(sessID);
                         fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
                         .then(res => res.json())
-                        .then(response => {
-                            console.log(response);
+                        .then(calbck => {
+                            calbck = JSON.parse(calbck);
+                            console.log(calbck);
                         })
                         .catch(err => console.log(err));
                     });
-                    // $("#profileUpdate").click((e) => {
-                    //     e.preventDefault();
-                    //     $(this).html("Updating Profile");
-
-                    //     var meterNo = $('#meter_no').val();
-                        
-
-                    //     $.ajax({
-                    //         url: '/meter/api',
-                    //         method: 'POST',
-                    //         data: { 
-                    //             'meter_no': meterNo, 
-                    //             '_token': '{{ csrf_token() }}'
-                    //         },
-                    //         success: (response) => {
-                    //             if(response.code == 419) {
-                    //                 // Invalid Meter
-                    //                 toastr.error('Invalid Meter Number!');
-                    //                 $("#profileUpdate").html("Update Profile");
-                    //             }else {
-                    //                 $("#profile-update").submit();
-                    //             }
-                    //         }
-                    //     });
-
-                    //     $("#profileUpdate").html("Update Profile");
-                    // })
                 </script>
                 
             @endpush
