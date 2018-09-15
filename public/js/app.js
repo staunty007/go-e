@@ -12,6 +12,7 @@ function backgroundSlide() {
   banner.style.backgroundRepeat = "no-repeat";
   banner.style.height = '100%';
   banner.style.width = '100vw';
+
     },10000);
 
 }

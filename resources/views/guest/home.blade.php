@@ -252,13 +252,12 @@
 			<!-- row ends -->
 			<br>
 			<div class="modal fade prepaid-modal" tabindex="-1" role="dialog"  data-backdrop="static" data-keyboard="false">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-sm" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							
 							<img src="/images/ekedc.jpg" width="80"/> 
 							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-							{{-- <h4 class="modal-title">EKEDC Prepaid Meter Payment</h4> --}}
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						</div>
 						<div class="modal-body">
 							<form>
@@ -345,9 +344,18 @@
 
 		<script src="/js/sweetalert.min.js"></script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
+		
 		@include('partials._search-component')
+
 		<script>
-			
+			$('document').ready(function () {
+					if (window.location.hash == "#prepaid-meter") {
+						$('.prepaid-modal').modal('toggle', {
+							backdrop: false
+						});
+						// console.log(window.location.hash);
+					}
+				});	
 			// fetch('in-app/api/soap/start-session')
 			// 	.then(res => res.json())
 			// 	.then(result => {

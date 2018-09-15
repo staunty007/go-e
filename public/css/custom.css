@@ -46,3 +46,8 @@ footer {
     margin-left: 12px;
 }
 
+@media (min-width: 768px){
+.modal-sm {
+    width: 383px;
+}
+}
