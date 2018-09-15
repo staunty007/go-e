@@ -6,10 +6,11 @@
                 <div class="ibox float-e-margins" style="height: 100%;">
                     <div class="ibox-title">
                         {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
-                        <h5>Current Meter Balance</h5>
+                        <h5>Meter Balance</h5>
                     </div>
                     <div class="ibox-content">
                         <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
+                        <small>Your Current Meter Balance is 25,800</small>
                     </div>
                 </div>
             </div>

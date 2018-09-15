@@ -252,13 +252,12 @@
 			<!-- row ends -->
 			<br>
 			<div class="modal fade prepaid-modal" tabindex="-1" role="dialog"  data-backdrop="static" data-keyboard="false">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-sm" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							
 							<img src="/images/ekedc.jpg" width="80"/> 
 							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-							{{-- <h4 class="modal-title">EKEDC Prepaid Meter Payment</h4> --}}
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						</div>
 						<div class="modal-body">
 							<form>
@@ -345,42 +344,51 @@
 		<script src="/js/sweetalert.min.js"></script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
 		
+		@include('partials._search-component')
+
 		<script>
-			
-			fetch('in-app/api/soap/start-session')
-				.then(res => res.json())
-				.then(result => {
-					// Gets the response and format it as json
-					let newResult = JSON.parse(result);
+			$('document').ready(function () {
+					if (window.location.hash == "#prepaid-meter") {
+						$('.prepaid-modal').modal('toggle', {
+							backdrop: false
+						});
+						// console.log(window.location.hash);
+					}
+				});	
+			// fetch('in-app/api/soap/start-session')
+			// 	.then(res => res.json())
+			// 	.then(result => {
+			// 		// Gets the response and format it as json
+			// 		let newResult = JSON.parse(result);
 
-					console.log(`Session started ${newResult.response.session}`);
-					// Sends a login request to the server with the session obtained 
-					fetch(`in-app/api/soap/login-session/${newResult.response.session}`)
-					.then(res => res.json())
-					.then(response => {
-						// Login successful
-						response = JSON.parse(response);
+			// 		console.log(`Session started ${newResult.response.session}`);
+			// 		// Sends a login request to the server with the session obtained 
+			// 		fetch(`in-app/api/soap/login-session/${newResult.response.session}`)
+			// 		.then(res => res.json())
+			// 		.then(response => {
+			// 			// Login successful
+			// 			response = JSON.parse(response);
 
-						if(response.response.retn == 0) {
-							console.log(`Session Logged in ${response}`);
-							// sends a store session to the server
-							fetch(`in-app/api/soap/store-session/${newResult.response.session}`)
-							.then(res => res.json())
-							.then(resulta => {
-								// store successful,
-								// stores session also in the local storage
-								localStorage.setItem('TAMSES', newResult.response.session);
-							})
-							.catch(err => alert('Error Storing Session'));
-						}
-						let result = JSON.parse(response);
-						// if loggin sends back error;
-						if(result.response.retn !== 0) {
-							alert('Something Really Bad Went Wrong');
-						}
-					})
-					.catch(err => alert('Something Bad Went Wrong here'));
-				}).catch(err => alert('Something Bad Went Wrong'));
+			// 			if(response.response.retn == 0) {
+			// 				console.log(`Session Logged in ${response}`);
+			// 				// sends a store session to the server
+			// 				fetch(`in-app/api/soap/store-session/${newResult.response.session}`)
+			// 				.then(res => res.json())
+			// 				.then(resulta => {
+			// 					// store successful,
+			// 					// stores session also in the local storage
+			// 					localStorage.setItem('TAMSES', newResult.response.session);
+			// 				})
+			// 				.catch(err => alert('Error Storing Session'));
+			// 			}
+			// 			let result = JSON.parse(response);
+			// 			// if loggin sends back error;
+			// 			if(result.response.retn !== 0) {
+			// 				alert('Something Really Bad Went Wrong');
+			// 			}
+			// 		})
+			// 		.catch(err => alert('Something Bad Went Wrong here'));
+			// 	}).catch(err => alert('Something Bad Went Wrong'));
 			var slideIndex = 1;
 			showSlides(slideIndex);
 
@@ -438,51 +446,7 @@
      * Fetches the list of services here
      */
     // Hide the overlay div by default
-    $(".services-list-overlay").hide();
-    function listServices() {
-        // Check if value is not empty else hide overlay
-        if($("#searchForm").val() !== '') {
-            $(".services-list-overlay").fadeIn(200);
-            document.querySelector('.services-list-overlay').style.display = 'block';
-			document.querySelector(".services-list-overlay").innerHTML ="<center>Fetching Results....";
-            if(navigator.onLine) {
-				setTimeout(() => {
-					let valSearch = document.querySelector("#searchForm").value;
-					fetch(`/lists/services/${valSearch}`)
-					.then(res => res.json())
-					.then(results => {
-						console.log(results);
-						if(results.length !== 0) {
-							let htmll = "";
-							for(const result of results){
-								// console.log(result.title);
-								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-								setTimeout(() => {
-									$(".services-list-overlay").html(htmll);
-								}, 1000);
-							}
-						}else {
-							$(".services-list-overlay").html('<center>No Results Found</center>');
-						}
-						
-					})
-					.catch(err => {
-						$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-					});
-				}, 2000);
-            }else {
-                $(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
-            }
-        }else {
-            $(".services-list-overlay").fadeOut(200);
-        }
-        // console.log(value);
-    };
-    // Fetching Services Ends
 	
-		
- 
-}
    // Register Ajax Requests
     $(".registerBtn").click(function(e) {
         e.preventDefault();

@@ -76,7 +76,7 @@
 								padding: 1.5em;
 								border-radius:  0;
 								text-align: center;
-								" onkeyup="listServices(this.value)" id="searchForm">
+								" onkeyup="listServices()" id="searchForm">
 								<button class="btn btn-danger" style="
 									padding: .7em;
 									border-radius: 0;
@@ -412,23 +412,9 @@
 		</div>
 		<!--main div ends-->
 		</div>
-		<div style="
-		padding: 1em;
-		text-align: center;
-		color: #ffffffd1;
-		background: #111;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		position: fixed;
-		">
-				
-				Powered by GOENERGEE
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;
-				
-			</div>
+		<div class="footi">Powered by GOENERGEE</div>
 		</div>
+		@include('partials._search-component')
 		<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);
@@ -472,54 +458,12 @@
 		</script>
 		<script src="/js/sweetalert.min.js"></script>
 		<script>
-			$(".services-list-overlay").hide();
-			listServices = (value) => {
-				console.log(value);
-				if($("#searchForm").val() !== '') {
-
-					$(".services-list-overlay").fadeIn(200);
-					$(".services-list-overlay").html('<center>Fetching Services...');
-					if(navigator.onLine) {
-						fetch(`/lists/services/${value}`)
-						.then(res => res.json())
-						.then(results => {
-							let htmll = "";
-							for(const result of results){
-								console.log(result.title);
-								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-								setTimeout(() => {
-									$(".services-list-overlay").html(htmll);
-								}, 1000);
-							}
-						})
-						.catch(err => {
-							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-						});
-					}else {
-						$(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
-					}
-
-				}else {
-					$(".services-list-overlay").fadeOut(200);
-				}
-				console.log(value);
-			};
-	
+			
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-
-			// fetch('diamond/access-token')
-			// .then(res => res.json())
-			// .then(result => {
-			// 	let res = JSON.parse(result);
-			// 	localStorage.setItem('geac', res.access_token);
-			// })
-			// .catch(err => {
-			// 	alert('Something Went Wrong, Please Reload the Page');
-			// })
 
 			$(".registerBtn").click((e) => {
 				e.preventDefault();
@@ -548,130 +492,8 @@
 					}
 				})
 				
-			})
-
-			$(".login-btn").click((e) => {
-				e.preventDefault();
-				$('.login-btn').html('Logging In...');
-				var formData = $(".login-form").serialize();
-
-				$.ajax({
-					url: '/account/login',
-					method: 'POST',
-					data: formData,
-					success: (response) => {
-						if (response.sus == 1) {
-							setTimeout(() => {
-								swal('Successful', 'Login Successful', 'success');
-								$(this).prop('disabled', false);
-								setTimeout(() => {
-									window.location.href = '/home';
-								}, 2000);
-							})
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.login-btn').prop('disabled', false);
-							$('.login-btn').html('Login');
-						}
-					},
-					error: (err) => {
-						$('.login-btn').prop('disabled', false);
-						$('.login-btn').html('Login');
-					}
-				})
-				
-			})
-		</script>
-		<script src="https://js.paystack.co/v1/inline.js"></script>
-		<script>
-			
-			$(".pay-meter").click((e) => {
-				e.preventDefault();
-				$('.pay-meter').html('Validating....');
-				var meter_no = $('#meterno').val();
-				$.ajax({
-					url: 'meter/api',
-					method: 'GET',
-					data: { meter_no: meter_no},
-					success: (res) => {
-						if(res.code == 419) {
-							swal('Ooops','Invalid Meter No.','error');
-							$('.pay-meter').html('Continue');
-						}else {
-							console.log(res);
-							$("#firstname").val(res.first_name);
-							$("#lastname").val(res.last_name);
-							$("#emailret").val(res.email);
-							$("#phoneret").val(res.phone);
-							$("#meter_no").val($("#meterno").val());
-							$("#total").val(parseInt($(".meter-amount").val()) + 100);
-							toggleMod();
-							
-						}
-						// console.log(res);
-					}
-				});
-
-				// $('.pay-meter').html('Continue');
-				//$('.pay-meter').prop('disabled', false);
-			})
-			$("#ctnPay").click((e) => {
-				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
-				e.preventDefault();
-				let toBeTransported = {
-					'meter_no': ''+$("#meterno").val()+'',
-					'first_name': ''+$('#firstname').val()+'',
-					'last_name': ''+$('#lastname').val()+'',
-					'email': ''+$('#emailret').val()+'',
-					'mobile': ''+$('#phoneret').val()+'',
-					'amount': ''+$('.meter-amount').val()+'',
-				};
-				continuePay(toBeTransported);
-			});
-
-				function continuePay(toBeTransported) {
-				$.ajax({
-					url: 'payment/hold',
-					method: 'POST',
-					data: toBeTransported,
-					success: (response) => {
-						if (response.code == "ok") {
-							console.log(response.text);
-							payWithPaystack();
-						}
-					},
-					error: (err) => {
-						$('.pay-meter').html('Continue');
-					}
-				});
-				}
-			function payWithPaystack() {
-				var amountMeter = document.querySelector('.meter-amount').value;
-
-				var chargedAmount = parseInt(amountMeter) + 100;
-
-				var handler = PaystackPop.setup({
-					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-					email: document.querySelector('#emailret').value,
-					amount: chargedAmount + "00",
-					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
-					callback: function (response) {
-						setTimeout(() => {
-							window.location.href = '/payment/' + response.reference + '/success';
-						}, 1000);
-					},
-					onClose: function () {
-						alert('Payment Cancelled');
-						$('.pay-meter').html('Continue');
-						window.location.reload();
-					}
-				});
-				handler.openIframe();
-			}
-			function toggleMod() {
-				$('#confirm-payment').modal('toggle');
-			}
-			
+			})			
+		
 		</script>
 	</body>
 

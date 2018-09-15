@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -65,6 +66,21 @@ class DatabaseSeeder extends Seeder
             'wallet_balance' => 0,
             'profit' => 0,
             'avatar' => '',
+        ]);
+
+        DB::table('services_list')->insert([
+            [
+                "title" => "EKEDC Electricity Prepaid Meter Payment",
+                "link" => "#prepaid-meter",
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ],
+            [
+                "title" => "EKEDC Electricity Postpaid Meter Payment",
+                "link" => "postpaidpayment",
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ],
         ]);
     }
 }

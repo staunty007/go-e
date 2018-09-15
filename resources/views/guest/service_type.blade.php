@@ -415,40 +415,8 @@
 			}
 		</script>
 		<script src="/js/sweetalert.min.js"></script>
+		@include('partials._search-component')
 		<script>
-			$(".services-list-overlay").hide();
-			listServices = (value) => {
-				console.log(value);
-				if($("#searchForm").val() !== '') {
-
-					$(".services-list-overlay").fadeIn(200);
-					$(".services-list-overlay").html('<center>Fetching Services...');
-					if(navigator.onLine) {
-						fetch(`/lists/services/${value}`)
-						.then(res => res.json())
-						.then(results => {
-							let htmll = "";
-							for(const result of results){
-								console.log(result.title);
-								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-								setTimeout(() => {
-									$(".services-list-overlay").html(htmll);
-								}, 1000);
-							}
-						})
-						.catch(err => {
-							$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-						});
-					}else {
-						$(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
-					}
-
-				}else {
-					$(".services-list-overlay").fadeOut(200);
-				}
-				console.log(value);
-			};
-	
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
