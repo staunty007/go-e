@@ -342,7 +342,6 @@
 				Powered by GOENERGEE
 			</div>
 		</div>
-
 		<script src="/js/sweetalert.min.js"></script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
 		
