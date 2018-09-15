@@ -24,6 +24,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{{ asset('js/app.js') }}"></script>
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
@@ -54,14 +55,14 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
-<body class="bg-img">
+<body class="bg-img" id="banner">
 	    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 		<div class="container">
 			<div class="row" style="margin: 1em 0 3em 0">
 				<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
-					<a href="http://GOENERGEE.com/">
+					<a href="{{ url('/') }}">
 						<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
@@ -116,10 +117,10 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/rev_image/2.png">
+								<img src="/images/rev_image/2.png">
 							</div>
 							<div class="item">
-								<img src="images/rev_image/7.png">
+								<img src="/images/rev_image/7.png">
 							</div>
 							{{-- <div class="item">
 								<img src="images/rev_image/3.png">
@@ -152,24 +153,27 @@
 			</div>
 			<ul class="nav-ul">
 			
-				<li class="nav-item item">
-						<i class="fas fa-user-plus"></i>
-					<a class="nav-link" href="{{ route('guest.signup') }}">Sign Up</a>
-				</li>
-				
-				<li class="nav-item item">
-						<i class="fas fa-user-circle"></i>
-					<a class="nav-link" href="{{ route('guest.login') }}">Sign In</a>
-                </li>
-                <li class="nav-item item">
-						<i class="far fa-credit-card"></i>
-					<a class="nav-link" href="{{ route('guest.services') }}">Services</a>
-				</li>
-				<li class="nav-item item">
-						<i class="fas fa-question-circle"></i>
-					<a class="nav-link" href="#">FAQ</a>
-				</li>
-			</ul>
+					<li class="nav-item item">
+							<i class="fas fa-user-plus"></i>
+						<a class="nav-link" href="{{ route('guest.signup') }}">Sign Up</a>
+					</li>
+					<li class="nav-item item">
+							<i class="fas fa-user-circle"></i>
+						<a class="nav-link" href="{{ route('guest.login') }}">Login</a>
+					</li>
+					<li class="nav-item item">
+							<i class="far fa-credit-card"></i>
+						<a class="nav-link" href="{{ route('guest.services') }}">Make Payment</a>
+					</li>
+					<li class="nav-item item">
+							<i class="fas fa-cogs"></i>
+						<a class="nav-link disabled" href="{{ route('guest.support') }}">Support</a>
+					</li>
+					<li class="nav-item item">
+							<i class="fas fa-question-circle"></i>
+						<a class="nav-link" href="faq">FAQ</a>
+					</li>
+				</ul>
 			
 			
 			<!-- main div -->
@@ -288,21 +292,50 @@
                                                 </div>
                                                 <div class="clearfix"></div>
                                                 <div class="col-md-12">
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="">Amount</label>
                                                         <input type="text" name="amount" placeholder="0.00" class="amount form-control">
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="">Select a Payment Category</label><br/>
+																														<label for="name3">
+																															<input type="checkbox" onclick="var input = document.getElementById('name2'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+																															Postpaid Payment
+																														</label>
+																															<input id="name2" placeholder="0.00" class="amount form-control" name="name2" type="text" disabled="disabled"/>
+
+																														
+                                                            {{-- <label for="">Select a Payment Category</label><br/>
                                                             <select class="form-control">
                                                                 <option>Postpaid Payment</option>
                                                                 <option>Reconnection Fee</option>
                                                                 <option>Penalties</option>
                                                                 <option>Loss of Revenue</option>
-                                                            </select>
-                                                        </div>
+                                                            </select> --}}
+																												</div>
+																												<div class="form-group">
+																														<label for="reconnection">
+																																<input type="checkbox" onclick="var input = document.getElementById('reconnection'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+																																Reconnection Fee
+																															</label>
+																															
+																															<input id="reconnection" placeholder="0.00" class="amount form-control" name="reconnection" type="text" disabled="disabled"/>
+																												</div>
+																												<div class="form-group">
+																														<label for="penalties">
+																																<input type="checkbox" onclick="var input = document.getElementById('penalties'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+																																Penalties
+																															</label>
+																															<input id="penalties" placeholder="0.00" class="amount form-control" name="penalties" type="text" disabled="disabled"/>
+																												</div>
+																												<div class="form-group">
+																														<label for="revenuee">
+																																<input type="checkbox" onclick="var input = document.getElementById('revenue'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+																																Loss of Revenue
+																															</label>
+																															<input id="revenue" placeholder="0.00" class="amount form-control" name="revenue" type="text" disabled="disabled"/>
+																												</div>
                                                     </div>
                                             <input type="hidden" id="payType" value="" />
                                             <div class="col-md-12">

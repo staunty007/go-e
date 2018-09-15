@@ -15,7 +15,7 @@
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+	<script src="{{ asset('js/app.js') }}"></script>
 	{{-- <script src="{{ asset('js/goenergee.js') }}"></script> --}}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -58,14 +58,14 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
-<body class="bg-img">
+<body class="bg-img" id="banner">
 	    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 		<div class="container">
 			<div class="row" style="margin: 1em 0 3em 0">
 				<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
-					<a href="http://GOENERGEE.com/">
+				<a href="{{ url('/')}}">
 						<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
@@ -79,7 +79,7 @@
 								padding: 1.5em;
 								border-radius:  0;
 								text-align: center;
-								" onkeyup="listServices(this.value)" id="searchForm">
+								" onkeyup="listServices()" id="searchForm">
 								<button class="btn btn-danger" style="
 									padding: .7em;
 									border-radius: 0;
@@ -109,7 +109,7 @@
 					
 			</div>
 			
-			<div class="row media-query-a">
+			<div class="row media-query-a" style="margin-bottom: 10px;">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
@@ -120,10 +120,10 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/rev_image/2.png">
+								<img src="/images/rev_image/2.png">
 							</div>
 							<div class="item">
-								<img src="images/rev_image/7.png">
+								<img src="/images/rev_image/7.png">
 							</div>
 							{{-- <div class="item">
 								<img src="images/rev_image/3.png">
@@ -236,14 +236,11 @@
 										<b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h5>
 									<h5 style="">
 										<b>CASH: </b>Take advantage of our
-										<b>SALES</b> outlets closest to you and transact with our Agent.</h5>
-
+										<b>SALES</b> outlets closest to you and transact with our Agent.
+									</h5>
 								</div>
 								<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:180px;">
 							</div>
-						
-									
-							
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
@@ -348,21 +345,37 @@
 
 		<script src="/js/sweetalert.min.js"></script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
+		
 		<script>
+			
 			fetch('in-app/api/soap/start-session')
 				.then(res => res.json())
 				.then(result => {
+					// Gets the response and format it as json
 					let newResult = JSON.parse(result);
-					// Store to session and login
+
+					console.log(`Session started ${newResult.response.session}`);
+					// Sends a login request to the server with the session obtained 
 					fetch(`in-app/api/soap/login-session/${newResult.response.session}`)
 					.then(res => res.json())
 					.then(response => {
-						fetch(`in-app/api/soap/store-session/${newResult.response.session}`)
-						.then(res => res.json())
-						.then(resulta => {
-							localStorage.setItem('TAMSES', newResult.response.session);
-						})
+						// Login successful
+						response = JSON.parse(response);
+
+						if(response.response.retn == 0) {
+							console.log(`Session Logged in ${response}`);
+							// sends a store session to the server
+							fetch(`in-app/api/soap/store-session/${newResult.response.session}`)
+							.then(res => res.json())
+							.then(resulta => {
+								// store successful,
+								// stores session also in the local storage
+								localStorage.setItem('TAMSES', newResult.response.session);
+							})
+							.catch(err => alert('Error Storing Session'));
+						}
 						let result = JSON.parse(response);
+						// if loggin sends back error;
 						if(result.response.retn !== 0) {
 							alert('Something Really Bad Went Wrong');
 						}
@@ -409,6 +422,7 @@
 				setTimeout(showSlides, 3000); // Change image every 3 seconds
 			}
 
+
 			// Slider script ends here
 
 			// Setup ajax for Ajax in-app requests
@@ -426,42 +440,50 @@
      */
     // Hide the overlay div by default
     $(".services-list-overlay").hide();
-    function listServices(value) {
+    function listServices() {
         // Check if value is not empty else hide overlay
         if($("#searchForm").val() !== '') {
             $(".services-list-overlay").fadeIn(200);
             document.querySelector('.services-list-overlay').style.display = 'block';
+			document.querySelector(".services-list-overlay").innerHTML ="<center>Fetching Results....";
             if(navigator.onLine) {
-                fetch(`/lists/services/${value}`)
-                .then(res => res.json())
-                .then(results => {
-                    if(results.length === 0) {
-                        $(".services-list-overlay").html('<center>No Results Found</center>');
-                    }else {
-                        let htmll = "";
-                        for(const result of results){
-                            // console.log(result.title);
-                            htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-                            setTimeout(() => {
-                                $(".services-list-overlay").html(htmll);
-                            }, 1000);
-                        }
-                    }
-                    
-                })
-                .catch(err => {
-                    $(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-                });
+				setTimeout(() => {
+					let valSearch = document.querySelector("#searchForm").value;
+					fetch(`/lists/services/${valSearch}`)
+					.then(res => res.json())
+					.then(results => {
+						console.log(results);
+						if(results.length !== 0) {
+							let htmll = "";
+							for(const result of results){
+								// console.log(result.title);
+								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
+								setTimeout(() => {
+									$(".services-list-overlay").html(htmll);
+								}, 1000);
+							}
+						}else {
+							$(".services-list-overlay").html('<center>No Results Found</center>');
+						}
+						
+					})
+					.catch(err => {
+						$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
+					});
+				}, 2000);
             }else {
                 $(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
             }
-
         }else {
             $(".services-list-overlay").fadeOut(200);
         }
         // console.log(value);
     };
     // Fetching Services Ends
+	
+		
+ 
+}
    // Register Ajax Requests
     $(".registerBtn").click(function(e) {
         e.preventDefault();
@@ -594,11 +616,9 @@ function continuePay(toBeTransported) {
 // Paystack Payment Handler
 function payWithPaystack() {
     var amountMeter = document.querySelector('.meter-amount').value;
-
     var chargedAmount = parseInt(amountMeter) + 100;
-
     var handler = PaystackPop.setup({
-        key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+        key: "{{ env('PS_KEY') }}",
         email: document.querySelector('#emailret').value,
         amount: chargedAmount + "00",
         ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",

@@ -192,10 +192,9 @@ Route::get('e2e/api/customers', function() {
     return User::where('role_id', 0)->get(['id','first_name']);
 });
 
-Route::get('/lists/services/{keyword}', function(){
-    $keyword = Input::get('keyword');
+Route::get('/lists/services/{keyword}', function($keyword){;
     // return $keyword;
-    return DB::table('services_list')->where('title','LIKE','%' .$keyword)->get();
+    return DB::table('services_list')->where('title','LIKE',"%$keyword%")->get();
 });
 
 // Services 
