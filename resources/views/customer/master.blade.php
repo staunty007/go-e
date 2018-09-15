@@ -99,75 +99,63 @@
                  @endif
                 <li>
                     <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';"><i class="fa fa-sign-out"></i> Logout</a>
-                    <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" ><i class="fa fa-sign-out"></i> Logout</a>
+                    {{-- <form class="logout-form" method="POST" action="{{ route('logout') }}">
                         {{ csrf_field()}}
-                    </form>
+                    </form> --}}
                     </li>
                 </li>
                 
     </nav>
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
-        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            {{-- <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" action="search_results.html">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form> --}}
-            <div class="row" style="margin-top: 1em">
-                <div class="col-md-4">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Buy Token</button>
-                </div>
-                <div class="col-md-8">
-                    <p style="margin-top: 0.7em; font-size: 16px">
-                        Welcome, <b>{{ Auth::user()->first_name}} {{ Auth::user()->last_name}}</b>
-                    </p>
-                </div>
-                
-            </div>
-            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
-                            </button>
-                            <h6 class="modal-title">Choose Meter Option</h6>
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #1e3344;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {{-- <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" action="search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
                         </div>
-                        <div class="modal-body">
-                            <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                            <a href="{{ route('postpaid') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                    </form> --}}
+                    <div class="row" style="margin-top: 1em">
+                        <div class="col-md-4">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Buy Token</button>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h6 class="modal-title">Choose Meter Option</h6>
+                                </div>
+                                <div class="modal-body">
+                                    <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
+                                    <a href="{{ route('postpaid') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Payment Platform.</span>
-                </li>
-                
-
-
-                <li>
-                      
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"><i class="fa fa-sign-out"></i> Logout</a>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm welcome-message" style="color: #fff">Welcome <b>{{ Auth::user()->first_name}} {{ Auth::user()->last_name}}</b> to GOENERGEE Utility Payment Platform.</span>
+                    </li>
+                    <li>
+                            
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';" style="background: transparent; color: rgb(255,255,255);><i class="fa fa-sign-out"></i> Logout</a>
                         <form class="logout-form" method="POST" action="{{ route('logout') }}">
                             {{ csrf_field()}}
                         </form>
-                </li>
-                    
-                <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i>
-                    </a>
-                </li>
-            </ul>
+                    </li>
+                </ul>
 
         </nav>
         </div>

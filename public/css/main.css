@@ -9,7 +9,7 @@ body{
 		text-transform: capitalize;
 	}
 	.bg-img{
-		/*background: url('/images/transformers.jpg') no-repeat; */
+		background: url('/images/transformers.jpg') no-repeat;
 		background-size:cover;
 		height:100%;
 		width:100vw;
@@ -404,7 +404,8 @@ body{
   
   .services-list-overlay {
 	width: 64.3%;
-	height: 350px;
+	height: auto;
+	min-height: 100px;
 	z-index: 99999;
 	background-color: #fff;
 	text-align: left;

@@ -1,7 +1,7 @@
 @extends('customer.master')
 
 @section('customer-section')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <div class="wrapper wrapper-content">
         @if(Auth::user()->is_completed == 0)
         <div class="row">
@@ -109,21 +109,75 @@
                 
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
                 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
                 <script>
                     const baseUrl = "{{ url('/') }}";
                     let profileUpdate = document.querySelector("#profileUpdate");
                     profileUpdate.addEventListener('click',(e) => {
                         e.preventDefault();
                         let meterNo = document.querySelector("#meter_no").value;
-                        const sessID = "{{ session('TAMSES') }}";
-                        console.log(sessID);
-                        fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
-                        .then(res => res.json())
-                        .then(calbck => {
-                            calbck = JSON.parse(calbck);
-                            console.log(calbck);
-                        })
-                        .catch(err => console.log(err));
+
+                        if(meterNo.length == 0) {
+                            $.alert({
+                                title: 'Ooops!',
+                                content: 'Meter No Field is Required',
+                                type: 'red',
+                                buttons: {
+                                    ok: {
+                                        text: 'Okay',
+                                        btnClass: 'btn-red'
+                                    }
+                                }
+                            });
+                        }else {
+                            $.ajax({
+                                url: '/meter/api',
+                                method: "POST",
+                                data: { meter_no: meterNo },
+                                success: (response) => {
+                                    if(response.code == '419') {
+                                        $.alert({
+                                            title: 'Ooops!',
+                                            content: 'Invalid Meter No!',
+                                            type: 'red',
+                                            buttons: {
+                                                ok: {
+                                                    text: 'Try Again',
+                                                    btnClass: 'btn-red'
+                                                }
+                                            }
+                                        });
+                                    }else {
+                                        // Valid Meter no
+                                        $('form#profile-update').submit();
+                                    }
+                                },
+                                error: (err) => {
+                                    // alert('Sorry Something Went Wrong');
+                                    $.alert({
+                                        title: 'Ooops!',
+                                        content: 'Something Bad Went Wrong',
+                                        type: 'red',
+                                        buttons: {
+                                            ok: {
+                                                text: 'Got It',
+                                                btnClass: 'btn-red'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        // const sessID = "{{ session('TAMSES') }}";
+                        // console.log(sessID);
+                        // fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
+                        // .then(res => res.json())
+                        // .then(calbck => {
+                        //     calbck = JSON.parse(calbck);
+                        //     console.log(calbck);
+                        // })
+                        // .catch(err => console.log(err));
+                        
                     });
                 </script>
                 
