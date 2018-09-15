@@ -26,8 +26,25 @@ class TestSoapController extends Controller
                 )
             )
         );
-        $jsonResult = json_encode($results);
-        return response()->json($jsonResult);
+        $sessionBack = $results->response->session;
+
+        $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+        // Set Headers for the soap client
+        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', "sessionId",$sessionBack);
+        // Pass headers
+        $client->__setSoapHeaders($header);
+        //makes the soap call and passes the required parameters
+        $loginResults = $client->__soapCall("login",  
+             array( "login" => 
+                 array( 
+                     "email"=> $partner['email'], 
+                     "accessKey"=> $partner['access_key']
+                 )
+             )
+        );
+
+        dd($loginResults);
+
     }
 
 
@@ -39,7 +56,7 @@ class TestSoapController extends Controller
          // Get Partner details
          $partner = $this->partnerDetails();
         
-        // Instnatiate the SOAPCLient
+        // Instantiate the SOAPCLient
         $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
         $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId',$session);
@@ -55,9 +72,7 @@ class TestSoapController extends Controller
              )
         );
 
-        $jsonResult = json_encode($results);
-
-        return response()->json($jsonResult);
+        return $results;
     }
 
     /***
@@ -111,4 +126,11 @@ class TestSoapController extends Controller
         ];
     }
 
+    public function xml2array ( $xmlObject, $out = array () )
+    {
+        foreach ( (array) $xmlObject as $index => $node )
+            $out[$index] = ( is_object ( $node ) ) ? $this->xml2array ( $node ) : $node;
+
+        return $out;
+    }
 }

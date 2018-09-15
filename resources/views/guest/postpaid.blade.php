@@ -61,7 +61,7 @@
 		<div class="container">
 			<div class="row" style="margin: 1em 0 3em 0">
 				<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
-					<a href="http://GOENERGEE.com/">
+					<a href="{{ url('/') }}">
 						<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
 					</a>
 				</div>

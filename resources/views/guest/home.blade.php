@@ -65,7 +65,7 @@
 		<div class="container">
 			<div class="row" style="margin: 1em 0 3em 0">
 				<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
-				<a href="{{ ('/')}}">
+				<a href="{{ url('/')}}">
 						<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
@@ -79,7 +79,7 @@
 								padding: 1.5em;
 								border-radius:  0;
 								text-align: center;
-								" onkeyup="listServices(this.value)" id="searchForm">
+								" onkeyup="listServices()" id="searchForm">
 								<button class="btn btn-danger" style="
 									padding: .7em;
 									border-radius: 0;
@@ -236,14 +236,11 @@
 										<b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h5>
 									<h5 style="">
 										<b>CASH: </b>Take advantage of our
-										<b>SALES</b> outlets closest to you and transact with our Agent.</h5>
-
+										<b>SALES</b> outlets closest to you and transact with our Agent.
+									</h5>
 								</div>
 								<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:180px;">
 							</div>
-						
-									
-							
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
@@ -441,36 +438,40 @@
      */
     // Hide the overlay div by default
     $(".services-list-overlay").hide();
-    function listServices(value) {
+    function listServices() {
         // Check if value is not empty else hide overlay
         if($("#searchForm").val() !== '') {
             $(".services-list-overlay").fadeIn(200);
             document.querySelector('.services-list-overlay').style.display = 'block';
+			document.querySelector(".services-list-overlay").innerHTML ="<center>Fetching Results....";
             if(navigator.onLine) {
-                fetch(`/lists/services/${value}`)
-                .then(res => res.json())
-                .then(results => {
-                    if(results.length === 0) {
-                        $(".services-list-overlay").html('<center>No Results Found</center>');
-                    }else {
-                        let htmll = "";
-                        for(const result of results){
-                            // console.log(result.title);
-                            htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
-                            setTimeout(() => {
-                                $(".services-list-overlay").html(htmll);
-                            }, 1000);
-                        }
-                    }
-                    
-                })
-                .catch(err => {
-                    $(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-                });
+				setTimeout(() => {
+					let valSearch = document.querySelector("#searchForm").value;
+					fetch(`/lists/services/${valSearch}`)
+					.then(res => res.json())
+					.then(results => {
+						console.log(results);
+						if(results.length !== 0) {
+							let htmll = "";
+							for(const result of results){
+								// console.log(result.title);
+								htmll += `<a href="${result.link}" target="_blank">${result.title}</a>`;
+								setTimeout(() => {
+									$(".services-list-overlay").html(htmll);
+								}, 1000);
+							}
+						}else {
+							$(".services-list-overlay").html('<center>No Results Found</center>');
+						}
+						
+					})
+					.catch(err => {
+						$(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
+					});
+				}, 2000);
             }else {
                 $(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
             }
-
         }else {
             $(".services-list-overlay").fadeOut(200);
         }
@@ -609,11 +610,9 @@ function continuePay(toBeTransported) {
 // Paystack Payment Handler
 function payWithPaystack() {
     var amountMeter = document.querySelector('.meter-amount').value;
-
     var chargedAmount = parseInt(amountMeter) + 100;
-
     var handler = PaystackPop.setup({
-        key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+        key: "{{ env('PS_KEY') }}",
         email: document.querySelector('#emailret').value,
         amount: chargedAmount + "00",
         ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
