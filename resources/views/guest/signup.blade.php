@@ -253,7 +253,7 @@
 						<div class="col-md-7 col-sm-12 col-xs-12 " id="signup-body" style="padding:3px">
 							
 								<div class="user-details sign_up" id="sign-up" style="">
-										<form class="form-signin" action="" method="POST" style="border:1px solid #ccc">
+										<form class="form-signin" action="{{route ('signup')}}" method="POST" style="border:1px solid #ccc">
 											<div style="padding:10px;">
 												<div class="text-center login-title">
 													<h4>SIGN UP ON</h4>
