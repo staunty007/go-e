@@ -35,7 +35,7 @@
                                 {{ csrf_field()}}
                                 <div class="form-group">
                                     <label>Meter No.</label>
-                                    <input type="text" name="meter_no" class="form-control" />
+                                    <input type="text" name="meter_no" class="form-control" value="{{ $agent->meter_no }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>First Name</label>
@@ -71,129 +71,113 @@
 
                 
     </div>
-      <!-- Mainly scripts -->
-    <script src="/customer/js/jquery-3.1.1.min.js"></script>
-    <script src="/customer/js/bootstrap.min.js"></script>
-    <script src="/customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="/customer/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="/customer/js/inspinia.js"></script>
-    <script src="/customer/js/plugins/pace/pace.min.js"></script>
-
-    <!-- ChartJS-->
-    <script src="/customer/js/plugins/chartJs/Chart.min.js"></script>
-    <script src="/customer/js/demo/chartjs-demo.js"></script>
-
-    <!-- Mainly scripts -->
-    <script src="/customer/js/jquery-3.1.1.min.js"></script>
-    <script>
-            $(function() {
-                $("#forSelf").hide();
-                $("#forOthers").hide();
-
-                $("#tFS").click(() => {
-                    $("#forSelf").css({'display':'block'});
-                    $("#group-pay").hide();
-                });
-
-                $("#tFO").click(() => {
-                    $("#forOthers").css({'display':'block'});
-                    $("#group-pay").hide();
-                });
-            })
-    
-            </script>
-            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-            <script src="https://js.paystack.co/v1/inline.js"></script>
-	
-		   
-            <script>
-                var isCustomer = false;
-
-                var agentValue = document.querySelector('.meter-email').value;
-
-                var newMeterValue = "";
-
-              $(".pay-meter").click((e) => {
-                    e.preventDefault();
-                    $(this).prop('disabled',true);
-                    $('.pay-meter').html('Making Payment');
-    
-                    var formdata = $('.meterSelf').serialize();
-                    newMeterValue = document.querySelector('.meter-email').value;
-
-                    var payUri = $('.meterSelf').attr('action');
-
-                    $.ajax({
-                        url: "{{ url('meter/api') }}",
-                        method: "POST",
-                        data: {
-                            'meter_no': $('input[name=meter_no]').val(),
-                            '_token': "{{ csrf_token() }}"
-
-                        },
-                        success: (response) => {
-                            if(response.code == 419) {
-                                swal('Oops!','Invalid Meter No','error');
-
-                                $('.pay-meter').html('Make Payment');
-                            }else {
-                                continueToPay();
-                            }
-                        }
-                    })
-
-                  function continueToPay() {
-                    $.ajax({
-                        url: payUri,
-                        method: 'POST',
-                        data: formdata,
-                        success: (response) => {
-                            if(response.code == "ok") {
-                                payPrepaidMeter();
-                            }else if(response.code == "no"){
-                                swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
-                                $("#ifAdmin").css({'display':'block'});
-                            }else {
-                                swal('Ooops',''+response.errorText+'','error');
-                            }
-                        }
-                    })
-                  }
-              })
-                function payPrepaidMeter(){
-                    var amountMeter = document.querySelector('.meter-amount').value;
-                    var reference = "GOEPRE"+Math.floor((Math.random() * 1000000000) + 1);
-                    // var chargedAmount = parseInt(amountMeter) + 100;
-                    // console.log(chargedAmount);
-                    // var handler = PaystackPop.setup({
-                    // key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-                    // email: document.querySelector('.meter-email').value,
-                    // amount: chargedAmount+"00",
-                    // ref: Math.floor((Math.random() * 1000000000) + 1)+"GOEPAY", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                    
-                    // callback: function(response){
-                    //     //   swal('Yay!','Payment Successfull','success');
-                        setTimeout(() => {
-                            // if(agentValue !== newMeterValue) {
-                                window.location.href='/agent/payment-agent/'+reference+'/success';
-                            // }else {
-                            //   /  window.location.href='/payment-agent-customer/'+response.reference+'/success';
-                            // }
-                            
-                        },1000);
-                    // },
-                    // onClose: function(){
-                    //     alert('Payment Cancelled');
-                    // }
-                    // });
-                    // handler.openIframe();
-              }
-              
-            </script>
-    <script src="/customer/js/bootstrap.min.js"></script>
-
-</body>
-</html>
 @endsection
+@push('scripts')
+
+<script>
+    // $(function() {
+    //     $("#forSelf").hide();
+    //     $("#forOthers").hide();
+
+    //     $("#tFS").click(() => {
+    //         $("#forSelf").css({'display':'block'});
+    //         $("#group-pay").hide();
+    //     });
+
+    //     $("#tFO").click(() => {
+    //         $("#forOthers").css({'display':'block'});
+    //         $("#group-pay").hide();
+    //     });
+    // })
+
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
+   
+    <script>
+        var isCustomer = false;
+
+        var agentValue = document.querySelector('.meter-email').value;
+
+        var newMeterValue = "";
+
+      $(".pay-meter").click((e) => {
+            e.preventDefault();
+            $(this).prop('disabled',true);
+            $('.pay-meter').html('Making Payment');
+
+            var formdata = $('.meterSelf').serialize();
+            newMeterValue = document.querySelector('.meter-email').value;
+
+            var payUri = $('.meterSelf').attr('action');
+
+            $.ajax({
+                url: "{{ url('meter/api') }}",
+                method: "POST",
+                data: {
+                    'meter_no': $('input[name=meter_no]').val(),
+                    '_token': "{{ csrf_token() }}"
+
+                },
+                success: (response) => {
+                    if(response.code == 419) {
+                        swal('Oops!','Invalid Meter No','error');
+
+                        $('.pay-meter').html('Make Payment');
+                    }else {
+                        continueToPay();
+                    }
+                }
+            })
+
+          function continueToPay() {
+            $.ajax({
+                url: payUri,
+                method: 'POST',
+                data: formdata,
+                success: (response) => {
+                    if(response.code == "ok") {
+                        payPrepaidMeter();
+                    }else if(response.code == "no"){
+                        swal('Ooops!','Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com','danger');
+                        $("#ifAdmin").css({'display':'block'});
+                    }else {
+                        swal('Ooops',''+response.errorText+'','error');
+                    }
+                }
+            })
+          }
+      })
+        function payPrepaidMeter(){
+            var amountMeter = document.querySelector('.meter-amount').value;
+            var reference = "GOEPRE"+Math.floor((Math.random() * 1000000000) + 1);
+            // var chargedAmount = parseInt(amountMeter) + 100;
+            // console.log(chargedAmount);
+            // var handler = PaystackPop.setup({
+            // key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+            // email: document.querySelector('.meter-email').value,
+            // amount: chargedAmount+"00",
+            // ref: Math.floor((Math.random() * 1000000000) + 1)+"GOEPAY", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            
+            // callback: function(response){
+            //     //   swal('Yay!','Payment Successfull','success');
+                setTimeout(() => {
+                    // if(agentValue !== newMeterValue) {
+                        window.location.href='/agent/payment-agent/'+reference+'/success';
+                    // }else {
+                    //   /  window.location.href='/payment-agent-customer/'+response.reference+'/success';
+                    // }
+                    
+                },1000);
+            // },
+            // onClose: function(){
+            //     alert('Payment Cancelled');
+            // }
+            // });
+            // handler.openIframe();
+      }
+      
+    </script>
+    
+@endpush

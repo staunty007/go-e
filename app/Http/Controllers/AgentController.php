@@ -92,7 +92,7 @@ class AgentController extends Controller
         }
        
 
-        return view($this->prefix.'prepaid-token')->withViolated($isNotViolated);
+        return view($this->prefix.'prepaid-token')->withViolated($isNotViolated)->withAgent($fetchAgent);
     }
 
     public function meterManagement()
@@ -114,7 +114,8 @@ class AgentController extends Controller
         $request->validate([
             'avatar' => 'max:1000',
         ]);
-        $user=User::find(Auth::user()->id);
+
+        $user = User::find(Auth::user()->id);
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
         $user->mobile = $request->mobile;

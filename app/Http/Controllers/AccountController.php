@@ -499,22 +499,6 @@ class AccountController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $request->validate([
-            'profile_pic' => 'max:1000',
-        ]);
-        $meters = ['123456','324242','2422940','4393093094','934034'];
-
-        if(!in_array($request->meter_no, $meters)) {
-            // if($request->meter_no !== $numbers) {
-                // return response()->json(['code' => '419']);
-                return back()->withErrors('Invalid Meter No.');
-            // }
-        }
-        // if($request->meter_no !== '123456') {
-        //     return back()->withErrors('Invalid Meter No.');
-        // }
-
-        //return $request;
         $user = User::find($request->customer_id);
         $user->is_completed = 1;
         $user->is_activated = 1;

@@ -9,7 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Input;
 
 // Route::get('/', function () { return view('index'); });
-Route::get('/', function () { return view('guest/home'); });
+Route::get('/', 'PagesController@index');
 
 
 Route::prefix('guest')->group(function () {
@@ -218,8 +218,6 @@ Route::get('register', function() {
 
 // SOAP API TEST ROUTES / REST APIs ROUTES
 Route::prefix('in-app/api')->group(function() {
-    Route::get('soap/start-session','TestSoapController@startSession');
-    Route::get('soap/login-session/{session}','TestSoapController@loginSession');
-    Route::get('soap/store-session/{session}','TestSoapController@storeSession');
     Route::get('soap/validate-customer/{number}','TestSoapController@validateCustomer');
+    Route::get('soap/charge/{amount}','TestSoapController@chargeWallet');
 });

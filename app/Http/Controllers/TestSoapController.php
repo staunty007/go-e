@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use SoapClient;
 use SoapHeader;
+// use PHPUnit\Framework\Constraint\Exception;
 
 class TestSoapController extends Controller
 {
@@ -13,6 +14,7 @@ class TestSoapController extends Controller
      */
     public function startSession()
     {
+        // Get Partner details
         // Get Partner details
         $partner = $this->partnerDetails();
         // Instnatiate the SOAPCLient
@@ -26,8 +28,14 @@ class TestSoapController extends Controller
                 )
             )
         );
-        $sessionBack = $results->response->session;
-
+        if(is_soap_fault($results)) {
+            dd('Soap');
+        }else {
+            $sessionBack = $results->response->session;
+        }
+        // dd($sessionBack);
+        // sleep(3);   
+        
         $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
         $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', "sessionId",$sessionBack);
@@ -43,46 +51,11 @@ class TestSoapController extends Controller
              )
         );
 
-        dd($loginResults);
+        session()->put(['TAMSES' => $sessionBack]);
 
     }
 
 
-    /**
-     * Login to session after getting the session id
-     */
-    public function loginSession($session)
-    {
-         // Get Partner details
-         $partner = $this->partnerDetails();
-        
-        // Instantiate the SOAPCLient
-        $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
-        // Set Headers for the soap client
-        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId',$session);
-        // Pass headers
-        $client->__setSoapHeaders($header);
-        //makes the soap call and passes the required parameters
-        $results = $client->__soapCall("login",  
-             array( "login" => 
-                 array( 
-                     "email"=> $partner['email'], 
-                     "accessKey"=> $partner['access_key']
-                 )
-             )
-        );
-
-        return $results;
-    }
-
-    /***
-     * Store Session for application purposes
-     */
-    public function storeSession($session)
-    {
-        session()->put(['TAMSES' => $session]);
-        return response()->json(['success' => 1]);
-    }
     /**
      * Validate Customer , Meter Number or Account Number
      * @param string $session
@@ -107,9 +80,45 @@ class TestSoapController extends Controller
                 )
             )
        );
+        // dd($results);
+    //    $jsonResult = json_encode($results);
+       return response()->json($results);
+    }
 
-       $jsonResult = json_encode($results);
-       return response()->json($jsonResult);
+
+    // charge wallet
+    public function chargeWallet($amount,$meter) {
+
+        $client = new SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0));
+
+        $sessionId = session()->get('TAMSES');
+
+//makes the soap call and passes the required parameters
+        $header = new SoapHeader('http://soap.convergenceondemand.net/TMP/',"sessionId",$sessionId);
+
+        $client->__setSoapHeaders($header);
+
+        /*$result = $client->__soapCall("chargeWalletV2", [
+        'params'=> $param
+        ]);*/
+        $result = $client->__soapCall("chargeWalletV2", array( "chargeWalletV2" => [
+            'params' => [
+                'amount'=> 1000,
+                'paymentReference' => '2341ralmouf',
+                'extraData'=> [
+                                [
+                                    'key'=> 'meterNumber',
+                                    'value' => '0101150282024'
+                                ],
+                                [
+                                'key'=> 'accountType',
+                                'value' => 'OFFLINE_PREPAID'
+                                ]
+                            ]
+                        ]
+            ]
+        ));
+        dd($result);
     }
 
     /**
@@ -126,11 +135,4 @@ class TestSoapController extends Controller
         ];
     }
 
-    public function xml2array ( $xmlObject, $out = array () )
-    {
-        foreach ( (array) $xmlObject as $index => $node )
-            $out[$index] = ( is_object ( $node ) ) ? $this->xml2array ( $node ) : $node;
-
-        return $out;
-    }
 }
