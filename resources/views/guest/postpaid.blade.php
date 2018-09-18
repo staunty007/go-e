@@ -27,7 +27,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="{{ asset('js/app.js') }}"></script>
+	
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
@@ -307,43 +307,41 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="name2">
-												<input type="checkbox" onclick="var input = document.getElementById('name2'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" id="ppp"/>
+												<input type="checkbox" id="postPaidPaymentCheckbox" />
 												Postpaid Payment
 											</label>
-											<input id="name2" placeholder="0.00" class="amount form-control" name="name2" type="text" disabled="disabled" />
-
-
-											{{-- <label for="">Select a Payment Category</label><br />
-											<select class="form-control">
-												<option>Postpaid Payment</option>
-												<option>Reconnection Fee</option>
-												<option>Penalties</option>
-												<option>Loss of Revenue</option>
-											</select> --}}
+											<input id="postPaidPaymentInput" placeholder="0.00" class="amount form-control" name="name2" type="number" disabled="disabled" />
+											<span class="form-msg" id="form-msg"></span>
 										</div>
 										<div class="form-group">
 											<label for="reconnection">
-												<input type="checkbox" onclick="var input = document.getElementById('reconnection'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+												<input type="checkbox" id="reconnectionPaymentCheckbox"/>
 												Reconnection Fee
 											</label>
 
-											<input id="reconnection" placeholder="0.00" class="amount form-control" name="reconnection" type="text"
+											<input id="reconnectionPaymentInput" placeholder="0.00" class="amount form-control" name="reconnection" type="number"
 											 disabled="disabled" />
 										</div>
 										<div class="form-group">
 											<label for="penalties">
-												<input type="checkbox" onclick="var input = document.getElementById('penalties'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+												<input type="checkbox" id="penaltiesPaymentCheckbox" />
 												Penalties
 											</label>
-											<input id="penalties" placeholder="0.00" class="amount form-control" name="penalties" type="text" disabled="disabled" />
+											<input id="penaltiesPaymentInput" placeholder="0.00" class="amount form-control" name="penalties" type="number" disabled="disabled" />
 										</div>
 										<div class="form-group">
 											<label for="revenuee">
-												<input type="checkbox" onclick="var input = document.getElementById('revenue'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}" />
+												<input type="checkbox" id="revenuePaymentCheckbox"/>
 												Loss of Revenue
 											</label>
-											<input id="revenue" placeholder="0.00" class="amount form-control" name="revenue" type="text" disabled="disabled" />
+											<input id="revenuePaymentInput" placeholder="0.00" class="amount form-control" name="revenue" type="number" disabled="disabled" />
 										</div>
+										{{-- <div class="form-group">
+											<label for="total">
+												Total
+											</label>
+											<input id="totalPayment" class="form-control" name="total" type="text"/>
+										</div> --}}
 									</div>
 									<input type="hidden" id="payType" value="" />
 									<div class="col-md-12">
@@ -428,6 +426,7 @@
 		}
 	</script>
 	<script src="/js/sweetalert.min.js"></script>
+	<script src="{{ asset('js/app.js') }}"></script>
 	@include('partials._search-component')
 	<script>
 
