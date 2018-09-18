@@ -106,9 +106,6 @@
             </div>
 
             @push('scripts')
-                
-                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-                <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
                 <script>
                     const baseUrl = "{{ url('/') }}";
@@ -117,7 +114,7 @@
                         e.preventDefault();
                         let meterNo = document.querySelector("#meter_no").value;
 
-                        if(meterNo.length == 0) {
+                        if(meterNo.length == 0 && meterNo.length > 6) {
                             $.alert({
                                 title: 'Ooops!',
                                 content: 'Meter No Field is Required',
@@ -130,12 +127,11 @@
                                 }
                             });
                         }else {
-                            $.ajax({
-                                url: '/meter/api',
-                                method: "POST",
-                                data: { meter_no: meterNo },
-                                success: (response) => {
-                                    if(response.code == '419') {
+                            fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
+                                .then(res => res.json())
+                                .then(response => {
+                                    console.log(response);
+                                    if(response.response.retn !== 0) {
                                         $.alert({
                                             title: 'Ooops!',
                                             content: 'Invalid Meter No!',
@@ -151,8 +147,8 @@
                                         // Valid Meter no
                                         $('form#profile-update').submit();
                                     }
-                                },
-                                error: (err) => {
+                                })
+                                .catch(err => {
                                     // alert('Sorry Something Went Wrong');
                                     $.alert({
                                         title: 'Ooops!',
@@ -165,19 +161,9 @@
                                             }
                                         }
                                     });
-                                }
-                            });
+                                });
+                            
                         }
-                        // const sessID = "{{ session('TAMSES') }}";
-                        // console.log(sessID);
-                        // fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
-                        // .then(res => res.json())
-                        // .then(calbck => {
-                        //     calbck = JSON.parse(calbck);
-                        //     console.log(calbck);
-                        // })
-                        // .catch(err => console.log(err));
-                        
                     });
                 </script>
                 

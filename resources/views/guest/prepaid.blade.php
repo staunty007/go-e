@@ -24,6 +24,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 	<script src="{{ asset('js/app.js') }}"></script>
 
 	<!--Start of Tawk.to Script-->
@@ -333,11 +334,11 @@
 								</div>
 								<div class="form-group">
 									<label>Email</label>
-									<input class="form-control" value="" id="emailret" name="email" readonly/>
+									<input class="form-control" value="" id="emailret" name="email" />
 								</div>
 								<div class="form-group">
 									<label>Phone Number</label>
-									<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
+									<input class="form-control" value="" id="phoneret" name="mobile" />
 								</div>
 								<div class="form-group">
 									<label>Total Amount</label>
@@ -361,22 +362,7 @@
 		</div>
 		<!--main div ends-->
 		</div>
-		<div style="
-		padding: 1em;
-		text-align: center;
-		color: #ffffffd1;
-		background: #111;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		position: fixed;
-		">
-				
-				Powered by GOENERGEE
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;
-				
-			</div>
+		<div class="footi">Powered by GOENERGEE</div>
 		</div>
 		<script>
 			var slideIndex = 1;
@@ -427,115 +413,71 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-
-			// fetch('diamond/access-token')
-			// .then(res => res.json())
-			// .then(result => {
-			// 	let res = JSON.parse(result);
-			// 	localStorage.setItem('geac', res.access_token);
-			// })
-			// .catch(err => {
-			// 	alert('Something Went Wrong, Please Reload the Page');
-			// })
-
-			$(".registerBtn").click((e) => {
-				e.preventDefault();
-				$('.registerBtn').prop('disabled', true);
-				$('.registerBtn').html('Creating Account...');
-				var formdata = $(".form-signin").serialize();
-
-				$.ajax({
-					url: "account/register",
-					method: "POST",
-					data: formdata,
-					success: (response) => {
-						if (response.sus == 1) {
-							swal('Successful', 'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account', 'success');
-							$(this).prop('disabled', false);
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.registerBtn').prop('disabled', false);
-							$('.registerBtn').html('Sign Up');
-						}
-					},
-					error: (err) => {
-						console.log(err);
-						$('.registerBtn').prop('disabled', false);
-						$('.registerBtn').html('Sign Up');
-					}
-				})
-				
-			})
-
-			$(".login-btn").click((e) => {
-				e.preventDefault();
-				$('.login-btn').html('Logging In...');
-				var formData = $(".login-form").serialize();
-
-				$.ajax({
-					url: '/account/login',
-					method: 'POST',
-					data: formData,
-					success: (response) => {
-						if (response.sus == 1) {
-							setTimeout(() => {
-								swal('Successful', 'Login Successful', 'success');
-								$(this).prop('disabled', false);
-								setTimeout(() => {
-									window.location.href = '/home';
-								}, 2000);
-							})
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.login-btn').prop('disabled', false);
-							$('.login-btn').html('Login');
-						}
-					},
-					error: (err) => {
-						$('.login-btn').prop('disabled', false);
-						$('.login-btn').html('Login');
-					}
-				})
-				
-			})
+			
 		</script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 		<script>
-			
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
 				$('.pay-meter').html('Validating....');
-				var meter_no = $('#meterno').val();
-				$.ajax({
-					url: 'meter/api',
-					method: 'GET',
-					data: { meter_no: meter_no},
-					success: (res) => {
-						if(res.code == 419) {
-							swal('Ooops','Invalid Meter No.','error');
+				let meter_no = $('#meterno').val();
+				fetch(`/in-app/api/soap/validate-customer/${meter_no}`)
+					.then(res => res.json())
+					.then(response => {
+						console.log(response);
+						if(response.response.retn !== 0) {
+							$.alert({
+								title: 'Ooops!',
+								content: 'Invalid Meter No!',
+								type: 'red',
+								buttons: {
+									ok: {
+										text: 'Try Again',
+										btnClass: 'btn-red'
+									}
+								}
+							});
 							$('.pay-meter').html('Continue');
 						}else {
-							console.log(res);
-							$("#firstname").val(res.first_name);
-							$("#lastname").val(res.last_name);
-							$("#emailret").val(res.email);
-							$("#phoneret").val(res.phone);
+							// Valid Meter no
+							let { name } = response.response.customerInfo;
+							let names = name.split(' ',2);
+							console.log(names[0]);
+							$("#firstname").val(names[0]);
+							$("#lastname").val(names[1]);
+							$("#emailret").val('');
+							$("#phoneret").val('');
 							$("#meter_no").val($("#meterno").val());
 							$("#total").val(parseInt($(".meter-amount").val()) + 100);
 							toggleMod();
-							
 						}
-						// console.log(res);
-					}
-				});
-
-				// $('.pay-meter').html('Continue');
-				//$('.pay-meter').prop('disabled', false);
+					})
+					.catch(err => {
+						// alert('Sorry Something Went Wrong');
+						console.log(err);
+						$.alert({
+							title: 'Ooops!',
+							content: 'Something Bad Went Wrong',
+							type: 'red',
+							buttons: {
+								ok: {
+									text: 'Got It',
+									btnClass: 'btn-red'
+								}
+							}
+						});
+						$('.pay-meter').html('Continue');
+					});
+                            
 			})
 			$("#ctnPay").click((e) => {
 				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
 				e.preventDefault();
-				let toBeTransported = {
+				if($("#emailret").val() == "") {
+					
+				}
+				let payload = {
 					'meter_no': ''+$("#meterno").val()+'',
 					'first_name': ''+$('#firstname').val()+'',
 					'last_name': ''+$('#lastname').val()+'',
@@ -543,14 +485,14 @@
 					'mobile': ''+$('#phoneret').val()+'',
 					'amount': ''+$('.meter-amount').val()+'',
 				};
-				continuePay(toBeTransported);
+				continuePay(payload);
 			});
 
-				function continuePay(toBeTransported) {
+			function continuePay(payload) {
 				$.ajax({
 					url: 'payment/hold',
 					method: 'POST',
-					data: toBeTransported,
+					data: payload,
 					success: (response) => {
 						if (response.code == "ok") {
 							console.log(response.text);
@@ -561,17 +503,15 @@
 						$('.pay-meter').html('Continue');
 					}
 				});
-				}
+			}
 			function payWithPaystack() {
 				var amountMeter = document.querySelector('.meter-amount').value;
-
 				var chargedAmount = parseInt(amountMeter) + 100;
-
 				var handler = PaystackPop.setup({
 					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
 					email: document.querySelector('#emailret').value,
 					amount: chargedAmount + "00",
-					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
+					ref: "GOEPRE".Math.floor((Math.random() * 1000000000) + 1),
 					callback: function (response) {
 						setTimeout(() => {
 							window.location.href = '/payment/' + response.reference + '/success';
