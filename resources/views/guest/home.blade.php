@@ -251,9 +251,9 @@
 										<li class="slider-list">
 											<img src="/images/12.png" class='img-responsive side-img'>
 										</li>
-										<a href="{{ route('guest.services') }}"><li>
+										{{-- <a href="{{ route('guest.services') }}"><li>
 											<img src="/images/side-img-2.jpeg" class='img-responsive side-img'>
-										</li></a>
+										</li></a> --}}
 										{{-- <li>
 											<img src="./images/3.jpg" alt="">
 										</li>
