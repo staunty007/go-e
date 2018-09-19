@@ -24,17 +24,19 @@ class TestSoapController extends Controller
             array( "startSession" => 
                 array( 
                     "partnerId"=> $partner['partner_id'], 
-                    "accessKey"=> $partner['access_key']
+                    "accessKey"=> $partner['access_key'],
+                    "deviceId" => 'Ralmtest',
+                    "osVersion" => '1.0'
                 )
             )
         );
         if(is_soap_fault($results)) {
-            dd('Soap');
+            return redirect('/');
         }else {
             $sessionBack = $results->response->session;
         }
         // dd($sessionBack);
-        // sleep(3);   
+        sleep(3);   
         
         $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
@@ -50,6 +52,8 @@ class TestSoapController extends Controller
                  )
              )
         );
+
+        dd($loginResults);
 
         session()->put(['TAMSES' => $sessionBack]);
 

@@ -296,17 +296,6 @@
 								</div>
 							</div>
 							<!---log in ends-->
-
-
-
-
-
-
-
-
-
-									
-							
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
@@ -315,83 +304,14 @@
 					</div>
 				</div>
 			</div>
-			<!-- row ends -->
-		
-			
-					
-			<script>
-				
-				$('document').ready(function () {
-					if (window.location.hash == "#prepaid-meter") {
-						$('.prepaid-modal').modal('toggle', {
-							backdrop: false
-						});
-						// console.log(window.location.hash);
-					}
-				});
-			</script>
-			<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Confirm Details</h4>
-							<br>
-							<img src="/images/ekedc.jpg" width="80"/> 
-							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-						</div>
-						<div class="modal-body">
-							<form id="payForm" method="POST" action="">
-								<div class="form-group">
-									<label>Meter No</label>
-									<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Firstname</label>
-									<input class="form-control" value="" id="firstname" name="first_name" readonly/>
-								</div>
-								<div class="form-group">
-									<label>lastname</label>
-									<input class="form-control" value="" id="lastname" name="last_name" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Email</label>
-									<input class="form-control" value="" id="emailret" name="email" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Phone Number</label>
-									<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Total Amount</label>
-									<input class="form-control" value="" id="total" name="amount" readonly/>
-								</div>
-							</form>
-						</div>
-						
-			
-
+			<!-- row ends -->	
 		</div>
 		</div>
 
 		</div>
 		<!--main div ends-->
 		</div>
-		<div style="
-		padding: 1em;
-		text-align: center;
-		color: #ffffffd1;
-		background: #111;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		position: fixed;
-		">
-				
-				Powered by GOENERGEE
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;
-				
-			</div>
+		<div class="footi">Powered by GOENERGEE</div>
 		</div>
 		<script>
 			var slideIndex = 1;
@@ -443,45 +363,6 @@
 				}
 			});
 
-			// fetch('diamond/access-token')
-			// .then(res => res.json())
-			// .then(result => {
-			// 	let res = JSON.parse(result);
-			// 	localStorage.setItem('geac', res.access_token);
-			// })
-			// .catch(err => {
-			// 	alert('Something Went Wrong, Please Reload the Page');
-			// })
-
-			$(".registerBtn").click((e) => {
-				e.preventDefault();
-				$('.registerBtn').prop('disabled', true);
-				$('.registerBtn').html('Creating Account...');
-				var formdata = $(".form-signin").serialize();
-
-				$.ajax({
-					url: "account/register",
-					method: "POST",
-					data: formdata,
-					success: (response) => {
-						if (response.sus == 1) {
-							swal('Successful', 'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account', 'success');
-							$(this).prop('disabled', false);
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.registerBtn').prop('disabled', false);
-							$('.registerBtn').html('Sign Up');
-						}
-					},
-					error: (err) => {
-						console.log(err);
-						$('.registerBtn').prop('disabled', false);
-						$('.registerBtn').html('Sign Up');
-					}
-				})
-				
-			})
-
 			$(".login-btn").click((e) => {
 				e.preventDefault();
 				$('.login-btn').html('Logging In...');
@@ -513,97 +394,6 @@
 				})
 				
 			})
-		</script>
-		<script src="https://js.paystack.co/v1/inline.js"></script>
-		<script>
-			
-			$(".pay-meter").click((e) => {
-				e.preventDefault();
-				$('.pay-meter').html('Validating....');
-				var meter_no = $('#meterno').val();
-				$.ajax({
-					url: 'meter/api',
-					method: 'GET',
-					data: { meter_no: meter_no},
-					success: (res) => {
-						if(res.code == 419) {
-							swal('Ooops','Invalid Meter No.','error');
-							$('.pay-meter').html('Continue');
-						}else {
-							console.log(res);
-							$("#firstname").val(res.first_name);
-							$("#lastname").val(res.last_name);
-							$("#emailret").val(res.email);
-							$("#phoneret").val(res.phone);
-							$("#meter_no").val($("#meterno").val());
-							$("#total").val(parseInt($(".meter-amount").val()) + 100);
-							toggleMod();
-							
-						}
-						// console.log(res);
-					}
-				});
-
-				// $('.pay-meter').html('Continue');
-				//$('.pay-meter').prop('disabled', false);
-			})
-			$("#ctnPay").click((e) => {
-				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
-				e.preventDefault();
-				let toBeTransported = {
-					'meter_no': ''+$("#meterno").val()+'',
-					'first_name': ''+$('#firstname').val()+'',
-					'last_name': ''+$('#lastname').val()+'',
-					'email': ''+$('#emailret').val()+'',
-					'mobile': ''+$('#phoneret').val()+'',
-					'amount': ''+$('.meter-amount').val()+'',
-				};
-				continuePay(toBeTransported);
-			});
-
-				function continuePay(toBeTransported) {
-				$.ajax({
-					url: 'payment/hold',
-					method: 'POST',
-					data: toBeTransported,
-					success: (response) => {
-						if (response.code == "ok") {
-							console.log(response.text);
-							payWithPaystack();
-						}
-					},
-					error: (err) => {
-						$('.pay-meter').html('Continue');
-					}
-				});
-				}
-			function payWithPaystack() {
-				var amountMeter = document.querySelector('.meter-amount').value;
-
-				var chargedAmount = parseInt(amountMeter) + 100;
-
-				var handler = PaystackPop.setup({
-					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-					email: document.querySelector('#emailret').value,
-					amount: chargedAmount + "00",
-					ref: Math.floor((Math.random() * 1000000000) + 1) + "TRANSREF",
-					callback: function (response) {
-						setTimeout(() => {
-							window.location.href = '/payment/' + response.reference + '/success';
-						}, 1000);
-					},
-					onClose: function () {
-						alert('Payment Cancelled');
-						$('.pay-meter').html('Continue');
-						window.location.reload();
-					}
-				});
-				handler.openIframe();
-			}
-			function toggleMod() {
-				$('#confirm-payment').modal('toggle');
-			}
-			
 		</script>
 	</body>
 

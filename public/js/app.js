@@ -46,15 +46,10 @@ function postPaidActions(_params) {
         // Checkbox is checked..
         postPaidPaymentInput.disabled  = false;
         // Dealing with User Input for Final Calculation
-       
-        
         postPaidPaymentInput.addEventListener("focusout", function(){
             postPaidPaymentValue = postPaidPaymentInput.value;
             postPaidPayment = parsedInt(postPaidPaymentValue);          
-           total += postPaidPayment;
-           
-					 
-            
+            total += postPaidPayment;
         })
         
     } else {

@@ -9,6 +9,10 @@ class PagesController extends Controller
     public function index(TestSoapController $soap)
     {   
         $soap->startSession();
-        return view('guest/home');
+        if(session()->has('TAMSES')) {
+            return view('guest/home');
+        }else {
+            return redirect('/loaddd');
+        }
     }
 }

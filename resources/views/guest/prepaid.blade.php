@@ -427,18 +427,26 @@
 					.then(response => {
 						console.log(response);
 						if(response.response.retn !== 0) {
-							$.alert({
-								title: 'Ooops!',
-								content: 'Invalid Meter No!',
-								type: 'red',
-								buttons: {
-									ok: {
-										text: 'Try Again',
-										btnClass: 'btn-red'
+							if(response.response.retn == 400) {
+								// window.location.href = '/';
+								console.log(response);
+							}else {
+								$.alert({
+									title: 'Ooops!',
+									content: 'Invalid Meter No!',
+									type: 'red',
+									buttons: {
+										ok: {
+											text: 'Try Again',
+											btnClass: 'btn-red'
+										}
 									}
-								}
-							});
+								});
+							}
+							
 							$('.pay-meter').html('Continue');
+
+							
 						}else {
 							// Valid Meter no
 							let { name } = response.response.customerInfo;
