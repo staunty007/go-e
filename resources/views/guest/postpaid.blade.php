@@ -351,16 +351,7 @@
 									</div>
 								</div>
 						</div>
-
-
 					</div>
-
-
-
-
-
-
-
 				</div>
 				<!---col-md-7 ends -->
 			</div>

@@ -2,48 +2,51 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head> 
-	<title>GOENERGEE</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="/css/animate.css" rel="stylesheet">
-	<!-- <link href="/css/application.css" rel="stylesheet"> -->
-	<link href="/css/emojione.min.css" rel="stylesheet">
-	<link href="/css/style.css" rel="stylesheet">
-	<link href="{{asset('css/custom.css')}}" rel="stylesheet">
-	<link href="{{asset('css/media-query.css')}}" rel="stylesheet">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-	<script src="{{ asset('js/app.js') }}"></script>
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+	<!--<![endif]-->
 
-	<!--Start of Tawk.to Script-->
-	<script type="text/javascript">
-		var Tawk_API = Tawk_API || {},
-			Tawk_LoadStart = new Date();
-		(function () {
-			var s1 = document.createElement("script"),
-				s0 = document.getElementsByTagName("script")[0];
-			s1.async = true;
-			s1.src = 'https://embed.tawk.to/5af6719a227d3d7edc253853/default';
-			s1.charset = 'UTF-8';
-			s1.setAttribute('crossorigin', '*');
-			s0.parentNode.insertBefore(s1, s0);
-		})();
-	</script>
-	<!--End of Tawk.to Script-->
-	<style>
-		.input-group-addon {
+	<head>
+		<title>GOENERGEE</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+		<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="/css/animate.css" rel="stylesheet">
+		<!-- <link href="/css/application.css" rel="stylesheet"> -->
+		<link href="/css/emojione.min.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+		<link href="{{asset('css/custom.css')}}" rel="stylesheet">
+		<link href="{{asset('css/media-query.css')}}" rel="stylesheet">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+		<script src="{{ asset('js/app.js') }}"></script>
+
+		<!--Start of Tawk.to Script-->
+		<script type="text/javascript">
+			var Tawk_API = Tawk_API || {},
+				Tawk_LoadStart = new Date();
+			(function () {
+				var s1 = document.createElement("script"),
+					s0 = document.getElementsByTagName("script")[0];
+				s1.async = true;
+				s1.src = 'https://embed.tawk.to/5af6719a227d3d7edc253853/default';
+				s1.charset = 'UTF-8';
+				s1.setAttribute('crossorigin', '*');
+				s0.parentNode.insertBefore(s1, s0);
+			})();
+		</script>
+		<!--End of Tawk.to Script-->
+		<style>
+			.input-group-addon {
 			background-color: transparent;
 			border: none;
 			border-radius: 0;
@@ -52,12 +55,13 @@
 			
 		}
 	</style>
-	<!--[if IE]>
+		<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-</head>
-<body class="bg-img" id="banner">
-	    <!--[if lt IE 7]>
+	</head>
+
+	<body class="bg-img" id="banner">
+		<!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 		<div class="container">
@@ -67,17 +71,19 @@
 						<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
 					</a>
 				</div>
-				<div class="col-xs-12 col-md-9 media-query-body col-lg-9 col-sm-12">	
+				<div class="col-xs-12 col-md-9 media-query-body col-lg-9 col-sm-12">
 					<div class="row media-query-row">
 						<div class="col-md-8 col-lg-9 media-query-search">
-							<div class="input-group media-input-group "  style="width: 100%; text-align: right;">
-								<input type="text" class="form-control media-query-input" placeholder="Search" aria-describedby="basic-addon1" style="
+							<div class="input-group media-input-group " style="width: 100%; text-align: right;">
+								<input type="text" class="form-control media-query-input" placeholder="Search" aria-describedby="basic-addon1"
+								 style="
 								width: 60%;
 								float:  right;
 								padding: 1.5em;
 								border-radius:  0;
 								text-align: center;
-								" onkeyup="listServices()" id="searchForm">
+								"
+								 onkeyup="listServices()" id="searchForm">
 								<button class="btn btn-danger" style="
 									padding: .7em;
 									border-radius: 0;
@@ -104,9 +110,9 @@
 						</div>
 					</div>
 				</div>
-					
+
 			</div>
-			
+
 			<div class="row media-query-a">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -114,7 +120,7 @@
 						<ol class="carousel-indicators">
 							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 							<li data-target="#myCarousel" data-slide-to="1"></li>
-							
+
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
@@ -153,30 +159,30 @@
 				</div>
 			</div>
 			<ul class="nav-ul">
-			
-					<li class="nav-item item">
-							<i class="fas fa-user-plus"></i>
-						<a class="nav-link" href="{{ route('guest.signup') }}">Sign Up</a>
-					</li>
-					<li class="nav-item item">
-							<i class="fas fa-user-circle"></i>
-						<a class="nav-link" href="{{ route('guest.login') }}">Login</a>
-					</li>
-					<li class="nav-item item">
-							<i class="far fa-credit-card"></i>
-						<a class="nav-link" href="{{ route('guest.services') }}">Make Payment</a>
-					</li>
-					<li class="nav-item item">
-							<i class="fas fa-cogs"></i>
-						<a class="nav-link disabled" href="{{ route('guest.support') }}">Support</a>
-					</li>
-					<li class="nav-item item">
-							<i class="fas fa-question-circle"></i>
-						<a class="nav-link" href="faq">FAQ</a>
-					</li>
-				</ul>
-			
-			
+
+				<li class="nav-item item">
+					<i class="fas fa-user-plus"></i>
+					<a class="nav-link" href="{{ route('guest.signup') }}">Sign Up</a>
+				</li>
+				<li class="nav-item item">
+					<i class="fas fa-user-circle"></i>
+					<a class="nav-link" href="{{ route('guest.login') }}">Login</a>
+				</li>
+				<li class="nav-item item">
+					<i class="far fa-credit-card"></i>
+					<a class="nav-link" href="{{ route('guest.services') }}">Make Payment</a>
+				</li>
+				<li class="nav-item item">
+					<i class="fas fa-cogs"></i>
+					<a class="nav-link disabled" href="{{ route('guest.support') }}">Support</a>
+				</li>
+				<li class="nav-item item">
+					<i class="fas fa-question-circle"></i>
+					<a class="nav-link" href="faq">FAQ</a>
+				</li>
+			</ul>
+
+
 			<!-- main div -->
 			<div class="row">
 				<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
@@ -204,40 +210,41 @@
 									</script>
 									@else
 									<a href="{{ route('guest.login') }}">
-									<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
-									<i class="fas fa-user-circle"></i>
-										Login
-									</button>	</a>						
+										<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
+											<i class="fas fa-user-circle"></i>
+											Login
+										</button> </a>
 									@endif
 								</div>
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
-									<i class="fas fa-user-plus"></i>
-										Sign Up
-									</button></a>
+											<i class="fas fa-user-plus"></i>
+											Sign Up
+										</button></a>
 								</div>
 							</div>
 							<div class="row" style="padding:0px;">
 								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
 									<div style="text-align:center;">
-										<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;" class="grad-boxa">
+										<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
+											 class="grad-boxa">
 												<i class="far fa-credit-card"></i>
 												Make Payment
-										</button></a>
+											</button></a>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
-									<i class="fas fa-cogs"></i>
-										Support
-									</button></a>
+											<i class="fas fa-cogs"></i>
+											Support
+										</button></a>
 								</div>
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									<a href="faq">
 										<button type="button" class="grad-box" style="padding:50px 52px">
-										<i class="fas fa-question-circle"></i>
+											<i class="fas fa-question-circle"></i>
 											FAQ
 										</button>
 									</a>
@@ -245,62 +252,64 @@
 							</div>
 						</div>
 						<!--col-6 ends -->
-					
+
 						<div id="make_payments">
-								
-								<div class="text-center login-title">
-									<img src="/images/logo.png"><br><br>
-								</div>
-								<h4 class="text-center">Choose From our Variety of Categories</h4>
-								{{-- Categories --}}
-								
-							
-								{{-- Meter Payment --}}
-								<div class="meter-payment" id="meter_payment">
-										<img src="/images/ekedc.jpg" width="80"/> 
-										<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-									<hr>
-									<form class="meter" method="post" action="">
-										<div class="form-group">
-											<label for="Meter_number"><b>Prepaid Meter Number</b></label>
-											<input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
-										</div>
-										<div class="form-group">
-											<label for="convinience_fee"><b>Convenience Fee</b></label>
-											<input type="number" class="form-control" value="100.00" readonly>
-										</div>
-										<div class="form-group">
-											<label for="amount"><b>Amount</b></label>
-											<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount" id="amount">
-										</div>
-										<button class="btn btn-success btn-block pay-meter" type="submit">Continue</button>
-									</form>
-								</div>
-								{{-- <button class="btn btn-rounded" id="three">Prepaid</button>
-								<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
-									<button class="btn btn-rounded" id="four">Postpaid</button>
-								</a> --}}
+
+							<div class="text-center login-title">
+								<img src="/images/logo.png"><br><br>
 							</div>
-							<!---make payments ends-->
+							<h4 class="text-center">Choose From our Variety of Categories</h4>
+							{{-- Categories --}}
+
+
+							{{-- Meter Payment --}}
+							<div class="meter-payment" id="meter_payment">
+								<img src="/images/ekedc.jpg" width="80" />
+								<span style="font-size: 16px"> Eko Electric Distribution Company </span>
+								<hr>
+								<form class="meter" method="post" action="">
+									<div class="form-group">
+										<label for="Meter_number"><b>Prepaid Meter Number</b></label>
+										<input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number"
+										 required autofocus name="meter_no">
+									</div>
+									<div class="form-group">
+										<label for="convinience_fee"><b>Convenience Fee</b></label>
+										<input type="number" class="form-control" value="100.00" readonly>
+									</div>
+									<div class="form-group">
+										<label for="amount"><b>Amount</b></label>
+										<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount" id="amount">
+									</div>
+									<button class="btn btn-success btn-block pay-meter" type="submit">Continue</button>
+								</form>
+							</div>
+							{{-- <button class="btn btn-rounded" id="three">Prepaid</button>
+							<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
+								<button class="btn btn-rounded" id="four">Postpaid</button>
+							</a> --}}
+						</div>
+						<!---make payments ends-->
 
 
 
-									
-							
-					
-						</div><!---col-md-7 ends -->
+
+
+
 					</div>
-					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
-						<img src="/images/12.png" class='img-responsive side-img'>
-					</div>
+					<!---col-md-7 ends -->
+				</div>
+				<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+					<img src="/images/12.png" class='img-responsive side-img'>
 				</div>
 			</div>
-			<!-- row ends -->
-		
-			
-			<script>
-				
-				$('document').ready(function () {
+		</div>
+		<!-- row ends -->
+
+
+		<script>
+
+			$('document').ready(function () {
 					if (window.location.hash == "#prepaid-meter") {
 						$('.prepaid-modal').modal('toggle', {
 							backdrop: false
@@ -309,52 +318,52 @@
 					}
 				});
 			</script>
-			<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Confirm Details</h4>
-							<br>
-							<img src="/images/ekedc.jpg" width="80"/> 
-							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-						</div>
-						<div class="modal-body">
-							<form id="payForm" method="POST" action="">
-								<div class="form-group">
-									<label>Meter No</label>
-									<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Firstname</label>
-									<input class="form-control" value="" id="firstname" name="first_name" readonly/>
-								</div>
-								<div class="form-group">
-									<label>lastname</label>
-									<input class="form-control" value="" id="lastname" name="last_name" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Email</label>
-									<input class="form-control" value="" id="emailret" name="email" />
-								</div>
-								<div class="form-group">
-									<label>Phone Number</label>
-									<input class="form-control" value="" id="phoneret" name="mobile" />
-								</div>
-								<div class="form-group">
-									<label>Total Amount</label>
-									<input class="form-control" value="" id="total" name="amount" readonly/>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
-							<button type="button" class="btn btn-danger" onclick="window.location.reload()">Cancel Payment</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-			
-			
+		<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Confirm Details</h4>
+						<br>
+						<img src="/images/ekedc.jpg" width="80" />
+						<span style="font-size: 16px"> Eko Electric Distribution Company </span>
+					</div>
+					<div class="modal-body">
+						<form id="payForm" method="POST" action="">
+							<div class="form-group">
+								<label>Meter No</label>
+								<input class="form-control" value="" id="meter_no" name="meter_no" readonly />
+							</div>
+							<div class="form-group">
+								<label>Firstname</label>
+								<input class="form-control" value="" id="firstname" name="first_name" readonly />
+							</div>
+							<div class="form-group">
+								<label>lastname</label>
+								<input class="form-control" value="" id="lastname" name="last_name" readonly />
+							</div>
+							<div class="form-group">
+								<label>Email</label>
+								<input class="form-control" value="" id="emailret" name="email" />
+							</div>
+							<div class="form-group">
+								<label>Phone Number</label>
+								<input class="form-control" value="" id="phoneret" name="mobile" />
+							</div>
+							<div class="form-group">
+								<label>Total Amount</label>
+								<input class="form-control" value="" id="total" name="amount" readonly />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
+						<button type="button" class="btn btn-danger" onclick="window.location.reload()">Cancel Payment</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
 
 		</div>
 		</div>
@@ -365,6 +374,14 @@
 		<div class="footi">Powered by GOENERGEE</div>
 		</div>
 		<script>
+			$('document').ready(function () {
+				if (window.location.hash == "#prepaid-meter") {
+					$('.prepaid-modal').modal('toggle', {
+						backdrop: false
+					});
+					// console.log(window.location.hash);
+				}
+			});
 			var slideIndex = 1;
 			showSlides(slideIndex);
 
@@ -413,7 +430,6 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-			
 		</script>
 		<script src="https://js.paystack.co/v1/inline.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -426,11 +442,11 @@
 					.then(res => res.json())
 					.then(response => {
 						console.log(response);
-						if(response.response.retn !== 0) {
-							if(response.response.retn == 400) {
+						if (response.response.retn !== 0) {
+							if (response.response.retn == 400) {
 								// window.location.href = '/';
 								console.log(response);
-							}else {
+							} else {
 								$.alert({
 									title: 'Ooops!',
 									content: 'Invalid Meter No!',
@@ -443,14 +459,16 @@
 									}
 								});
 							}
-							
+
 							$('.pay-meter').html('Continue');
 
-							
-						}else {
+
+						} else {
 							// Valid Meter no
-							let { name } = response.response.customerInfo;
-							let names = name.split(' ',2);
+							let {
+								name
+							} = response.response.customerInfo;
+							let names = name.split(' ', 2);
 							console.log(names[0]);
 							$("#firstname").val(names[0]);
 							$("#lastname").val(names[1]);
@@ -477,28 +495,28 @@
 						});
 						$('.pay-meter').html('Continue');
 					});
-                            
+
 			})
 			$("#ctnPay").click((e) => {
-				$("#ctnPay").html('Connecting to Gateway..').prop('disables',true);
+				$("#ctnPay").html('Connecting to Gateway..').prop('disables', true);
 				e.preventDefault();
-				if($("#emailret").val() == "") {
-					
+				if ($("#emailret").val() == "") {
+
 				}
 				let payload = {
-					'meter_no': ''+$("#meterno").val()+'',
-					'first_name': ''+$('#firstname').val()+'',
-					'last_name': ''+$('#lastname').val()+'',
-					'email': ''+$('#emailret').val()+'',
-					'mobile': ''+$('#phoneret').val()+'',
-					'amount': ''+$('.meter-amount').val()+'',
+					'meter_no': '' + $("#meterno").val() + '',
+					'first_name': '' + $('#firstname').val() + '',
+					'last_name': '' + $('#lastname').val() + '',
+					'email': '' + $('#emailret').val() + '',
+					'mobile': '' + $('#phoneret').val() + '',
+					'amount': '' + $('.meter-amount').val() + '',
 				};
 				continuePay(payload);
 			});
 
 			function continuePay(payload) {
 				$.ajax({
-					url: 'payment/hold',
+					url: '/payment/hold',
 					method: 'POST',
 					data: payload,
 					success: (response) => {
@@ -512,6 +530,7 @@
 					}
 				});
 			}
+
 			function payWithPaystack() {
 				var amountMeter = document.querySelector('.meter-amount').value;
 				var chargedAmount = parseInt(amountMeter) + 100;
@@ -519,7 +538,7 @@
 					key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
 					email: document.querySelector('#emailret').value,
 					amount: chargedAmount + "00",
-					ref: "GOEPRE".Math.floor((Math.random() * 1000000000) + 1),
+					ref: "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1),
 					callback: function (response) {
 						setTimeout(() => {
 							window.location.href = '/payment/' + response.reference + '/success';
@@ -533,11 +552,11 @@
 				});
 				handler.openIframe();
 			}
+
 			function toggleMod() {
 				$('#confirm-payment').modal('toggle');
 			}
-			
 		</script>
 	</body>
 
-	</html>
+</html>

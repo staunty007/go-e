@@ -354,8 +354,8 @@
 				setTimeout(showSlides, 3000); // Change image every 3 seconds
 			}
 		</script>
-		<script src="/js/sweetalert.min.js"></script>
 		@include('partials._search-component');
+		<script src="/js/sweetalert.min.js"></script>
 		<script>
 			$.ajaxSetup({
 				headers: {

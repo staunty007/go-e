@@ -59,9 +59,8 @@ class AccountController extends Controller
         $bio->save();
         
         $user = User::where('id',$userID)->first();
-
         Mail::to($user->email)->send(new AccountActivation($user));
-        // session(['account_info' => $user]);
+        
 
         return response()->json(['sus' => '1']);
     }
@@ -69,11 +68,14 @@ class AccountController extends Controller
     public function refReg($ref)
     {
         $findRef = User::where('refer_id',$ref)->first();
-
         if(empty($findRef)) {
             return redirect('/');
         }else {
-            return view('referral-signup')->withRef($findRef->refer_id);
+            // store refer ID to session
+            session()->put('referred',$findRef->refer_id);
+            session()->flash('success','Thank you for visiting GOENERGEE, Please Proceed to Signup');
+            return redirect()->route('guest.signup');
+            // return view('referral-signup')->withRef($findRef->refer_id);
         }
     }
 
@@ -503,6 +505,9 @@ class AccountController extends Controller
         $user->is_completed = 1;
         $user->is_activated = 1;
         $user->mobile = $request->phone;
+        if($user->refer_id == null) {
+            $user->refer_id = str_random(10);
+        }
 
         $bio = CustomerBiodata::where('user_id',$request->customer_id)->first();
         

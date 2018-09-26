@@ -231,11 +231,12 @@
 						</div><!---col-md-7 ends -->
 					</div>
 					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
-							<div class="slider">
-									<ul class="slider-main">
-										<li class="slider-list">
+					{{-- <div class="col-md-5"> --}}
+							{{-- <div class="slider"> --}}
+									{{-- <ul class="slider-main"> --}}
+										{{-- <li class="slider-list"> --}}
 											<img src="/images/12.png" class='img-responsive side-img'>
-										</li>
+										{{-- </li> --}}
 										{{-- <a href="{{ route('guest.services') }}"><li>
 											<img src="/images/side-img-2.jpeg" class='img-responsive side-img'>
 										</li></a> --}}
@@ -245,8 +246,8 @@
 										<li>
 											<img src="./images/4.jpg" alt="">
 										</li> --}}
-									</ul>
-								</div>
+									{{-- </ul> --}}
+								{{-- </div> --}}
 						{{-- <img src="/images/12.png" class='img-responsive side-img'> --}}
 					</div>
 				</div>

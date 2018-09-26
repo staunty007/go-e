@@ -359,53 +359,7 @@
 					}
 				});
 			</script>
-			<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Confirm Details</h4>
-							<br>
-							<img src="/images/ekedc.jpg" width="80"/> 
-							<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-						</div>
-						<div class="modal-body">
-							<form id="payForm" method="POST" action="">
-								<div class="form-group">
-									<label>Meter No</label>
-									<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Firstname</label>
-									<input class="form-control" value="" id="firstname" name="first_name" readonly/>
-								</div>
-								<div class="form-group">
-									<label>lastname</label>
-									<input class="form-control" value="" id="lastname" name="last_name" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Email</label>
-									<input class="form-control" value="" id="emailret" name="email" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Phone Number</label>
-									<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
-								</div>
-								<div class="form-group">
-									<label>Total Amount</label>
-									<input class="form-control" value="" id="total" name="amount" readonly/>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
-							<button type="button" class="btn btn-danger" onclick="window.location.reload()">Cancel Payment</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
 			
-			
-
 		</div>
 		</div>
 

@@ -40,3 +40,4 @@ function listServices() {
     // console.log(value);
 };
 // Fetching Services Ends
+</script>

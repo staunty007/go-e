@@ -17,7 +17,7 @@ class TestSoapController extends Controller
         // Get Partner details
         // Get Partner details
         $partner = $this->partnerDetails();
-        // Instnatiate the SOAPCLient
+        // // Instnatiate the SOAPCLient
         $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         //makes the soap call and passes the required parameters
         $results = $client->__soapCall("startSession",  
@@ -30,17 +30,20 @@ class TestSoapController extends Controller
                 )
             )
         );
+
+        // dd($results);
+        // if we get a saop fault error back, redirect to a page to try again
         if(is_soap_fault($results)) {
-            return redirect('/');
+            return redirect('/bad-calls');
         }else {
             $sessionBack = $results->response->session;
         }
         // dd($sessionBack);
-        sleep(3);   
+        // sleep(3);   
         
         $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
-        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', "sessionId",$sessionBack);
+        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', "sessionId", $sessionBack);
         // Pass headers
         $client->__setSoapHeaders($header);
         //makes the soap call and passes the required parameters
@@ -52,9 +55,8 @@ class TestSoapController extends Controller
                  )
              )
         );
-
-        dd($loginResults);
-
+        // dd($loginResults);
+        // Save session for page use
         session()->put(['TAMSES' => $sessionBack]);
 
     }
@@ -69,6 +71,7 @@ class TestSoapController extends Controller
         $partner = $this->partnerDetails();
         // Gets the global session TAMSES
         $sessionId = session()->get('TAMSES');
+        // dd($sessionId);
         // Instantiate the SOAPCLient
         $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
@@ -97,7 +100,7 @@ class TestSoapController extends Controller
 
         $sessionId = session()->get('TAMSES');
 
-//makes the soap call and passes the required parameters
+        //makes the soap call and passes the required parameters
         $header = new SoapHeader('http://soap.convergenceondemand.net/TMP/',"sessionId",$sessionId);
 
         $client->__setSoapHeaders($header);

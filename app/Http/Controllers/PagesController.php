@@ -12,7 +12,8 @@ class PagesController extends Controller
         if(session()->has('TAMSES')) {
             return view('guest/home');
         }else {
-            return redirect('/loaddd');
+            // return redirect('/bad-calls');
+            return view('guest/home');
         }
     }
 }
