@@ -19,6 +19,9 @@ Route::prefix('guest')->group(function () {
     Route::get('service-type', 'GuestController@serviceType')->name('guest.service_type');
     Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
     Route::get('support', 'GuestController@support')->name('guest.support');
+    Route::get('agent_reg', 'GuestController@agent_reg')->name('guest.agent_reg');
+  
+
 
 });
 

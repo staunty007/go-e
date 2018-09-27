@@ -211,13 +211,16 @@
 						<div class="col-md-7 col-sm-12 col-xs-12" style="padding:3px">
 							<!--Default div -->
 							<div id="news">
-								<div class="text-insert" style="margin-bottom:10px;">
-									<h4 style="margin-bottom:10px; color:#80c636">More Power Options to Recharge!</h4>
+								<div class="text-insert" style="margin-bottom:3px;">
+									<h4 style="margin-bottom:3px; color:#80c636; text-align:center">More Power Options to Recharge!</h4>
 									<h5 style="">
 										<b>GOENERGEE</b> is available on these alternative channels.</h5>
 									<h5 style="">
-										<b>mCASH: </b>Simply dial
-										<b>*402*00009130*Amount#</b> and dial our customer helpdesk.</h5>
+										<b>Mobile App: </b>Download & use our Andriod & IOs App
+										</b>.</h5>
+										<h5 style="">
+										<b>mVISA: </b>Easy Payment via QR code available in all our paypoint/agents outlets
+										</b>.</h5>
 									<h5 style="">
 										<b>POS: </b>Take advantage of our POS terminals available closest to you with our Agent.</h5>
 									<h5 style="">
@@ -225,8 +228,11 @@
 										<b>SALES</b> outlets closest to you and transact with our Agent.
 									</h5>
 								</div>
-								<img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:180px;">
-							</div>
+								<div class="col-md-6 col-sm-6 col-xs-6" style="padding:3px"><img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:180px;">
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-6" style="padding:1px"><img src="/images/banne.jpg" class="img-responsive" style="width:100%; border-radius:10px; max-height:180px;">
+								</div>
+								</div>
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
@@ -361,7 +367,7 @@
 				slides[slideIndex - 1].style.display = "block";
 				dots[slideIndex - 1].className += " active";
 
-				setTimeout(showSlides, 3000); // Change image every 3 seconds
+				setTimeout(showSlides, 1800000); // Change image every 30 seconds
 			}
 
 
