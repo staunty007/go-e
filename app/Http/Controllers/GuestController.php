@@ -12,8 +12,11 @@ class GuestController extends Controller
     }
     public function guestSignUp(){
     	return view('guest/signup');
-    }
-     public function guestServices(){
+	}
+	public function agent_reg(){
+    	return view('guest/agent_reg');
+	}
+    public function guestServices(){
         
         return view('guest/services');
     }
