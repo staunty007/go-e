@@ -254,6 +254,10 @@
 							
 								<div class="user-details sign_up" id="sign-up" style="">
 										<form class="form-signin" action="{{route ('signup')}}" method="POST" style="border:1px solid #ccc">
+											{{-- check if referred session is available --}}
+											@if(session('referred'))
+												<input type="hidden" name="referred" value="{{ session('referred') }}">
+											@endif
 											<div style="padding:10px;">
 												<div class="text-center login-title">
 													<h4>SIGN UP ON</h4>
@@ -426,7 +430,7 @@
 				var formdata = $(".form-signin").serialize();
 
 				$.ajax({
-					url: "account/register",
+					url: "/account/register",
 					method: "POST",
 					data: formdata,
 					success: (response) => {

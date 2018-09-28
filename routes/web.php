@@ -20,13 +20,16 @@ Route::prefix('guest')->group(function () {
     Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
     Route::get('support', 'GuestController@support')->name('guest.support');
     Route::get('agent_reg', 'GuestController@agent_reg')->name('guest.agent_reg');
-  
-
-
 });
 
+// agents signup
+// GET HTTP Method
+Route::get('agents/signup','AgentController@agentSignup');
+// POST HTTP Method
+Route::post('agents/signup','AgentController@postAgentSignup');
 
 
+// Meter Test API Routes
 Route::post('/meter/api','MeterApiController@validateMeterUser');
 Route::get('/meter/api/','MeterApiController@validateMeterReturn');
 
@@ -79,7 +82,7 @@ Route::post('account/login', 'AccountController@loginUser');
 Route::post('account/register', 'AccountController@registerUser')->name('signup');
 
 // Referral Registration
-Route::get('signup/r/{ref}','AccountController@refReg'); //http://localhost:8000/r/pQhkLwErUi
+Route::get('signup/r/{ref}','AccountController@referredSignup'); //http://localhost:8000/signup/r/pQhkLwErUi
 
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');

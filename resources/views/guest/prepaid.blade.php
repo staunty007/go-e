@@ -310,13 +310,13 @@
 		<script>
 
 			$('document').ready(function () {
-					if (window.location.hash == "#prepaid-meter") {
-						$('.prepaid-modal').modal('toggle', {
-							backdrop: false
-						});
-						// console.log(window.location.hash);
-					}
-				});
+				if (window.location.hash == "#prepaid-meter") {
+					$('.prepaid-modal').modal('toggle', {
+						backdrop: false
+					});
+					// console.log(window.location.hash);
+				}
+			});
 			</script>
 		<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
 			<div class="modal-dialog" role="document">
@@ -374,14 +374,6 @@
 		<div class="footi">Powered by GOENERGEE</div>
 		</div>
 		<script>
-			$('document').ready(function () {
-				if (window.location.hash == "#prepaid-meter") {
-					$('.prepaid-modal').modal('toggle', {
-						backdrop: false
-					});
-					// console.log(window.location.hash);
-				}
-			});
 			var slideIndex = 1;
 			showSlides(slideIndex);
 

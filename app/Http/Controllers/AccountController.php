@@ -34,8 +34,20 @@ class AccountController extends Controller
     {
         $checkMail = User::where('email', $request->email)->get();
 
-        if (count($checkMail) == 1) {
+        if(count($checkMail) == 1) {
             return response()->json(['err' => 'Email Already Exists']);
+        }
+
+        if($request->has('referred')) {
+            // Activate the bonus upon registration
+            $fetchCustomer = User::where('refer_id',$request->referred)->first();
+            $customer = CustomerBiodata::where('user_id',$fetchCustomer->id)->first();
+            if($fetchCustomer !== null) {
+                $customer->refer_bonus += 2;
+                $customer->save();
+                session()->forget('referred');
+            }
+
         }
 
         $bio = new CustomerBiodata;
@@ -65,7 +77,10 @@ class AccountController extends Controller
         return response()->json(['sus' => '1']);
     }
 
-    public function refReg($ref)
+    /**
+     * Activate referred code and return the signup form
+     */
+    public function referredSignup($ref)
     {
         $findRef = User::where('refer_id',$ref)->first();
         if(empty($findRef)) {
@@ -93,10 +108,9 @@ class AccountController extends Controller
 
     public function activateAccount($token)
     {
+        if(session()->has('referred'))
         $user = User::where('access_token', $token)->first();
-
         $user->is_activated = 1;
-
         $user->save();
 
         Auth::login($user, true);
@@ -502,6 +516,9 @@ class AccountController extends Controller
     public function updateProfile(Request $request)
     {
         $user = User::find($request->customer_id);
+        $names = explode(" ", $request->fullname);
+        $user->first_name = $names[0];
+        $user->last_name = $names[1];
         $user->is_completed = 1;
         $user->is_activated = 1;
         $user->mobile = $request->phone;

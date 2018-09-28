@@ -1,5 +1,4 @@
 @extends('customer.master')
-
 @section('customer-section')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <div class="wrapper wrapper-content">
@@ -40,7 +39,7 @@
                             <span class="fa fa-table m-r-xs"></span>
                             <label>Meter Number:</label>
                             @if(Auth::user()->is_completed == 1)
-                            {{ $profile->customer->meter_no }}
+                                {{ $profile->customer->meter_no }}
                             @endif
                         </li>
                         <li>
@@ -63,7 +62,15 @@
                     </div>
                 </div>
             </div>
+            <div class="ibox">
+                <div class="ibox-title"><h5>Total Bonus Earned</h5></div>
+                <div class="ibox-content">
+                    <h1><span>&#8358;</span>{{ $profile->customer->refer_bonus}} </h1>
+                </div>
+            </div>
             @endif
+
+
         </div>
 
         <div class="col-lg-7">
@@ -78,6 +85,14 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" name="fullname" class="form-control" value="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" name="email" class="form-control" value="{{ auth()->user()->email }}" readonly>
+                                    </div>
                                     <div class="form-group">
                                         <label>Meter or Account Number <span style="color: red">*</span></label>
                                         <input id="meter_no" name="meter_no" type="text" class="form-control" required
@@ -166,23 +181,28 @@
             fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
                 .then(res => res.json())
                 .then(response => {
-                    console.log(response);
-                    if (response.response.retn !== 0) {
-                        $.alert({
-                            title: 'Ooops!',
-                            content: 'Invalid Meter No!',
-                            type: 'red',
-                            buttons: {
-                                ok: {
-                                    text: 'Try Again',
-                                    btnClass: 'btn-red'
+                    let responseCode = response.response.retn;
+                    switch (responseCode) {
+                        case 400:
+                            $("form#profile-update").submit();
+                            break;
+                        case 0:
+                            $("form#profile-update").submit();
+                            break;
+                        default:
+                            $.alert({
+                                title: 'Ooops!',
+                                content: 'Invalid Meter No!',
+                                type: 'red',
+                                buttons: {
+                                    ok: {
+                                        text: 'Try Again',
+                                        btnClass: 'btn-red'
+                                    }
                                 }
-                            }
-                        });
-                        profileUpdate.innerHTML = "Update Profile";
-                    } else {
-                        // Valid Meter no
-                        $('form#profile-update').submit();
+                            });
+                            profileUpdate.innerHTML = "Update Profile";
+                            break;
                     }
                 })
                 .catch(err => {
