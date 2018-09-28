@@ -89,7 +89,6 @@
                                                         </td>
                                                 </tbody>
                                             </table>
-                                            
                                             <div class="pull-right">
                                                 <p>Amount: ₦{{ session('paid_amount') - 100 }}</p>
                                                 <p>Convenience Fee: ₦100</p>
@@ -141,9 +140,6 @@
                     // this.loading = false
                     this.sendSMS()
                 },
-                // created:  {
-                //     this.sendSMS();
-                // }
                 methods: {
                     sendSMS: function() {
 
