@@ -212,7 +212,7 @@
 									</button></a>
 							</div>
 							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-								<a href="faq">
+									<a href="{{ route('guest.faq') }}">
 									<button type="button" class="grad-box" style="padding:50px 52px">
 										<i class="fas fa-question-circle"></i>
 										FAQ
