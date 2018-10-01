@@ -18,6 +18,7 @@
 	<!-- <link href="/css/application.css" rel="stylesheet"> -->
 	<link href="/css/emojione.min.css" rel="stylesheet">
 	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/style1.css" rel="stylesheet">
 	<link href="{{asset('css/custom.css')}}" rel="stylesheet">
 	<link href="{{asset('css/media-query.css')}}" rel="stylesheet">
 	<!-- jQuery library -->

@@ -22,6 +22,7 @@ Route::prefix('guest')->group(function () {
     Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
     Route::get('support', 'GuestController@support')->name('guest.support');
     Route::get('agent_reg', 'GuestController@agent_reg')->name('guest.agent_reg');
+    Route::get('faq', 'GuestController@faq')->name('guest.faq');
 });
 
 // agents signup
