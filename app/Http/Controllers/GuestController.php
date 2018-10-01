@@ -23,10 +23,11 @@ class GuestController extends Controller
     public function serviceType(){
     	return view('guest/service_type');
     }
-    public function eachServicesType(Request $request, $name){
-    	//dd($name);
+    public function eachServicesType(Request $request, $name, TestSoapController $soap){
+		$soap->startSession();
     	switch ($name) {
-    		case $name === "prepaid-meters":
+			case $name === "prepaid-meters":
+			
     			return view('guest/prepaid');
     		case $name === "postpaid-meters":
     			return view('guest/postpaid');
@@ -35,10 +36,6 @@ class GuestController extends Controller
     			return back();
     			break;
     	}
- //    	if (\Request::is('guest/')) { 
- //  		// show companies menu or something
- //    		dd("it worked");
-	// }
 
     }
     public function support(){

@@ -36,7 +36,11 @@ class TestSoapController extends Controller
         if(is_soap_fault($results)) {
             return redirect('/bad-calls');
         }else {
-            $sessionBack = $results->response->session;
+            if($results->response->retn !== 0) {
+                return redirect()->route('guest.login');
+            }else {
+                $sessionBack = $results->response->session;
+            }
         }
         // dd($sessionBack);
         // sleep(3);   

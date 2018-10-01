@@ -9,7 +9,9 @@ use App\User;
 use Illuminate\Support\Facades\Input;
 
 // Route::get('/', function () { return view('index'); });
-Route::get('/', 'PagesController@index');
+Route::get('/', function(){
+    return view('guest.home');
+});
 
 
 Route::prefix('guest')->group(function () {

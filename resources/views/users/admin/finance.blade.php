@@ -313,3 +313,56 @@
 
 </div>
 @endsection
+@push('scripts')
+
+    <script>
+        let token = "{{ csrf_token() }}";
+        postData(`http://localhost:8000/login-api`, {
+            email:"admin@goenergee.com",
+            passowrd: "admin",
+            _token: token
+        })
+        .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
+        .catch(error => console.error(error));
+
+        function postData(url = ``, data = {}) {
+        // Default options are marked with *
+            return fetch(url, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "no-cors", // no-cors, cors, *same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                // credentials: "same-origin", // include, same-origin, *omit
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    // "Content-Type": "application/x-www-form-urlencoded",
+                },
+                // redirect: "follow", // manual, *follow, error
+                referrer: "no-referrer", // no-referrer, *client
+                body: JSON.stringify(data), // body data type must match "Content-Type" header
+            })
+            .then(response => response.json()); // parses response to JSON
+        }
+        // $.ajax({
+        //     url: "http://localhost:8000/login-api",
+        //     method: "POST",
+        //     crossDomain: true,
+        //     headers: {
+        //         'Access-Control-Allow-Origin':'*',
+        //         'Content-type'
+        //     },
+        //     data: {
+        //         "email":"admin@goenergee.com",
+        //         "passowrd": "admin",
+        //         "_token": token
+        //     },
+        //     success: (data) => {
+        //         console.log(data);
+        //     },
+        //     error: (err) => {
+        //         console.log(err);
+        //     }
+        // });
+    
+    </script>
+    
+@endpush
