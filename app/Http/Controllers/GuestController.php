@@ -27,7 +27,6 @@ class GuestController extends Controller
 		$soap->startSession();
     	switch ($name) {
 			case $name === "prepaid-meters":
-			
     			return view('guest/prepaid');
     		case $name === "postpaid-meters":
     			return view('guest/postpaid');

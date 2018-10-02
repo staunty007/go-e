@@ -206,6 +206,12 @@
                                 <span class="nav-label">CRM</span>
                             </a>
                         </li>
+                        <li>
+                        <a href="{{ route('admin.tickets' )}}">
+                                <i class="fa fa-ticket"></i>
+                                <span class="nav-label">Support Tickets</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>

@@ -117,7 +117,15 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('meter-request', 'AccountController@meterRequest')->name('meter.request');
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
+    Route::prefix('tickets')->group(function() {
+        Route::get('/all','TicketsController@customerTickets')->name('customer.tickets');
+        Route::get('/view/{ticket}','TicketsController@showTicket')->name('show-ticket');
+        Route::get('new-ticket','TicketsController@openTicket')->name('customer.open-ticket');
+        Route::post('new-ticket','TicketsController@storeTicket');
+    });
 });
+
+Route::post('/comment','TicketsController@commentTicket')->name('ticket.comment');
 
 // Admin
 Route::prefix('backend')->group(function () {
@@ -148,6 +156,11 @@ Route::prefix('backend')->group(function () {
     Route::get('income','AdminController@income')->name('admin.income');
     Route::get('customerlist','AdminController@customerlist')->name('admin.customerlist');
     Route::get('managecustomers','AdminController@managecustomers')->name('admin.managecustomers');
+    Route::prefix('tickets')->group(function() {
+        Route::get('/all-tickets','TicketsController@adminTickets')->name('admin.tickets');
+        Route::get('/view/{ticket}','TicketsController@adminShowTicket')->name('admin.show-ticket');
+        Route::post('close-ticket/{ticket}','TicketsController@closeTicket')->name('close-ticket');
+    });
 });
 
 Route::prefix('agent')->group(function() {

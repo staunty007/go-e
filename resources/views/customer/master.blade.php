@@ -95,6 +95,9 @@
                         <li class="{{ Request::is('customer/meter-request') ? 'active' :'' }}"><a href="{{ route('meter.request') }}"><i
                                     class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
                         </li>
+                        <li class="{{ Request::is('customer/tickets') ? 'active' :'' }}"><a href="{{ route('customer.tickets') }}"><i
+                                    class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
+                        </li>
                         <li class="{{ Request::is('customer/profile') ? 'active' :'' }}">
                             <a href="{{ route('customer.profile') }}">
                                 <i class="fa fa-podcast"></i> <span class="nav-label">My Profile</span>
@@ -184,6 +187,7 @@
                     @endforeach
                 </div>
                 @endif
+                <br>
                 @yield('customer-section')
                 <div class="footer">
 

@@ -31,7 +31,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * User - Customer Data Relationship
+     * User ----- Customer Data Relationship
      */
     public function customer()
     {
@@ -40,5 +40,15 @@ class User extends Authenticatable
 
     public function agent() {
         return $this->hasOne(AgentBiodata::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(TicketComment::class);
     }
 }
