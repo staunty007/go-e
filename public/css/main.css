@@ -1,3 +1,4 @@
+
 body{
 	
 	font-family: 'Ubuntu', sans-serif;	
@@ -64,7 +65,6 @@ body{
 	
 	.carousel-inner img{
 		height: 240px;
-	
 	}
 	
 	.navbar{
@@ -98,21 +98,100 @@ body{
 		text-align:center;
 		font-weight:bold;
 	}
-	.grad-box{
+		.col-md-6 {
+		margin: 0px 0px;
+		padding: 0px 0px;
+	}
+	.hrad-box{
+		padding:30px 20px;
+		background:linear-gradient(45deg, #a9191e, #ff0404);
+		border-radius:5%;
+		border:none;
+		margin: 0px 0px;
+		 
+		min-height: 138px;
+		box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
+		font-weight:bold;
+		z-index:20;
+	}
+	/* .hrad-box:hover{
+		transition: ease-in-out;
+		transition-duration: 300ms;
+		box-shadow: 0px 1px 1px rgb(32, 32, 32);
+		padding:30px 20px;
+		background:linear-gradient(45deg, #a9191e, #ff0404);
+		border-radius:5%;
+		border:none;
+		margin: 0px 0px;
+		max-width: ; 
+		min-height: 141px;
+		box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
+		font-weight:bold;
+		z-index:20;
+	} */
+	.loud{
+		padding-top: 15px;
+		padding-bottom: 10px;
+		line-height: 2px;
+	}
+	/* .mad-box:hover{
+		transition: ease-in-out;
+		transition-duration: 300ms;
+		box-shadow: 0px 1px 4px rgb(32, 32, 32);
 		padding:30px 220px;
+		background:linear-gradient(45deg, #309b2c, #309b2c);
+		border-radius:5%;
+		border:none;
+		margin: 0px 0px;
+		max-width: ; 
+		max-height: 141px;
+		box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
+		font-weight:bold;
+		z-index:20;
+	} */
+	.mad-box{
+		padding:30px 20px;
+		background:linear-gradient(45deg, #309b2c, #309b2c);
+		border-radius:5%;
+		border:none;
+		margin: 0px 0px;
+		padding: 2px 2px 2px;
+		max-height: 141px;
+		box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
+		font-weight:bold;
+		z-index:20;
+	}
+	.grad-box{
+		
+		background:linear-gradient(45deg, #a9191e, #ff0404);
+		border-radius:5%;
+		border:none;
+		margin: 0px 0px;
+		
+		max-width: 300px;
+		max-height: 111px;
+		box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
+		font-weight:bold;
+		z-index:20;
+	}
+	.grad1-box{
+		padding:10px 10px;
 		background:linear-gradient(45deg, #a9191e, #ff0404);
 		border-radius:5%;
 		border:none; 
 		box-shadow:0 4px 7px 0px rgba(0, 0, 0, 0.2);
 		font-weight:bold;
 		z-index:20;
+		padding: 2px 2px 2px;
 	}
+	
 	
 	.grad-box i {
 		display:block;
 		color:white;
 		font-size:25px;
 		margin-bottom:4px;
+		padding: 0px 0px 0px;
 	}
 	
 	.grad-box a{
@@ -450,6 +529,9 @@ body{
 .modal-backdrop {
 	position: relative !important;
 }
+.red{
+	min-height: 40px;
+}
 
 .footi {
 	padding: 1em;
@@ -465,3 +547,7 @@ body{
 .services-list-overlay {
 	display: none;
 }
+.fa-cogs{
+	min-height: 40px;
+}
+

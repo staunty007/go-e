@@ -215,7 +215,7 @@
 									</button>	</a>						
 									@endif
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
 									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
 									<i class="fas fa-user-plus"></i>
 										Sign Up
@@ -233,13 +233,13 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
 									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
 									<i class="fas fa-cogs"></i>
 										Support
 									</button></a>
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 0px 5px 5px;">
 									<a href="faq">
 										<button type="button" class="grad-box" style="padding:50px 52px">
 										<i class="fas fa-question-circle"></i>
@@ -252,7 +252,7 @@
 						<!--col-6 ends -->
 						<div class="col-md-7 col-sm-12 col-xs-12 " id="signup-body" style="padding:3px">
 							
-								<div class="user-details sign_up" id="sign-up" style="">
+								<div class="user-details sign_up" id="sign-up" style="border-radius:3%">
 										<form class="form-signin" action="{{route ('signup')}}" method="POST" style="border:1px solid #ccc">
 											{{-- check if referred session is available --}}
 											@if(session('referred'))

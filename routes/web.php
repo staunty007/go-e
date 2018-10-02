@@ -22,6 +22,7 @@ Route::prefix('guest')->group(function () {
     Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
     Route::get('support', 'GuestController@support')->name('guest.support');
     Route::get('agent_reg', 'GuestController@agent_reg')->name('guest.agent_reg');
+    Route::get('faq', 'GuestController@faq')->name('guest.faq');
 });
 
 // agents signup
@@ -36,7 +37,7 @@ Route::post('/meter/api','MeterApiController@validateMeterUser');
 Route::get('/meter/api/','MeterApiController@validateMeterReturn');
 
 Route::get('finalize/{number}/{ref}', function () { return view('finalize'); })->name('finalize');
-Route::get('faq', function () { return view('faq'); });
+// Route::get('faq', function () { return view('faq'); });
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
