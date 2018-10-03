@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddGoenergeeAgentForms extends Migration
+class AddAgentSignupDetailsToAgentsBiodata extends Migration
 {
     /**
      * Run the migrations.
@@ -30,7 +30,7 @@ class AddGoenergeeAgentForms extends Migration
      */
     public function down()
     {
-        Schema::table('agent_biodatas', function (Blueprint $table) {
+        Schema::table('agents_biodata', function (Blueprint $table) {
             //
         });
     }
