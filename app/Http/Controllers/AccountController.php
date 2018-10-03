@@ -108,7 +108,7 @@ class AccountController extends Controller
 
     public function activateAccount($token)
     {
-        if(session()->has('referred'))
+        // if(session()->has('referred'))
         $user = User::where('access_token', $token)->first();
         $user->is_activated = 1;
         $user->save();

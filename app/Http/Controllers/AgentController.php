@@ -17,34 +17,6 @@ class AgentController extends Controller
 {
     private $prefix = "users.agent.";
 
-    //private $view = view($this.pre)
-    /**
-     * Figured Out that this home method isn't functioning 
-     */    
-    // public function home() {
-    //     return $this->v('home');
-    // }
-
-
-    /**
-     * This is method that returns the agent signup form
-     */
-    public function agentSignup()
-    {
-        // replace filename with a file name you created
-        return view($this->prefix.'filenae');
-    }
-
-    /**
-     * This handles when agent form is submitted
-     * This can only be handled by a backend Engineer
-     * @param Request $request
-     * 
-     */
-    public function postAgentSignup(Request $request)
-    {
-        return $request;
-    }
 
     public function v($file) {
         return view($this->prefix.$file);

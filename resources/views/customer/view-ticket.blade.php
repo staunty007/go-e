@@ -29,7 +29,7 @@
                     <div class="comments">
                         @foreach($comments as $comment)
                         
-                        <div class="panel panel-{{ $ticket->user->id === $comment->user_id ? 'default':'success' }}">
+                        <div class="panel panel-{{ $ticket->user->id === $comment->user_id ? 'default':'primary' }}">
                             <div class="panel-heading">
                                 {{ $comment->user->first_name }} 
                                 {{ $comment->user->last_name }} 

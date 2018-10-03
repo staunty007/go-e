@@ -28,7 +28,7 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 		var Tawk_API = Tawk_API || {},
@@ -197,12 +197,15 @@
 						<img src="/images/logo.png">
 						<h4>AGENT REGISTRAION</h4>
 					</div>
+					<form action="" method="POST">
+						{{ csrf_field() }}
 					<div class="col-md-3">
 						<div class="form-group">
 							<label for="name">
 								<b>Name</b>
 							</label>
-							<input type="text" name="name" id="name" class=" input-sm" placeholder="First Name">
+							<input type="text"  name="name" id="name" class="input-sm" placeholder="E.g John Doe" value="{{ old('name') }}">
+							
 						</div>
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3">
@@ -210,7 +213,7 @@
 							<label for="company">
 								<b>Business Name</b>
 							</label>
-							<input type="text" name="company" id="company" class=" input-sm" placeholder="">
+							<input type="text" name="company_name" id="company" class=" input-sm" placeholder="" value="{{ old('company_name') }}">
 
 						</div>
 					</div>
@@ -219,7 +222,7 @@
 							<label for="district">
 								<b>Business District</b>
 							</label>
-							<input type="text" name="district" id="district" class=" input-sm" placeholder="E.g Mushin">
+							<input type="text" name="district" id="district" class=" input-sm" placeholder="E.g Mushin" value="{{ old('district') }}">
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -227,7 +230,12 @@
 							<label for="email">
 								<b>Email Address </b>
 							</label>
-							<input type="email" name="email" id="email" class=" input-sm" placeholder="">
+							<input type="email" name="email" id="email" class="form-control danger" placeholder="" value="{{ old('email') }}">
+							@if($errors->has('email'))
+							<span class="help-block text-danger">
+								<strong>{{ $errors->first('email') }}</strong>
+							</span>
+							@endif
 						</div>
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3">
@@ -235,7 +243,7 @@
 							<label for="tel">
 								<b>Business Telephone</b>
 							</label>
-							<input type="tel" name="tel" id="tel" class=" input-sm" placeholder="">
+							<input type="tel" name="tel" id="tel" class="form-control" placeholder="" value="{{ old('tel') }}">
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -243,16 +251,16 @@
 							<label for="address">
 								<b>Business Address</b>
 							</label>
-							<input type="text" name="address" id="address" class=" input-sm" placeholder="Full Business Address">
+							<input type="text" name="address" id="address" class="form-control" placeholder="Full Business Address" value="{{ old('address') }}">
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
 							<label for="service_outlet">Own an Exisiting Business Outlet </label>
-							<select name="service_outlet" id="service_outlet" required>
+							<select name="service_outlet" id="service_outlet" class="form-control" required>
 								<option value="" selected="selected">- Select -</option>
-								<option value="Yes">Yes</option>
-								<option value="No">No</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
 
 							</select>
 
@@ -261,10 +269,10 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="min_wallet">Can Operate a min Wallet balance of N10,000</label>
-							<select name="min_wallet" id="min_wallet" required>
+							<select name="min_wallet" id="min_wallet" required class="form-control">
 								<option value="" selected="selected">- Select -</option>
-								<option value="Yes">Yes</option>
-								<option value="No">No</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
 
 							</select>
 
@@ -273,10 +281,10 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="tools">Owns Smart phone/ Computer</label>
-							<select name="tools" id="tools" required>
+							<select name="tools" id="tools" required class="form-control">
 								<option value="" selected="selected">- Select -</option>
-								<option value="Yes">Yes</option>
-								<option value="No">No</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
 
 							</select>
 
@@ -284,10 +292,10 @@
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="new_agent_refer">
-								<b>Refer Another Agent</b>
-
-								<input type="email" name="new_agent_refer" id="new_agent_refer" class=" input-sm" placeholder="Insert Email Address">
+							<label for="password">
+								<b>Account Password</b>
+							</label>
+							<input type="password" name="password" id="password" class=" input-sm" placeholder="*********">
 						</div>
 					</div>
 				
@@ -295,7 +303,7 @@
 						
 							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
 							<label class="form-check-label" for="defaultCheck1">
-								I Agrees to the terms and Conditions: (Put Terms & Consitions Here) 
+								I Agree to the terms and Conditions: (Put Terms & Conditions Here) 
 							</label>
 						</div>
 				
@@ -306,11 +314,12 @@
 					
 					</div>
 					<div class="col-md-1">
-						<input type="submit" value="Home" class="btn btn-success btn-block registerBtn">
+						<a href="/" class="btn btn-success btn-block registerBtn">Home</a>
 					</div>
 					
 				</div>
 			</div>
+		</form>
 			<!---log in ends-->
 		</div>
 	</div>
@@ -319,6 +328,23 @@
 	
 	<div class="footi">Powered by <b>GOENERGEE</div>
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	
+	@if(session('success'))
+	<script>
+		$.alert({
+			type: 'green',
+			title: 'Success',
+			content: "{{ session('success') }}",
+			buttons: {
+				okay: {
+					text: 'Okay',
+					btnClass: 'btn-green'
+				}
+			}
+		})
+	</script>
+	@endif
 	<script>
 		var slideIndex = 1;
 		showSlides(slideIndex);
@@ -361,46 +387,7 @@
 		}
 	</script>
 	@include('partials._search-component');
-	<script src="/js/sweetalert.min.js"></script>
-	<script>
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
-		$(".login-btn").click((e) => {
-			e.preventDefault();
-			$('.login-btn').html('Logging In...');
-			var formData = $(".login-form").serialize();
-
-			$.ajax({
-				url: '/account/login',
-				method: 'POST',
-				data: formData,
-				success: (response) => {
-					if (response.sus == 1) {
-						setTimeout(() => {
-							swal('Successful', 'Login Successful', 'success');
-							$(this).prop('disabled', false);
-							setTimeout(() => {
-								window.location.href = '/home';
-							}, 2000);
-						})
-					} else {
-						swal('Ooops!', '' + response.err + '', 'error');
-						$('.login-btn').prop('disabled', false);
-						$('.login-btn').html('Login');
-					}
-				},
-				error: (err) => {
-					$('.login-btn').prop('disabled', false);
-					$('.login-btn').html('Login');
-				}
-			})
-
-		})
-	</script>
+	
 </body>
 
 </html>

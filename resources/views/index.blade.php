@@ -596,16 +596,7 @@
 		</div>
 		<!--main div ends-->
 		</div>
-		<div style="
-		padding: 1em;
-		text-align: center;
-		color: #ffffffd1;
-		background: #111;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		position: fixed;
-		">
+		<div class="footi">
 				
 				Powered by GOENERGEE
 				
