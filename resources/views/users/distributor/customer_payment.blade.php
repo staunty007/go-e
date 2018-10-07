@@ -73,7 +73,7 @@
                                     <thead>
                                         <tr>
 
-
+{{-- 
                                             <th>Timestamp</th>
                                             <th>Trans Ref</th>
                                             <th>Channel</th>
@@ -87,7 +87,7 @@
                                             <th>KwH</th>
                                             <th>Conv. Fee</th>
                                             <th>Commission</th>
-                                            <th>Total</th>
+                                            <th>Total</th> --}}
 
 
 

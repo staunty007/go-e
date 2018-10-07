@@ -184,10 +184,10 @@
 			
 			<!-- main div -->
 			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12" style="z-index:20;">
+				<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
 					<!--divide col-->
 					<div class="row">
-						<div class="col-md-3 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
+						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
 							<!--divide col for buttons-->
 							<div class="row">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
@@ -250,147 +250,63 @@
 							</div>
 						</div>
 						<!--col-6 ends -->
-						<div class="col-md-9 col-sm-12 col-xs-12" style="padding:2px">
+						<div class="col-md-7 col-sm-12 col-xs-12" style="padding:2px">
 							
 							<!--Login div -->
 							<div class="user-details" id="login" style="border-radius:3%">
-								<div class="user-details" id="login" style="">
-                                    <div class="text-center login-title">
-                                        <img src="/images/logo.png">
-                                        <h4>AGENT REGISTRATION</h4>
-                                    </div>
-                                    <form action="" method="POST">
-                                        {{ csrf_field() }}
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="name">
-                                                <b>Name</b>
-                                            </label>
-                                            <input type="text"  name="name" id="name" class="input-sm" placeholder="E.g John Doe" value="{{ old('name') }}">
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <div class="form-group">
-                                            <label for="company">
-                                                <b>Business Name</b>
-                                            </label>
-                                            <input type="text" name="company_name" id="company" class=" input-sm" placeholder="" value="{{ old('company_name') }}">
-                
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <div class="form-group">
-                                            <label for="district">
-                                                <b>Business District</b>
-                                            </label>
-                                            <input type="text" name="district" id="district" class=" input-sm" placeholder="E.g Mushin" value="{{ old('district') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="email">
-                                                <b>Email Address </b>
-                                            </label>
-                                            <input type="email" name="email" id="email" class="form-control danger" placeholder="" value="{{ old('email') }}">
-                                            @if($errors->has('email'))
-                                            <span class="help-block text-danger">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="password">
-                                                <b>Account Password</b>
-                                            </label>
-                                            <input type="password" name="password" id="password" class=" input-sm" placeholder="*********">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <div class="form-group">
-                                            <label for="tel">
-                                                <b>Business Telephone</b>
-                                            </label>
-                                            <input type="tel" name="tel" id="tel" class="form-control" placeholder="" value="{{ old('tel') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="address">
-                                                <b>Business Address</b>
-                                            </label>
-                                            <input type="text" name="address" id="address" class="form-control" placeholder="Full Business Address" value="{{ old('address') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="service_outlet">Own a Business Outlet </label>
-                                            <select name="service_outlet" id="service_outlet" class="form-control" required>
-                                                <option value="" selected="selected">- Select -</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                
-                                            </select>
-                
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="min_wallet"> Have balance of N10k</label>
-                                            <select name="min_wallet" id="min_wallet" required class="form-control">
-                                                <option value="" selected="selected">- Select -</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                
-                                            </select>
-                
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="tools">Own a PC/Phone</label>
-                                            <select name="tools" id="tools" required class="form-control">
-                                                <option value="" selected="selected">- Select -</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                
-                                            </select>
-                
-                                        </div>
-                                    </div>
-                                    
-                                <div class="row">
-                                   
-                                        <div class="col-md-8">
-                                            
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    I Agree to the terms and Conditions: (Put Terms & Conditions Here) 
-                                                </label>
-                                            </div>
-                
-                                    <div class="col-md-2">
-                                        <input type="submit" value="Register" class="btn btn-success btn-block registerBtn">
-                
-                              
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a href="/" class="btn btn-success btn-block registerBtn">Home</a>
-                                    </div>
+								<div style="">
+									<div class="text-center login-title">
+										<h4>WHY BECOME AN AGENT?</h4>
+										{{-- <img src="/images/logo.png"> </div> --}}
+									<div class="account-wall" style="text-align:left;">
+										<hr>
+										Do you want more money in your pocket? <br>
+                    All entrepreneurs build business to make profit. At <b>GOENERGEE,</b> we make it our responsibility to support and bring to you much more.<p>
+                    As an agent, you shall receive our 24/7 support and added incentives to allow you grow your business to a point you have not imagined.<p> We start with you and we shall grow with you. You are guaranteed of a strong business companionship with us.
+                   <p> The <b>GOENERGEE </b>platform will grant you access to thousands of customers so take advantage of the highly attractive sales commission and start making profit.
+										
+									</div>
+									
+                                </div>
+								</div>
+							</div>
+							<!---log in ends-->
+							</div>
+						</div><!---col-md-7 ends -->
+					</div>
+					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+						<div class="user-details" id="login" style="border-radius:3%">
+                            <div style="">
+                                <div class="text-center login-title">
+                                    <h4>HOW TO BECOME AN AGENT </h4>
+                                    {{-- <img src="/images/logo.png"> </div> --}}
+                                <div class="account-wall" style="text-align:left;">
+                                    <hr>
+                                    Any one carrying out legitimate business can be an agent, meeting the minimum requirements below:
+                                    <ul>
+                                        <li>
+                                    Get identified as an agent potential or contact us to indicate interest.
+                                        </li>
+                                    <li>Have a valid business location that is visible or has current patronage.</li>
+                                   <li> Provide personal and business data by filling out our agent registration and contract forms.</li>
+                                    <li>Provide copies of both proof of ID and location documents .</li>
+                                    <li>Pay the initial capital with which you will fund your trading account.</li>
+                                    <li>Get trained, run test transactions and complete the setup (get your location merchandised).</li>
+                                    <li>Kindly call us on (+234)-803-343-6905 or ​send us a mail at customersupport@goenergee.com</li>
+                                   <a href="{{ route('guest.agent_reg') }}">You can become an Agent by filling the agent and contract forms here</a>
+                                    {{-- <li>Note: An Adult is a person who is 18 years old and above.</li> --}}
+                                        </ul>
                                     
                                 </div>
-								
-							
-							<!---log in ends-->
-							
                                 
-					
-					
-			
+                            </div>
+                            </div>
+					</div>
+				</div>
+			</div>
 			<!-- row ends -->	
-	
+		</div>
+		</div>
 
 		</div>
 		<!--main div ends-->

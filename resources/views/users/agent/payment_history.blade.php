@@ -1,6 +1,5 @@
 @extends('layouts.agent') @section('content')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
-             <div class="wrapper wrapper-content">
+            <div class="wrapper wrapper-content">
         <div class="row">
                    <div class="col-lg-4">
                         <div class="ibox float-e-margins">
@@ -39,7 +38,7 @@
                             <div class="ibox-content">
                                 <h1 class="no-margins"><span>&#8358;</span>{{ number_format($allSold) }}</h1>
                                 <!--<div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div>-->
-                                <small>Cumulative Transacted Amount</small>
+                                {{-- <small>Cumulative Transacted Amount</small> --}}
                             </div>
                         </div>
 					</div>
@@ -60,9 +59,9 @@
                 <div class="col-lg-12">
                     <div class="ibox" style="overflow-x: auto">
                         <div class="ibox-content">
-						<table class="table table-striped">
-                            <table class="footable table table-stripped toggle-arrow-tiny" id="myTable">
-							 
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                      
                                 <thead>
                                 <tr>
 
@@ -150,16 +149,38 @@
                 </div>
             </div>
         
-        @push('scripts')
-        <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-        
-        
-        <script>
-            $(document).ready( function () {
-                $('#myTable').DataTable();
-            } );
-        </script>
-        @endpush
+            @endsection
+            @push('scripts')
+            <script>
+                let agentDetails = {!!json_encode(session('agentDetails')) !!
+                };
+                localStorage.setItem('ga_d', JSON.stringify(agentDetails));
+            </script>
 
-        @endsection
+            <!-- ChartJS-->
+   
+
+          <script>
+          // Bar chart
+new Chart(document.getElementById("bar-chart"), {
+type: 'bar',
+data: {
+labels: ["Electricity", "TV Subscription", "Internet/Data", "LCC", "Water Bills"],
+datasets: [
+{
+label: "Sales (Thousands)",
+backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+data: [2478,5267,734,784,433]
+}
+]
+},
+options: {
+legend: { display: false },
+title: {
+display: true,
+text: 'Business Performance across all service Offerings'
+}
+}
+});
+          </script>
+            @endpush

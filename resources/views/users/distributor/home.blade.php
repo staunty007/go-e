@@ -90,9 +90,9 @@
                     <small>Remaining days to finish</small>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-14">
+       
+   
+    <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Financial Performance - GOENERGEE Admin Report
@@ -142,7 +142,7 @@
                 </div>
                 <button type="button" class="btn btn-primary btn-md">Search</button>
 
-            </div>
+          
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
