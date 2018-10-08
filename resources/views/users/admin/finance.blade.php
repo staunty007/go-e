@@ -168,8 +168,8 @@
                         <span>&#8358;</span> {{ number_format($data['wallet_balance']) }}</h1>
                     
                     
-                    {{-- <small>Admin Wallet is </small>50%
-                        of Agent Wallet  --}}
+                    <small>Operating Wallet Amount Left  with EKEDC</small>
+                       
                 </div>
             </div>
         </div>
@@ -177,7 +177,7 @@
     <div class="col-lg-14">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Financial Performance - GOENERGEE Admin Report
+                <h4>Financial Performance - GOENERGEE Admin Report</h4>
             </div>
             <div class="ibox-content m-b-sm border-bottom">
                 {{-- <div class="row">
@@ -227,77 +227,77 @@
             </div> --}}
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox">
-                        <div class="ibox-content">
+                        <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                   
+                                    <div class="ibox-content">
+        
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                <thead>
+                                                        <tr>
 
-                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="5">
-                                <thead>
-                                    <tr>
-
-                                        <th>S/N</th>
-                                        <th data-hide="phone"># Customer base</th>
-                                        <th data-hide="phone"># of Agents</th>
-                                        <th data-hide="phone">Average Transaction</th>
-                                        <th data-hide="phone">Average Daily Energy Usage</th>
-                                        <th data-hide="phone"># of Post Paid Users</th>
-                                        <th data-hide="phone"># of Prepaid Users</th>
-                                        <th data-hide="phone">Avg Daily Profit</th>
-                                        <th data-hide="phone">Avg Previous Monthly Sales</th>
-                                        {{-- <th data-hide="phone"># Issues Reported</th>
-                                        <th data-hide="phone">% of Issue Resolved</th> --}}
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                           {{ $data['customers'] }}
-                                        </td>
-                                        <td>
-                                            {{ $data['agents']}}
-                                        </td>
-                                        <td>
-                                            ₦{{ round($data['avg_transaction'],2)}}
-                                        </td>
-                                        <td>
-                                            140KwH
-                                        </td>
-                                        <td>
-                                            {{ $data['postpaid_users']}}
-                                        </td>
-
-                                        <td>
-                                                {{ $data['prepaid_users']}}
-                                        </td>
-                                        <td>
-                                            ₦{{ number_format($data['avg_daily_p'])}}
-                                        </td>
-                                        <td>
-                                            ₦ {{ number_format($data['avgMonthlySales'])}}
-                                        </td>
-                                        {{-- <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            98%
-                                        </td> --}}
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="7">
-                                            <ul class="pagination pull-right"></ul>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-
-                        </div>
-                    </div>
+                                                                <th>S/N</th>
+                                                                <th data-hide="phone"># Customer base</th>
+                                                                <th data-hide="phone"># of Agents</th>
+                                                                <th data-hide="phone">Average Transaction</th>
+                                                                <th data-hide="phone">Average Daily Energy Usage</th>
+                                                                <th data-hide="phone"># of Post Paid Users</th>
+                                                                <th data-hide="phone"># of Prepaid Users</th>
+                                                                <th data-hide="phone">Avg Daily Profit</th>
+                                                                <th data-hide="phone">Avg Previous Monthly Sales</th>
+                                                                {{-- <th data-hide="phone"># Issues Reported</th>
+                                                                <th data-hide="phone">% of Issue Resolved</th> --}}
+                        
+                        
+                                                            </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeX">
+                                                            <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                   {{ $data['customers'] }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $data['agents']}}
+                                                                </td>
+                                                                <td>
+                                                                    ₦{{ round($data['avg_transaction'],2)}}
+                                                                </td>
+                                                                <td>
+                                                                    140KwH
+                                                                </td>
+                                                                <td>
+                                                                    {{ $data['postpaid_users']}}
+                                                                </td>
+                        
+                                                                <td>
+                                                                        {{ $data['prepaid_users']}}
+                                                                </td>
+                                                                <td>
+                                                                    ₦{{ number_format($data['avg_daily_p'])}}
+                                                                </td>
+                                                                <td>
+                                                                    ₦ {{ number_format($data['avgMonthlySales'])}}
+                                                                </td>
+                                                                {{-- <td>
+                                                                    3
+                                                                </td>
+                                                                <td>
+                                                                    98%
+                                                                </td> --}}
+                                                    </tr>
+                                                   
+                                                </tfoot>
+                                            </table>
+                                        </div>
+        
+                                    </div>
+                                </div>
+                            </div>
+                    
                 </div>
             </div>
             

@@ -48,7 +48,7 @@
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                        Financial Performance – Distribution Company
+                        Financial Performance for GOENERGEE
                 </div>
                 <div class="ibox-content m-b-sm border-bottom">
                     {{-- <div class="row">
@@ -96,23 +96,24 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox">
-                            <div class="ibox-content" style="overflow-x: auto">
+                           
                                 
-                                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="10" id="myTable">
-    
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                          
                                         <thead>
                                             <tr>
     
     
-                                                <th>Timestamp</th>
-                                                <th>Trans Ref</th>
+                                                <th>Time</th>
+                                                <th>Ref</th>
                                                 <th>Channel</th>
-                                                <th>Customer Type</th>
+                                                <th>Type</th>
                                                 <th>Name</th>
                                                 <th>Status</th>
                                                 <th>Meter #</th>
                                                 <th>District</th>
-                                                <th>Amount Paid</th>
+                                                <th>Amount</th>
                                                 <th>TOKEN</th>
                                                 <th>KwH</th>
                                                 <th>Conv. Fee</th>
@@ -139,7 +140,7 @@
                                                 <td>{{ $d->first_name." ". $d->last_name }}</td>
     
                                                 <td>
-                                                    <span class="label label-primary">Successfull</span>
+                                                    <span class="label label-primary">Successful</span>
                                                 </td>
     
                                                 <td>
@@ -199,7 +200,7 @@
     
     
     
-    
+                                </div>
     
     
                     </div>

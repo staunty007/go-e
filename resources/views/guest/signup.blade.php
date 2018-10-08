@@ -2,9 +2,12 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head> 
-	<title>GOENERGEE</title>
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+	<title>GOENERGEE: SIGN UP</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -55,105 +58,108 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
+
 <body class="bg-img" id="banner">
-	    <!--[if lt IE 7]>
+	<!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-		<div class="container">
-			<div class="row" style="margin: 1em 0 3em 0">
-				<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
-					<a href="{{ url('/') }}">
-						<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
-					</a>
-				</div>
-				<div class="col-xs-12 col-md-9 media-query-body col-lg-9 col-sm-12">	
-					<div class="row media-query-row">
-						<div class="col-md-8 col-lg-9 media-query-search">
-							<div class="input-group media-input-group "  style="width: 100%; text-align: right;">
-								<input type="text" class="form-control media-query-input" placeholder="Search" aria-describedby="basic-addon1" style="
+	<div class="container">
+		<div class="row" style="margin: 1em 0 3em 0">
+			<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12">
+				<a href="{{ url('/') }}">
+					<img src="/images/logo.png" class="media-query-logo" height="20" style="margin-top: 1em;">
+				</a>
+			</div>
+			<div class="col-xs-12 col-md-9 media-query-body col-lg-9 col-sm-12">
+				<div class="row media-query-row">
+					<div class="col-md-8 col-lg-9 media-query-search">
+						<div class="input-group media-input-group " style="width: 100%; text-align: right;">
+							<input type="text" class="form-control media-query-input" placeholder="Search" aria-describedby="basic-addon1"
+							 style="
 								width: 60%;
 								float:  right;
 								padding: 1.5em;
 								border-radius:  0;
 								text-align: center;
-								" onkeyup="listServices()" id="searchForm">
-								<button class="btn btn-danger" style="
+								"
+							 onkeyup="listServices()" id="searchForm">
+							<button class="btn btn-danger" style="
 									padding: .7em;
 									border-radius: 0;
 								"><i class="fas fa-search"></i></button>
 
-								<div class="services-list-overlay" style=""></div>
-							</div>
+							<div class="services-list-overlay" style=""></div>
 						</div>
-						<div class="col-md-4 col-lg-3 media-query-social">
-							<div>
-								<a href="#" class="social-top-links">
-									<i class="fab fa-twitter-square"></i>
-								</a>
-								<a href="#" class="social-top-links">
-									<i class="fab fa-linkedin"></i>
-								</a>
-								<a href="#" class="social-top-links">
-									<i class="fab fa-instagram"></i>
-								</a>
-								<a href="#" class="social-top-links">
-									<i class="fab fa-facebook"></i>
-								</a>
-							</div>
+					</div>
+					<div class="col-md-4 col-lg-3 media-query-social">
+						<div>
+							<a href="#" class="social-top-links">
+								<i class="fab fa-twitter-square"></i>
+							</a>
+							<a href="#" class="social-top-links">
+								<i class="fab fa-linkedin"></i>
+							</a>
+							<a href="#" class="social-top-links">
+								<i class="fab fa-instagram"></i>
+							</a>
+							<a href="#" class="social-top-links">
+								<i class="fab fa-facebook"></i>
+							</a>
 						</div>
 					</div>
 				</div>
-					
 			</div>
-			
-			<div class="row media-query-a">
-				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-					<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						<!-- Indicators -->
-						<ol class="carousel-indicators">
-							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-							<li data-target="#myCarousel" data-slide-to="1"></li>
-							
-						</ol>
-						<div class="carousel-inner">
-							<div class="item active">
-								<img src="/images/rev_image/2.png">
-							</div>
-							<div class="item">
-								<img src="/images/rev_image/7.png">
-							</div>
-							{{-- <div class="item">
-								<img src="images/rev_image/3.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/4.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/7.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/8.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/9.png">
-							</div> --}}
-						</div>
 
-						<!-- Left and right controls -->
-						<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-							<span class="glyphicon glyphicon-chevron-left"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="right carousel-control" href="#myCarousel" data-slide="next">
-							<span class="glyphicon glyphicon-chevron-right"></span>
-							<span class="sr-only">Next</span>
-						</a>
+		</div>
+
+		<div class="row media-query-a">
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						<li data-target="#myCarousel" data-slide-to="1"></li>
+
+					</ol>
+					<div class="carousel-inner">
+						<div class="item active">
+							<img src="/images/rev_image/2.png">
+						</div>
+						<div class="item">
+							<img src="/images/rev_image/7.png">
+						</div>
+						{{-- <div class="item">
+							<img src="images/rev_image/3.png">
+						</div>
+						<div class="item">
+							<img src="images/rev_image/4.png">
+						</div>
+						<div class="item">
+							<img src="images/rev_image/7.png">
+						</div>
+						<div class="item">
+							<img src="images/rev_image/8.png">
+						</div>
+						<div class="item">
+							<img src="images/rev_image/9.png">
+						</div> --}}
 					</div>
+
+					<!-- Left and right controls -->
+					<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#myCarousel" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="sr-only">Next</span>
+					</a>
 				</div>
 			</div>
-			<ul class="nav-ul">
-					<style>
-							.nav-item {
+		</div>
+		<ul class="nav-ul">
+			<style>
+				.nav-item {
 					padding: 10px;
 					background: #ed5565;
 					margin-right: 20px;
@@ -163,296 +169,302 @@
 					/* flex-flow: column; */
 			}	
 						</style>
-				<li class="nav-item item">
-						<i class="fas fa-user-circle"></i>
-					<a class="nav-link" href="{{ route('guest.login') }}">Sign In</a>
-				</li>
-				<li class="nav-item item">
-						<i class="far fa-credit-card"></i>
-					<a class="nav-link" href="{{ route('guest.services') }}">Make Payment</a>
-				</li>
-				<li class="nav-item item">
-						<i class="fas fa-cogs"></i>
-					<a class="nav-link disabled" href="{{ route('guest.support') }}">Support</a>
-				</li>
-				<li class="nav-item item">
-						<i class="fas fa-question-circle"></i>
-					<a class="nav-link" href="faq">FAQ</a>
-				</li>
-			</ul>
-			
-			
-			<!-- main div -->
-			<div class="row">
-				<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
-					<!--divide col-->
-					<div class="row">
-						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
-							<!--divide col for buttons-->
-							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									@if (Auth::check())
-									<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
-										<i class="fas fa-user-circle"></i>
-										Logout
-									</button>
-									<form method="POST" action="{{ route('logout') }}" id="logout-fm">
-										@csrf
-									</form>
-									<script>
-										let logoutBtn = document.querySelector('#lg-btn');
+			<li class="nav-item item">
+				<i class="fas fa-user-circle"></i>
+				<a class="nav-link" href="{{ route('guest.login') }}">Sign In</a>
+			</li>
+			<li class="nav-item item">
+				<i class="far fa-credit-card"></i>
+				<a class="nav-link" href="{{ route('guest.services') }}">Make Payment</a>
+			</li>
+			<li class="nav-item item">
+				<i class="fas fa-cogs"></i>
+				<a class="nav-link disabled" href="{{ route('guest.support') }}">Support</a>
+			</li>
+			<li class="nav-item item">
+				<i class="fas fa-question-circle"></i>
+				<a class="nav-link" href="faq">FAQ</a>
+			</li>
+		</ul>
+
+
+		<!-- main div -->
+		<div class="row">
+			<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
+				<!--divide col-->
+				<div class="row">
+					<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
+						<!--divide col for buttons-->
+						<div class="row">
+							<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								@if (Auth::check())
+								<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
+									<i class="fas fa-user-circle"></i>
+									Logout
+								</button>
+								<form method="POST" action="{{ route('logout') }}" id="logout-fm">
+									@csrf
+								</form>
+								<script>
+									let logoutBtn = document.querySelector('#lg-btn');
 										let logoutForm = document.querySelector("#logout-fm");
 										logoutBtn.addEventListener('click', (e) => {
 											e.preventDefault();
 											logoutForm.submit();
 										});
 									</script>
-									@else
-									<a href="{{ route('guest.login') }}">
+								@else
+								<a href="{{ route('guest.login') }}">
 									<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
-									<i class="fas fa-user-circle"></i>
+										<i class="fas fa-user-circle"></i>
 										Login
-									</button>	</a>						
-									@endif
-								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
-									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
-									<i class="fas fa-user-plus"></i>
+									</button> </a>
+								@endif
+							</div>
+							<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
+								<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
+										<i class="fas fa-user-plus"></i>
 										Sign Up
 									</button></a>
-								</div>
 							</div>
-							<div class="row" style="padding:0px;">
-								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
-									<div style="text-align:center;">
-										<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;" class="grad-boxa">
-												<i class="far fa-credit-card"></i>
-												Make Payment
+						</div>
+						<div class="row" style="padding:0px;">
+							<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
+								<div style="text-align:center;">
+									<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
+										 class="grad-boxa">
+											<i class="far fa-credit-card"></i>
+											Make Payment
 										</button></a>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
-									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
-									<i class="fas fa-cogs"></i>
-										Support
-									</button></a>
-								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 0px 5px 5px;">
-									<a href="faq">
-										<button type="button" class="grad-box" style="padding:50px 52px">
-										<i class="fas fa-question-circle"></i>
-											FAQ
-										</button>
-									</a>
 								</div>
 							</div>
 						</div>
-						<!--col-6 ends -->
-						<div class="col-md-7 col-sm-12 col-xs-12 " id="signup-body" style="padding:3px">
-							
-								<div class="user-details sign_up" id="sign-up" style="border-radius:3%">
-										<form class="form-signin" action="{{route ('signup')}}" method="POST" style="border:1px solid #ccc">
-											{{-- check if referred session is available --}}
-											@if(session('referred'))
-												<input type="hidden" name="referred" value="{{ session('referred') }}">
-											@endif
-											<div style="padding:10px;">
-												<div class="text-center login-title">
-													<h4>SIGN UP ON</h4>
-													<img src="/images/logo.png"> </div>
-												<p style="text-align:center">Please fill in this form to create an account.</p>
-												<hr>
-												<div class="row">
-													<div class="col-xs-6 col-sm-6 col-md-6">
-														<div class="form-group">
-															<label for="first_name">
-																<b>First Name</b>
-															</label>
-															<input type="text" name="first_name" id="first_name" class=" input-sm" placeholder="First Name">
-														</div>
-													</div>
-													<div class="col-xs-6 col-sm-6 col-md-6">
-														<div class="form-group">
-															<label for="last_name">
-																<b>Last Name</b>
-															</label>
-															<input type="text" name="last_name" id="last_name" class=" input-sm" placeholder="Last Name">
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="email">
-														<b>Email</b>
-													</label>
-													<input type="email" name="email" id="email" class="input-sm" placeholder="Email Address">
-												</div>
-												<div class="form-group">
-													<label for="mobile">
-														<b>Phone Number</b>
-													</label>
-													<input type="text" name="mobile" id="mobile" class="input-sm" placeholder="Phone Number">
-												</div>
-												<div class="row">
-													<div class="col-xs-6 col-sm-6 col-md-6">
-														<div class="form-group">
-															<label for="password">
-																<b>Password</b>
-															</label>
-															<input type="password" name="password" id="password" class="input-sm" placeholder="Password">
-														</div>
-													</div>
-													<div class="col-xs-6 col-sm-6 col-md-6">
-														<div class="form-group">
-															<label for="password_confirmation">
-																<b>Confirm Password</b>
-															</label>
-															<input type="password" name="password_confirmation" id="password_confirmation" class="input-sm" placeholder="Confirm Password">
-														</div>
-													</div>
-												</div>
-												<label>
-													<input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-												</label>
-												<p style="text-align:center; font-size:13px;margin-top:1px;"> Sign Up with:</p>
-												<p style="text-align:center; margin-top:-5px;">
-													<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
-														<i class="fab fa-facebook-f"></i>
-													</a>
-													<a class="btn btn-primary social-login-btn " href="{{ url('/login/twitter') }}" style="background-color:#28a9e0;">
-														<i class="fab fa-twitter"></i>
-													</a>
-													<a class="btn btn-primary social-login-btn " href="{{ url('/login/linkedin') }}" style="background-color:#0b78b6;">
-														<i class="fab fa-linkedin-in"></i>
-													</a>
-													<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
-														<i class="fab fa-google-plus-g"></i>
-													</a>
-												</p>
-												<input type="submit" value="Register" class="btn btn-success btn-block registerBtn">
-											</div>
-										</form>
-									</div>
-									<!--Sign up ends -->
-
-
-
-
-									
-							
+						<div class="row">
+							<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
+								<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+										<i class="fas fa-cogs"></i>
+										Support
+									</button></a>
 							</div>
-						</div><!---col-md-7 ends -->
+							<div class="col-md-6 col-xs-6" style="padding:0px 0px 5px 5px;">
+								<a href="faq">
+									<button type="button" class="grad-box" style="padding:50px 52px">
+										<i class="fas fa-question-circle"></i>
+										FAQ
+									</button>
+								</a>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
-						<img src="/images/12.png" class='img-responsive side-img'>
+					<!--col-6 ends -->
+					<div class="col-md-7 col-sm-12 col-xs-12 " id="signup-body" style="padding:3px">
+
+						<div class="user-details sign_up" id="sign-up" style="border-radius:3%">
+							<form class="form-signin" action="{{route ('signup')}}" method="POST" style="border:1px solid #ccc">
+								{{-- check if referred session is available --}}
+								@if(session('referred'))
+								<input type="hidden" name="referred" value="{{ session('referred') }}">
+								@endif
+								<div style="padding:10px;">
+									<div class="text-center login-title">
+										<h4>SIGN UP ON</h4>
+										<img src="/images/logo.png">
+									</div>
+									<p style="text-align:center">Please fill in this form to create an account.</p>
+									<hr>
+									<div class="row">
+										<div class="col-xs-6 col-sm-6 col-md-6">
+											<div class="form-group">
+												<label for="first_name">
+													<b>First Name</b>
+												</label>
+												<input type="text" name="first_name" id="first_name" class=" input-sm" placeholder="First Name">
+											</div>
+										</div>
+										<div class="col-xs-6 col-sm-6 col-md-6">
+											<div class="form-group">
+												<label for="last_name">
+													<b>Last Name</b>
+												</label>
+												<input type="text" name="last_name" id="last_name" class=" input-sm" placeholder="Last Name">
+											</div>
+										</div>
+									
+									<div class="col-xs-6 col-sm-6 col-md-6">
+										<div class="form-group">
+											<label for="email">
+												<b>Email</b>
+											</label>
+											<input type="email" name="email" id="email" class="input-sm" placeholder="Email Address">
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6">
+										<div class="form-group">
+											<label for="mobile">
+												<b>Phone Number</b>
+											</label>
+											<input type="text" name="mobile" id="mobile" class="input-sm" placeholder="Phone Number">
+										</div>
+									</div>
+
+									<div class="col-xs-6 col-sm-6 col-md-6">
+										<div class="form-group">
+											<label for="password">
+												<b>Password</b>
+											</label>
+											<input type="password" name="password" id="password" class="input-sm" placeholder="Password">
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6">
+										<div class="form-group">
+											<label for="password_confirmation">
+												<b>Confirm Password</b>
+											</label>
+											<input type="password" name="password_confirmation" id="password_confirmation" class="input-sm" placeholder="Confirm Password">
+										</div>
+									</div>
+								</div>
+								<label>
+									<input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+								</label>
+								<p style="text-align:center; font-size:13px;margin-top:1px;"> Sign Up with:</p>
+								<p style="text-align:center; margin-top:-5px;">
+									<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
+										<i class="fab fa-facebook-f"></i>
+									</a>
+									<a class="btn btn-primary social-login-btn " href="{{ url('/login/twitter') }}" style="background-color:#28a9e0;">
+										<i class="fab fa-twitter"></i>
+									</a>
+									<a class="btn btn-primary social-login-btn " href="{{ url('/login/linkedin') }}" style="background-color:#0b78b6;">
+										<i class="fab fa-linkedin-in"></i>
+									</a>
+									<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
+										<i class="fab fa-google-plus-g"></i>
+									</a>
+								</p>
+								<input type="submit" value="Register" class="btn btn-success btn-block registerBtn">
+						</div>
+						</form>
 					</div>
+					<!--Sign up ends -->
+
+
+
+
+
+
 				</div>
 			</div>
-			<!-- row ends -->
-		
-			
-			<script>
-				
-				$('document').ready(function () {
-					if (window.location.hash == "#prepaid-meter") {
-						$('.prepaid-modal').modal('toggle', {
-							backdrop: false
-						});
-						// console.log(window.location.hash);
-					}
+			<!---col-md-7 ends -->
+		</div>
+		<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+			<img src="/images/12.png" class='img-responsive side-img'>
+		</div>
+	</div>
+	</div>
+	<!-- row ends -->
+
+
+	<script>
+		$('document').ready(function () {
+			if (window.location.hash == "#prepaid-meter") {
+				$('.prepaid-modal').modal('toggle', {
+					backdrop: false
 				});
-			</script>
-			
-		</div>
-		</div>
-
-		</div>
-		<!--main div ends-->
-		</div>
-		<div class="footi">Powered by GOENERGEE</div>
-		</div>
-		@include('partials._search-component')
-		<script>
-			var slideIndex = 1;
-			showSlides(slideIndex);
-
-			function plusSlides(n) {
-				showSlides(slideIndex += n);
+				// console.log(window.location.hash);
 			}
+		});
+	</script>
 
-			function currentSlide(n) {
-				showSlides(slideIndex = n);
+	</div>
+	</div>
+
+	</div>
+	<!--main div ends-->
+	</div>
+	<div class="footi">Powered by GOENERGEE</div>
+	</div>
+	@include('partials._search-component')
+	<script>
+		var slideIndex = 1;
+		showSlides(slideIndex);
+
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
+
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("dot");
+			if (n > slides.length) {
+				slideIndex = 1
 			}
-
-			function showSlides(n) {
-				var i;
-				var slides = document.getElementsByClassName("mySlides");
-				var dots = document.getElementsByClassName("dot");
-				if (n > slides.length) {
-					slideIndex = 1
-				}
-				if (n < 1) {
-					slideIndex = slides.length
-				}
-				for (i = 0; i < slides.length; i++) {
-					slides[i].style.display = "none";
-				}
-				for (i = 0; i < dots.length; i++) {
-					dots[i].className = dots[i].className.replace(" active", "");
-				}
-				slideIndex++;
-				if (slideIndex > slides.length) {
-					slideIndex = 1
-				}
-				for (i = 0; i < dots.length; i++) {
-					dots[i].className = dots[i].className.replace(" active", "");
-				}
-				slides[slideIndex - 1].style.display = "block";
-				dots[slideIndex - 1].className += " active";
-
-				setTimeout(showSlides, 3000); // Change image every 3 seconds
+			if (n < 1) {
+				slideIndex = slides.length
 			}
-		</script>
-		<script src="/js/sweetalert.min.js"></script>
-		<script>
-			
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slideIndex++;
+			if (slideIndex > slides.length) {
+				slideIndex = 1
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " active";
 
-			$(".registerBtn").click((e) => {
-				e.preventDefault();
-				$('.registerBtn').prop('disabled', true);
-				$('.registerBtn').html('Creating Account...');
-				var formdata = $(".form-signin").serialize();
+			setTimeout(showSlides, 3000); // Change image every 3 seconds
+		}
+	</script>
+	<script src="/js/sweetalert.min.js"></script>
+	<script>
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 
-				$.ajax({
-					url: "/account/register",
-					method: "POST",
-					data: formdata,
-					success: (response) => {
-						if (response.sus == 1) {
-							swal('Successful', 'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account', 'success');
-							$(this).prop('disabled', false);
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.registerBtn').prop('disabled', false);
-							$('.registerBtn').html('Sign Up');
-						}
-					},
-					error: (err) => {
-						console.log(err);
+		$(".registerBtn").click((e) => {
+			e.preventDefault();
+			$('.registerBtn').prop('disabled', true);
+			$('.registerBtn').html('Creating Account...');
+			var formdata = $(".form-signin").serialize();
+
+			$.ajax({
+				url: "/account/register",
+				method: "POST",
+				data: formdata,
+				success: (response) => {
+					if (response.sus == 1) {
+						swal('Successful',
+							'Account Registration Successful, We\'ve sent you an email for confirmation to activate your account',
+							'success');
+						$(this).prop('disabled', false);
+					} else {
+						swal('Ooops!', '' + response.err + '', 'error');
 						$('.registerBtn').prop('disabled', false);
 						$('.registerBtn').html('Sign Up');
 					}
-				})
-				
-			})			
-		
-		</script>
-	</body>
+				},
+				error: (err) => {
+					console.log(err);
+					$('.registerBtn').prop('disabled', false);
+					$('.registerBtn').html('Sign Up');
+				}
+			})
 
-	</html>
+		})
+	</script>
+</body>
+
+</html>

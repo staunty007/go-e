@@ -20,6 +20,9 @@ class GuestController extends Controller
 	public function agent_reg(){
     	return view('guest/agent_reg');
 	}
+	public function become_agent(){
+    	return view('guest/become_agent');
+	}
 	public function faq(){
     	return view('guest/faq');
 	}

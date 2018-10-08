@@ -246,13 +246,13 @@
 						
 							
 							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-									<a href="#"><button type="button" class="mad-box" id="support_btn" style="padding:50px 32px">
+									<a href="#"><button type="button" class="grad-boxa" id="support_btn" style="background-color: #fff !important; color: #8CC74E; padding:26px 32px">
 											<i class="fas fa-mobile-alt loud fa-2x"></i><br>
 											Mobile App <br>Coming Soon
 										</button></a>
 								</div>
 								<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-										<a href="{{ route('guest.agent_reg') }}"><button type="button" class="hrad-box" id="support_btn" style="padding:40px 20px">
+										<a href="{{ route('guest.become_agent') }}"><button type="button" class="hrad-box" id="support_btn" style="padding:40px 20px">
 												<i class="fas fa-user-plus fa-2x"></i><br>
 												Agent SignUp
 											</button></a>
