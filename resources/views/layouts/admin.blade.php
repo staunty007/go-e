@@ -2,10 +2,8 @@
 <html>
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <title>GOENERGEE </title>
 
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -181,33 +179,26 @@
                         <li class="{{ Request::is('backend/manage/users/*') ? 'active' :'' || Request::is('backend/manage/agents/*') ? 'active' :'' }}">
                             <a><i class="fa fa-users"></i> <span class="nav-label">User Manager</span> <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li class="{{ Request::is('backend/manage/users/*') ? 'active' :'' }}"><a href="{{ route('users.index') }}">Manage
+                                <li class="{{ Request::is('backend/manage/users/*') || Request::is('backend/manage/users') ? 'active' :'' }}"><a
+                                        href="{{ route('users.index') }}">Manage
                                         Users</a></li>
-                                <li class="{{ Request::is('backend/manage/agents/*') ? 'active' :'' }}"><a href="{{ route('agents.index') }}">Manage
+                                <li class="{{ Request::is('backend/manage/agents/*') || Request::is('backend/manage/agents')? 'active' :'' }}"><a
+                                        href="{{ route('agents.index') }}">Manage
                                         Agents</a></li>
+                                <li class="{{ Request::is('backend/manage/discos/') || Request::is('backend/manage/discos/*') ? 'active' :'' }}"><a
+                                        href="{{ route('discos.index') }}">Manage
+                                        Discos</a></li>
                             </ul>
                         </li>
-                        {{-- <li class="{{$current_route_name =="admin.crm" ? 'active' : ''}}">
-                            <a href="{{route('admin.crm')}}">
-                                <i class="fa fa-envelope"></i>
-                                <span class="nav-label">CRM</span>
-                            </a>
-                            <ul class="nav nav-second-level collapse">
-                                <li class="{{ Request::is('backend/customerlist') ? 'active' :'' }}"><a href="{{ route('admin.customerlist') }}">Customer
-                                        List</a></li>
-                                <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.managecustomers') }}">Manage
-                                        Customer </a></li>
 
-                            </ul>
-                        </li> --}}
                         <li>
-                            <a href="{{ env('TICKETING_ADMIN_URL')}}">
+                            <a href="{{ env('TICKETING_ADMIN_URL') }}">
                                 <i class="fa fa-envelope"></i>
                                 <span class="nav-label">CRM</span>
                             </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.tickets' )}}">
+                            <a href="{{ route('admin.tickets' )}}">
                                 <i class="fa fa-ticket"></i>
                                 <span class="nav-label">Support Tickets</span>
                             </a>
@@ -263,11 +254,7 @@
                                 <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Meter
                                     platform.</span>
                             </li>
-
-
-
                             <li>
-
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
                                     onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';">
                                     <i class="fa fa-sign-out"></i>Logout</a>
@@ -277,24 +264,14 @@
                             </li>
 
                         </ul>
-
                     </nav>
                 </div>
-
                 <div class="wrapper wrapper-content animated fadeIn">
-
                     @yield('content')
-
                 </div>
-
             </div>
-
-
-
-
         </div>
         </div>
-
         <!-- Mainly scripts -->
 
 
@@ -397,7 +374,7 @@
         </script>
         <script>
             $(document).ready(function () {
-    
+
                 var sparklineCharts = function () {
                     $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
                         type: 'line',
@@ -406,7 +383,7 @@
                         lineColor: '#1ab394',
                         fillColor: "transparent"
                     });
-    
+
                     $("#sparkline2").sparkline([32, 11, 25, 37, 41, 32, 34, 42], {
                         type: 'line',
                         width: '100%',
@@ -414,7 +391,7 @@
                         lineColor: '#1ab394',
                         fillColor: "transparent"
                     });
-    
+
                     $("#sparkline3").sparkline([34, 22, 24, 41, 10, 18, 16, 8], {
                         type: 'line',
                         width: '100%',
@@ -423,19 +400,19 @@
                         fillColor: "transparent"
                     });
                 };
-    
+
                 var sparkResize;
-    
+
                 $(window).resize(function (e) {
                     clearTimeout(sparkResize);
                     sparkResize = setTimeout(sparklineCharts, 500);
                 });
-    
+
                 sparklineCharts();
-    
-    
-    
-    
+
+
+
+
                 var data1 = [
                     [0, 4],
                     [1, 8],
@@ -497,7 +474,7 @@
                     grid: {
                         hoverable: true,
                         clickable: true,
-    
+
                         borderWidth: 2,
                         color: 'transparent'
                     },
@@ -506,13 +483,13 @@
                     yaxis: {},
                     tooltip: false
                 });
-    
+
             });
         </script>
         @stack('popups') @stack('scripts')
 
     </body>
 
-    
+
 
 </html>
