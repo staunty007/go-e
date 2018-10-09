@@ -1,0 +1,286 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+    padding-bottom: 3rem;
+    color: #5a5a5a;
+}
+
+.logo-display {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+
+
+
+@media (min-width: 335px) {}
+
+@media (min-width: 335px) {
+    .btnlone {
+        width: 99%;
+    }
+
+    .card {
+        width: 96%;
+    }
+
+    .iconC {
+        width: 70%;
+        height: 70%;
+    }
+
+}
+
+@media (min-width: 415px) {
+    .card {
+        width: 94%;
+    }
+}
+
+@media (max-width: 306px) {
+    .sarch {
+        display: none;
+    }
+}
+
+@media (max-width: 404px) {
+    .card1 {
+        width: 70%;
+        margin-left: 0%;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        font-size: 80%;
+    }
+
+    .textB {
+        text-shadow: 2px darkgray;
+    }
+
+    a {
+        color: white;
+    }
+
+    a:any-link {
+        color: white;
+    }
+
+    a:checked {
+        color: white;
+    }
+
+    a:link {
+        color: white;
+    }
+
+    /* visited link */
+    a:visited {
+        color: white;
+    }
+
+    /* mouse over link */
+    a:hover {
+        color: white;
+    }
+
+    /* selected link */
+    a:active {
+        color: white;
+    }
+
+    .btn-success.outline:hover,
+    .btn-success.outline:focus,
+    .btn-success.outline:active,
+    .btn-success.outline.active,
+    .open>.dropdown-toggle.btn-success {
+        color: #8CC74E;
+        border-color: #8CC74E;
+    }
+
+    .btn-success.outline:active,
+    .btn-success.outline.active {
+        border-color: #8CC74E;
+        color: #8CC74E;
+        box-shadow: none;
+    }
+
+    a.link {
+        color: white;
+    }
+
+    .contentBody {
+        width: 92%;
+    }
+
+    /* .card {
+        background-color: rga(221, 221, 221, 0.5);
+        box-shadow: 2px 3px 3px 2px darkgray;
+    } */
+
+    /* .card1 {
+        background-color: white;
+        background-color: rga(221, 221, 221, 0.5);
+        box-shadow: 1px 1px 1px 1px darkgray;
+        width: 101%;
+        margin-right: 6%;
+        margin-bottom: 4px;
+        text-decoration: none;
+        text-align: justify;
+    }
+
+    .card2:hover {
+        background-color: #8CC74E;
+        text-align: center;
+        box-sizing: content-box;
+        border-style: groove;
+        padding-top: 9px;
+    }
+
+    .card2 {
+        background-color: #8CC74E;
+        text-align: center;
+        box-sizing: content-box;
+        border-style: outset;
+        padding-top: 9px;
+    } */
+
+    /* .btn,
+    btn-primary {
+        padding: 4px 8px;
+    }
+
+    .btn22 {
+        margin-right: 6px;
+        padding: 7px 9px;
+        width: 44%;
+        margin-bottom: 3px;
+        background-color: #fff;
+        color: #8CC74E;
+        font-weight: bolder;
+        box-shadow: 1px 1px 1px 1px darkgray;
+
+    }
+
+    .btn11 {
+        margin-left: 14px;
+    }
+
+    .btn1 {
+        margin-right: 6px;
+        padding: 7px 9px;
+        width: 44%;
+        margin-bottom: 3px;
+        background-color: #fff;
+        color: #8CC74E;
+        font-weight: bolder;
+        box-shadow: 1px 1px 1px 1px darkgray;
+
+    } */
+
+    .carousDiv {
+        max-height: 30px;
+    }
+
+    /* .btn2 {
+        padding: 5px 2px;
+        width: 40%;
+        background-color: #fff;
+        color: #8CC74E;
+        font-weight: bolder;
+        box-shadow: 1px 1px 1px 1px darkgray;
+
+    }
+
+    .card1 {
+        padding: 12px;
+        padding-bottom: 1px;
+        margin-bottom: 8px;
+    } */
+
+    .iconC:hover {
+        box-shadow: 1px 1px 1px 1px darkgray;
+        transition: fast ease-in-out;
+    }
+
+    .iconC {
+        width: 40px;
+        height: 40px;
+    }
+/* 
+    .btnlone {
+        padding: 7px 9px;
+        width: 89%;
+        margin-top: 4px;
+        margin-right: 3px;
+        margin-left: 15px;
+        background-color: #fff;
+        color: #8CC74E;
+        font-weight: bolder;
+        margin-bottom: 6px;
+        box-shadow: 1px 1px 1px 1px darkgray;
+
+    } */
+
+    .forgtPsw {
+        position: absolute;
+        right: 4px;
+    }
+
+    .header {
+        color: black;
+    }
+
+    .logoCls {
+        width: 90%;
+    }
+
+    .logoCls1 {
+        width: 60%;
+    }
+
+    /* .btnlone:hover {
+
+        transition-duration: 100ms;
+        transition-property: ease-in-out;
+        background-color: #fff;
+        color: #8CC74E;
+        box-shadow: 1px 1px 1px 3px darkgray;
+
+    } */
+
+    /* .searchNav {
+        width: 30%;
+        margin-top: 1%;
+        margin-right: 8%;
+        height: 10%;
+    } */
+}
+
+@media (max-width: 321px) {
+    /* .searchNav {
+        width: 40%;
+    } */
+}
+
+@media (min-width: 801px) {
+    body {
+        display: none;
+    }
+}
+
+.card {
+    margin-top: 0.5rem;
+}
+
+.card.card-gradient {
+    background: linear-gradient(60deg, #ee191f, #192a01);
+    color: #fff;
+}

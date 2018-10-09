@@ -247,3 +247,11 @@ Route::prefix('in-app/api')->group(function() {
     Route::get('soap/validate-customer/{number}','TestSoapController@validateCustomer');
     Route::get('soap/charge/{amount}','TestSoapController@chargeWallet');
 });
+
+// Mobile Routes
+Route::prefix('mobile')->group(function(){
+    Route::get('/home','MobileController@index')->name('mobile.home');
+    Route::get('login','MobileController@login')->name('mobile.login');
+    Route::get('sign-up','MobileController@signUp')->name('mobile.sign-up');
+    Route::get('make-payment','MobileController@makePayment')->name('mobile.make-payment');
+});
