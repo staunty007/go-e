@@ -25,6 +25,7 @@ Route::prefix('guest')->group(function () {
     Route::get('become_agent', 'GuestController@become_agent')->name('guest.become_agent');
     Route::post('agent_reg', 'GuestController@postAgentSignup');
     Route::get('faq', 'GuestController@faq')->name('guest.faq');
+  
 });
 
 // agents signup

@@ -10,23 +10,23 @@
 </div>
 <div class="clearfix"></div><br>
 <div class="row">
-<div class="col-lg-12">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            All Tickets 
-        </div>
-        <div class="ibox-content">
-            <table class="table table-responsive" id="myTable">
-                <thead>
-                <tr>
-                    <th>ID #</th>
-                    <th>Title</th>
-                    <th>Status</th>
-                    <th>Category</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach ($tickets as $ticket)
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                All Tickets
+            </div>
+            <div class="ibox-content">
+                <table class="table table-responsive" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>ID #</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tickets as $ticket)
                         <tr>
                             <td>{{ $ticket->ticket_id }}</td>
                             <td>
@@ -41,20 +41,20 @@
                             </td>
                             <td>{{ $ticket->category->name}} </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{-- <center>{{ $payments->links()}}</center> --}}
+                        @endforeach
+                    </tbody>
+                </table>
+                {{-- <center>{{ $payments->links()}}</center> --}}
+            </div>
         </div>
     </div>
-</div>
 </div>
 @stop
 @push('scripts')
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#myTable').DataTable();
-    } );
+    });
 </script>
 @endpush

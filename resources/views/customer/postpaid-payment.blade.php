@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="" style="padding:40px 70px 30px, 30px;">
-                        <h4>Fill in the details to make your
+                        <h4>Fill in the details to make yours
                             <span style="color:#80c636">Postpaid payments</span> here!</h4>
                         <div class="hr-line-dashed"></div>
                         <form action="POST" class="meter">

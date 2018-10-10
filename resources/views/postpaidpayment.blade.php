@@ -87,7 +87,7 @@
                 <div class="col-lg-8 col-md-8 col-md-offset-2 m-auto">
                     <div class="text-center">
                         <img src="/images/ekedc.jpg" width="80"/> 
-                        <span style="font-size: 16px"> Eko Electric Distribution Company </span>
+                        <span style="font-size: 16px"> Eko Electric Distribution Company Ltd</span>
                     </div>
                     <br>
                     <h3 class="text-center font-weight-light">Select a Payment Category</h3><br>

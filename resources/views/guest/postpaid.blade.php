@@ -7,7 +7,7 @@
 <!--<![endif]-->
 
 <head>
-	<title>GOENERGEE</title>
+	<title>GOENERGEE:::Post Paid Billing System</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -27,7 +27,39 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
+
+<!--Start Calculation script-->
+<script type="text/javascript">
+	function num(id) {
+		var e = document.getElementById(id);
+		if (e != null) {
+			var v = e.value;
+			if (/^\\d+$/.test(v)) {
+				return parseInt(v, 10);
+			}
+		}
+		return 0;
+	}
+	function sum() {
+		var subtotal1 = num("subtotal1");
+		var subtotal2 = num("subtotal2");
+		var subtotal3 = num("subtotal3");
+		var subtotal4 = num("subtotal4");
+		var r = document.getElementById("result");
+		if (r != null) {
+			r.value = subtotal1 + subtotal2 + subtotal3 + subtotal4;
+		}
+	}
+	function addHandler(element, eventName, handler) {
+		if (element.addEventListener) {
+			element.addEventListener(eventName, handler, false);
+		} else if (element.attachEvent) {
+			element.attachEvent("on" + eventName, handler);
+		}
+	}
+</script>
+
+<!--End calculation Script-->
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
@@ -253,19 +285,20 @@
 					<!--col-6 ends -->
 
 					<div id="make_payments">
-
+						<img src="/images/ekedc.jpg" width="80" />
+								<span style="font-size: 16px"> Eko Electric Distribution Company </span>
+								
 
 						<div id="postpaid">
-							<h4>Please fill in your details for <span class="holder"></span></h4>
 							<form class="postpay" action="" method="POST">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<div class="form-group">
 											<label for="">Account or Meter Number</label>
 											<input type="text" name="meter_no" class="meterno form-control" value="">
 										</div>
 									</div>
-									<div class="col-md-6">
+									{{-- <div class="col-md-6">
 										<div class="form-group">
 											<label for="">Firstname</label>
 											<input type="text" name="first_name" class="meterno form-control" value="">
@@ -290,13 +323,8 @@
 											<label for="">Phone Number</label>
 											<input type="text" name="mobile" class="mobile form-control" value="">
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="">Convenience Fee</label>
-											<input type="text" name="conv_fee" value="100.00" class="form-control" readonly>
-										</div>
-									</div>
+									</div> --}}
+
 									<div class="clearfix"></div>
 									<div class="col-md-12">
 										{{-- <div class="form-group">
@@ -304,61 +332,83 @@
 											<input type="text" name="amount" placeholder="0.00" class="amount form-control">
 										</div> --}}
 									</div>
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="name2">
 												<input type="checkbox" id="postPaidPaymentCheckbox" />
 												Postpaid Payment
 											</label>
-											<input id="postPaidPaymentInput" placeholder="0.00" class="amount form-control" name="name2" type="number" disabled="disabled" />
+											<input id="postPaidPaymentInput" id="v1" placeholder="0.00" class="amount form-control" name="name2" type="number"
+											 disabled="disabled" onkeyup="calculate()"/>
 											<span class="form-msg" id="form-msg"></span>
 										</div>
+									</div>
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="reconnection">
-												<input type="checkbox" id="reconnectionPaymentCheckbox"/>
+												<input type="checkbox" id="reconnectionPaymentCheckbox" />
 												Reconnection Fee
 											</label>
 
 											<input id="reconnectionPaymentInput" placeholder="0.00" class="amount form-control" name="reconnection" type="number"
-											 disabled="disabled" />
+											 disabled="disabled" onkeyup="calculate()"/>
 										</div>
+									</div>
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="penalties">
 												<input type="checkbox" id="penaltiesPaymentCheckbox" />
 												Penalties
 											</label>
-											<input id="penaltiesPaymentInput" placeholder="0.00" class="amount form-control" name="penalties" type="number" disabled="disabled" />
+											<input id="penaltiesPaymentInput" placeholder="0.00" class="amount form-control" name="penalties" type="number"
+											 disabled="disabled" onkeyup="calculate()" />
 										</div>
+									</div>
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="revenuee">
-												<input type="checkbox" id="revenuePaymentCheckbox"/>
+												<input type="checkbox" id="revenuePaymentCheckbox" />
 												Loss of Revenue
 											</label>
-											<input id="revenuePaymentInput" placeholder="0.00" class="amount form-control" name="revenue" type="number" disabled="disabled" />
+											<input id="revenuePaymentInput" placeholder="0.00" class="amount form-control" name="revenue" type="number"
+											 disabled="disabled" onkeyup="calculate()"/>
 										</div>
-										{{-- <div class="form-group">
-											<label for="total">
-												Total
-											</label>
-											<input id="totalPayment" class="form-control" name="total" type="text"/>
-										</div> --}}
 									</div>
-									<input type="hidden" id="payType" value="" />
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<div class="form-group">
-											<button class="btn btn-block" id="payPostpaid">Continue</button>
+											<label for="">Convenience Fee</label>
+											<input type="text" name="conv_fee" value="100.00" id="conv_fee" onkeyup="calculate()" class="form-control" readonly>
 										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="">Sub Total</label>
+											<input type="text" name="sub_total" value="" id="sub_total" class="form-control" readonly>
+										</div>
+									</div>
+									{{-- <div class="form-group">
+										<label for="total">
+											Total
+										</label>
+										<input id="totalPayment" class="form-control" name="total" type="text" />
+									</div> --}}
+								</div>
+								<input type="hidden" id="payType" value="" />
+								<div class="col-md-12">
+									<div class="form-group">
+										<button class="btn btn-block" id="payPostpaid">Continue</button>
 									</div>
 								</div>
 						</div>
 					</div>
 				</div>
-				<!---col-md-7 ends -->
 			</div>
-			<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
-				<img src="/images/12.png" class='img-responsive side-img'>
-			</div>
+			<!---col-md-7 ends -->
+		
+		<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+			<img src="/images/12.png" class='img-responsive side-img'>
 		</div>
+	</div>
 	</div>
 	<!-- row ends -->
 
@@ -420,18 +470,42 @@
 	<script src="{{ asset('js/app.js') }}"></script>
 	@include('partials._search-component')
 	<script>
-
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-
 	</script>
 	<script src="https://js.paystack.co/v1/inline.js"></script>
 	<script>
 		// Payment Handler
 	</script>
+	<script>
+        var sum = 0;
+        $(document).ready(function () {
+            $('.carousel').carousel();
+            //iterate through each textboxes and add keyup
+            //handler to trigger sum event
+            $(".txt").each(function () {
+                $(this).keyup(function () {
+                    calculateSum();
+                });
+            });
+        });
+        function calculateSum() {
+            var sum = 0;
+            $(".txt").each(function () {
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    var subtotal = parseFloat(this.value) + 100;
+                    sum += subtotal;
+                    jQuery(this).closest('tr').find("td:last input").val(subtotal);
+                }
+            });
+            console.log(sum);
+            $("#totalPayblleAmount").val(sum.toFixed(2));
+            $("#sum").val(sum.toFixed(2));
+        }
+    </script>
 </body>
 
 </html>
