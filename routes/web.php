@@ -137,7 +137,7 @@ Route::prefix('backend')->group(function () {
     });
     Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
     Route::post('login', 'BackendController@userLogin')->name('backend-login');
-
+    Route::get('postpaid_bill', 'AdminController@postpaid_bill')->name('admin.postpaid_bill');
     Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
     Route::get('administrator', 'AdminController@home')->name('admin.home');
     Route::get('finance', 'AdminController@finance')->name('admin.finance');

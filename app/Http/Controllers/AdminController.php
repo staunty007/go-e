@@ -248,6 +248,10 @@ class AdminController extends Controller
     {
         return $this->v('payment_history');
     }
+    public function postpaid_bill()
+    {
+        return $this->v('postpaid_bill');
+    }
 
     public function demographics()
     {
