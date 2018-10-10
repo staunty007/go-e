@@ -7,7 +7,7 @@ use App\AgentBiodata;
 use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
-
+use App\Http\Controllers\TestSoapController;
 // Route::get('/', function () { return view('index'); });
 Route::get('/', function(){
     return view('guest.home');
@@ -67,9 +67,7 @@ Route::get('postpaidpayment', function () {
             $adminDetails = AdminBiodata::where('user_id',1)->first();
             $agentBalance = $loggedDetails->wallet_balance;
             $adminBalance = $adminDetails->wallet_balance;
-            // if($adminBalance < $agentBalance) {
-            //     $violated = "Yes";
-            // }
+
         }
         return view('postpaidpayment-logged')->withUser($loggedDetails)->withViolated($violated);
     }
@@ -137,32 +135,34 @@ Route::prefix('backend')->group(function () {
     });
     Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
     Route::post('login', 'BackendController@userLogin')->name('backend-login');
-    Route::get('postpaid_bill', 'AdminController@postpaid_bill')->name('admin.postpaid_bill');
-    Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
-    Route::get('administrator', 'AdminController@home')->name('admin.home');
-    Route::get('finance', 'AdminController@finance')->name('admin.finance');
-    Route::get('profile', 'AdminController@profile')->name('admin.profile');
-    Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
-    Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
-    Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
-    Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
-    Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
-    Route::get('settings', 'AdminController@settings')->name('admin.settings');
-    Route::get('crm', 'AdminController@crm')->name('admin.crm');
-    Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
-    Route::resource('manage/users','UserManagerController');
-    Route::resource('manage/agents','AgentManagerController');
-    Route::get('finance/admin-income-report','AdminController@adminIncomeReport');
-    Route::get('admin-topup-trackers','AdminController@topupTracker')->name('admin.admin-topup-track');
-    Route::get('agent-topup-trackers','AdminController@agentTopupTracker')->name('admin.agent-topup-track');
-    Route::get('agentsales','AdminController@agentSales')->name('admin.agentsales');
-    Route::get('income','AdminController@income')->name('admin.income');
-    Route::get('customerlist','AdminController@customerlist')->name('admin.customerlist');
-    Route::get('managecustomers','AdminController@managecustomers')->name('admin.managecustomers');
-    Route::prefix('tickets')->group(function() {
-        Route::get('/all-tickets','TicketsController@adminTickets')->name('admin.tickets');
-        Route::get('/view/{ticket}','TicketsController@adminShowTicket')->name('admin.show-ticket');
-        Route::post('close-ticket/{ticket}','TicketsController@closeTicket')->name('close-ticket');
+    Route::middleware('auth')->group(function(){
+        Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
+        Route::get('administrator', 'AdminController@home')->name('admin.home');
+        Route::get('finance', 'AdminController@finance')->name('admin.finance');
+        Route::get('profile', 'AdminController@profile')->name('admin.profile');
+        Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
+        Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
+        Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
+        Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
+        Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
+        Route::get('settings', 'AdminController@settings')->name('admin.settings');
+        Route::get('crm', 'AdminController@crm')->name('admin.crm');
+        Route::get('topup-admin/success/{amount}','AdminController@completeTopup');
+        Route::resource('manage/users','UserManagerController');
+        Route::resource('manage/agents','AgentManagerController');
+        Route::resource('manage/discos','DiscoManagerController');
+        Route::get('finance/admin-income-report','AdminController@adminIncomeReport');
+        Route::get('admin-topup-trackers','AdminController@topupTracker')->name('admin.admin-topup-track');
+        Route::get('agent-topup-trackers','AdminController@agentTopupTracker')->name('admin.agent-topup-track');
+        Route::get('agentsales','AdminController@agentSales')->name('admin.agentsales');
+        Route::get('income','AdminController@income')->name('admin.income');
+        Route::get('customerlist','AdminController@customerlist')->name('admin.customerlist');
+        Route::get('managecustomers','AdminController@managecustomers')->name('admin.managecustomers');
+        Route::prefix('tickets')->group(function() {
+            Route::get('/all-tickets','TicketsController@adminTickets')->name('admin.tickets');
+            Route::get('/view/{ticket}','TicketsController@adminShowTicket')->name('admin.show-ticket');
+            Route::post('close-ticket/{ticket}','TicketsController@closeTicket')->name('close-ticket');
+        }); 
     });
 });
 
@@ -246,4 +246,12 @@ Route::get('register', function() {
 Route::prefix('in-app/api')->group(function() {
     Route::get('soap/validate-customer/{number}','TestSoapController@validateCustomer');
     Route::get('soap/charge/{amount}','TestSoapController@chargeWallet');
+});
+
+// Mobile Routes
+Route::prefix('mobile')->group(function(){
+    Route::get('/home','MobileController@index')->name('mobile.home');
+    Route::get('login','MobileController@login')->name('mobile.login');
+    Route::get('sign-up','MobileController@signUp')->name('mobile.sign-up');
+    Route::get('make-payment','MobileController@makePayment')->name('mobile.make-payment');
 });

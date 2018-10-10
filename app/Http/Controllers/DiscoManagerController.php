@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\CustomerBiodata;
-use DB;
-use Carbon\Carbon;
-class UserManagerController extends Controller
+
+class DiscoManagerController extends Controller
 {
-    private $prefix = "users.admin.customers.";
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +14,7 @@ class UserManagerController extends Controller
     public function index()
     {
         // Fetch all customers
-        $users = User::where('role_id',0)->with('customer')->get();
+        $users = User::where('role_id',3)->with('customer')->get();
         return view($this->prefix.'index', compact('users'));
     }
 
@@ -29,7 +25,7 @@ class UserManagerController extends Controller
      */
     public function create()
     {
-        return view($this->prefix.'create');
+        //
     }
 
     /**
@@ -40,33 +36,7 @@ class UserManagerController extends Controller
      */
     public function store(Request $request)
     {
-        // check if email address is not registered already
-        $request->validate([
-            'email' => 'required|email|unique:users'
-        ]);
-        // Insert into database and return the id
-        $userId = DB::table('users')->insertGetId([
-            'role_id' => 0,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'password' => bcrypt('password'),
-            'is_activated' => $request->activated == 1 ? 1 : 0,
-            'created_at' => new Carbon('now'),
-            'updated_at' => new Carbon('now')
-        ]);
-        
-        // Insert into Customer Biodata
-        $updatebio = DB::table('customer_biodatas')->insert([
-            'user_id' => $userId,
-            'address' => $request->address
-        ]);
-        
-        if($updatebio) {
-            $request->session()->flash('Customer Created Successfully');
-            return redirect()->route('users.index');
-        }
+        //
     }
 
     /**

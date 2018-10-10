@@ -18,7 +18,7 @@ class TestSoapController extends Controller
         // Get Partner details
         $partner = $this->partnerDetails();
         // // Instnatiate the SOAPCLient
-        $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+        $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         //makes the soap call and passes the required parameters
         $results = $client->__soapCall("startSession",  
             array( "startSession" => 
@@ -45,7 +45,7 @@ class TestSoapController extends Controller
         // dd($sessionBack);
         // sleep(3);   
         
-        $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+        $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
         $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', "sessionId", $sessionBack);
         // Pass headers
@@ -77,7 +77,7 @@ class TestSoapController extends Controller
         $sessionId = session()->get('TAMSES');
         // dd($sessionId);
         // Instantiate the SOAPCLient
-        $client = new \SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+        $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         // Set Headers for the soap client
         $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId',$sessionId);
         // Pass headers
@@ -100,7 +100,7 @@ class TestSoapController extends Controller
     // charge wallet
     public function chargeWallet($amount,$meter) {
 
-        $client = new SoapClient('http://dev2.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0));
+        $client = new SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0));
 
         $sessionId = session()->get('TAMSES');
 

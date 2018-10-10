@@ -10,7 +10,8 @@ use App\Mail\AccountActivation;
 class GuestController extends Controller
 {
     //
-    public function guestLogIn(){
+    public function guestLogIn(TestSoapController $soap){
+		// $soap->startSession();
     	return view('guest/login');
     }
     public function guestSignUp(){

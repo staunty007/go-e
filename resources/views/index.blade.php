@@ -10,6 +10,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
