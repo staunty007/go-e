@@ -88,8 +88,10 @@
                             <ul class="nav nav-second-level collapse">
                                 <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
                                         Payment</a></li>
-                                <li><a href="{{ route('postpaid') }}" target="_blank">Postpaid Payment</a></li>
-                            </ul>
+                                <li><a href="{{ route('postpaid') }}">Postpaid Payment</a></li>
+                            
+                              
+                                </ul>
                         </li>
 
                         <li class="{{ Request::is('customer/meter-request') ? 'active' :'' }}"><a href="{{ route('meter.request') }}"><i

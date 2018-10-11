@@ -113,12 +113,16 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::post('profile/update','AccountController@updateProfile')->name('customer.update-profile');
     Route::get('prepaid-payment', 'AccountController@prepaidPayment')->name('customer.prepaid-payment');
     Route::get('postpaid-payment', 'AccountController@postpaidPayment')->name('customer.postpaid-payment');
+    
     Route::get('payment-frame','AccountController@paymentFrame');
     Route::post('prepaid-payment', 'AccountController@postPrepaidPayment');
     Route::post('postpaid-payment', 'AccountController@postPostpaidPayment');
     Route::get('meter-request', 'AccountController@meterRequest')->name('meter.request');
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
+    //postpaid-new
+    Route::get('postpaid_new', 'AccountController@postpaid_new')->name('postpaid_new-history');
+    //end post paid new
     Route::prefix('tickets')->group(function() {
         Route::get('/all','TicketsController@customerTickets')->name('customer.tickets');
         Route::get('/view/{ticket}','TicketsController@showTicket')->name('show-ticket');

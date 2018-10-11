@@ -256,7 +256,7 @@
 						<div id="make_payments">
 
 							<div class="text-center login-title">
-								<img src="/images/logo.png"><br><br>
+								<img src="/images/logo.png">
 							</div>
 							<h4 class="text-center">Choose From our Variety of Categories</h4>
 							{{-- Categories --}}

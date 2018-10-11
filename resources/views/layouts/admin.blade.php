@@ -178,12 +178,12 @@
                                 <span class="nav-label">Admin Profile</span>
                             </a>
                         </li>
-                        <li class="{{$current_route_name =="admin.postpaid_bill" ? 'active' : ''}}">
+                        {{-- <li class="{{$current_route_name =="admin.postpaid_bill" ? 'active' : ''}}">
                             <a href="{{route('admin.postpaid_bill')}}">
                                 <i class="fa fa-podcast"></i>
                                 <span class="nav-label">Post Paid Bill</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="{{ Request::is('backend/manage/users/*') ? 'active' :'' || Request::is('backend/manage/agents/*') ? 'active' :'' }}">
                             <a><i class="fa fa-users"></i> <span class="nav-label">User Manager</span> <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">

@@ -39,7 +39,7 @@
                             <span class="fa fa-table m-r-xs"></span>
                             <label>Meter Number:</label>
                             @if(Auth::user()->is_completed == 1)
-                                {{ $profile->customer->meter_no }}
+                            {{ $profile->customer->meter_no }}
                             @endif
                         </li>
                         <li>
@@ -51,19 +51,25 @@
             </div>
             @if(auth()->user()->refer_id !== null)
             <div class="ibox">
-                <div class="ibox-title"><h5>Customer Referral Link</h5></div>
+                <div class="ibox-title">
+                    <h5>Customer Referral Link</h5>
+                </div>
                 <div class="ibox-content">
                     Here is your Unique Referral Link ( URL )
                     <div class="input-group">
-                    <input type="text" id="refLink" readonly value='{{ url('') }}/signup/r/{{ auth()->user()->refer_id }}' class="form-control"> 
+                        <input type="text" id="refLink" readonly value='{{ url('') }}/signup/r/{{ auth()->user()->refer_id }}'
+                            class="form-control">
                         <span class="input-group-addon input-group-sm">
-                            <button data-clipboard-target="#refLink" id="copy-link" class="btn btn-primary btn-sm"><i class=" fa fa-clipboard"></i></button>
+                            <button data-clipboard-target="#refLink" id="copy-link" class="btn btn-primary btn-sm"><i
+                                    class=" fa fa-clipboard"></i></button>
                         </span>
                     </div>
                 </div>
             </div>
             <div class="ibox">
-                <div class="ibox-title"><h5>Total Bonus Earned</h5></div>
+                <div class="ibox-title">
+                    <h5>Total Bonus Earned</h5>
+                </div>
                 <div class="ibox-content">
                     <h1><span>&#8358;</span>{{ $profile->customer->refer_bonus}} </h1>
                 </div>
@@ -89,24 +95,43 @@
                                         <label>Full Name</label>
                                         <input type="text" name="fullname" class="form-control" value="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}">
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" name="email" class="form-control" value="{{ auth()->user()->email }}" readonly>
+                                        <input type="text" name="email" class="form-control" value="{{ auth()->user()->email }}"
+                                            readonly>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Meter or Account Number <span style="color: red">*</span></label>
-                                        <input id="meter_no" name="meter_no" type="text" class="form-control" required
-                                            @if(Auth::user()->is_completed == 1)value="{{ $profile->customer->meter_no
-                                        }}"@endif>
-                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Phone Number <span style="color: red">*</span></label>
-                                        <input id="phone" name="phone" type="text" class="form-control" required value="{{ $profile->mobile }}">
+                                        <input id="phone" name="phone" type="text" class="form-control" required
+                                            value="{{ $profile->mobile }}">
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Meter or Account Number <span style="color: red">*</span></label>
+                                        <input id="meter_no" name="meter_no" type="text" class="form-control"
+                                            required @if(Auth::user()->is_completed == 1)value="{{
+                                        $profile->customer->meter_no
+                                        }}"@endif>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Change Password</label>
+                                        <input type="password" class="form-control" name="password" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Address</label>
                                         <textarea name="address" class="form-control" required rows="2" style="resize:none">@if(Auth::user()->is_completed == 1){{ $profile->customer->address }}@endif</textarea>
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         @if(Auth::user()->avatar !== NULL)
                                         <label>Change Profile Picture</label>
@@ -116,15 +141,14 @@
                                         <input id="profile_pic" name="profile_pic" type="file">
                                     </div>
                                     <input type="hidden" name="customer_id" value="{{ Auth::user()->id }}" />
-                                    <div class="form-group">
-                                        <label>Change Password</label>
-                                        <input type="password" class="form-control" name="password" />
-                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <button class="btn btn-primary" id="profileUpdate">Update Profile</button>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
+                                </div>
                         </fieldset>
                     </form>
                 </div>
@@ -141,8 +165,8 @@
     // Copy to clipboard
     let clippy = new ClipboardJS('#copy-link');
 
-    clippy.on('success', function(e) {
-        if(typeof '$.alert' === undefined) {
+    clippy.on('success', function (e) {
+        if (typeof '$.alert' === undefined) {
             alert(`Copied: ${e.text}`);
         }
         $.alert({
