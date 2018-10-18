@@ -395,8 +395,8 @@
 		</div>
 		<!--main div ends-->
 		</div>
-		<div class="footi">Powered by GOENERGEE</div>
 		</div>
+        <div class="footi">Powered by GOENERGEE</div>
 		<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);

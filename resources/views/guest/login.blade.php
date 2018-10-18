@@ -189,7 +189,7 @@
 					<div class="row">
 						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
 							<!--divide col for buttons-->
-							<div class="row">
+							<div class="row" style="margin-top:4px;">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									@if (Auth::check())
 									<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
@@ -254,12 +254,10 @@
 							
 							<!--Login div -->
 							<div class="user-details" id="login" style="border-radius:3%">
-								<div style="">
-									<div class="text-center login-title">
-										<h4>LOGIN TO</h4>
-										<img src="/images/logo.png"> </div>
-									<div class="account-wall" style="text-align:center;">
-										<hr>
+								<div class="text-center">
+										<img src="/images/logo1.png">
+                                        <h4 class="text-center"></h4><br><br><br>
+									<div class="account-wall" style="text-align:center; padding:2px 30px 2px;">
 										<form class="login-form" action="" method="POST">
 											<div class="form-group">
 												<input type="text" class="form-control" name="email" placeholder="Email" required autofocus>
@@ -267,7 +265,7 @@
 											<div class="form-group">
 												<input type="password" class="form-control" placeholder="Password" name="password" required>
 											</div>
-											<button class="btn btn-success btn-block login-btn" type="submit">
+											<button class="btn btn-success btn-md login-btn" type="submit">
 												Login</button>
 											{{-- <label class="checkbox">
 												<input type="checkbox" value="remember-me"> Remember me
@@ -299,7 +297,7 @@
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
-					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+					<div class="col-md-5" style="padding: 3px 16px 8px 2px;">
 						<img src="/images/12.png" class='img-responsive side-img'>
 					</div>
 				</div>

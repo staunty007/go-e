@@ -183,80 +183,13 @@
 			
 			
 			<!-- main div -->
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12" style="z-index:20;">
-					<!--divide col-->
-					<div class="row">
-						<div class="col-md-3 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
-							<!--divide col for buttons-->
-							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									@if (Auth::check())
-									<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
-										<i class="fas fa-user-circle"></i>
-										Logout
-									</button>
-									<form method="POST" action="{{ route('logout') }}" id="logout-fm">
-										@csrf
-									</form>
-									<script>
-										let logoutBtn = document.querySelector('#lg-btn');
-										let logoutForm = document.querySelector("#logout-fm");
-										logoutBtn.addEventListener('click', (e) => {
-											e.preventDefault();
-											logoutForm.submit();
-										});
-									</script>
-									@else
-									<a href="{{ route('guest.login') }}">
-									<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
-									<i class="fas fa-user-circle"></i>
-										Login
-									</button>	</a>						
-									@endif
-								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
-									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
-									<i class="fas fa-user-plus"></i>
-										Sign Up
-									</button></a>
-								</div>
-							</div>
-							<div class="row" style="padding:0px;">
-								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
-									<div style="text-align:center;">
-										<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;" class="grad-boxa">
-												<i class="far fa-credit-card"></i>
-												Make Payment
-										</button></a>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
-									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
-									<i class="fas fa-cogs"></i>
-										Support
-									</button></a>
-								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 0px 5px 5px;">
-									<a href="faq">
-										<button type="button" class="grad-box" style="padding:50px 52px">
-										<i class="fas fa-question-circle"></i>
-											FAQ
-										</button>
-									</a>
-								</div>
-							</div>
-						</div>
 						<!--col-6 ends -->
-						<div class="col-md-9 col-sm-12 col-xs-12" style="padding:2px">
-							
+						
+						<div class="col-md-12 colspeci col-sm-12 col-xs-12" style="padding:2px">
 							<!--Login div -->
-							<div class="user-details" id="login" style="border-radius:3%">
+							<div class="user-details" id="login" style="box-sizing:border-box;border-radius:10px;">
 								<div class="user-details" id="login" style="">
                                     <div class="text-center login-title">
-                                        <img src="/images/logo.png">
                                         <h4>AGENT REGISTRATION</h4>
                                     </div>
                                     <form action="" method="POST">
@@ -303,17 +236,17 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="password">
-                                                <b>Account Password</b>
+                                                <b>Password</b>
                                             </label>
                                             <input type="password" name="password" id="password" class=" input-sm" placeholder="*********">
                                         </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
+									</div>
+									<div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="tel">
-                                                <b>Business Telephone</b>
+                                            <label for="password">
+                                                <b>Confirm-Password</b>
                                             </label>
-                                            <input type="tel" name="tel" id="tel" class="form-control" placeholder="" value="{{ old('tel') }}">
+                                            <input type="password" name="password" id="password" class=" input-sm" placeholder="*********">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -322,6 +255,15 @@
                                                 <b>Business Address</b>
                                             </label>
                                             <input type="text" name="address" id="address" class="form-control" placeholder="Full Business Address" value="{{ old('address') }}">
+                                        </div>
+									</div>
+									
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            <label for="tel">
+                                                <b>Business Telephone</b>
+                                            </label>
+                                            <input type="tel" name="tel" id="tel" class="form-control" placeholder="" value="{{ old('tel') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -362,41 +304,34 @@
                                     </div>
                                     
                                 <div class="row">
-                                   
                                         <div class="col-md-8">
-                                            
+                                            <p class="text-left agentpad">
                                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                                 <label class="form-check-label" for="defaultCheck1">
                                                     I Agree to the terms and Conditions: (Put Terms & Conditions Here) 
                                                 </label>
-                                            </div>
-                
-                                    <div class="col-md-2">
-                                        <input type="submit" value="Register" class="btn btn-success btn-block registerBtn">
-                
-                              
+                                            </p>
+										</div>
+										
+                                    <div class="col-md-4 offset-8">
+										<p>
+												<br><br>
+                                        <a href="/" class="btn btn-success registerBtn">Home</a>
+                                        <button type="submit" value="Register" class="btn btn-success registerBtn">Register</button></p>
                                     </div>
-                                    <div class="col-md-2">
-                                        <a href="/" class="btn btn-success btn-block registerBtn">Home</a>
-                                    </div>
-                                    
-                                </div>
-								
-							
-							<!---log in ends-->
-							
                                 
-					
-					
-			
+                            </div>
+							<!---log in ends-->
 			<!-- row ends -->	
 	
 
 		</div>
 		<!--main div ends-->
 		</div>
-		<div class="footi">Powered by GOENERGEE</div>
 		</div>
+		</div>
+		</div>
+        <div class="footi">Powered by GOENERGEE</div>
 		<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);

@@ -46,19 +46,20 @@ body{
 	}
 	
 	#login{
-		height:364px; background-color:white; padding:10px;
+		height:364px; background-color:white; padding:5px 0px;
 	}
 	
 	#sign-up{
-		 height:364px; overflow-y:scroll;margin-left: 60px;padding: 10px;
+		 height:364px;overflow-x: hidden; overflow-y:hidden;margin-left: 60px;padding-bottom:10px;
+        padding-top:0px;
 	}
 	#make_payments {
 	    background-color: #ffffff;
-	    height: 364px;
-	    padding: 15px;
-	    overflow-y: scroll;
+	    height: 355px;
+	    padding:15px 35px;
+	    overflow-y: hidden;
+        overflow-x: hidden;
 	    margin-left: 24px;
-	    margin-right: -60px;
 	}
 	
 	
@@ -102,6 +103,10 @@ body{
 		margin: 0px 0px;
 		padding: 0px 0px;
 	}
+    .boxx{
+    
+    padding:0px 2px;
+    }
 	.hrad-box{
 		padding:30px 20px;
 		background:linear-gradient(45deg, #a9191e, #ff0404);
@@ -129,6 +134,7 @@ body{
 		font-weight:bold;
 		z-index:20;
 	} */
+
 	.loud{
 		padding-top: 15px;
 		padding-bottom: 10px;
@@ -184,7 +190,13 @@ body{
 		z-index:20;
 		padding: 2px 2px 2px;
 	}
-	
+ .makepayment{
+     padding: 0px;
+     box-sizing: border-box;
+     
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 	
 	.grad-box i {
 		display:block;
@@ -202,7 +214,7 @@ body{
 		color:black;
 		text-decoration:none;
 	}
-	
+ 
 	.grad-boxa{
 		color:#229fd9;
 		padding:20px 40px;
@@ -287,7 +299,13 @@ body{
 	  margin: auto;
 	  max-height: 40%;
 	}
-	
+	.headermodal{
+		padding:0px;
+		background-color:rgb(192,192,192);
+	}
+	.agentpad{
+		padding-left: 15px;
+	}
 	/* Next & previous buttons */
 	.prev, .next {
 	  cursor: pointer;
@@ -398,7 +416,7 @@ body{
 		background-color: #4CAF50;
 		color: white;
 		padding: 14px 20px;
-		margin: 8px 0;
+		margin: 3.2px 0px;
 		border: none;
 		cursor: pointer;
 		width: 100%;
@@ -532,9 +550,14 @@ body{
 .red{
 	min-height: 40px;
 }
-
+@media (min-width: 992px){
+    .colReg{
+    width: 71%;
+  }
+}
 .footi {
-	padding: 1em;
+    font-size: 15px;
+	padding: 2px;
 	text-align: center;
 	color: #ffffffd1;
 	background: #111;

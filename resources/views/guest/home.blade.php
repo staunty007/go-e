@@ -181,7 +181,7 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-2px ">
 						<!--divide col for buttons-->
-						<div class="row">
+						<div class="row" style="margin-top:2px;">
 							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
 								@if (Auth::check())
 								<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
@@ -217,7 +217,7 @@
 						<div class="row" style="padding:0px;">
 							<div class="col-md-12 col-sm-12" style="padding:0px 2px;">
 								<div style="text-align:center;">
-									<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
+									<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0px 0px; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
 										 class="grad-boxa">
 											<i class="far fa-credit-card"></i>
 											Make Payment
@@ -247,7 +247,7 @@
 					<div class="col-md-7 col-sm-12 col-xs-12" style="padding:2px;">
 						<!--Default div -->
 						<div id="news">
-							<div class="text-insert" style="margin-bottom:2px;">
+							<div class="text-insert" style="margin-bottom:2px; padding:6px 19px;">
 								<h4 style="margin-bottom:3px; color:#80c636; text-align:center">More Power Options to Recharge!</h4>
 								<h5 style="">
 									<b>GOENERGEE</b> is available on these alternative channels.</h5>
@@ -266,14 +266,14 @@
 							</div>
 						
 							
-							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-									<a href="#"><button type="button" class="grad-boxa" id="support_btn" style="background-color: #fff !important; color: #8CC74E; padding:26px 32px">
-											<i class="fas fa-mobile-alt loud fa-2x"></i><br>
-											Mobile App <br>Coming Soon
+							<div class="col-md-6 col-xs-6" style="padding:0px 2px; min-height:18px;">
+									<a href="#"><button type="button" class="grad-boxa" id="support_btn" style="background-color: #fff !important; color: #8CC74E; padding:23px 32px">
+											<i class="fas fa-mobile-alt fa-2x"></i><br>
+											Mobile App Coming Soon
 										</button></a>
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-										<a href="{{ route('guest.become_agent') }}"><button type="button" class="hrad-box" id="support_btn" style="padding:40px 20px">
+								<div class="col-md-6 col-xs-6" style="padding:0px 2px;  min-height:18px;">
+										<a href="{{ route('guest.become_agent') }}"><button type="button" class="hrad-box" id="support_btn" style="padding:10px 32px">
 												<i class="fas fa-user-plus fa-2x"></i><br>
 												Agent SignUp
 											</button></a>
@@ -283,7 +283,7 @@
 				</div>
 				<!---col-md-7 ends -->
 			</div>
-			<div class="col-md-5" style="padding: 2px 16px 8px 5px;">
+			<div class="col-md-5" style="padding: 2px 16px 8px 2px;">
 				{{-- <div class="col-md-5"> --}}
 					{{-- <div class="slider"> --}}
 						{{-- <ul class="slider-main"> --}}
@@ -394,6 +394,7 @@
 	</div>
 	<!--main div ends-->
 	</div>
+    <br>
 	<div class="footi">Powered by GOENERGEE</div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>

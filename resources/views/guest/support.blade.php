@@ -185,7 +185,7 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
 						<!--divide col for buttons-->
-						<div class="row">
+						<div class="row" style="margin-top:4px;">
 							<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 								@if (Auth::check())
 								<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
@@ -271,7 +271,7 @@
 					<div class="col-md-7 col-sm-12 col-xs-12" style="padding:3px">
 
 						<!--Login div -->
-						<div class="user-details" id="login" style="border-radius:3%">
+						<div class="user-details" id="login" style="border-radius:3%;padding:10px 20px;">
 							<div style="">
 								<div class="text-center login-title">
 									<img src="/images/logo.png"> </div>
@@ -316,7 +316,7 @@
 
 				<!---col-md-7 ends -->
 			</div>
-			<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+			<div class="col-md-5" style="padding: 3px 16px 8px 2px;">
 				<img src="/images/12.png" class='img-responsive side-img'>
 			</div>
 		</div>

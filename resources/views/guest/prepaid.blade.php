@@ -185,88 +185,83 @@
 
 			<!-- main div -->
 			<div class="row">
-				<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
-					<!--divide col-->
-					<div class="row">
-						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
-							<!--divide col for buttons-->
-							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									@if (Auth::check())
-									<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
-										<i class="fas fa-user-circle"></i>
-										Logout
-									</button>
-									<form method="POST" action="{{ route('logout') }}" id="logout-fm">
-										@csrf
-									</form>
-									<script>
-										let logoutBtn = document.querySelector('#lg-btn');
-										let logoutForm = document.querySelector("#logout-fm");
-										logoutBtn.addEventListener('click', (e) => {
-											e.preventDefault();
-											logoutForm.submit();
-										});
-									</script>
-									@else
-									<a href="{{ route('guest.login') }}">
-										<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
+					<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
+						<!--divide col-->
+						<div class="row">
+							<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-2px ">
+								<!--divide col for buttons-->
+								<div class="row" style="margin-top:2px;">
+									<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+										@if (Auth::check())
+										<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
 											<i class="fas fa-user-circle"></i>
-											Login
-										</button> </a>
-									@endif
-								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
-											<i class="fas fa-user-plus"></i>
-											Sign Up
-										</button></a>
-								</div>
-							</div>
-							<div class="row" style="padding:0px;">
-								<div class="col-md-12 col-sm-12" style="padding:0px 5px;">
-									<div style="text-align:center;">
-										<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
-											 class="grad-boxa">
-												<i class="far fa-credit-card"></i>
-												Make Payment
+											Logout
+										</button>
+										<form method="POST" action="{{ route('logout') }}" id="logout-fm">
+											@csrf
+										</form>
+										<script>
+											let logoutBtn = document.querySelector('#lg-btn');
+												let logoutForm = document.querySelector("#logout-fm");
+												logoutBtn.addEventListener('click', (e) => {
+													e.preventDefault();
+													logoutForm.submit();
+												});
+											</script>
+										@else
+										<a href="{{ route('guest.login') }}">
+											<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
+												<i class="fas fa-user-circle"></i>
+												Login
+											</button></a>
+										@endif
+									</div>
+									<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+										<a href="{{ route('guest.login') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
+												<i class="fas fa-user-plus"></i>
+												Sign Up
 											</button></a>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
-											<i class="fas fa-cogs"></i>
-											Support
-										</button></a>
+								<div class="row" style="padding:0px;">
+									<div class="col-md-12 col-sm-12" style="padding:0px 2px;">
+										<div style="text-align:center;">
+											<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0px 0px; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
+												 class="grad-boxa">
+													<i class="far fa-credit-card"></i>
+													Make Payment
+												</button></a>
+										</div>
+									</div>
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
-									<a href="faq">
-										<button type="button" class="grad-box" style="padding:50px 52px">
-											<i class="fas fa-question-circle"></i>
-											FAQ
-										</button>
-									</a>
+								<div class="row">
+									<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+										<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+												<i class="fas fa-cogs"></i>
+												Support
+											</button></a>
+									</div>
+									<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+											<a href="{{ route('guest.faq') }}">
+											<button type="button" class="grad-box" style="padding:50px 52px">
+												<i class="fas fa-question-circle"></i>
+												FAQ
+											</button>
+										</a>
+									</div>
 								</div>
 							</div>
-						</div>
 						<!--col-6 ends -->
 
-						<div id="make_payments">
-
-							<div class="text-center login-title">
-								<img src="/images/logo.png">
-							</div>
-							<h4 class="text-center">Choose From our Variety of Categories</h4>
+						<div id="make_payments">							
 							{{-- Categories --}}
 
 
 							{{-- Meter Payment --}}
 							<div class="meter-payment" id="meter_payment">
-								<img src="/images/ekedc.jpg" width="80" />
-								<span style="font-size: 16px"> Eko Electric Distribution Company </span>
-								<hr>
+								<p class="text-center"><img src="/images/ekedc.jpg" width="80" /></p>
+								<br>
+							
 								<form class="meter" method="post" action="">
 									<div class="form-group">
 										<label for="Meter_number"><b>Prepaid Meter Number</b></label>
@@ -281,7 +276,7 @@
 										<label for="amount"><b>Amount</b></label>
 										<input type="text" class="form-control meter-amount" placeholder="0.00" required name="amount" id="amount">
 									</div>
-									<button class="btn btn-success btn-block pay-meter" type="submit">Continue</button>
+									<p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
 								</form>
 							</div>
 							{{-- <button class="btn btn-rounded" id="three">Prepaid</button>
@@ -318,46 +313,69 @@
 				}
 			});
 			</script>
-		<div class="modal fade" tabindex="-1" role="dialog" id="confirm-payment">
-			<div class="modal-dialog" role="document">
+		<div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment">
+			<div class="modal-dialog " role="document">
 				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Confirm Details</h4>
+					<div class="modal-header headermodal text-center">
+						
 						<br>
-						<img src="/images/ekedc.jpg" width="80" />
-						<span style="font-size: 16px"> Eko Electric Distribution Company </span>
+						<img src="/images/ekedc.jpg" width="60" />
+						<span style="font-size: 16px"> </span>
 					</div>
 					<div class="modal-body">
+							<h3 class="modal-title text-center ">Confirm Details</h3>
+							<br>
 						<form id="payForm" method="POST" action="">
-							<div class="form-group">
-								<label>Meter No</label>
-								<input class="form-control" value="" id="meter_no" name="meter_no" readonly />
+							<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								<p><label>Meter No</label>
+								<input class="form-control" value="" id="meter_no" name="meter_no" readonly/>
+							</p>
 							</div>
+							</div>
+							<div class="col-md-6">
+									<div class="form-group">
+										<label>Total Amount</label>
+										<input class="form-control" value="" id="total" name="amount" readonly />
+									</div>
+								</div>
+							
+							<div class="col-md-6">
 							<div class="form-group">
 								<label>Firstname</label>
 								<input class="form-control" value="" id="firstname" name="first_name" readonly />
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label>lastname</label>
 								<input class="form-control" value="" id="lastname" name="last_name" readonly />
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label>Email</label>
 								<input class="form-control" value="" id="emailret" name="email" />
 							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group">
 								<label>Phone Number</label>
 								<input class="form-control" value="" id="phoneret" name="mobile" />
 							</div>
-							<div class="form-group">
-								<label>Total Amount</label>
-								<input class="form-control" value="" id="total" name="amount" readonly />
+						</div>
+				<div class="col-md-4>
+						<p class="text-center form-group">
+							<input type="button" class="btn btn-primary" id="ctnPay" value="Continue to Payment">
+							<input type="button" value="Cancel Payment" class="btn btn-outline-danger" onclick="window.location.reload()">
+						</p>
+					
+				</div>
+							</div>
 							</div>
 						</form>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="ctnPay">Continue to Payment</button>
-						<button type="button" class="btn btn-danger" onclick="window.location.reload()">Cancel Payment</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->

@@ -177,13 +177,13 @@
 			
 			
 			<!-- main div -->
-			<div class="row">
+						<div class="row">
 				<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
 					<!--divide col-->
 					<div class="row">
-						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
+						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px; margin-right:3px;">
 							<!--divide col for buttons-->
-							<div class="row">
+							<div class="row" style="margin-top:4px;">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									@if (Auth::check())
 									<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
@@ -209,7 +209,7 @@
 									</button>	</a>						
 									@endif
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
 									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
 									<i class="fas fa-user-plus"></i>
 										Sign Up
@@ -227,13 +227,13 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
 									<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
 									<i class="fas fa-cogs"></i>
 										Support
 									</button></a>
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
+								<div class="col-md-6 col-xs-6" style="padding:0px 0px 5px 5px;">
 									<a href="faq">
 										<button type="button" class="grad-box" style="padding:50px 52px">
 										<i class="fas fa-question-circle"></i>
@@ -242,35 +242,34 @@
 									</a>
 								</div>
 							</div>
-						</div>
-						<!--col-6 ends -->
+						</div>						<!--col-6 ends -->
 					
-						<div id="make_payments">
+						<div id="make_payments" style="padding:10px;">
 								
 						
 								<div class="text-center login-title">
 									<img src="/images/logo.png"><br><br>
 								</div>
-								<h4 class="text-center">Choose From our Variety of Categories</h4>
+								<h4 class="text-center">Choose Meter Type</h4>
 								{{-- Categories --}}
 								
 								<div class="electricity" id="electricity">
 									<div class="row">
 										<div class="col-md-6">
 											<a href="/guest/each-service-type/prepaid-meters"><div class="category" id="prepaid-meters">
-												Prepaid Meters
-											</div></a>
+												<i class="fa fa-calculator">&nbsp;Prepaid Meters
+                                                </i></div></a>
 										</div>
 										<div class="col-md-6">
-											<a href="/guest/each-service-type/postpaid-meters"><div class="category red" id="postpaid-meters" onclick="window.location.href='postpaidpayment';">
+											<a href="/guest/each-service-type/postpaid-meters"><div class="category red" id="postpaid-meters" onclick="window.location.href='postpaidpayment';"><i class="fa fa-calculator">
 												Postpaid Meters
-											</div></a>
+											</i></div></a>
 										</div>
 									</div>
 								</div>
 							
 							
-								{{-- <button class="btn btn-rounded" id="three">Prepaid</button>
+                            {{-- <button class="btn btn-rounded" id="three"><i class="fas fa-bolt">Prepaid</i></button>
 								<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
 									<button class="btn btn-rounded" id="four">Postpaid</button>
 								</a> --}}
@@ -335,7 +334,7 @@
 									<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
 								</div>
 								<div class="form-group">
-									<label>Total Amount</label>
+									<label>Amount</label>
 									<input class="form-control" value="" id="total" name="amount" readonly/>
 								</div>
 							</form>
@@ -355,24 +354,9 @@
 
 		</div>
 		<!--main div ends-->
+
 		</div>
-		<div style="
-		padding: 1em;
-		text-align: center;
-		color: #ffffffd1;
-		background: #111;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		position: fixed;
-		">
-				
-				Powered by GOENERGEE
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;
-				
-			</div>
-		</div>
+		<div class="footi">Powered by GOENERGEE</div>
 		<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);
@@ -575,6 +559,7 @@
 			}
 			
 		</script>
+	
 	</body>
 
 	</html>

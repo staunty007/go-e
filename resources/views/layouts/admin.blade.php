@@ -22,7 +22,9 @@
         <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
 
         <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
-        <link rel="icon" href="{{asset('images/favicon.png')}}" type='image/x-icon'>
+        <link rel="icon" href="{{asset('images/favicon.png')
+    
+    }}" type='image/x-icon'>
         <link href="{{asset('css/custom.css')}}" rel="stylesheet">
         <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
         <script>

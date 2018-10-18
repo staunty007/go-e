@@ -195,7 +195,7 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
 						<!--divide col for buttons-->
-						<div class="row">
+						<div class="row" style="margin-top:4px;">
 							<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 								@if (Auth::check())
 								<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
@@ -258,7 +258,7 @@
 					</div>
 					<!--col-6 ends -->
 					<div class="col-md-7 col-sm-12 col-xs-12 " id="signup-body" style="padding:3px">
-
+                        
 						<div class="user-details sign_up" id="sign-up" style="border-radius:3%">
 							<form class="form-signin" action="{{route ('signup')}}" method="POST" style="border:1px solid #ccc">
 								{{-- check if referred session is available --}}
@@ -266,12 +266,7 @@
 								<input type="hidden" name="referred" value="{{ session('referred') }}">
 								@endif
 								<div style="padding:10px;">
-									<div class="text-center login-title">
-										<h4>SIGN UP ON</h4>
-										<img src="/images/logo.png">
-									</div>
-									<p style="text-align:center">Please fill in this form to create an account.</p>
-									<hr>
+									<p class="text-center"><img src="/images/logo1.png"></p>
 									<div class="row">
 										<div class="col-xs-6 col-sm-6 col-md-6">
 											<div class="form-group">
@@ -327,24 +322,11 @@
 								<label>
 									<input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
 								</label>
-								<p style="text-align:center; font-size:13px;margin-top:1px;"> Sign Up with:</p>
-								<p style="text-align:center; margin-top:-5px;">
-									<a class="btn btn-primary social-login-btn " href="{{ url('/login/facebook') }}" style="background-color:#3d578e;">
-										<i class="fab fa-facebook-f"></i>
-									</a>
-									<a class="btn btn-primary social-login-btn " href="{{ url('/login/twitter') }}" style="background-color:#28a9e0;">
-										<i class="fab fa-twitter"></i>
-									</a>
-									<a class="btn btn-primary social-login-btn " href="{{ url('/login/linkedin') }}" style="background-color:#0b78b6;">
-										<i class="fab fa-linkedin-in"></i>
-									</a>
-									<a class="btn btn-primary social-login-btn " href="{{ url('/login/google') }}" style="background-color:#d52727;">
-										<i class="fab fa-google-plus-g"></i>
-									</a>
-								</p>
-								<input type="submit" value="Register" class="btn btn-success btn-block registerBtn">
-						</div>
+								
+								    <p class="text-center"><input type="submit" value="Register" class="btn btn-success btn registerBtn"></p>
+						  
 						</form>
+					</div>
 					</div>
 					<!--Sign up ends -->
 
@@ -357,7 +339,7 @@
 			</div>
 			<!---col-md-7 ends -->
 		</div>
-		<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+		<div class="col-md-5" style="padding: 3px 16px 8px 2px;">
 			<img src="/images/12.png" class='img-responsive side-img'>
 		</div>
 	</div>

@@ -189,7 +189,7 @@
 					<div class="row">
 						<div class="col-md-5 col-sm-12 col-xs-12" id="static-section" style="margin-top:-5px ">
 							<!--divide col for buttons-->
-							<div class="row">
+							<div class="row" style="margin-top:4px;">
 								<div class="col-md-6 col-xs-6" style="padding:0px 5px;">
 									@if (Auth::check())
 									<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
@@ -250,11 +250,11 @@
 							</div>
 						</div>
 						<!--col-6 ends -->
-						<div class="col-md-7 col-sm-12 col-xs-12" style="padding:2px">
+						<div class="col-md-7 col-sm-12 col-xs-12" style="padding:2px 0px 2px 3px">
 							
 							<!--Login div -->
 							<div class="user-details" id="login" style="border-radius:3%">
-								<div style="">
+								<div style="padding:10px 30px;">
 									<div class="text-center login-title">
 										<h4>WHY BECOME AN AGENT?</h4>
 										{{-- <img src="/images/logo.png"> </div> --}}
@@ -262,7 +262,7 @@
 										<hr>
 										Do you want more money in your pocket? <br>
                     All entrepreneurs build business to make profit. At <b>GOENERGEE,</b> we make it our responsibility to support and bring to you much more.<p>
-                    As an agent, you shall receive our 24/7 support and added incentives to allow you grow your business to a point you have not imagined.<p> We start with you and we shall grow with you. You are guaranteed of a strong business companionship with us.
+                    As an agent, you shall receive our 24/7 support and added incentives to allow you grow your business to a point you have not imagined.<p> We start with you grow with you. You are guaranteed of a strong business companionship with us.
                    <p> The <b>GOENERGEE </b>platform will grant you access to thousands of customers so take advantage of the highly attractive sales commission and start making profit.
 										
 									</div>
@@ -274,14 +274,10 @@
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
-					<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+					<div class="col-md-5" style="padding:3px 16px 8px 5px;">
 						<div class="user-details" id="login" style="border-radius:3%">
-                            <div style="">
-                                <div class="text-center login-title">
-                                    <h4>HOW TO BECOME AN AGENT </h4>
-                                    {{-- <img src="/images/logo.png"> </div> --}}
-                                <div class="account-wall" style="text-align:left;">
-                                    <hr>
+                                    <h4 class="text-center login-title">HOW TO BECOME AN AGENT </h4>
+                                <div class="account-wall" style="text-align:justify;padding:0px 30px;">
                                     Any one carrying out legitimate business can be an agent, meeting the minimum requirements below:
                                     <ul>
                                         <li>
@@ -293,16 +289,13 @@
                                     <li>Pay the initial capital with which you will fund your trading account.</li>
                                     <li>Get trained, run test transactions and complete the setup (get your location merchandised).</li>
                                     <li>Kindly call us on (+234)-803-343-6905 or ​send us a mail at customersupport@goenergee.com</li>
-                                   <a href="{{ route('guest.agent_reg') }}">You can become an Agent by filling the agent and contract forms here</a>
+                                        <a href="{{ route('guest.agent_reg') }}"><b>Become an agent now</b></a>
                                     {{-- <li>Note: An Adult is a person who is 18 years old and above.</li> --}}
                                         </ul>
                                     
                                 </div>
-                                
                             </div>
-                            </div>
-					</div>
-				</div>
+                </div>
 			</div>
 			<!-- row ends -->	
 		</div>
