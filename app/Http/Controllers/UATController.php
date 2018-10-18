@@ -68,7 +68,7 @@ class UATController extends Controller
      * Validate Customer , Meter Number or Account Number
      * @param string $session
      */
-    public function validateCustomer($accountType = "OFFLINE_POSTPAID" , $customerId) {
+    public function validateCustomer($accountType = "OFFLINE_PREPAID" , $customerId = "1015124465-01") {
         // Get Partner details
         $partner = $this->partnerDetails();
         // Gets the global session TAMSES
@@ -89,6 +89,7 @@ class UATController extends Controller
                 ]
             )
         );
+        // dd($results);
         if($results->response->customerInfo->accountType !== $accountType) {
             return "Invalid Account Type";
         }else {
@@ -100,6 +101,7 @@ class UATController extends Controller
 
             return response()->json(['response' => $data]);
         }
+        // dd($results);
     }
 
 
@@ -110,7 +112,7 @@ class UATController extends Controller
      * @param string $customerId // Account Or Meter Number Based on $accountType
      * Switch Account Type to charge the correct customer account
      */
-    public function chargeWallet($amount = 1000,$accountType = "OFFLINE_POSTPAID", $customerId) {
+    public function chargeWallet($amount = 100,$accountType = "OFFLINE_POSTPAID", $customerId = "1015124465-01") {
         $customerAccountNumVal = "";
         switch ($accountType) {
             case 'OFFLINE_POSTPAID':
@@ -163,12 +165,16 @@ class UATController extends Controller
         //     return response()->json(["success" => true, "response" => $result->response],200);
         // }
         // dd($result);
-        return $result;
+        if($result->response->retn == 0) {
+            return $result;
+        }else {
+            dd($result->response->desc);
+        }
     }
 
     public function generateToken()
     {
-        $validate = $this->chargeWallet('1000','OFFLINE_PREPAID','101165002219');
+        $validate = $this->chargeWallet('900','OFFLINE_PREPAID','54150924816');
         // dd($validate);
         $partner = $this->partnerDetails();
 
@@ -196,6 +202,11 @@ class UATController extends Controller
          */
         $result = $client->__soapCall("getOrderDetailsV2", 
             array( "getOrderDetailsV2" => 
+                // [
+                //     'tenantId'=> $partner['tenant_id'],
+                //     'paymentReference' => "N3mj4DLTxP",
+                //     'orderId' => 20749468
+                // ]
                 [
                     'tenantId'=> $partner['tenant_id'],
                     'paymentReference' => $validate->response->orderDetails->paymentReference,
@@ -210,12 +221,18 @@ class UATController extends Controller
         while ($status !== "CONFIRMED") {
             $result = $client->__soapCall("getOrderDetailsV2", 
                 array( "getOrderDetailsV2" => 
+                    // [
+                    //     'tenantId'=> $partner['tenant_id'],
+                    //     'paymentReference' => "N3mj4DLTxP",
+                    //     'orderId' => 20749468
+                    // ]
                     [
                         'tenantId'=> $partner['tenant_id'],
                         'paymentReference' => $validate->response->orderDetails->paymentReference,
                         'orderId' => $validate->response->orderId
                     ]
             ));
+            // Sleep for 5 seconds before continuing 
             sleep(5);
             $i++;
             if($i == 5) {
@@ -228,6 +245,85 @@ class UATController extends Controller
 
     }
 
+    public function validatePayment($accountType = "OFFLINE_POSTPAID",$customerId = "1015124465-01")
+    {
+         // Get Partner details
+         $partner = $this->partnerDetails();
+         // Gets the global session TAMSES
+         $sessionId = session()->get('TAMSES');
+         echo "Using Session ID $sessionId <hr>";
+         // dd($sessionId);
+         // Instantiate the SOAPCLient
+         $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+         // Set Headers for the soap client
+         $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId',$sessionId);
+         // Pass headers
+         $client->__setSoapHeaders($header);
+         //makes the soap call and passes the required parameters
+         $results = $client->__soapCall("validatePayment",  
+            ["validatePayment" => 
+                [
+                    "tenantId" => $partner['tenant_id'],
+                    "params" => [
+                        "accountType" => $accountType,
+                        "customerId" => $customerId,
+                        // "orderId" => "",
+                        "extraData" => "",
+                    ]
+                ]
+            ]
+            );
+
+        return $result;
+    }
+
+    public function notifyReversal()
+    {
+        $partner = $this->partnerDetails();
+         // Gets the global session TAMSES
+         $sessionId = session()->get('TAMSES');
+         echo "Using Session ID $sessionId <hr>";
+         // dd($sessionId);
+         // Instantiate the SOAPCLient
+         $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+         // Set Headers for the soap client
+         $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId',$sessionId);
+         // Pass headers
+         $client->__setSoapHeaders($header);
+         //makes the soap call and passes the required parameters
+         $results = $client->__soapCall("notifyForReversal",  
+            ["notifyForReversal" => 
+                [
+                    "tenantId" => $partner['tenant_id'],
+                    "paymentReference" => "lxMeWwjmMc",
+                    
+                ]
+            ]
+            );
+
+        dd($results);
+    }
+
+    public function getBalance() 
+    {
+        $partner = $this->partnerDetails();
+        // Gets the global session TAMSES
+        $sessionId = session()->get('TAMSES');
+        echo "Using Session ID $sessionId <hr>";
+        // dd($sessionId);
+        // Instantiate the SOAPCLient
+        $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+        // Set Headers for the soap client
+        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId',$sessionId);
+        // Pass headers
+        $client->__setSoapHeaders($header);
+        //makes the soap call and passes the required parameters
+        $results = $client->__soapCall("getBalance",[
+            "getBalance"
+        ]);
+
+        dd($results);
+    }
 
 
 

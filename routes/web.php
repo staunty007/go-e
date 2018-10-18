@@ -129,6 +129,9 @@ Route::prefix('customer')->middleware('auth')->group(function () {
         Route::get('new-ticket','TicketsController@openTicket')->name('customer.open-ticket');
         Route::post('new-ticket','TicketsController@storeTicket');
     });
+
+    // API Calls only
+    Route::get('update-wallet/{amount}','AccountController@updateFunds');
 });
 
 Route::post('/comment','TicketsController@commentTicket')->name('ticket.comment');
@@ -321,7 +324,10 @@ Route::prefix('mobile')->group(function(){
 Route::prefix('uat-test')->group(function(){
     // Routes Goes Here
     Route::get('signon','UATController@signOn');
-    Route::get('validate-customer/{accountType}/{customerId}','UATController@validateCustomer');
+    // Route::get('validate-customer/{accountType}/{customerId}','UATController@validatePayment');
+    Route::get('validate-customer','UATController@validateCustomer');
     Route::get('charge-wallet/{amount}/{accountType}/{customerId}','UATController@chargeWallet');
     Route::get('generate-token','UATController@generateToken');
+    Route::get('notify-reversal','UATController@notifyReversal');
+    Route::get('get-balance','UATController@getBalance');
 });

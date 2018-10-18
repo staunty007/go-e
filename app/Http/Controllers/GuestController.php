@@ -24,7 +24,9 @@ class GuestController extends Controller
     	return view('guest/become_agent');
 	}
 	public function faq(){
-    	return view('guest/faq');
+		$agents = User::where(['role_id' => 2, 'is_activated' => 1])->with('agent')->get();
+		// return $agents;
+    	return view('guest/faq', compact('agents'));
 	}
     public function guestServices(){
         
