@@ -31,6 +31,8 @@
     <link rel="icon" href="{{asset('images/favicon.png')}}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('css/snackbar.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 </head>
 
 <body>
@@ -146,7 +148,7 @@
                                                 </div>
                                             </form>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                onclick="topupWallet();" id="topUpBtn">
+                                                onclick="this.innerHtml='<strong>Working...</strong>';topupWallet(); " id="topUpBtn">
                                                 <strong>Top Up Now</strong>
                                             </button>
                                         </div>
@@ -230,7 +232,7 @@
     <script src="js/plugins/chartJs/Chart.min.js"></script>
     <script src="js/demo/chartjs-demo.js"></script>
 
-
+    <script src="{{ asset('js/snackbar.min.js') }}"></script>
     @if(session('success'))
     <script>
         var textt = "{{ session('success') }}";
@@ -251,7 +253,7 @@
     <!-- Jvectormap -->
     <script src="/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script src="{{ asset('js/agent.js') }}"></script>
     @stack('popups') @stack('scripts')
     <script src="js/demo/chartjs-demo.js"></script>

@@ -422,16 +422,22 @@
 	</div>
 	</div>
 	<script>
+	let totalSum = 0;
 	$('.form-group').on('input','.prc',function(){
-		var totalSum = 0;
 		$('.form-group .prc').each(function(){
 			var inputVal = $(this).val();
 			if($.isNumeric(inputVal)){
 				totalSum += parseFloat(inputVal);
 			}
 		});
-	$('#result').text(totalSum)
+		$('#result').text(totalSum)
+	});
 
+	let paypostpaid = document.querySelector("#payPostpaid");
+	let total = document.querySelector("#result").value;
+	paypostpaid.addEventListener('click',function (e){
+		e.preventDefault();
+		alert(totalSum);
 	});
 	</script>
 
@@ -491,38 +497,7 @@
 	<script>
 		// Payment Handler
 	</script>
-	<script>
-        let sum = 0;
-        $(document).ready(function () {
-            $('.carousel').carousel();
-            //iterate through each textboxes and add keyup
-            //handler to trigger sum event
-            $(".txt").each(function () {
-                $(this).keyup(function () {
-                    calculateSum();
-                });
-            });
-        });
-        function calculateSum() {
-            let sum = 0;
-            $(".txt").each(function () {
-                if (!isNaN(this.value) && this.value.length != 0) {
-                    let subtotal = parseFloat(this.value) + 100;
-                    sum += subtotal;
-                    jQuery(this).closest('tr').find("td:last input").val(subtotal);
-                }
-            });
-            console.log(sum);
-            $("#totalPayblleAmount").val(sum.toFixed(2));
-            $("#sum").val(sum.toFixed(2));
-		}
-		
-		let paypostpaid = document.querySelector("#payPostpaid");
-		let total = document.querySelector("#result").value;
-		paypostpaid.addEventListener('click', () => {
-			
-		});
-    </script>
+	
 </body>
 
 </html>

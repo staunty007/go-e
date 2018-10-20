@@ -220,9 +220,8 @@ $.ajaxSetup({
 function topupWallet() {
     // let topupBtn = document.querySelector('#topUpBtn');
     let topupAmount = document.querySelector('#topup-amount').value;
-    let agentDetails = JSON.parse(localStorage.getItem('ga_d'));
-    
-
+    let agentDetails = JSON.parse(JSON.parse(localStorage.getItem('ga_d')));
+    // console.log(agentDetails);
     fetch(`/diamond/debit/agent/${agentDetails.account_number}/${topupAmount}`)
     .then(res => res.json())
     .then(result => {
@@ -246,7 +245,7 @@ function topupWallet() {
                     },2000);
                 }else {
                     Snackbar.show({
-                        text: callback,
+                        text: callback.errors.error,
                         pos: 'top-right'
                     });
                 }
@@ -258,11 +257,13 @@ function topupWallet() {
                 });
             })
         }else {
-            alert(result);
+            $.alert({
+                title: 'Darn!',
+                content: data.errors[0].error,
+                type: 'red'
+            });
         }
     })
-    .catch(err => {
-        console.log(err)
-    })
+    .catch(err => console.log(err));
     
 }
