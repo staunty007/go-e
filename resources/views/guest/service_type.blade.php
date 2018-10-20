@@ -257,13 +257,13 @@
 									<div class="row">
 										<div class="col-md-6">
 											<a href="/guest/each-service-type/prepaid-meters"><div class="category" id="prepaid-meters">
-												<i class="fa fa-calculator">&nbsp;Prepaid Meters
-                                                </i></div></a>
+												<i class="fa fa-calculator">
+                                                </i> Prepaid Meters</div></a>
 										</div>
 										<div class="col-md-6">
 											<a href="/guest/each-service-type/postpaid-meters"><div class="category red" id="postpaid-meters" onclick="window.location.href='postpaidpayment';"><i class="fa fa-calculator">
-												Postpaid Meters
-											</i></div></a>
+												
+											</i> Postpaid Meters</div></a>
 										</div>
 									</div>
 								</div>

@@ -379,7 +379,7 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="">Total</label> 
-											<output type="number" readonly name="result" id="result" ></output>
+											<output type="number" readonly name="result" id="result"></output>
 										</div>
 									</div>
 									{{-- <div class="form-group">
@@ -492,7 +492,7 @@
 		// Payment Handler
 	</script>
 	<script>
-        var sum = 0;
+        let sum = 0;
         $(document).ready(function () {
             $('.carousel').carousel();
             //iterate through each textboxes and add keyup
@@ -504,10 +504,10 @@
             });
         });
         function calculateSum() {
-            var sum = 0;
+            let sum = 0;
             $(".txt").each(function () {
                 if (!isNaN(this.value) && this.value.length != 0) {
-                    var subtotal = parseFloat(this.value) + 100;
+                    let subtotal = parseFloat(this.value) + 100;
                     sum += subtotal;
                     jQuery(this).closest('tr').find("td:last input").val(subtotal);
                 }
@@ -515,7 +515,13 @@
             console.log(sum);
             $("#totalPayblleAmount").val(sum.toFixed(2));
             $("#sum").val(sum.toFixed(2));
-        }
+		}
+		
+		let paypostpaid = document.querySelector("#payPostpaid");
+		let total = document.querySelector("#result").value;
+		paypostpaid.addEventListener('click', () => {
+			
+		});
     </script>
 </body>
 

@@ -1,7 +1,7 @@
-
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
 body{
-	
-	font-family: 'Ubuntu', sans-serif;	
+	/* font-family: 'Ubuntu', sans-serif;	 */
 	color:#6c757d;
 	overflow-x: hidden;
 	}
@@ -497,23 +497,24 @@ body{
 	
 
 .category, .category.red {
-	padding: 1.5em 1em;
+	padding: 1em;
 	text-align: center;
 	color: #fff;
 	cursor: pointer;
 	border-radius: 0.2em;
 	font-size: 1.2em;
 	margin-bottom: 0.5em;
+	font-family: "Roboto", sans-serif;
   }
   .category {
-	background-color: #4bad50b8;
+	background-color: #81C733;
   }
   .category.red {
 	background-color: #c31e29bf;
   }
-  .category:hover {
+  /* .category:hover {
 	background-color: rgba(0, 0, 0, 0.301)
-  } 
+  }  */
   
   .services-list-overlay {
 	width: 64.3%;
@@ -581,6 +582,7 @@ body{
 	left: 0;
 	bottom: 0;
 	position: fixed;
+	z-index: -9999;
 }
 
 .services-list-overlay {

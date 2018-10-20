@@ -260,8 +260,8 @@
 								<div class="categories" id="categories">
 									<div class="row">
 										<div class="col-md-6 text-center">
-											<a href="{{ route('guest.service_type') }}"><div class="category " id="electricity-bills"><i class="fas fa-bolt">
-                                                Electricity Bills</i>
+											<a href="{{ route('guest.service_type') }}"><div class="category " id="electricity-bills"><i class="fas fa-bolt"></i>
+												Electricity Bills
 											</div></a>
 										</div>
 										{{-- <div class="col-md-12">
