@@ -171,7 +171,7 @@
 						</style>
 			<li class="nav-item item">
 				<i class="fas fa-user-circle"></i>
-				<a class="nav-link" href="{{ route('guest.login') }}">Sign In</a>
+				<a class="nav-link" href="{{ route('guest.login') }}">Home</a>
 			</li>
 			<li class="nav-item item">
 				<i class="far fa-credit-card"></i>
@@ -214,17 +214,17 @@
 										});
 									</script>
 								@else
-								<a href="{{ route('guest.login') }}">
+								<a href="{{ url('/')}}">
 									<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
 										<i class="fas fa-user-circle"></i>
-										Login
+										Home
 									</button> </a>
 								@endif
 							</div>
 							<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
-								<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
+								<a href="{{ route('guest.become_agent') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
 										<i class="fas fa-user-plus"></i>
-										Sign Up
+										Become An Agent
 									</button></a>
 							</div>
 						</div>

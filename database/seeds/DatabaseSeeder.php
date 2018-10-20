@@ -56,14 +56,14 @@ class DatabaseSeeder extends Seeder
 
         DB::table('admin_biodatas')->insert([
             'user_id' => 1,
-            'wallet_balance' => 0,
+            'wallet_balance' => 5000000,
             'avatar' => '',
         ]);
 
         DB::table('agent_biodatas')->insert([
             'user_id' => 2,
             'agent_id' => 'GO-LEK12345',
-            'wallet_balance' => 0,
+            'wallet_balance' => 50000,
             'profit' => 0,
             'avatar' => '',
         ]);

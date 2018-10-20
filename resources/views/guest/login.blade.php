@@ -208,17 +208,17 @@
 										});
 									</script>
 									@else
-									<a href="{{ route('guest.login') }}">
+									<a href="{{ route('guest.signup') }}">
 									<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
 									<i class="fas fa-user-circle"></i>
-										Login
+										Customer Sign Up
 									</button>	</a>						
 									@endif
 								</div>
 								<div class="col-md-6 col-xs-6" style="padding:0px 0px;">
-									<a href="{{ route('guest.signup') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
+									<a href="{{ route('guest.become_agent') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
 									<i class="fas fa-user-plus"></i>
-										Sign Up
+										Agent Sign Up
 									</button></a>
 								</div>
 							</div>
@@ -388,6 +388,7 @@
 					error: (err) => {
 						$('.login-btn').prop('disabled', false);
 						$('.login-btn').html('Login');
+						console.error(err);
 					}
 				})
 				

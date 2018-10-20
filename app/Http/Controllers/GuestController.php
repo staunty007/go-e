@@ -23,8 +23,19 @@ class GuestController extends Controller
 	public function become_agent(){
     	return view('guest/become_agent');
 	}
+	public function agent_solution(){
+    	return view('guest/agent_solution');
+	}
+	public function agent_signup(){
+    	return view('guest/agent_signup');
+	}
+	public function agent_benefit(){
+    	return view('guest/agent_benefit');
+	}
 	public function faq(){
-    	return view('guest/faq');
+		$agents = User::where(['role_id' => 2, 'is_activated' => 1])->with('agent')->get();
+		// return $agents;
+    	return view('guest/faq', compact('agents'));
 	}
     public function guestServices(){
         

@@ -48,6 +48,10 @@ body{
 	#login{
 		height:364px; background-color:white; padding:5px 0px;
 	}
+	#login1{
+		height:459px; background-color:white; padding:5px 0px;
+	}
+	
 	
 	#sign-up{
 		 height:364px;overflow-x: hidden; overflow-y:hidden;margin-left: 60px;padding-bottom:10px;
@@ -226,6 +230,18 @@ body{
 		font-weight:bold;
 		z-index:20;
 	}
+	.grad-boxa1{
+		color:#229fd9;
+		padding:20px 40px;
+		background: white;
+		border-radius:5%;
+		border:1px solid #229fd9; 
+		box-shadow:0 4px 7px 0 rgba(0, 0, 0, 0.2);
+		text-align:center;
+		font-weight:bold;
+		z-index:20;
+	}
+	
 	
 	.grad-boxa a{
 		color:black;

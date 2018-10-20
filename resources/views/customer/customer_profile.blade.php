@@ -66,16 +66,34 @@
                     </div>
                 </div>
             </div>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>Total Bonus Earned</h5>
+            @endif
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <div class="pull-left">
+                                <h5>Wallet Balance</h5>
+                            </div>
+                            <div class="pull-right">
+                                <button class="btn btn-success btn-xs add-fund">Add Fund</button>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h1><span>&#8358;</span>{{ number_format($profile->customer->wallet_balance) }} </h1>
+                        </div>
+                    </div>
                 </div>
-                <div class="ibox-content">
-                    <h1><span>&#8358;</span>{{ $profile->customer->refer_bonus}} </h1>
+                <div class="col-md-6">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Referral Bonus Earned</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1><span>&#8358;</span>{{ number_format($profile->customer->refer_bonus) }} </h1>
+                        </div>
+                    </div>
                 </div>
             </div>
-            @endif
-
 
         </div>
 
@@ -161,6 +179,7 @@
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
     // Copy to clipboard
     let clippy = new ClipboardJS('#copy-link');
@@ -181,6 +200,7 @@
             }
         });
     });
+    
     const baseUrl = "{{ url('/') }}";
     let profileUpdate = document.querySelector("#profileUpdate");
     profileUpdate.addEventListener('click', (e) => {
@@ -248,6 +268,76 @@
 
         }
     });
+    // prompt to add fund
+    $('.add-fund').on('click', function () {
+        $.confirm({
+            title: 'Enter Amount to Proceed',
+            content: `<input type='text' id='input-amount' class='form-control' placeholder='0.00' />`,
+            buttons: {
+                fundWallet: {
+                    text: 'Fund Wallet',
+                    btnClass: 'btn-green',
+                    action: function () {
+                        var input = this.$content.find('input#input-amount');
+                        var errorText = this.$content.find('.text-danger');
+                        if (!input.val()) {
+                            $.alert({
+                                content: "Please don't keep the name field empty.",
+                                type: 'red'
+                            });
+                            return false;
+                        } else {
+                            payWithPaystack(input);
+                            // Call Paystack
+                        }
+                    }
+                },
+                later: function () {
+                    // do nothing.
+                }
+            }
+        });
+    });
+    
+    // PayWithPaystack
+    function payWithPaystack(amount) {
+        let amountFund = document.querySelector('#input-amount').value;
+        let chargedAmount = parseInt(amountFund);
+        console.log(chargedAmount);
+        let handler = PaystackPop.setup({
+            key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
+            email: "{{ auth()->user()->email }}",
+            amount: chargedAmount+"00",
+            ref: 'customer_top_up_'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            
+            callback: function(response){
+                fetch(`/customer/update-wallet/${chargedAmount}`)
+                    .then(res => res.json())
+                    .then(result => {
+                        if(result.msg == "success") {
+                            $.alert({
+                                content: "Payment Successful",
+                                type: 'green'
+                            });
+                            setTimeout(() => {
+                                window.location.reload();
+                            },2000);
+                        }
+                    })
+                    .catch(err => {
+                        $.alert({
+                            content: "Something Bad Went Wrong, Please Contact Support to update your funds",
+                            type: 'red'
+                        });
+                    })
+                
+            },
+            onClose: function(){
+                alert('Payment Cancelled');
+            }
+        });
+        handler.openIframe();
+    }
 </script>
 
 @endpush

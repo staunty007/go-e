@@ -27,7 +27,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 <!--Start Calculation script-->
 <script type="text/javascript">
 	function num(id) {
@@ -332,8 +334,8 @@
 												<input type="checkbox" id="postPaidPaymentCheckbox" />
 												Postpaid Payment
 											</label>
-											<input id="postPaidPaymentInput" id="v1" placeholder="0.00" class="amount form-control" name="name2" type="number"
-											 disabled="disabled" onkeyup="calculate()"/>
+											<input id="postPaidPaymentInput" id="v1" placeholder="0.00" class="prc" name="name2" type="text"
+											 disabled="disabled"/>
 											<span class="form-msg" id="form-msg"></span>
 										</div>
 									</div>
@@ -344,8 +346,8 @@
 												Reconnection Fee
 											</label>
 
-											<input id="reconnectionPaymentInput" placeholder="0.00" class="amount form-control" name="reconnection" type="number"
-											 disabled="disabled" onkeyup="calculate()"/>
+											<input id="reconnectionPaymentInput" placeholder="0.00" class="prc" name="reconnection" type="text"
+											 disabled="disabled" />
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -354,8 +356,8 @@
 												<input type="checkbox" id="penaltiesPaymentCheckbox" />
 												Penalties
 											</label>
-											<input id="penaltiesPaymentInput" placeholder="0.00" class="amount form-control" name="penalties" type="number"
-											 disabled="disabled" onkeyup="calculate()" />
+											<input id="penaltiesPaymentInput" placeholder="0.00" class="prc" name="penalties" type="text"
+											 disabled="disabled"/>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -364,20 +366,20 @@
 												<input type="checkbox" id="revenuePaymentCheckbox" />
 												Loss of Revenue
 											</label>
-											<input id="revenuePaymentInput" placeholder="0.00" class="amount form-control" name="revenue" type="number"
-											 disabled="disabled" onkeyup="calculate()"/>
+											<input id="revenuePaymentInput" placeholder="0.00" class="prc" name="revenue" type="text"
+											 disabled="disabled" />
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="">Convenience Fee</label>
-											<input type="text" name="conv_fee" value="100.00" id="conv_fee" onkeyup="calculate()" class="form-control" readonly>
+											<input type="text" name="conv_fee" value="100.00" id="conv_fee"  class="prc" readonly>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="">Sub Total</label>
-											<input type="text" name="sub_total" value="" id="sub_total" class="form-control" readonly>
+											<label for="">Total</label> 
+											<output type="number" readonly name="result" id="result" ></output>
 										</div>
 									</div>
 									{{-- <div class="form-group">
@@ -419,6 +421,21 @@
 		Powered by GOENERGEE
 	</div>
 	</div>
+	<script>
+	$('.form-group').on('input','.prc',function(){
+		var totalSum = 0;
+		$('.form-group .prc').each(function(){
+			var inputVal = $(this).val();
+			if($.isNumeric(inputVal)){
+				totalSum += parseFloat(inputVal);
+			}
+		});
+	$('#result').text(totalSum)
+
+	});
+	</script>
+
+
 	<script>
 		var slideIndex = 1;
 		showSlides(slideIndex);

@@ -117,180 +117,76 @@
 
 			<div class="col-xs-4 col-md-2">
 
-
+				
+				
 				<a href="{{ route('guest.become_agent') }}"><button type="button" id="payment_btn" style=" background-color: #fff !important; padding:30px 31px; color: #8CC74E;"
 					 class="grad-boxa">
 						<i class="far fa-question-circle"></i>
 						Why be an Agent
 					</button></a>
 
-
-				<a href="{{ route('guest.agent_signup') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+				<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
 						<i class="fas fa-id-card"></i>
 						Agent Sign Up
 					</button></a>
-				<a href="{{ route('guest.agent_benefit') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+				<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
 						<i class="fas fa-cart-plus"></i>
 						Agent benefits
-					</button></a>
-				<a href="/"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
-						<i class="fas fa-home"></i>
-						Back to Home
-					</button></a>
+                    </button></a>
+                    <a href="/"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+                            <i class="fas fa-home"></i>
+                            Back to Home
+                        </button></a>
 
 			</div>
 
 
 			<div class="col-xs-8 col-md-10" style="padding:0px 0px;">
 				<div class="user-details" id="login1" style="border-radius:3%">
-					<div style="padding:10px 30px;">
-						<div class="text-center login-title">
-							<h4>WHY BECOME AN AGENT?</h4>
+						<div style="padding:10px 30px;">
+								<div class="text-center login-title">
+									<h4>THE SOLUTIONS WE PROVIDE</h4>
+									
+								</div>
+								
+									<hr>
+									
+Corporates are in dire need of a vehicle to increase the reach of their services in a way they can track. The economy benefits - GDP growth, FDI attraction, greater transparency, increased general wealth and well-being of the populace - by having a greater proportion of the population included in financial transactions. 
 
-						</div>
-
-						<hr>
-						Do you want more money in your pocket? <br>
-						All entrepreneurs build business to make profit. At <b>GOENERGEE,</b> we make it our responsibility to support
-						and bring to you much more.<p>
-							As an agent, you shall receive our 24/7 support and added incentives to allow you grow your business to a
-							point you have not imagined.<p> We start with you grow with you. You are guaranteed of a strong business
-								companionship with us.
-								<p> The <b>GOENERGEE </b>platform will grant you access to thousands of customers so take advantage of the
-									highly attractive sales commission and start making profit.
+The average citizen enjoys the benefit of convenience, expanded access time and speed of consummating transactions.
+							{{-- <li>Note: An Adult is a person who is 18 years old and above.</li> --}}
+						</ul>
 
 					</div>
-					<div class="text-center login-title">
-						<h4>HOW TO BECOME AN AGENT </h4>
-
-					</div>
-
-					<hr>
-
-					Any one carrying out legitimate business can be an agent, meeting the minimum requirements below:
-					<ul>
-						<li>
-							Get identified as an agent potential or contact us to indicate interest.
-						</li>
-						<li>Have a valid business location that is visible or has current patronage.</li>
-						<li> Provide personal and business data by filling out our agent registration and contract forms.</li>
-						<li>Provide copies of both proof of ID and location documents .</li>
-						<li>Pay the initial capital with which you will fund your trading account.</li>
-						<li>Get trained, run test transactions and complete the setup (get your location merchandised).</li>
-						<li>Kindly call us on (+234)-803-343-6905 or ​send us a mail at customersupport@goenergee.com</li>
-						<a href="{{ route('guest.agent_reg') }}"><b>Become an agent now</b></a><p>
-						<li>Note: An Adult is a person who is 18 years old and above.</li>
-					</ul>
-
 				</div>
 			</div>
 		</div>
-	</div>
 
 
-
+		
 
 
 
 	<ul class="nav-ul">
 		<style>
 			.nav-item {
-				padding: 10px;
-				background: #ed5565;
-				margin-right: 20px;
-				color: #fff;
-				margin-bottom: 12px;
-				display: flex;
-				/* flex-flow: column; */
-			}
-		</style>
+					padding: 10px;
+					background: #ed5565;
+					margin-right: 20px;
+					color: #fff;
+					margin-bottom: 12px;
+					display: flex;
+					/* flex-flow: column; */
+			}	
+						</style>
 
-
-
-		<div class="footi">Powered by GOENERGEE</div>
-		</div>
-		<script>
-			var slideIndex = 1;
-			showSlides(slideIndex);
-
-			function plusSlides(n) {
-				showSlides(slideIndex += n);
-			}
-
-			function currentSlide(n) {
-				showSlides(slideIndex = n);
-			}
-
-			function showSlides(n) {
-				var i;
-				var slides = document.getElementsByClassName("mySlides");
-				var dots = document.getElementsByClassName("dot");
-				if (n > slides.length) {
-					slideIndex = 1
-				}
-				if (n < 1) {
-					slideIndex = slides.length
-				}
-				for (i = 0; i < slides.length; i++) {
-					slides[i].style.display = "none";
-				}
-				for (i = 0; i < dots.length; i++) {
-					dots[i].className = dots[i].className.replace(" active", "");
-				}
-				slideIndex++;
-				if (slideIndex > slides.length) {
-					slideIndex = 1
-				}
-				for (i = 0; i < dots.length; i++) {
-					dots[i].className = dots[i].className.replace(" active", "");
-				}
-				slides[slideIndex - 1].style.display = "block";
-				dots[slideIndex - 1].className += " active";
-
-				setTimeout(showSlides, 3000); // Change image every 3 seconds
-			}
-		</script>
-		@include('partials._search-component');
-		<script src="/js/sweetalert.min.js"></script>
-		<script>
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
-
-			$(".login-btn").click((e) => {
-				e.preventDefault();
-				$('.login-btn').html('Logging In...');
-				var formData = $(".login-form").serialize();
-
-				$.ajax({
-					url: '/account/login',
-					method: 'POST',
-					data: formData,
-					success: (response) => {
-						if (response.sus == 1) {
-							setTimeout(() => {
-								swal('Successful', 'Login Successful', 'success');
-								$(this).prop('disabled', false);
-								setTimeout(() => {
-									window.location.href = '/home';
-								}, 2000);
-							})
-						} else {
-							swal('Ooops!', '' + response.err + '', 'error');
-							$('.login-btn').prop('disabled', false);
-							$('.login-btn').html('Login');
-						}
-					},
-					error: (err) => {
-						$('.login-btn').prop('disabled', false);
-						$('.login-btn').html('Login');
-					}
-				})
-
-			})
-		</script>
+	
+	
+	<div class="footi">Powered by GOENERGEE</div>
+	</div>
+	@include('partials._search-component');
+	<script src="/js/sweetalert.min.js"></script>
+	
 </body>
 
 </html>

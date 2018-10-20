@@ -57,7 +57,7 @@
                                         <th>Total</th>
                                         <th>Null</th>
                                         <th>Null</th>
-                                        <th>Null</th>
+                                        
                                         <th>Null</th>
                                         <th>N{{ $totals['agent'] }}</th>
                                         <th>N{{ $totals['pgp'] }}</th>

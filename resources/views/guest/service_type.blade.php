@@ -250,7 +250,7 @@
 								<div class="text-center login-title">
 									<img src="/images/logo.png"><br><br>
 								</div>
-								<h4 class="text-center">Choose Meter Type</h4>
+								<h4 class="text-center">Choose From our Variety of Categories</h4>
 								{{-- Categories --}}
 								
 								<div class="electricity" id="electricity">
@@ -334,7 +334,7 @@
 									<input class="form-control" value="" id="phoneret" name="mobile" readonly/>
 								</div>
 								<div class="form-group">
-									<label>Amount</label>
+									<label>Total Amount</label>
 									<input class="form-control" value="" id="total" name="amount" readonly/>
 								</div>
 							</form>

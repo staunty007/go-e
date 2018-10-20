@@ -173,7 +173,7 @@
                                                     <input type="checkbox" id="postPaidPaymentCheckbox"/>
                                                     Postpaid Payment
                                                 </label>
-                                                <input id="postPaidPaymentInput" id="v1" placeholder="0.00" class="amount form-control" name="postpaid[0]" type="number"
+                                                <input id="postPaidPaymentInput" id="v1" placeholder="0.00" class="prc" name="postpaid" type="text"
                                                  disabled="disabled" />
                                                 <span class="form-msg" id="form-msg"></span>
                                             </div>
@@ -185,7 +185,7 @@
                                                     Reconnection Fee
                                                 </label>
     
-                                                <input id="reconnectionPaymentInput" placeholder="0.00" class="amount form-control" name="reconnection[0]" type="number"
+                                                <input id="reconnectionPaymentInput" placeholder="0.00" class="prc" name="reconnection" type="text"
                                                  disabled="disabled" />
                                             </div>
                                         </div>
@@ -195,7 +195,7 @@
                                                     <input type="checkbox" id="penaltiesPaymentCheckbox" />
                                                     Penalties
                                                 </label>
-                                                <input id="penaltiesPaymentInput" placeholder="0.00" class="amount form-control" name="penalties[0]" type="number"
+                                                <input id="penaltiesPaymentInput" placeholder="0.00" class="prc" name="penalties" type="text"
                                                  disabled="disabled"/>
                                             </div>
                                         </div>
@@ -205,20 +205,20 @@
                                                     <input type="checkbox" id="revenuePaymentCheckbox" />
                                                     Loss of Revenue
                                                 </label>
-                                                <input id="revenuePaymentInput" placeholder="0.00" class="amount form-control" name="revenue[0]" type="number"
+                                                <input id="revenuePaymentInput" placeholder="0.00" class="prc" name="revenue" type="text"
                                                  disabled="disabled" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Convenience Fee</label>
-                                                <input type="text" name="conv_fee" value="100.00" id="conv_fee" name="conv_fee[100]" class="form-control" readonly>
+                                                <input type="text" name="conv_fee" value="100.00" id="conv_fee" name="conv_fee" class="prc" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Sub Total</label>
-                                                <input type="text" name="subtotal_1" value="" id="subtotal_1" class="form-control" readonly>
+                                                <label for="">Total</label>
+                                                <output type="text" name="result" value="" id="result" class="prc" readonly>
                                             </div>
                                         </div>
                                         {{-- <div class="form-group">
@@ -294,32 +294,18 @@
 </div>
 </div>
 <script>
-        var sum = 0;
-        $(document).ready(function () {
-            $('.carousel').carousel();
-            //iterate through each textboxes and add keyup
-            //handler to trigger sum event
-            $(".txt").each(function () {
-                $(this).keyup(function () {
-                    calculateSum();
-                });
-            });
-        });
-        function calculateSum() {
-            var sum = 0;
-            $(".txt").each(function () {
-                if (!isNaN(this.value) && this.value.length != 0) {
-                    var subtotal = parseFloat(this.value) + 100;
-                    sum += subtotal;
-                    jQuery(this).closest('tr').find("td:last input").val(subtotal);
-                }
-            });
-            console.log(sum);
-            $("#totalPayblleAmount").val(sum.toFixed(2));
-            $("#sum").val(sum.toFixed(2));
-        }
-    </script>
-    
+	$('.form-group').on('input','.prc',function(){
+		var totalSum = 0;
+		$('.form-group .prc').each(function(){
+			var inputVal = $(this).val();
+			if($.isNumeric(inputVal)){
+				totalSum += parseFloat(inputVal);
+			}
+		});
+	$('#result').text(totalSum)
+
+	});
+	</script>
 
 {{-- <script>
         var form = document.getElementById("theForm");

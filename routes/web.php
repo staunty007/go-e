@@ -23,6 +23,11 @@ Route::prefix('guest')->group(function () {
     Route::get('support', 'GuestController@support')->name('guest.support');
     Route::get('agent_reg', 'GuestController@agent_reg')->name('guest.agent_reg');
     Route::get('become_agent', 'GuestController@become_agent')->name('guest.become_agent');
+    Route::get('agent_solution', 'GuestController@agent_solution')->name('guest.agent_solution');
+    Route::get('agent_signup', 'GuestController@agent_signup')->name('guest.agent_signup');
+    Route::get('agent_signup', 'GuestController@agent_signup')->name('guest.agent_signup');
+    Route::get('agent_benefit', 'GuestController@agent_benefit')->name('guest.agent_benefit');
+    
     Route::post('agent_reg', 'GuestController@postAgentSignup');
     Route::get('faq', 'GuestController@faq')->name('guest.faq');
   
@@ -129,6 +134,9 @@ Route::prefix('customer')->middleware('auth')->group(function () {
         Route::get('new-ticket','TicketsController@openTicket')->name('customer.open-ticket');
         Route::post('new-ticket','TicketsController@storeTicket');
     });
+
+    // API Calls only
+    Route::get('update-wallet/{amount}','AccountController@updateFunds');
 });
 
 Route::post('/comment','TicketsController@commentTicket')->name('ticket.comment');
@@ -259,4 +267,72 @@ Route::prefix('mobile')->group(function(){
     Route::get('login','MobileController@login')->name('mobile.login');
     Route::get('sign-up','MobileController@signUp')->name('mobile.sign-up');
     Route::get('make-payment','MobileController@makePayment')->name('mobile.make-payment');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::prefix('uat-test')->group(function(){
+    // Routes Goes Here
+    Route::get('signon','UATController@signOn');
+    // Route::get('validate-customer/{accountType}/{customerId}','UATController@validatePayment');
+    Route::get('validate-customer','UATController@validateCustomer');
+    Route::get('charge-wallet/{amount}/{accountType}/{customerId}','UATController@chargeWallet');
+    Route::get('generate-token','UATController@generateToken');
+    Route::get('notify-reversal','UATController@notifyReversal');
+    Route::get('get-balance','UATController@getBalance');
 });

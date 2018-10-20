@@ -603,8 +603,16 @@ class AccountController extends Controller
 
     public function customerData()
     {
-        return User::where('id',\Auth::user()->id)->with('customer')->first();
-        
+        return User::where('id',\Auth::user()->id)->with('customer')->first();   
+    }
+
+    public function updateFunds($amount)
+    {
+        $user = CustomerBiodata::where('user_id',auth()->id())->first();
+        $user->wallet_balance += $amount;
+        $user->save();
+
+        return response()->json(['msg' => 'success']);
     }
 }
 // 
