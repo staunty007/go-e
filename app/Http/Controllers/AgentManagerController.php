@@ -13,7 +13,7 @@ use App\AgentBiodata;
 
 class AgentManagerController extends Controller
 {
-    private $prefix = "users.admin.agents.";
+    private $prefix = "users.admin.manage.agents.";
     /**
      * Display a listing of the resource.
      *

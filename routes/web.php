@@ -171,6 +171,9 @@ Route::prefix('backend')->group(function () {
         Route::get('income','AdminController@income')->name('admin.income');
         Route::get('customerlist','AdminController@customerlist')->name('admin.customerlist');
         Route::get('managecustomers','AdminController@managecustomers')->name('admin.managecustomers');
+
+        Route::get('manage/users/payment/{meter_no}','UserManagerController@customerPayment')->name('users.payment');
+
         Route::prefix('tickets')->group(function() {
             Route::get('/all-tickets','TicketsController@adminTickets')->name('admin.tickets');
             Route::get('/view/{ticket}','TicketsController@adminShowTicket')->name('admin.show-ticket');
