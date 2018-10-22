@@ -14,6 +14,7 @@ use App\MeterRequest;
 use App\AdminBiodata;
 use App\CustomerBiodata;
 use DB;
+use App\AgentBiodata;
 
 class AdminController extends Controller
 {
@@ -376,10 +377,22 @@ class AdminController extends Controller
         $totalWalletDep = DB::table('agent_topups')->where('agent_id','=',\Auth::user()->id)->sum('topup_amount');
         $sales['totalDeposit'] = $totalWalletDep;
 
-        return view($this->prefix.'agent-sales')
-            ->withSales($sales)
+        $agbara_agents = AgentBiodata::where('business_district','Agbara')->with('user')->get();
+        $ojo_agents = AgentBiodata::where('business_district','Ojo')->with('user')->get();
+        $festac_agents = AgentBiodata::where('business_district','Festac')->with('user')->get();
+        $ijora_agents = AgentBiodata::where('business_district','Ijora')->with('user')->get();
+        $mushin_agents = AgentBiodata::where('business_district','Mushin')->with('user')->get();
+        $apapa_agents = AgentBiodata::where('business_district','Apapa')->with('user')->get();
+        $lekki_agents = AgentBiodata::where('business_district','Lekki')->with('user')->get();
+        $island_agents = AgentBiodata::where('business_district','Island')->with('user')->get();
+
+        return view($this->prefix.'agent-sales', compact(
+            'sales','lekki_agents','agbara_agents','ojo_agents','festac_agents',
+            'mushin_agents','apapa_agents','island_agents','ijora_agents'));
+
+            // ->withSales($sales)
+            // ->withlekkiAgents($lekki_agents)
             
-            ;
     }
 
 
