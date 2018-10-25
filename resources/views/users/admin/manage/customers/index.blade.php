@@ -34,6 +34,7 @@
                                         <td>{{ $user->customer->address }}</td>
                                         <td>{!! $user->customer->meter_no or "<span class='label label-warning'>Not Available</span>" !!}</td>
                                         <td>
+                                            <a href="{{ route('users.payment',$user->customer->meter_no) }}" class="btn btn-warning btn-sm">Payments</a>
                                             <a href="{{ route('users.edit',$user->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                             <a href="{{ route('users.destroy',$user->id) }}" class="btn btn-danger btn-sm"
                                                 onclick="event.preventDefault(); document.querySelector('#agentDestroy').submit();"
@@ -42,8 +43,9 @@
                                                 {{ method_field("DELETE")}}
                                                 {{ csrf_field()}}
                                             </form>
-
+                                            
                                         </td>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>

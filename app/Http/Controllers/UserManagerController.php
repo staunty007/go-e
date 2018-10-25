@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Payment;
 use App\CustomerBiodata;
 use DB;
 use Carbon\Carbon;
 class UserManagerController extends Controller
 {
-    private $prefix = "users.admin.customers.";
+    private $prefix = "users.admin.manage.customers.";
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +20,7 @@ class UserManagerController extends Controller
     {
         // Fetch all customers
         $users = User::where('role_id',0)->with('customer')->get();
+        // return $users;
         return view($this->prefix.'index', compact('users'));
     }
 
@@ -77,7 +79,7 @@ class UserManagerController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -112,5 +114,13 @@ class UserManagerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function customerPayment($meter_no)
+    {
+        $customer_pay = Payment::where('meter_no',$meter_no)->first()->get();
+         //return $customer_pay;
+        return view($this->prefix.'customer_payments', compact('customer_pay'));
+
     }
 }

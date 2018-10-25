@@ -154,42 +154,17 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($agbara_agents as $agb_agent)
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row">{{ $agb_agent->user_id}}</th>
+                      <td>{{ $agb_agent->agent_id }}</td>
+                      <td>{{ $agb_agent->user->first_name }}</td>
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ $agb_agent->wallet_balance }}</td>
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -218,42 +193,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($ojo_agents as $oj_agent)
+                    <tr>
+                      <th scope="row">{{ $oj_agent->user_id}}</th>
+                      <td>{{ $oj_agent->agent_id }}</td>
+                      <td>{{ $oj_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $oj_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -280,42 +230,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($festac_agents as $fst_agent)
+                    <tr>
+                      <th scope="row">{{ $fst_agent->user_id}}</th>
+                      <td>{{ $fst_agent->agent_id }}</td>
+                      <td>{{ $fst_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $fst_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -342,42 +267,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($ijora_agents as $ij_agent)
+                    <tr>
+                      <th scope="row">{{ $ij_agent->user_id}}</th>
+                      <td>{{ $ij_agent->agent_id }}</td>
+                      <td>{{ $ij_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $ij_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -404,42 +304,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($mushin_agents as $m_agent)
+                    <tr>
+                      <th scope="row">{{ $m_agent->user_id}}</th>
+                      <td>{{ $m_agent->agent_id }}</td>
+                      <td>{{ $m_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $m_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -465,42 +340,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($apapa_agents as $app_agent)
+                    <tr>
+                      <th scope="row">{{ $app_agent->user_id}}</th>
+                      <td>{{ $app_agent->agent_id }}</td>
+                      <td>{{ $app_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $app_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -526,42 +376,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($lekki_agents as $l_agent)
+                    <tr>
+                      <th scope="row">{{ $l_agent->user_id}}</th>
+                      <td>{{ $l_agent->agent_id }}</td>
+                      <td>{{ $l_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $l_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -587,42 +412,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  @foreach ($island_agents as $l_agent)
+                    <tr>
+                      <th scope="row">{{ $isl_agent->user_id}}</th>
+                      <td>{{ $isl_agent->agent_id }}</td>
+                      <td>{{ $isl_agent->user->first_name }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ $isl_agent->wallet_balance }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
