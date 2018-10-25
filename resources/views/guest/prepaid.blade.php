@@ -5,7 +5,6 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 	<!--<![endif]-->
-
 	<head>
 		<title>GOENERGEE:::Prepaid Elctricity</title>
 		<meta charset="utf-8">
@@ -76,12 +75,12 @@
 						<div class="col-md-8 col-lg-9 media-query-search">
 							<div class="input-group media-input-group " style="width: 100%; text-align: right;">
 								<input type="text" class="form-control media-query-input" placeholder="Search" aria-describedby="basic-addon1"
-								 style="
-								width: 60%;
-								float:  right;
-								padding: 1.5em;
-								border-radius:  0;
-								text-align: center;
+								style="
+									width: 60%;
+									float:  right;
+									padding: 1.5em;
+									border-radius:  0;
+									text-align: center;
 								"
 								 onkeyup="listServices()" id="searchForm">
 								<button class="btn btn-danger" style="
@@ -129,21 +128,6 @@
 							<div class="item">
 								<img src="/images/rev_image/7.png">
 							</div>
-							{{-- <div class="item">
-								<img src="images/rev_image/3.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/4.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/7.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/8.png">
-							</div>
-							<div class="item">
-								<img src="images/rev_image/9.png">
-							</div> --}}
 						</div>
 
 						<!-- Left and right controls -->
@@ -279,17 +263,9 @@
 									<p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
 								</form>
 							</div>
-							{{-- <button class="btn btn-rounded" id="three">Prepaid</button>
-							<a href="{{ route('postpaid') }}" target="_blank" id="postPaid">
-								<button class="btn btn-rounded" id="four">Postpaid</button>
-							</a> --}}
+							
 						</div>
 						<!---make payments ends-->
-
-
-
-
-
 
 					</div>
 					<!---col-md-7 ends -->
@@ -317,7 +293,6 @@
 			<div class="modal-dialog " role="document">
 				<div class="modal-content">
 					<div class="modal-header headermodal text-center">
-						
 						<br>
 						<img src="/images/ekedc.jpg" width="60" />
 						<span style="font-size: 16px"> </span>
@@ -446,66 +421,88 @@
 		<script>
 			$(".pay-meter").click((e) => {
 				e.preventDefault();
-				$('.pay-meter').html('Validating....');
-				let meter_no = $('#meterno').val();
-				fetch(`/in-app/api/soap/validate-customer/${meter_no}`)
-					.then(res => res.json())
-					.then(response => {
-						console.log(response);
-						if (response.response.retn !== 0) {
-							if (response.response.retn == 400) {
-								// window.location.href = '/';
-								console.log(response);
-							} else {
-								$.alert({
-									title: 'Ooops!',
-									content: 'Invalid Meter No!',
-									type: 'red',
-									buttons: {
-										ok: {
-											text: 'Try Again',
-											btnClass: 'btn-red'
-										}
-									}
-								});
-							}
+				if(navigator.onLine) {
+					let amount = $("#amount").val();
 
-							$('.pay-meter').html('Continue');
-
-
-						} else {
-							// Valid Meter no
-							let {
-								name
-							} = response.response.customerInfo;
-							let names = name.split(' ', 2);
-							console.log(names[0]);
-							$("#firstname").val(names[0]);
-							$("#lastname").val(names[1]);
-							$("#emailret").val('');
-							$("#phoneret").val('');
-							$("#meter_no").val($("#meterno").val());
-							$("#total").val(parseInt($(".meter-amount").val()) + 100);
-							toggleMod();
-						}
-					})
-					.catch(err => {
-						// alert('Sorry Something Went Wrong');
-						console.log(err);
+					if(parseInt(amount) < 900) {
 						$.alert({
-							title: 'Ooops!',
-							content: 'Something Bad Went Wrong',
+							title: 'Invalid Amount!',
+							content: `Amount Cannot be lesser than N900`,
 							type: 'red',
 							buttons: {
-								ok: {
-									text: 'Got It',
+								gotit: {
+									text: 'Got It!',
 									btnClass: 'btn-red'
 								}
 							}
 						});
-						$('.pay-meter').html('Continue');
+					}else {
+						$('.pay-meter').html('Validating....');
+						let meter_no = $('#meterno').val();
+						setTimeout(() => {
+							$('.pay-meter').html('Still Working....');
+						}, 2000);
+						fetch(`/ekedc/validate-customer/OFFLINE_PREPAID/${meter_no}`)
+							.then(res => res.json())
+							.then(result => {
+								console.log(result);
+								if (result.response.retn !== 0) {
+									$.alert({
+										title: 'Ooops!',
+										content: `${result.response.error} <br> Please Ensure your enter the correct <b>Meter Number</b>`,
+										type: 'red',
+										buttons: {
+											ok: {
+												text: 'Try Again',
+												btnClass: 'btn-red'
+											}
+										}
+									});
+										$('.pay-meter').html('Continue');
+								} else {
+									console.log(result);
+									let { name } = result.response.customerInfo;
+									let names = name.split(' ', 2);
+									console.log(names[0]);
+									$("#firstname").val(names[0]);
+									$("#lastname").val(names[1]);
+									$("#emailret").val('');
+									$("#phoneret").val('');
+									$("#meter_no").val($("#meterno").val());
+									$("#total").val(parseInt($(".meter-amount").val()) + 100);
+									toggleMod();
+								}
+							})
+							.catch(err => {
+								// alert('Sorry Something Went Wrong');
+								console.log(err);
+								$.alert({
+									title: 'Ooops!',
+									content: 'Something Bad Went Wrong',
+									type: 'red',
+									buttons: {
+										ok: {
+											text: 'Got It',
+											btnClass: 'btn-red'
+										}
+									}
+								});
+								$('.pay-meter').html('Continue');
+							});
+					}
+				}else {
+					$.alert({
+						title: 'Ooops!',
+						content: 'Seems you"re disconnected',
+						type: 'red',
+						buttons: {
+							ok: {
+								text: 'Got It',
+								btnClass: 'btn-red'
+							}
+						}
 					});
-
+				}
 			})
 			$("#ctnPay").click((e) => {
 				$("#ctnPay").html('Connecting to Gateway..').prop('disables', true);

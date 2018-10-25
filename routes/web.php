@@ -331,8 +331,21 @@ Route::prefix('uat-test')->group(function(){
     Route::get('signon','UATController@signOn');
     // Route::get('validate-customer/{accountType}/{customerId}','UATController@validatePayment');
     Route::get('validate-customer','UATController@validateCustomer');
+    Route::get('pay-order/','UATController@validatePayment');
     Route::get('charge-wallet/{amount}/{accountType}/{customerId}','UATController@chargeWallet');
-    Route::get('generate-token','UATController@generateToken');
+    Route::get('generate-token/{number}','UATController@generateToken');
+    Route::get('requery/{ref}/{orderid}','UATController@requeryToken');
     Route::get('notify-reversal','UATController@notifyReversal');
     Route::get('get-balance','UATController@getBalance');
+});
+
+
+/**
+ * EKEDC Internal API Endpoint
+ */
+Route::prefix('ekedc')->group(function(){
+    Route::get('signon','CIController@signOn');
+    Route::get('validate-customer/{accountType}/{customerId}','CIController@validateCustomer');
+    Route::get('charge-wallet/{amount}/{accountType}/{customerId}','CIController@chargeWallet');
+    Route::get('generate-token/{paymentRef}/{orderId}','CIController@generateToken');
 });
