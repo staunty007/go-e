@@ -378,7 +378,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="">Total</label> 
+											<label for="">Total</label>
 											<output type="number" readonly name="result" id="result"></output>
 										</div>
 									</div>
@@ -421,7 +421,7 @@
 		Powered by GOENERGEE
 	</div>
 	</div>
-	<script>
+	{{-- <script>
 	let totalSum = 0;
 	$('.form-group').on('input','.prc',function(){
 		$('.form-group .prc').each(function(){
@@ -439,7 +439,7 @@
 		e.preventDefault();
 		alert(totalSum);
 	});
-	</script>
+	</script> --}}
 
 
 	<script>
