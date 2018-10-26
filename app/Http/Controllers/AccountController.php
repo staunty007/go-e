@@ -263,9 +263,7 @@ class AccountController extends Controller
 
             // Wallet Balance
             $adminBio = AdminBiodata::first();
-
-            //return $adminBio;
-
+            
             $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;

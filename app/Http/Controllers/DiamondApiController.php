@@ -38,7 +38,6 @@ class DiamondApiController extends Controller
         return json_decode($response, true);
         if ($err) {
             return response()->json(['error' => $err], 500);
-            
         } else {
             return response()->json($response, 200);
         }

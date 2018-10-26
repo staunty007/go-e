@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
 // Route::get('/', function () { return view('index'); });
 Route::get('/', function(){
+    if(session()->has('TAMSES')) {
+        session()->forget('TAMSES');
+    }
     return view('guest.home');
 });
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SoapClient;
+use SoapHeader;
 
 class CIController extends Controller
 {
@@ -80,7 +82,10 @@ class CIController extends Controller
                 ]
             )
         );
-        dd($results);
+        // dd($results);
+        if($results->response->retn !== 0) {
+            return response()->json(['response' => ["retn" => $results->response->retn, "error" => "Unable to Connect to the Validation Provider, Please try again Later"]]);
+        }
         if($results->response->customerInfo->accountType !== $accountType) {
             return response()->json(['response'=> ["retn" => 102, "error" => "Invalid Account Type"]], 400);
         }else {

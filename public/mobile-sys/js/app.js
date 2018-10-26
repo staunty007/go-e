@@ -1,10 +1,10 @@
 // check if browser supports service workers
-if (navigator.serviceWorker) {
-    // then register service worker
-    navigator.serviceWorker.register('/s-worker.js').then((registration) => {
-        console.log('[Service Wroker is being Registered] ', registration);
-    });
-}
+// if (navigator.serviceWorker) {
+//     // then register service worker
+//     navigator.serviceWorker.register('/s-worker.js').then((registration) => {
+//         console.log('[Service Wroker is being Registered] ', registration);
+//     });
+// }
 
 // Ajax Setup
 $.ajaxSetup({

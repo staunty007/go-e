@@ -42,10 +42,10 @@ class GuestController extends Controller
         return view('guest/services');
     }
     public function serviceType(){
-    	return view('guest/service_type');
+		session()->forget('TAMSES');
+		return view('guest/service_type');
     }
     public function eachServicesType(Request $request, $name, CIController $soap){
-		session()->forget('TAMSES');
 		if(!session()->has('TAMSES')) {
 			$soap->signon();
 		}
