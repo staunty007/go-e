@@ -511,6 +511,21 @@ class AccountController extends Controller
         return view('customer.customer_profile')->withProfile($profile);
     }
 
+    public function validateMeter($meter, CIController $ci)
+    {
+        // 
+        $user = CustomerBiodata::where('meter_no',$meter)->count();
+        // if no user already used the meter no
+        if($user < 1) {
+            // Validate the customer from EKO
+            $valid = $ci->validateCustomer('OFFLINE_PREPAID',$meter);
+            return $valid;
+        }
+
+        return response()->json(['response' => ['retn' => 233, 'error' => 'A user already used the meter no']]);
+
+    }
+
     public function updateProfile(Request $request)
     {
         $user = User::find($request->customer_id);

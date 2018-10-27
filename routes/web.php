@@ -141,7 +141,7 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     // API Calls only
     Route::get('update-wallet/{amount}','AccountController@updateFunds');
 });
-
+Route::get('validate-customer-meter/{meterNo}','AccountController@validateMeter');
 Route::post('/comment','TicketsController@commentTicket')->name('ticket.comment');
 
 // Admin

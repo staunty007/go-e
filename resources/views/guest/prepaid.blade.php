@@ -282,98 +282,18 @@
 
 
 	<script>
-
 		$('document').ready(function () {
-				if (window.location.hash == "#prepaid-meter") {
-					$('.prepaid-modal').modal('toggle', {
-						backdrop: false
-					});
-					// console.log(window.location.hash);
-				}
-			});
-			</script>
+			if (window.location.hash == "#prepaid-meter") {
+				$('.prepaid-modal').modal('toggle', {
+					backdrop: false
+				});
+				// console.log(window.location.hash);
+			}
+		});
+	</script>
 	<div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment">
 		<div class="modal-dialog " role="document">
 			<div class="modal-content">
-					<div id="payment-modal">
-							{{-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> --}}
-							<!------ Include the above in your HEAD tag ---------->
-							
-							<div class="container">
-								<div class="row">
-									<div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
-										<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-											<div class="list-group">
-											<a href="#" class="list-group-item active text-center">
-												<h4 class="fa fa-credit-card"></h4><br/>Card Payment
-											</a>
-											<a href="#" class="list-group-item text-center">
-												<h4 class="fa fa-university"></h4><br/>Bank to Bank
-											</a>
-											{{-- <a href="#" class="list-group-item text-center">
-												<h4 class="glyphicon glyphicon-road"></h4><br/>Train
-											</a>
-											<a href="#" class="list-group-item text-center">
-												<h4 class="glyphicon glyphicon-home"></h4><br/>Hotel
-											</a>
-											<a href="#" class="list-group-item text-center">
-												<h4 class="glyphicon glyphicon-cutlery"></h4><br/>Restaurant
-											</a> --}}
-											</div>
-										</div>
-										<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-											<!-- card section -->
-											<div class="bhoechie-tab-content active">
-												<center>
-													<button class="btn btn-primary btn-lg">Continue to Card Payment</button>
-												</center>
-											</div>
-											<!-- bank section -->
-											<div class="bhoechie-tab-content">
-												<center>
-													<div class="form-group">
-														<label>Please Select Your Bank</label>
-														<select class="form-control" name="bank_payment" id="bank_payment">
-															<option value="Diamond">Diamond Bank</option>
-															<option value="Zenith">Zenith Bank</option>
-														</select>
-													</div>
-													<div class="other">
-														<div class="form-group">
-															<label>Please Enter Your Account Number</label>
-															<input type="text" class="form-control" name="account">
-														</div>
-													</div>
-												</center>
-											</div>
-								
-											<!-- hotel search -->
-											<div class="bhoechie-tab-content">
-												<center>
-													<h1 class="glyphicon glyphicon-home" style="font-size:12em;color:#55518a"></h1>
-													<h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-													<h3 style="margin-top: 0;color:#55518a">Hotel Directory</h3>
-												</center>
-											</div>
-											<div class="bhoechie-tab-content">
-												<center>
-													<h1 class="glyphicon glyphicon-cutlery" style="font-size:12em;color:#55518a"></h1>
-													<h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-													<h3 style="margin-top: 0;color:#55518a">Restaurant Diirectory</h3>
-												</center>
-											</div>
-											<div class="bhoechie-tab-content">
-												<center>
-													<h1 class="glyphicon glyphicon-credit-card" style="font-size:12em;color:#55518a"></h1>
-													<h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-													<h3 style="margin-top: 0;color:#55518a">Credit Card</h3>
-												</center>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
 				<div class="modal-header headermodal text-center">
 					<br>
 					<img src="/images/ekedc.jpg" width="60" />

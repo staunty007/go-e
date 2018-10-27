@@ -66,7 +66,10 @@ class CIController extends Controller
     public function validateCustomer($accountType, $customerId) {
         // Get Partner details
         $partner = $this->partnerDetails();
-        // Gets the global session TAMSES
+        // Gets the global session TAMSES or create if it doesnt exists
+        if(!session()->get('TAMSES')) {
+            $this->signon();
+        }
         $sessionId = session()->get('TAMSES');
         // Instantiate the SOAPCLient
         $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
@@ -83,8 +86,15 @@ class CIController extends Controller
             )
         );
         // dd($results);
-        if($results->response->retn !== 0) {
-            return response()->json(['response' => ["retn" => $results->response->retn, "error" => "Unable to Connect to the Validation Provider, Please try again Later"]]);
+        if($results->response->retn !== 0 || $results->response->retn == 400) {
+            return response()->json(
+                ['response' => 
+                    [
+                        "retn" => $results->response->retn, 
+                        "error" => "Unable to Connect to the Validation Provider due to a glitch from our end, Please try again Later", 
+                        "desc" => $results->response
+                    ]
+                ]);
         }
         if($results->response->customerInfo->accountType !== $accountType) {
             return response()->json(['response'=> ["retn" => 102, "error" => "Invalid Account Type"]], 400);
