@@ -7,7 +7,7 @@
 <!--<![endif]-->
 
 <head>
-	<title>GOENERGEE</title>
+	<title>GOENERGEE::: SUPPORT</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -289,7 +289,7 @@
 									<b>Phone:</b> 08052313815</h5>
 								<h5>
 									<b>Email:</b> customersupport@goenergee.com</h5>
-								<p><br>
+								<br><br><br><br><br><br><br><br><br><br>
 									{{-- <h5 style="color:#80c636">
 										<b>Super Agent</b>
 									</h5>
@@ -301,8 +301,8 @@
 									<h5>
 										<b>Phone:</b> 08063437144</h5>
 									<h5>
-										<b>Email:</b> info@spec-ng.com</h5> --}}
-								</p>
+										<b>Email:</b> info@spec-ng.com</h5>
+								</p> --}}
 							</div>
 						</div>
 					</div>

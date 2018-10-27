@@ -165,8 +165,8 @@
                                 </h4>
 
                                 <ul>
-                                    <li> Huge content from QT and other ISW products</li>
-                                    <li>Over 5,000 billers & merchants</li>
+                                    <li> Huge content from GOENERGEE and other products</li>
+                                    <li>Ever Growing billers & merchants</li>
                                     <li> Innovator and industry enabler</li>
                                 </ul>
                                 </li>
@@ -176,7 +176,7 @@
                                 </h4>
 
                                 <ul>
-                                    <li> Huge content from QT and other ISW products</li>
+                                    <li> Huge content from GOENERGEE and other products</li>
                                     <li>Comprehensive, all-year round and targeted marketing communications support
                                     </li>
                                     <li> Improved brand association</li>
@@ -219,7 +219,7 @@
                                 </h4>
 
                                 <ul>
-                                    <li> It pays more to be IFIS agent</li>
+                                    <li> It pays more to be GOENERGEE agent</li>
                                     <li>More commissions and incentives</li>
                                     <li> More services</li>
                                     <li> More support</li>
