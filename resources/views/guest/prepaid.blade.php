@@ -372,6 +372,9 @@
 										<a href="#" class="list-group-item text-center">
 											<h4 class="fa fa-university"></h4><br />Bank to Bank
 										</a>
+										<a href="#" class="list-group-item text-center">
+											<h4 class="fa fa-university"></h4><br />mVisa
+										</a>
 										{{-- <a href="#" class="list-group-item text-center">
 											<h4 class="glyphicon glyphicon-road"></h4><br />Train
 										</a>
@@ -410,6 +413,15 @@
 													<button class="btn btn-block btn-primary" id="make-btn" disabled>Make Payment</button>
 												</div>
 											</div>
+										</center>
+									</div>
+									<div class="bhoechie-tab-content">
+										<center>
+											<h3>Please Scan the QR Code below</h3>
+											<img src="/images/qr-code.svg" draggable="false" height="250" />
+											<p>Enter Amount</p>
+											<h2>Amount: <span id="mvisa"></span></h2>
+											<p><strong>Merchant ID:</strong> 4727176660133</p>
 										</center>
 									</div>
 								</div>
@@ -543,6 +555,7 @@
 								$("#total").val(parseInt($(".meter-amount").val()) + 100);
 								setTimeout(() => {
 									$('.pay-meter').html('Validated');
+									$("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
 									confirmDetails();
 								}, 2000);
 							}
@@ -581,7 +594,7 @@
 			}
 		})
 		$("#ctnPay").click((e) => {
-			$("#ctnPay").html('Connecting to Gateway..').prop('disables', true);
+			$("#ctnPay").html('Connecting to Gateway..').prop('disabled', true);
 			e.preventDefault();
 			if ($("#emailret").val() == "") {
 				alert('Please Enter an email address');
@@ -660,6 +673,7 @@
 		}
 		const prevModalPaymentOptions = () => {
 			$('.modal').hide();
+			$("#ctnPay").prop('disabled',false);
 			confirmDetails();
 		}
 
