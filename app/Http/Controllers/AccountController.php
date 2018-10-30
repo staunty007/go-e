@@ -19,7 +19,7 @@ use App\CustomerBiodata;
 use Carbon\Carbon;
 use App\Transaction;
 use App\AgentTransaction;
-use JavaScript;
+use App\Mail\TransactionReceipt;
 
 class AccountController extends Controller
 {
@@ -227,13 +227,14 @@ class AccountController extends Controller
 
             // Set a variable for the token data
             $dataToken = $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
-
+            // return $dataToken;
             $token_data = "";
             $bonus_token = "";
 
             // if token data is available and it is a numeric value
-            if ($dataToken && is_numeric($dataToken)) {
+            if (isset($dataToken) && is_numeric($dataToken['value'])) {
                 $token_data = $dataToken['value'];
+                // return $dataToken['value'];
             }
 
             
@@ -241,6 +242,9 @@ class AccountController extends Controller
             if (isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
+
+            // return $token_data;
+            // die();
             $paymentId = DB::table('payments')->insertGetId([
                 'first_name' => $paymentDetails['firstname'],
                 'last_name' => $paymentDetails['lastname'],
@@ -252,6 +256,8 @@ class AccountController extends Controller
                 'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
                 'transaction_type' => "Web",
                 'transaction_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
+                'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
+                'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
                 'value_of_kwh' => $paymentDetails['amount'] / 12.85,
                 'is_agent' => false,
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
@@ -296,13 +302,13 @@ class AccountController extends Controller
             $amountPaid = $total_amount;
 
             // Set Data to print to the receipt
-            $data = array_prepend(session()->get('token_data'), session()->get('payment_details'));
+            // $data = array_prepend(session()->get('token_data'), session()->get('payment_details'));
 
             // return $data;
 
-            session()->put('receipt_data', $data);
+            // session()->put('receipt_data', $data);
 
-            return redirect()->route('receipt');
+            return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
 
             // session()->forget('payment_details');
 
@@ -312,15 +318,17 @@ class AccountController extends Controller
         return redirect('/');
     }
 
-    public function generateReceipt()
+    public function generateReceipt($orderId)
     {
-        $data = [session()->get('receipt_data')];
-        // return $data;
-        Javascript::put([
-            "data" => $data,
-            "name" => 'Adewumi'
-        ]);
-        return view('generate-receipt');
+        return view('generate-receipt', compact('orderId'));
+    }
+
+    public function fetchReceiptDetails($orderId)
+    {
+        $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
+        // return $payment->email;
+        $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
+        return $payment;
     }
 
 

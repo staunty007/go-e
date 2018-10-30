@@ -7,7 +7,7 @@ export default class Example extends Component {
   }
 
   componentDidMount() {
-    // console.log(jsVars.data[0].meterno);
+    console.log(jsVars.data);
   }
   render() {
     return (
@@ -20,7 +20,7 @@ export default class Example extends Component {
               <div className="card-body">
                 {this.props.dataFrom}
                 <br />
-                {/* {jsVars.data} */}
+                {jsVars.data}
               </div>
             </div>
           </div>

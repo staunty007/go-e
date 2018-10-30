@@ -10,9 +10,7 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "~6.0",
         "intervention/image": "^2.4",
-        "laracasts/utilities": "^3.0",
         "laravel/framework": "5.6.*",
-        "laravel/passport": "^7.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0"
     },
@@ -39,8 +37,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {

@@ -361,4 +361,5 @@ Route::prefix('ekedc')->group(function () {
 // Hold Generate Token Data
 Route::post('gtk', 'AccountController@holdToken');
 Route::get('transaction/success', 'AccountController@paymentSuccess');
-Route::get('transaction/receipt', 'AccountController@generateReceipt')->name('receipt');
+Route::get('transaction/{order_id}/receipt', 'AccountController@generateReceipt')->name('receipt');
+Route::get('fetch/{order_id}', 'AccountController@fetchReceiptDetails');
