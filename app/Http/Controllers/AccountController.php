@@ -19,13 +19,14 @@ use App\CustomerBiodata;
 use Carbon\Carbon;
 use App\Transaction;
 use App\AgentTransaction;
+use JavaScript;
 
 class AccountController extends Controller
 {
     public function loginUser(Request $request)
     {
-        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_activated' => 1])) {
-            return response()->json(['sus'=> 1]);
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_activated' => 1])) {
+            return response()->json(['sus' => 1]);
         } else {
             return response()->json(['err' => 'Email Address or Password is incorrect']);
         }
@@ -34,15 +35,15 @@ class AccountController extends Controller
     {
         $checkMail = User::where('email', $request->email)->get();
 
-        if(count($checkMail) == 1) {
+        if (count($checkMail) == 1) {
             return response()->json(['err' => 'Email Already Exists']);
         }
 
-        if($request->has('referred')) {
+        if ($request->has('referred')) {
             // Activate the bonus upon registration
-            $fetchCustomer = User::where('refer_id',$request->referred)->first();
-            $customer = CustomerBiodata::where('user_id',$fetchCustomer->id)->first();
-            if($fetchCustomer !== null) {
+            $fetchCustomer = User::where('refer_id', $request->referred)->first();
+            $customer = CustomerBiodata::where('user_id', $fetchCustomer->id)->first();
+            if ($fetchCustomer !== null) {
                 $customer->refer_bonus += 2;
                 $customer->save();
                 session()->forget('referred');
@@ -51,7 +52,7 @@ class AccountController extends Controller
         }
 
         $bio = new CustomerBiodata;
-        
+
         $access_token = str_random(50);
 
         $userID = DB::table('users')->insertGetId([
@@ -69,10 +70,10 @@ class AccountController extends Controller
         $bio->meter_no = "";
         $bio->address = "";
         $bio->save();
-        
-        $user = User::where('id',$userID)->first();
+
+        $user = User::where('id', $userID)->first();
         Mail::to($user->email)->send(new AccountActivation($user));
-        
+
 
         return response()->json(['sus' => '1']);
     }
@@ -82,13 +83,13 @@ class AccountController extends Controller
      */
     public function referredSignup($ref)
     {
-        $findRef = User::where('refer_id',$ref)->first();
-        if(empty($findRef)) {
+        $findRef = User::where('refer_id', $ref)->first();
+        if (empty($findRef)) {
             return redirect('/');
-        }else {
+        } else {
             // store refer ID to session
-            session()->put('referred',$findRef->refer_id);
-            session()->flash('success','Thank you for visiting GOENERGEE, Please Proceed to Signup');
+            session()->put('referred', $findRef->refer_id);
+            session()->flash('success', 'Thank you for visiting GOENERGEE, Please Proceed to Signup');
             return redirect()->route('guest.signup');
             // return view('referral-signup')->withRef($findRef->refer_id);
         }
@@ -134,7 +135,7 @@ class AccountController extends Controller
 
         //return $adminDetails;
 
-        if($adminDetails->wallet_balance < $request->amount) {
+        if ($adminDetails->wallet_balance < $request->amount) {
             return response()->json(['code' => 'no']);
         }
         session(['payment_details' => $request->all()]);
@@ -146,10 +147,10 @@ class AccountController extends Controller
     public function paymentAgentPrepaidHolder(Request $request)
     {
 
-        $agentDetails = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+        $agentDetails = AgentBiodata::where('user_id', \Auth::user()->id)->first();
         $adminDetails = AdminBiodata::first();
 
-        if($agentDetails->wallet_balance < $request->amount || $adminDetails->wallet_balance < $request->amount )  {
+        if ($agentDetails->wallet_balance < $request->amount || $adminDetails->wallet_balance < $request->amount) {
             return response()->json(['errorText' => 'Insufficient Balance to complete the payment, Please Topup']);
         }
         session(['payment_details' => $request->all()]);
@@ -165,11 +166,11 @@ class AccountController extends Controller
 
         //return $adminDetails;
 
-        if($request->is_agent == 1) {
+        if ($request->is_agent == 1) {
             return $this->paymentAgentPostpaidHolder($request);
         }
 
-        if($adminDetails->wallet_balance < $request->amount) {
+        if ($adminDetails->wallet_balance < $request->amount) {
 
             return response()->json(['code' => 'no']);
         }
@@ -183,17 +184,17 @@ class AccountController extends Controller
         
         // Check if payment sending is not greater than that of admin
         $adminDetails = AdminBiodata::first();
-        $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+        $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->first();
 
         //return $adminDetails;
 
-        if($adminDetails->wallet_balance < $request->amount) {
+        if ($adminDetails->wallet_balance < $request->amount) {
 
             return response()->json(['code' => 'no']);
         }
 
-        if($agentBio->wallet_balance < $request->amount) {
-            return response()->json(['errorText'=>'Insufficient Funds, Please Topup']);
+        if ($agentBio->wallet_balance < $request->amount) {
+            return response()->json(['errorText' => 'Insufficient Funds, Please Topup']);
         }
         session(['payment_details' => $request->all()]);
 
@@ -214,27 +215,47 @@ class AccountController extends Controller
     }
 
 
-    public function paymentSuccess($ref)
+    public function paymentSuccess()
     {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
-
+            $tokenDetails = session()->get('token_data');
+            // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
             $transaction = new Transaction;
 
+            // Set a variable for the token data
+            $dataToken = $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
+
+            $token_data = "";
+            $bonus_token = "";
+
+            // if token data is available and it is a numeric value
+            if ($dataToken && is_numeric($dataToken)) {
+                $token_data = $dataToken['value'];
+            }
+
+            
+            // if bonus token is generated then set it
+            if (isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
+                $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
+            }
             $paymentId = DB::table('payments')->insertGetId([
-                'first_name' => $paymentDetails['first_name'],
-                'last_name' => $paymentDetails['last_name'],
+                'first_name' => $paymentDetails['firstname'],
+                'last_name' => $paymentDetails['lastname'],
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
-                'meter_no' => $paymentDetails['meter_no'],
-                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
-                'user_type' => 1,
+                'meter_no' => $paymentDetails['meterno'],
+                'token_data' => $token_data,
+                'bonus_token' => $bonus_token,
+                'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
                 'transaction_type' => "Web",
-                'transaction_ref' => $ref,
+                'transaction_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'value_of_kwh' => $paymentDetails['amount'] / 12.85,
                 'is_agent' => false,
+                'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
+                'payment_status' => $tokenDetails['response']['orderDetails']['status'],
                 'created_at' => new Carbon('now'),
                 'updated_at' => new Carbon('now'),
             ]);
@@ -247,9 +268,9 @@ class AccountController extends Controller
             $commission = $paymentDetails['amount'] * 0.02;
             $pgp = $total_amount * 0.015;
             $bal = (100 + $commission) - $pgp;
-            $spec = round($bal * 0.1,2);
-            $ralmuof = round($bal * 0.9,2);
-            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $spec = round($bal * 0.1, 2);
+            $ralmuof = round($bal * 0.9, 2);
+            $totalSplit = ($pgp + $bal + $spec + $ralmuof) - $bal;
             $netAmount = $paymentDetails['amount'] - $commission;
 
             $transaction->total_amount = $total_amount;
@@ -263,7 +284,7 @@ class AccountController extends Controller
 
             // Wallet Balance
             $adminBio = AdminBiodata::first();
-            
+
             $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
@@ -274,21 +295,32 @@ class AccountController extends Controller
             $smsNumber = $paymentDetails['mobile'];
             $amountPaid = $total_amount;
 
-            session()->put(['smsNumber' => $smsNumber]);
-            session()->put(['smsRef' => $ref]);
-            session()->put(['paid_amount' => $amountPaid]);
-            session()->put(['payment_type' => 'Prepaid']);
-            session()->put(['meter_no' => $paymentDetails['meter_no']]);
-            
+            // Set Data to print to the receipt
+            $data = array_prepend(session()->get('token_data'), session()->get('payment_details'));
 
-            return redirect()->route('finalize', [$smsNumber,$ref]);
+            // return $data;
 
-            session()->forget('payment_details');
+            session()->put('receipt_data', $data);
 
-            return back();
+            return redirect()->route('receipt');
+
+            // session()->forget('payment_details');
+
+            // return back();
         }
 
         return redirect('/');
+    }
+
+    public function generateReceipt()
+    {
+        $data = [session()->get('receipt_data')];
+        // return $data;
+        Javascript::put([
+            "data" => $data,
+            "name" => 'Adewumi'
+        ]);
+        return view('generate-receipt');
     }
 
 
@@ -303,9 +335,9 @@ class AccountController extends Controller
 
             $is_agent = false;
 
-            $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+            $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->first();
 
-            if($paymentDetails['is_agent'] == 1) {
+            if ($paymentDetails['is_agent'] == 1) {
                 $is_agent = true;
             }
             $paymentId = DB::table('payments')->insertGetId([
@@ -314,7 +346,7 @@ class AccountController extends Controller
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
                 'meter_no' => $paymentDetails['meter_no'],
-                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
+                'recharge_pin' => rand(1234, 5334) . " " . rand(2324, 24980),
                 'user_type' => 2,
                 'transaction_type' => "Web",
                 'transaction_ref' => $ref,
@@ -332,9 +364,9 @@ class AccountController extends Controller
             $commission = $paymentDetails['amount'] * 0.02;
             $pgp = $total_amount * 0.015;
             $bal = (100 + $commission) - $pgp;
-            $spec = round($bal * 0.1,2);
-            $ralmuof = round($bal * 0.9,2);
-            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $spec = round($bal * 0.1, 2);
+            $ralmuof = round($bal * 0.9, 2);
+            $totalSplit = ($pgp + $bal + $spec + $ralmuof) - $bal;
             $netAmount = $paymentDetails['amount'] - $commission;
 
             $transaction->total_amount = $total_amount;
@@ -350,11 +382,11 @@ class AccountController extends Controller
             $adminBio = AdminBiodata::first();
 
             $adminBio->wallet_balance -= $netAmount;
-            
+
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
-            if($paymentDetails['is_agent'] == 1) {
-                
+            if ($paymentDetails['is_agent'] == 1) {
+
                 $agentBio->wallet_balance -= $paymentDetails['amount'];
                 $agentBio->save();
             }
@@ -369,9 +401,9 @@ class AccountController extends Controller
             session()->put(['smsRef' => $ref]);
             session()->put(['paid_amount' => $amountPaid]);
             session()->put(['payment_type' => 'Prepaid']);
-            
 
-            return redirect()->route('finalize', [$smsNumber,$ref]);
+
+            return redirect()->route('finalize', [$smsNumber, $ref]);
 
             session()->forget('payment_details');
 
@@ -379,7 +411,8 @@ class AccountController extends Controller
         }
     }
 
-    public function loggedPostpaidPaymentSuccess($ref) {
+    public function loggedPostpaidPaymentSuccess($ref)
+    {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
 
@@ -389,9 +422,9 @@ class AccountController extends Controller
 
             $is_agent = false;
 
-            $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+            $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->first();
 
-            if($paymentDetails['is_agent'] == 1) {
+            if ($paymentDetails['is_agent'] == 1) {
                 $is_agent = true;
             }
             $paymentId = DB::table('payments')->insertGetId([
@@ -400,7 +433,7 @@ class AccountController extends Controller
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
                 'meter_no' => $paymentDetails['meter_no'],
-                'recharge_pin' => rand(1234,5334)." ".rand(2324,24980),
+                'recharge_pin' => rand(1234, 5334) . " " . rand(2324, 24980),
                 'user_type' => 2,
                 'transaction_type' => "Web",
                 'transaction_ref' => $ref,
@@ -418,9 +451,9 @@ class AccountController extends Controller
             $commission = $paymentDetails['amount'] * 0.02;
             $pgp = $total_amount * 0.015;
             $bal = (100 + $commission) - $pgp;
-            $spec = round($bal * 0.1,2);
-            $ralmuof = round($bal * 0.9,2);
-            $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+            $spec = round($bal * 0.1, 2);
+            $ralmuof = round($bal * 0.9, 2);
+            $totalSplit = ($pgp + $bal + $spec + $ralmuof) - $bal;
             $netAmount = $paymentDetails['amount'] - $commission;
 
             $transaction->total_amount = $total_amount;
@@ -436,10 +469,10 @@ class AccountController extends Controller
             $adminBio = AdminBiodata::first();
 
             $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
-            
+
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
-            if($paymentDetails['is_agent'] == 1) {
+            if ($paymentDetails['is_agent'] == 1) {
                 $transaction->agent_id = $agentBio->agent_id;
                 $agentBio->wallet_balance -= $total_amount;
                 $agentBio->save();
@@ -455,9 +488,9 @@ class AccountController extends Controller
             session()->put(['smsRef' => $ref]);
             session()->put(['paid_amount' => $amountPaid]);
             session()->put(['payment_type' => 'Prepaid']);
-            
 
-            return redirect()->route('finalize', [$smsNumber,$ref]);
+
+            return redirect()->route('finalize', [$smsNumber, $ref]);
 
             session()->forget('payment_details');
 
@@ -471,7 +504,7 @@ class AccountController extends Controller
     // }
     public function home()
     {
-        if(\Auth::check()) {
+        if (\Auth::check()) {
             $role = \Auth::user()->role_id;
             switch ($role) {
                 // Admin is Logged in
@@ -480,13 +513,12 @@ class AccountController extends Controller
                     break;
                 case '2':
                 // Agent is logged in
-                    $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+                    $agent = AgentBiodata::where('user_id', \Auth::user()->id)->first();
                     $allProfit = AgentTransaction::sum('agent');
                     session()->put(['agentDetails' => $agent]);
                     return view('users.agent.financial')
                         ->withDetails($agent)
-                        ->withProfit($allProfit)
-                        ;
+                        ->withProfit($allProfit);
                     break;
                 case '3':
                     //return view('users.distributor.finance');
@@ -497,16 +529,16 @@ class AccountController extends Controller
                     return view('customer.dashboard');
                     break;
             }
-        }else {
+        } else {
             return redirect('/')->withError('Session Expired, Please Login');
         }
-        
+
     }
 
     public function customerProfile()
     {
         // Fetch User Profile From CustomerBiodata
-        $profile = User::where('id',\Auth::user()->id)->with('customer')->first();
+        $profile = User::where('id', \Auth::user()->id)->with('customer')->first();
         // return $profile;
         return view('customer.customer_profile')->withProfile($profile);
     }
@@ -514,17 +546,28 @@ class AccountController extends Controller
     public function validateMeter($meter, CIController $ci)
     {
         // 
-        $user = CustomerBiodata::where('meter_no',$meter)->count();
+        $user = CustomerBiodata::where('meter_no', $meter)->count();
         // if no user already used the meter no
-        if($user < 1) {
+        if ($user < 1) {
             // Validate the customer from EKO
-            $valid = $ci->validateCustomer('OFFLINE_PREPAID',$meter);
+            $valid = $ci->validateCustomer('OFFLINE_PREPAID', $meter);
             return $valid;
         }
 
         return response()->json(['response' => ['retn' => 233, 'error' => 'A user already used the meter no']]);
 
     }
+
+    // Hold Token Generated Data
+    public function holdToken(Request $request)
+    {
+        if (!empty($request)) {
+            session()->put(['token_data' => $request->all()]);
+        }
+
+        return response()->json('ok');
+    }
+
 
     public function updateProfile(Request $request)
     {
@@ -535,19 +578,19 @@ class AccountController extends Controller
         $user->is_completed = 1;
         $user->is_activated = 1;
         $user->mobile = $request->phone;
-        if($user->refer_id == null) {
+        if ($user->refer_id == null) {
             $user->refer_id = str_random(10);
         }
 
-        $bio = CustomerBiodata::where('user_id',$request->customer_id)->first();
-        
+        $bio = CustomerBiodata::where('user_id', $request->customer_id)->first();
+
         $bio->meter_no = $request->meter_no;
         $bio->address = $request->address;
 
         if ($request->hasFile('profile_pic')) {
             $user->avatar = $request->file('profile_pic')->store('avatars', 'public');
         }
-        if($request->has('password') && strlen($request->password) > 1) {
+        if ($request->has('password') && strlen($request->password) > 1) {
             $user->password = bcrypt($request->password);
         }
 
@@ -561,7 +604,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        
+
         $prepaid = Payment::where('email', $userEmail)->first();
         //return $prepaid;
         return view('customer.make-payment')->withBefore($prepaid);
@@ -616,12 +659,12 @@ class AccountController extends Controller
 
     public function customerData()
     {
-        return User::where('id',\Auth::user()->id)->with('customer')->first();   
+        return User::where('id', \Auth::user()->id)->with('customer')->first();
     }
 
     public function updateFunds($amount)
     {
-        $user = CustomerBiodata::where('user_id',auth()->id())->first();
+        $user = CustomerBiodata::where('user_id', auth()->id())->first();
         $user->wallet_balance += $amount;
         $user->save();
 

@@ -30,7 +30,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 	<link rel="stylesheet" href="/css/izi.css">
 	<link rel="stylesheet" href="/css/custom/vertical-tab.css">
-	<script src="{{ asset('js/app.js') }}"></script>
+	{{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
@@ -354,87 +354,7 @@
 			</div>
 		</div>
 	</div><!-- /.modal-content -->
-	<div class="modal fade" tabindex="-1" role="dialog" style="" id="payment-options">
-		<div class="modal-dialog " role="document">
-			<div class="modal-content">
-				<div class="modal-header headermodal text-center">
-					<button onclick="prevModalPaymentOptions()" class="btn btn-danger pull-right">Back</button>
-				</div>
-				<div id="payment-modal">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-									<div class="list-group">
-										<a href="#" class="list-group-item active text-center">
-											<h4 class="fa fa-credit-card"></h4><br />Card Payment
-										</a>
-										<a href="#" class="list-group-item text-center">
-											<h4 class="fa fa-university"></h4><br />Bank to Bank
-										</a>
-										<a href="#" class="list-group-item text-center">
-											<h4 class="fa fa-university"></h4><br />mVisa
-										</a>
-										{{-- <a href="#" class="list-group-item text-center">
-											<h4 class="glyphicon glyphicon-road"></h4><br />Train
-										</a>
-										<a href="#" class="list-group-item text-center">
-											<h4 class="glyphicon glyphicon-home"></h4><br />Hotel
-										</a>
-										<a href="#" class="list-group-item text-center">
-											<h4 class="glyphicon glyphicon-cutlery"></h4><br />Restaurant
-										</a> --}}
-									</div>
-								</div>
-								<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-									<!-- card section -->
-									<div class="bhoechie-tab-content active">
-										<center>
-											<button class="btn btn-primary btn-lg" onclick="payWithPaystack();">Continue to Card Payment</button>
-										</center>
-									</div>
-									<!-- bank section -->
-									<div class="bhoechie-tab-content">
-										<center>
-											<div class="form-group">
-												<label>Please Select Your Bank</label>
-												<select class="form-control" name="bank_payment" id="bank_payment">
-													<option value="">Select your bank</option>
-													<option value="Diamond">Diamond Bank</option>
-													<option value="Zenith">Zenith Bank</option>
-												</select>
-											</div>
-											<div class="other">
-												<div class="form-group">
-													<label>Please Enter Your Account Number</label>
-													<input type="text" class="form-control" id="nuban" name="account">
-												</div>
-												<div class="form-group">
-													<button class="btn btn-block btn-primary" id="make-btn" disabled>Make Payment</button>
-												</div>
-											</div>
-										</center>
-									</div>
-									<div class="bhoechie-tab-content">
-										<center>
-											<h3>Please Scan the QR Code below</h3>
-											<img src="/images/qr-code.svg" draggable="false" height="250" />
-											<p>Enter Amount</p>
-											<h2>Amount: <span id="mvisa"></span></h2>
-											<p><strong>Merchant ID:</strong> 4727176660133</p>
-										</center>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><!-- /.modal-content -->
-
-
-
+	@include('partials._payment-options');
 	</div>
 	</div>
 
@@ -499,6 +419,7 @@
 	<script src="https://js.paystack.co/v1/inline.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script>
+		let meter_no = '';
 		$(".pay-meter").click((e) => {
 			e.preventDefault();
 			$(".pay-meter").prop('disabled',true);
@@ -520,7 +441,7 @@
 					$(".pay-meter").prop('disabled',false);
 				} else {
 					$('.pay-meter').html('Validating....');
-					let meter_no = $('#meterno').val();
+					meter_no = $('#meterno').val();
 					
 					fetch(`/ekedc/validate-customer/OFFLINE_PREPAID/${meter_no}`)
 						.then(res => res.json())
@@ -600,9 +521,9 @@
 				alert('Please Enter an email address');
 			}else {
 				let payload = {
-					'meter_no': '' + $("#meterno").val() + '',
-					'first_name': '' + $('#firstname').val() + '',
-					'last_name': '' + $('#lastname').val() + '',
+					'meterno': '' + $("#meterno").val() + '',
+					'firstname': '' + $('#firstname').val() + '',
+					'lastname': '' + $('#lastname').val() + '',
 					'email': '' + $('#emailret').val() + '',
 					'mobile': '' + $('#phoneret').val() + '',
 					'amount': '' + $('.meter-amount').val() + '',
@@ -629,9 +550,9 @@
 		}
 
 		function payWithPaystack() {
-			var amountMeter = document.querySelector('.meter-amount').value;
-			let meterNo = "{{ session('payment_details')['meter_no']}}";
-			var chargedAmount = parseInt(amountMeter) + 100;
+			var amount = document.querySelector('.meter-amount').value;
+			
+			var chargedAmount = parseInt(amount) + 100;
 			var handler = PaystackPop.setup({
 				key: "{{ env('PS_KEY') }}",
 				email: document.querySelector('#emailret').value,
@@ -639,16 +560,48 @@
 				ref: "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1),
 				callback: function (response) {
 					// charge wallet
-					let dataBack;
-					fetch(`/ekedc/charge-wallet/${amountMeter}/OFFLINE_PREPAID/${meterNo}`)
+					// let dataBack;
+					document.querySelector("#response").innerHTML =`<div class="modal-footer">
+									<h2>Validating Transaction...</h2>
+								</div>`;
+					console.log('charging Wallet...');
+					fetch(`/ekedc/charge-wallet/${amount}/OFFLINE_PREPAID/${meter_no}`)
 						.then(res => res.json())
-						.then(result => {
-							console.log(result);
-							dataBack = result;
+						.then(chargeWalletResult => {
+							console.log('Generating Token...');
+							const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
+							const orderId = chargeWalletResult.response.result.orderId;
+							document.querySelector("#response").innerHTML = `<div class="modal-footer">
+									<h2>Completing Transaction...</h2>
+							</div>`;
+							fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
+								.then(res => res.json())
+								.then(generateTokenResult => {
+									// Get the token data and redirect to receipt page
+									document.querySelector("#response").innerHTML = `<div class="modal-footer">
+											<h2>Transaction Completed</h2>
+											<p>Redirecting...</p>
+											
+										</div>`;
+									$.ajax({
+										url: '/gtk',
+										method: "POST",
+										data: generateTokenResult.response,
+										success: (result) => {
+											if(result == "ok") {
+												window.location.href = '/transaction/success';
+											}
+										},
+										error: (err) => {
+											alert('Something Bad Went Wrong, Please log a complain');
+										}
+									})
+								})
+								.catch(err => console.log(err));
 						})
 						.catch(err => console.log(err));
 					// generate token
-
+					
 					// setTimeout(() => {
 					// 	window.location.href = '/payment/' + response.reference + '/success';
 					// }, 1000);
@@ -664,7 +617,7 @@
 		
 		// confirm payment details
 		const confirmDetails = () => {
-			$('#confirm-payment').modal('toggle');
+			$('#confirm-payment').modal('show');
 		}
 		// payment options
 		const openOptions = () => {
@@ -672,8 +625,9 @@
 			$("#payment-options").modal('toggle');
 		}
 		const prevModalPaymentOptions = () => {
-			$('.modal').hide();
 			$("#ctnPay").prop('disabled',false);
+			$("#payment-options").modal('toggle');
+			// $('.modal').hide();
 			confirmDetails();
 		}
 
@@ -691,10 +645,12 @@
 			});
 
 			$("#bank_payment").change(function() {
-				$(".other").css({
-					"transition":"all .2s cubic-bezier(0, 0.01, 0.35, 0.91)",
-					"display":"block"
-				});
+				if($(this).val() !== "") {
+					$(".other").css({
+						"transition":"all .2s cubic-bezier(0, 0.01, 0.35, 0.91)",
+						"display":"block"
+					});
+				}
 			});
 			
 			let nuban = document.querySelector("#nuban");
