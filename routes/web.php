@@ -158,6 +158,7 @@ Route::prefix('backend')->group(function () {
         Route::get('profile', 'AdminController@profile')->name('admin.profile');
         Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
         Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
+        Route::get('income_channel', 'AdminController@income_channel')->name('admin.income_channel');
         Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
         Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
         Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');

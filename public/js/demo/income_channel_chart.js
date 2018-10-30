@@ -25,25 +25,25 @@ $(function () {
     };
 
 
-    var ctx = document.getElementById("lineChart").getContext("2d");
+    var ctx = document.getElementById("income1").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
 
     var barData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: [ "WEB", "MOBILE", "USSD", "POS",],
         datasets: [
+            // {
+            //     label: "PRE PAID",
+            //     backgroundColor: 'rgba(220, 220, 220, 0.5)',
+            //     pointBorderColor: "#fff",
+            //     data: [65, 59, 80, 81, 56, 55, 40, 23, 56, 23, 56, 23, 90]
+            // },
             {
-                label: "PRE PAID",
-                backgroundColor: 'rgba(220, 220, 220, 0.5)',
-                pointBorderColor: "#fff",
-                data: [65, 59, 80, 81, 56, 55, 40, 23, 56, 23, 56, 23, 90]
-            },
-            {
-                label: "POST",
+                label: "",
                 backgroundColor: 'rgba(26,179,148,0.5)',
-                borderColor: "rgba(26,179,148,0.7)",
-                pointBackgroundColor: "rgba(26,179,148,1)",
+                borderColor: "rgba(261,139,158,0.7)",
+                pointBackgroundColor: "rgba(216,149,108,1)",
                 pointBorderColor: "#fff",
-                data: [28, 48, 40, 19, 86, 27, 90, 54, 34, 78, 56, 56, 45]
+                data: [28, 48, 40, 19,]
             }
             
             
@@ -72,7 +72,7 @@ $(function () {
             ]
         }],
         labels: [
-            "App","Software","Laptop"
+            "WEB","MOBILE","Laptop"
         ]
     };
 
@@ -86,10 +86,10 @@ $(function () {
     new Chart(ctx3, {type: 'polarArea', data: polarData, options:polarOptions});
 
     var doughnutData = {
-        labels: ["App","Software","Laptop" ],
+        labels: ["WEB","MOBILE","USSD","POS" ],
         datasets: [{
-            data: [300,50,100],
-            backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
+            data: [300,50,100, 300],
+            backgroundColor: ["#a3e1d4","#dedede","#b5b8cf", "#cc6600"]
         }]
     } ;
 
@@ -129,3 +129,7 @@ $(function () {
     new Chart(ctx5, {type: 'radar', data: radarData, options:radarOptions});
 
 });
+
+function newFunction() {
+    return "#b5b8cf";
+}
