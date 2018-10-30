@@ -418,7 +418,7 @@
 	<!--main div ends-->
 	</div>
 	<div class="footi">
-		Powered by GOENERGEE
+		Powered by <b>GOENERGEE</b>
 	</div>
 	</div>
 	{{-- <script>

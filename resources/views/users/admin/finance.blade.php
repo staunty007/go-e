@@ -164,7 +164,7 @@
 
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">Balance =
+                    <h1 class="no-margins">
                         <span>&#8358;</span> {{ number_format($data['wallet_balance']) }}</h1>
                     
                     
