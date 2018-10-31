@@ -21,6 +21,7 @@
                         <th>Amount</th>
                         <th>PIN</th>
                         <th>Units (KwH)</th>
+                        <th>Reciept</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,8 +41,10 @@
                                 </td>
                                 <td>{{ $pay->meter_no }}</td>
                                 <td>N{{ number_format($pay->transaction->total_amount) }}</td>
+                                <td></td>
                                 <td>{{ $pay->recharge_pin }}</td>
-                                <td>{{ round($pay->value_of_kwh,2) }}</td>                 
+                                <td>{{ round($pay->value_of_kwh,2) }}</td>  
+                                <th><a href="{{ route('view-pay-history',$pay->id) }}" class="btn btn-info">Reciept</a></th>               
                             </tr>
                         @endforeach
                     </tbody>

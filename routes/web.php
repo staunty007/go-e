@@ -130,6 +130,9 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('meter-request', 'AccountController@meterRequest')->name('meter.request');
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
+    Route::get('payment-history/{reciept_id}','AccountController@ViewPaymentReciept')->name('view-pay-history');
+    Route::get('reciept/pdf/{reciept_id}','AccountController@pdfDownload');
+
     //postpaid-new
     Route::get('postpaid_new', 'AccountController@postpaid_new')->name('postpaid_new-history');
     //end post paid new
@@ -187,6 +190,7 @@ Route::prefix('backend')->group(function () {
         });
     });
 });
+
 
 Route::prefix('agent')->group(function () {
     Route::get('profile', 'AgentController@profile')->name('agent.profile');
