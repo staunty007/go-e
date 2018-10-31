@@ -10,6 +10,7 @@
         <style>
             body {
                 background-color: #FDFDFD;
+                font-family: "Nunito Sans", sans-serif;
             }
             .alert-success {
                 color: #fafafa;
@@ -49,8 +50,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Date: </td>
-                                                    <td>Date Here</td>
-                                                    {{-- <td>@{{ orderDate }}</td> --}}
+                                                    {{-- <td>{{ date('D-d-M-Y @ h:i:sa', strtotime(now())) }}</td> --}}
+                                                    <td>@{{ orderDate }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Transaction Ref.: </td>
@@ -109,7 +110,7 @@
                                                 <br>
                                                 <div style="margin-top: 1em">
                                                     <a href="{{ url()->previous() }}" class="btn btn-success">Pay Another</a>
-                                                    <button class="btn-danger btn" onclick="window.print()">Print Receipt</button>
+                                                    <button class="btn-danger btn" >Print Receipt</button>
                                                     <a href="" class="btn btn-info">Refer a Friend</a>
                                                 </div>
                                             </div>
@@ -172,9 +173,9 @@
                                 }
 
                                 this.orderDate = new Date(Date.parse(res.data.created_at));
-                                console.log(moment().format(this.orderDate));
-                                
-                                // od = this.orderDate;
+                                this.orderDate = moment(this.orderDate).format('llll');
+                                // console.log(this.orderDate);
+                                // // od = this.orderDate;
                             })
                             .catch(err => console.log(err));
                     },

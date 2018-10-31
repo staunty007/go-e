@@ -650,10 +650,10 @@ class AccountController extends Controller
         return view('customer.payment_reciept', compact('reciepts'));
     }
 
-    public function pdfDownload($reciept_id)
+    public function pdfDownload($order_id)
     {
         $userEmail = \Auth::user()->email;
-        $reciepts = Payment::where('email', $userEmail)->where('id', $reciept_id)->with('transaction')->first();
+        $reciepts = Payment::where('order_id', $order_id)->with('transaction')->first();
         // return $reciepts;
         $pdf = PDF::loadView('customer.payment_reciept', compact('reciepts'));
         return $pdf->download('invoice.pdf');
