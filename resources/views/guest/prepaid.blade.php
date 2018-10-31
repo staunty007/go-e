@@ -246,7 +246,18 @@
 
 						{{-- Meter Payment --}}
 						<div class="meter-payment" id="meter_payment">
-							<p class="text-center"><img src="/images/ekedc.jpg" width="80" /></p>
+							<div class="row">
+								<div class="col-md-8">
+									<span class="text-center">
+										<img src="/images/ekedc.jpg" width="80"  class="text-center"/>
+									</span>
+								</div>
+								<div class="col-md-4">
+									<span class="pull-right">
+										<a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+									</span>
+								</div>
+							</div>
 							<br>
 
 							<form class="meter" method="post" action="">
@@ -446,7 +457,6 @@
 					fetch(`/ekedc/validate-customer/OFFLINE_PREPAID/${meter_no}`)
 						.then(res => res.json())
 						.then(result => {
-							console.log(result);
 							if (result.response.retn !== 0) {
 								$.alert({
 									title: 'Ooops!',
@@ -462,23 +472,34 @@
 								$('.pay-meter').html('Continue');
 								$(".pay-meter").prop('disabled',false);
 							} else {
-								console.log(result);
-								let {
-									name
-								} = result.response.customerInfo;
-								let names = name.split(' ', 2);
-								console.log(names[0]);
-								$("#firstname").val(names[0]);
-								$("#lastname").val(names[1]);
-								$("#emailret").val('');
-								$("#phoneret").val('');
-								$("#meter_no").val($("#meterno").val());
-								$("#total").val(parseInt($(".meter-amount").val()) + 100);
-								setTimeout(() => {
-									$('.pay-meter').html('Validated');
-									$("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
-									confirmDetails();
-								}, 2000);
+								// Validate Payment
+								const customerInfo = result.response;
+								console.log(customerInfo);
+								fetch(`/ekedc/validate-payment/PREPAID/${meter_no}`)
+									.then(res => res.json())
+									.then(result => {
+										// console.log(result.response.desc);
+										if(result.result.response.desc !== "No record" && result.result.response.retn !== '310') {
+											let { name } = customerInfo.customerInfo;
+											let names = name.split(' ', 2);
+											console.log(names[0]);
+											$("#firstname").val(names[0]);
+											$("#lastname").val(names[1]);
+											$("#emailret").val('');
+											$("#phoneret").val('');
+											$("#meter_no").val($("#meterno").val());
+											$("#total").val(parseInt($(".meter-amount").val()) + 100);
+											setTimeout(() => {
+												$('.pay-meter').html('Validated');
+												$("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
+												confirmDetails();
+											}, 2000);
+										}else {
+											// you have a debt
+										}
+									})
+									.catch(err => console.log(err));
+								
 							}
 						})
 						.catch(err => {

@@ -225,18 +225,16 @@ class AccountController extends Controller
             $prepaid = new Payment;
             $transaction = new Transaction;
 
-            // Set a variable for the token data
-            $dataToken = $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
-            // return $dataToken;
-            $token_data = "";
-            $bonus_token = "";
+            // return $tokenDetails;
 
-            // if token data is available and it is a numeric value
-            if (isset($dataToken) && is_numeric($dataToken['value'])) {
-                $token_data = $dataToken['value'];
-                // return $dataToken['value'];
+            // Set a variable for the token data
+            if (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken'])) {
+                $dataToken = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
+            } else {
+                $token_data = $tokenDetails['response']['orderDetails']['tokenData']['status']['value'];
             }
 
+            $bonus_token = "";
             
             // if bonus token is generated then set it
             if (isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
@@ -297,22 +295,7 @@ class AccountController extends Controller
 
             $transaction->save();
             $adminBio->save();
-
-            $smsNumber = $paymentDetails['mobile'];
-            $amountPaid = $total_amount;
-
-            // Set Data to print to the receipt
-            // $data = array_prepend(session()->get('token_data'), session()->get('payment_details'));
-
-            // return $data;
-
-            // session()->put('receipt_data', $data);
-
             return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
-
-            // session()->forget('payment_details');
-
-            // return back();
         }
 
         return redirect('/');
