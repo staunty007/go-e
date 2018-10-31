@@ -109,7 +109,7 @@
                                         </tr>
                                         <tr>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Date</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{ }}</td>
+                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{ date('D-d-M-Y h:i:ga', strtotime($data->created_at)) }}</td>
                                         </tr>
                                         <tr>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Estimated payout</td>

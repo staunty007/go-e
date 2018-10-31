@@ -50,6 +50,7 @@
                                                 <tr>
                                                     <td>Date: </td>
                                                     <td>{{ date('D-d-M-Y @ h:i:sa', strtotime(now())) }}</td>
+                                                    {{-- <td>@{{ orderDate }}</td> --}}
                                                 </tr>
                                                 <tr>
                                                     <td>Transaction Ref.: </td>
@@ -134,7 +135,7 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script>
             let orderId = "{{ $orderId }}";
-            console.log(orderId);
+
             var app = new Vue({
                 el :'#app',
                 data: {
@@ -147,7 +148,8 @@
                     orderid: orderId,
                     details: [],
                     bsst: false,
-                    tokenError: false
+                    tokenError: false,
+                    orderDate: '',
                 },
                 mounted: function() {
                     this.fetchOrderDetails()
@@ -166,6 +168,9 @@
                                 if(this.details.token_data.length > 20) {
                                     this.tokenError = true;
                                 }
+
+                                this.orderDate = res.data.created_at;
+                                // od = this.orderDate;
                             })
                             .catch(err => console.log(err));
                     },
