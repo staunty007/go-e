@@ -250,7 +250,7 @@
 								<div class="text-center login-title">
 									<img src="/images/logo.png"><br><br>
 								</div>
-								<h4 class="text-center">Choose From our Variety of Categories</h4>
+								<h4 class="text-center">Choose Preferred Service Categories</h4>
 								{{-- Categories --}}
 								
 								<div class="electricity" id="electricity">

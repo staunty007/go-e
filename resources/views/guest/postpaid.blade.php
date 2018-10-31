@@ -294,100 +294,31 @@
 											<p class="text-center"><img src="/images/ekedc.jpg" width="80"/></p>
 											<input type="text" name="meter_no" class="meterno form-control" placeholder="Account or Meter Number" value="">
 									</div>
-									{{-- <div class="col-md-6">
-										<div class="form-group">
-											<label for="">Firstname</label>
-											<input type="text" name="first_name" class="meterno form-control" value="">
-										</div>
-									</div>
 									<div class="clearfix"></div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="">Lastname</label>
-											<input type="text" name="last_name" class="meterno form-control" value="">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="">Email Address</label>
-											<input type="email" name="email" class="email form-control" value="">
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="">Phone Number</label>
-											<input type="text" name="mobile" class="mobile form-control" value="">
-										</div>
-									</div> --}}
-
-									<div class="clearfix"></div>
+									<br>
 									<div class="col-md-12">
-										{{-- <div class="form-group">
+										<div class="form-group">
+											<select name="payment_type" class="form-control" id="payOption">
+												<option value="">Select a Payment Type</option>
+												<option value="Loss of Revenue">Loss of Revenue</option>
+												<option value="Reconnection Fee">Reconnection Fee</option>
+												<option value="Penalties">Penalties</option>
+												<option value="Postpaid">Postpaid</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
 											<label for="">Amount</label>
-											<input type="text" name="amount" placeholder="0.00" class="amount form-control">
-										</div> --}}
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="name2">
-												<input type="checkbox" id="postPaidPaymentCheckbox" />
-												Postpaid Payment
-											</label>
-											<input id="postPaidPaymentInput" id="v1" placeholder="0.00" class="prc" name="name2" type="text"
-											 disabled="disabled"/>
-											<span class="form-msg" id="form-msg"></span>
+											<input type="text" name="amount" placeholder="0.00" class="form-control">
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="reconnection">
-												<input type="checkbox" id="reconnectionPaymentCheckbox" />
-												Reconnection Fee
-											</label>
-
-											<input id="reconnectionPaymentInput" placeholder="0.00" class="prc" name="reconnection" type="text"
-											 disabled="disabled" />
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="penalties">
-												<input type="checkbox" id="penaltiesPaymentCheckbox" />
-												Penalties
-											</label>
-											<input id="penaltiesPaymentInput" placeholder="0.00" class="prc" name="penalties" type="text"
-											 disabled="disabled"/>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="revenuee">
-												<input type="checkbox" id="revenuePaymentCheckbox" />
-												Loss of Revenue
-											</label>
-											<input id="revenuePaymentInput" placeholder="0.00" class="prc" name="revenue" type="text"
-											 disabled="disabled" />
-										</div>
-									</div>
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<div class="form-group">
 											<label for="">Convenience Fee</label>
 											<input type="text" name="conv_fee" value="100.00" id="conv_fee"  class="prc" readonly>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="">Total</label> 
-											<output type="number" readonly name="result" id="result"></output>
-										</div>
-									</div>
-									{{-- <div class="form-group">
-										<label for="total">
-											Total
-										</label>
-										<input id="totalPayment" class="form-control" name="total" type="text" />
-									</div> --}}
 								</div>
 								<input type="hidden" id="payType" value="" />
 								<div class="col-md-12">
@@ -418,10 +349,10 @@
 	<!--main div ends-->
 	</div>
 	<div class="footi">
-		Powered by GOENERGEE
+		Powered by <b>GOENERGEE</b>
 	</div>
 	</div>
-	<script>
+	{{-- <script>
 	let totalSum = 0;
 	$('.form-group').on('input','.prc',function(){
 		$('.form-group .prc').each(function(){
@@ -439,7 +370,7 @@
 		e.preventDefault();
 		alert(totalSum);
 	});
-	</script>
+	</script> --}}
 
 
 	<script>

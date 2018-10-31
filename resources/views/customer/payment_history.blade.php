@@ -40,7 +40,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $pay->meter_no }}</td>
-                                {{-- <td>N{{ number_format($pay->transaction->total_amount) }}</td> --}}
+                                <td>N{{ number_format($pay->transaction->total_amount) }}</td>
                                 <td></td>
                                 <td>{{ $pay->recharge_pin }}</td>
                                 <td>{{ round($pay->value_of_kwh,2) }}</td>  

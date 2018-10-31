@@ -253,7 +253,10 @@ class AdminController extends Controller
     {
         return $this->v('postpaid_bill');
     }
-
+    public function income_channel()
+    {
+        return $this->v('income_channel');
+    }
     public function demographics()
     {
         return $this->v('demographics');

@@ -112,7 +112,7 @@ class UATController extends Controller
      * @param string $customerId // Account Or Meter Number Based on $accountType
      * Switch Account Type to charge the correct customer account
      */
-    public function chargeWallet($amount = 100,$accountType = "OFFLINE_POSTPAID", $customerId = "1015124465-01") {
+    public function chargeWallet($amount,$accountType, $customerId) {
         $customerAccountNumVal = "";
         switch ($accountType) {
             case 'OFFLINE_POSTPAID':
@@ -154,7 +154,7 @@ class UATController extends Controller
                         [
                             'key' => 'accountType',
                             'value' => $accountType
-                        ]
+                        ],
                     ]
                 ]
             ]
@@ -172,9 +172,9 @@ class UATController extends Controller
         }
     }
 
-    public function generateToken()
+    public function generateToken($number)
     {
-        $validate = $this->chargeWallet('900','OFFLINE_PREPAID','54150924816');
+        $validate = $this->chargeWallet('900','OFFLINE_PREPAID',$number);
         // dd($validate);
         $partner = $this->partnerDetails();
 
@@ -186,34 +186,14 @@ class UATController extends Controller
 
         $client->__setSoapHeaders($header);
 
-        /*$result = $client->__soapCall("chargeWalletV2", [
-        'params'=> $param
-        ]);*/
-        /**
-         * $result = $client->__soapCall("chargeWalletV2", [
-         *  "chargeWalletV2" => [
-         *      "params" => [
-         *          'key' => 'value',
-         *          'key' => 'value',
-         *          'key' => 'value',
-         *      ]
-         *  ]
-         * ]);
-         */
         $result = $client->__soapCall("getOrderDetailsV2", 
             array( "getOrderDetailsV2" => 
-                // [
-                //     'tenantId'=> $partner['tenant_id'],
-                //     'paymentReference' => "N3mj4DLTxP",
-                //     'orderId' => 20749468
-                // ]
                 [
                     'tenantId'=> $partner['tenant_id'],
                     'paymentReference' => $validate->response->orderDetails->paymentReference,
                     'orderId' => $validate->response->orderId
                 ]
         ));
-        // if(!$result->response)
         // Requery if not generated on first call
         // check for how many times the sleep is sleeping
         $i = 0;
@@ -223,8 +203,8 @@ class UATController extends Controller
                 array( "getOrderDetailsV2" => 
                     // [
                     //     'tenantId'=> $partner['tenant_id'],
-                    //     'paymentReference' => "N3mj4DLTxP",
-                    //     'orderId' => 20749468
+                    //     'paymentReference' => "uXYRJrN5iy",
+                    //     'orderId' => 20749516
                     // ]
                     [
                         'tenantId'=> $partner['tenant_id'],
@@ -236,10 +216,37 @@ class UATController extends Controller
             sleep(5);
             $i++;
             if($i == 5) {
+                // requery
                 break;
             }
         }
         
+
+        dd($result);
+
+    }
+
+    public function requeryToken($paymentRef, $orderId)
+    {
+        sleep(10);
+        $partner = $this->partnerDetails();
+
+        $client = new SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0));
+
+        $sessionId = session()->get('TAMSES');
+        //makes the soap call and passes the required parameters
+        $header = new SoapHeader('http://soap.convergenceondemand.net/TMP/',"sessionId",$sessionId);
+
+        $client->__setSoapHeaders($header);
+
+        $result = $client->__soapCall("getOrderDetailsV2", 
+            array( "getOrderDetailsV2" => 
+                [
+                    'tenantId'=> $partner['tenant_id'],
+                    'paymentReference' => $paymentRef,
+                    'orderId' => $orderId
+                ]
+        ));
 
         dd($result);
 
@@ -260,21 +267,21 @@ class UATController extends Controller
          // Pass headers
          $client->__setSoapHeaders($header);
          //makes the soap call and passes the required parameters
-         $results = $client->__soapCall("validatePayment",  
+         $result = $client->__soapCall("validatePayment",  
             ["validatePayment" => 
                 [
                     "tenantId" => $partner['tenant_id'],
                     "params" => [
                         "accountType" => $accountType,
                         "customerId" => $customerId,
-                        // "orderId" => "",
+                        "orderId" => "20749527",
                         "extraData" => "",
                     ]
                 ]
             ]
             );
 
-        return $result;
+        dd($result);
     }
 
     public function notifyReversal()
@@ -295,7 +302,7 @@ class UATController extends Controller
             ["notifyForReversal" => 
                 [
                     "tenantId" => $partner['tenant_id'],
-                    "paymentReference" => "lxMeWwjmMc",
+                    "paymentReference" => "rcfQEYrPVW",
                     
                 ]
             ]

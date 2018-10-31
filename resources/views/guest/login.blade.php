@@ -256,10 +256,10 @@
 							<div class="user-details" id="login" style="border-radius:3%">
 								<div class="text-center">
 										<img src="/images/logo1.png">
-                                        <h4 class="text-center"></h4><br><br><br>
+                                        <h4 class="text-center"></h4>
 									<div class="account-wall" style="text-align:center; padding:2px 30px 2px;">
 										<form class="login-form" action="" method="POST">
-											<div class="form-group">
+											<div class="form-group"><label>Enter your Login Credentials</label>
 												<input type="text" class="form-control" name="email" placeholder="Email" required autofocus>
 											</div>
 											<div class="form-group">
@@ -309,7 +309,7 @@
 		</div>
 		<!--main div ends-->
 		</div>
-		<div class="footi">Powered by GOENERGEE</div>
+		<div class="footi">Powered by <b>GOENERGEE</div>
 		</div>
 		<script>
 			var slideIndex = 1;

@@ -167,7 +167,7 @@
 
 					<hr>
 
-					Any one carrying out legitimate business can be an agent, meeting the minimum requirements below:
+					<p>Any one carrying out legitimate business can be an agent, meeting the minimum requirements below:</p>
 					<ul>
 						<li>
 							Get identified as an agent potential or contact us to indicate interest.
@@ -178,8 +178,8 @@
 						<li>Pay the initial capital with which you will fund your trading account.</li>
 						<li>Get trained, run test transactions and complete the setup (get your location merchandised).</li>
 						<li>Kindly call us on (+234)-803-343-6905 or ​send us a mail at customersupport@goenergee.com</li>
-						<a href="{{ route('guest.agent_reg') }}"><b>Become an agent now</b></a><p>
-						<li>Note: An Adult is a person who is 18 years old and above.</li>
+						<a href="{{ route('guest.agent_signup') }}" class="btn btn-primary"><b>Become an agent now</b></a><p>
+						{{-- <li>Note: An Adult is a person who is 18 years old and above.</li> --}}
 					</ul>
 
 				</div>

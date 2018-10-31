@@ -222,21 +222,19 @@
             });
             profileUpdate.innerHTML = "Update Profile";
         } else {
-            fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
+            fetch(`/validate-customer-meter/${meterNo}`)
                 .then(res => res.json())
                 .then(response => {
+                    console.log(response);
                     let responseCode = response.response.retn;
                     switch (responseCode) {
-                        case 400:
-                            $("form#profile-update").submit();
-                            break;
                         case 0:
                             $("form#profile-update").submit();
                             break;
                         default:
                             $.alert({
                                 title: 'Ooops!',
-                                content: 'Invalid Meter No!',
+                                content: `${response.response.error}`,
                                 type: 'red',
                                 buttons: {
                                     ok: {

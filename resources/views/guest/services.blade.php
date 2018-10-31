@@ -255,7 +255,7 @@
 					
 						<div id="make_payments">
 							<br>
-								<h3 class="text-center">Choose your payment option</h3>
+								<h3 class="text-center">Choose your Service Biller</h3>
 								{{-- Categories --}}
 								<div class="categories" id="categories">
 									<div class="row">

@@ -46,10 +46,10 @@ body{
 	}
 	
 	#login{
-		height:364px; background-color:white; padding:5px 0px;
+		height:auto; background-color:white; padding:5px 0px;
 	}
 	#login1{
-		height:459px; background-color:white; padding:5px 0px;
+		height:auto; background-color:white; padding:5px 0px;
 	}
 	
 	

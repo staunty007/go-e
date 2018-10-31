@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-	<title>GOENERGEE</title>
+	<title>GOENERGEweE</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />

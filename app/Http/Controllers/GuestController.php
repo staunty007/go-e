@@ -42,10 +42,13 @@ class GuestController extends Controller
         return view('guest/services');
     }
     public function serviceType(){
-    	return view('guest/service_type');
+		session()->forget('TAMSES');
+		return view('guest/service_type');
     }
-    public function eachServicesType(Request $request, $name, TestSoapController $soap){
-		$soap->startSession();
+    public function eachServicesType(Request $request, $name, CIController $soap){
+		if(!session()->has('TAMSES')) {
+			$soap->signon();
+		}
     	switch ($name) {
 			case $name === "prepaid-meters":
     			return view('guest/prepaid');
