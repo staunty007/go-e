@@ -19,6 +19,7 @@ use App\CustomerBiodata;
 use Carbon\Carbon;
 use App\Transaction;
 use App\AgentTransaction;
+use PDF;
 
 class AccountController extends Controller
 {
@@ -589,8 +590,25 @@ class AccountController extends Controller
         $userEmail = \Auth::user()->email;
         //return $userEmail;
         $prepaid = Payment::where('email', $userEmail)->with('transaction')->paginate(10);
-        //return $prepaid;
+        // return $prepaid;
         return view('customer.payment_history')->withPayments($prepaid);
+    }
+
+    public function ViewPaymentReciept($reciept_id)
+    {
+         $userEmail = \Auth::user()->email;
+         $reciepts = Payment::where('email', $userEmail)->where('id',$reciept_id)->with('transaction')->first()->get();
+         // return $reciept;
+         return view('customer.payment_reciept',compact('reciepts'));
+    }
+
+    public function pdfDownload($reciept_id)
+    {
+        $userEmail = \Auth::user()->email;
+        $reciepts = Payment::where('email', $userEmail)->where('id',$reciept_id)->with('transaction')->first()->get();
+
+        $pdf = PDF::loadView('customer.payment_reciept',compact('reciepts'));
+        return $pdf->download('invoice.pdf');
     }
 
 

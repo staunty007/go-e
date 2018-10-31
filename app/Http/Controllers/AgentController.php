@@ -11,6 +11,7 @@ use App\Payment;
 use App\AgentTransaction;
 use DB;
 use Carbon\Carbon;
+use PDF;
 
 
 class AgentController extends Controller
@@ -71,6 +72,14 @@ class AgentController extends Controller
             ->withAllSold($sold)
             ;
     }
+
+    public function ViewPaymentReceipt($reciept_id)
+    {
+         $userEmail = \Auth::user()->email;
+         $reciept = Payment::where('email', $userEmail)->where('id',$reciept_id)->first()->get();
+         return $reciept;
+    }
+
     public function prepaidToken()
     {
         $isNotViolated = "";
