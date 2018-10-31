@@ -41,7 +41,7 @@
                                         Your Payment Was Successful
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <table class="table table-striped table-bordered">
                                                 <tr>
                                                     <td>From: </td>
@@ -49,7 +49,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Date: </td>
-                                                    <td>{{ date('D-d-M-Y @ h:i:sa', strtotime(now())) }}</td>
+                                                    <td>Date Here</td>
                                                     {{-- <td>@{{ orderDate }}</td> --}}
                                                 </tr>
                                                 <tr>
@@ -58,7 +58,7 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="text-center">
                                             <img src="/images/ekedc.jpg" height="80" style="margin: 1em;"/> 
                                             </div>
@@ -133,6 +133,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/js/moment.js"></script>
+        <script src="/js/moment-locals.js"></script>
         <script>
             let orderId = "{{ $orderId }}";
 
@@ -169,7 +171,9 @@
                                     this.tokenError = true;
                                 }
 
-                                this.orderDate = res.data.created_at;
+                                this.orderDate = new Date(Date.parse(res.data.created_at));
+                                console.log(moment().format(this.orderDate));
+                                
                                 // od = this.orderDate;
                             })
                             .catch(err => console.log(err));
