@@ -230,7 +230,7 @@ class AccountController extends Controller
 
             // Set a variable for the token data
             if (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken'])) {
-                $dataToken = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
+                $token_data = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
             } else {
                 $token_data = $tokenDetails['response']['orderDetails']['tokenData']['status']['value'];
             }
@@ -641,21 +641,21 @@ class AccountController extends Controller
         return view('customer.payment_history')->withPayments($prepaid);
     }
 
-    public function ViewPaymentReciept($reciept_id)
+    public function ViewPaymentReciept($orderId)
     {
-         $userEmail = \Auth::user()->email;
-         $reciepts = Payment::where('email', $userEmail)->where('id',$reciept_id)
-         ->with('transaction')->first()->get();
-         // return $reciept;
-         return view('customer.payment_reciept',compact('reciepts'));
+        $userEmail = \Auth::user()->email;
+        $reciepts = Payment::where('email', $userEmail)->where('id', $reciept_id)
+            ->with('transaction')->first();
+        // return $reciepts;
+        return view('customer.payment_reciept', compact('reciepts'));
     }
 
     public function pdfDownload($reciept_id)
     {
         $userEmail = \Auth::user()->email;
-        $reciepts = Payment::where('email', $userEmail)->where('id',$reciept_id)->with('transaction')->first()->get();
-
-        $pdf = PDF::loadView('customer.payment_reciept',compact('reciepts'));
+        $reciepts = Payment::where('email', $userEmail)->where('id', $reciept_id)->with('transaction')->first();
+        // return $reciepts;
+        $pdf = PDF::loadView('customer.payment_reciept', compact('reciepts'));
         return $pdf->download('invoice.pdf');
     }
 

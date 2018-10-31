@@ -32,19 +32,12 @@
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
                                 <td>Successful</td>
-                                <td>
-                                    @if($pay->user_type == 1) 
-                                        Prepaid
-                                    @else
-                                        Postpaid
-                                    @endif
-                                </td>
+                                <td>{{ str_replace('OFFLINE_','',$pay->user_type) }}</td>
                                 <td>{{ $pay->meter_no }}</td>
                                 <td>N{{ number_format($pay->transaction->total_amount) }}</td>
-                                <td></td>
-                                <td>{{ $pay->recharge_pin }}</td>
+                                <td>{{ $pay->token_data }}</td>
                                 <td>{{ round($pay->value_of_kwh,2) }}</td>  
-                                <th><a href="{{ route('view-pay-history',$pay->id) }}" class="btn btn-info">Reciept</a></th>               
+                                <th><a href="{{ route('receipt',$pay->order_id) }}" class="btn btn-info">Reciept</a></th>               
                             </tr>
                         @endforeach
                     </tbody>
