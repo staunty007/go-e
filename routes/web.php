@@ -130,8 +130,8 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('meter-request', 'AccountController@meterRequest')->name('meter.request');
     Route::post('meter-request', 'AccountController@postMeterRequest')->name('meter.request');
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
-    Route::get('payment-history/{reciept_id}','AccountController@ViewPaymentReciept')->name('view-pay-history');
-    Route::get('reciept/pdf/{reciept_id}','AccountController@pdfDownload');
+    Route::get('payment-history/{reciept_id}', 'AccountController@ViewPaymentReciept')->name('view-pay-history');
+    Route::get('reciept/pdf/{reciept_id}', 'AccountController@pdfDownload');
 
     //postpaid-new
     Route::get('postpaid_new', 'AccountController@postpaid_new')->name('postpaid_new-history');
@@ -156,7 +156,7 @@ Route::prefix('backend')->group(function () {
     });
     Route::get('login', 'BackendController@getUserLogin')->name('backend-login');
     Route::post('login', 'BackendController@userLogin')->name('backend-login');
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'administrator'])->group(function () {
         Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
         Route::get('administrator', 'AdminController@home')->name('admin.home');
         Route::get('finance', 'AdminController@finance')->name('admin.finance');
