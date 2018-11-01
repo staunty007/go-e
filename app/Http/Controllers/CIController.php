@@ -86,8 +86,10 @@ class CIController extends Controller
                 "tenantId" => $partner['tenant_id'],
             ])
         );
+
+        // return $results;
         // dd($results);
-        if ($results->response->retn !== 0 || $results->response->retn == 400) {
+        if ($results->response->retn !== 0 || $results->response->retn == 400 || $results->response->desc == "Invalid Session") {
             return response()->json(
                 ['response' =>
                     [
@@ -100,8 +102,60 @@ class CIController extends Controller
         if ($results->response->customerInfo->accountType !== $accountType) {
             return response()->json(['response' => ["retn" => 102, "error" => "Invalid Account Type", $results->response]], 400);
         } else {
+            // return $results;
             return response()->json($results);
+            // $this->validatePayment($results->response()->customerInfo->accountType, $customerId);
         }
+    }
+
+    /**
+     * Validates or checks customer payment
+     */
+    public function validatePayment($accountType = "OFFLINE_POSTPAID", $customerId = "1015124465-01", $orderId = "")
+    {
+        $account = "";
+        switch ($accountType) {
+            case 'PREPAID':
+                $account = "OFFLINE_PREPAID";
+                break;
+            default:
+                $account = "OFFLINE_POSTPAID";
+                break;
+        }
+        $payload = [
+            'accounttype' => $account,
+            'customer_id' => $customerId,
+            'orderId' => $orderId
+        ];
+
+        // return ["payload" => $payload];
+         // Get Partner details
+        $partner = $this->partnerDetails();
+         // Gets the global session TAMSES
+        $sessionId = session()->get('TAMSES');
+         // Instantiate the SOAPCLient
+        $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+         // Set Headers for the soap client
+        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId', $sessionId);
+         // Pass headers
+        $client->__setSoapHeaders($header);
+        // return $orderId;
+         //makes the soap call and passes the required parameters
+        $result = $client->__soapCall(
+            "validatePayment",
+            ["validatePayment" =>
+                [
+                "tenantId" => $partner['tenant_id'],
+                "params" => [
+                    "accountType" => $account,
+                    "customerId" => $customerId,
+                    // "orderId" => "$orderId",
+                    "extraData" => "",
+                ]
+            ]]
+        );
+
+        return response()->json(["result" => $result, "payload" => $payload]);
     }
 
     /**
