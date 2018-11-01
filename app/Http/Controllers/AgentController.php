@@ -97,11 +97,29 @@ class AgentController extends Controller
         return view($this->prefix.'prepaid-token')->withViolated($isNotViolated)->withAgent($fetchAgent);
     }
 
+    public function postpaidToken()
+    {
+        $isNotViolated = "";
+        // check if amount to buy token is not violated
+        // Fetch Admin Details
+        $fetchAdmin = AdminBiodata::where('user_id',1)->first();
+        // Fetch Agent
+        $fetchAgent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+        if($fetchAdmin->wallet_balance < $fetchAgent->wallet_balance || $fetchAgent->wallet_balance == 0) {
+            $isNotViolated = "Yes";
+        }
+       
+
+        return view($this->prefix.'postpaid-token')->withViolated($isNotViolated)->withAgent($fetchAgent);
+    }
+
     public function meterManagement()
     {
         return $this->v('meter_request');
     }
 
+    
     public function profile()
     {
         $profile = AgentBiodata::where('user_id',\Auth::user()->id)->with('user')->first();

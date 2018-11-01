@@ -180,6 +180,7 @@ Route::prefix('backend')->group(function () {
         Route::get('income', 'AdminController@income')->name('admin.income');
         Route::get('customerlist', 'AdminController@customerlist')->name('admin.customerlist');
         Route::get('managecustomers', 'AdminController@managecustomers')->name('admin.managecustomers');
+        Route::get('manage_referal', 'AdminController@manage_referal')->name('admin.manage_referal');
 
         Route::get('manage/users/payment/{meter_no}', 'UserManagerController@customerPayment')->name('users.payment');
 

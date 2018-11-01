@@ -88,7 +88,7 @@
                             <ul class="nav nav-second-level collapse">
                                 <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
                                         Payment</a></li>
-                                <li><a href="{{ route('postpaid') }}">Postpaid Payment</a></li>
+                                <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
                             
                               
                                 </ul>
@@ -150,7 +150,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                <a href="{{ route('postpaid') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
                                             </div>
                                         </div>
 
