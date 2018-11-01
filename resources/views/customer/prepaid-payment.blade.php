@@ -70,63 +70,31 @@
 
                 <div class="ibox-content">
                     {{-- @if(isset($before)) --}}
-                    <img src="/images/ekedc.jpg" width="80" />
-                    <span style="font-size: 16px"> Eko Electric Distribution Company </span>
-                    <br><br>
-                    <form action="" method="POST" class="meterSelf">
-                        {{ csrf_field()}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Meter No.</label>
-                                <input type="text" name="meter_no" id="meter_no" class="form-control" value="{{ $bio->customer->meter_no }}" />
-                            </div>
-                        </div>
-                        {{-- <div class="form-group">
-                            <label>Meter Owner's Name</label>
-                            <input type="text" name="meter_owner" disabled class="form-control" value="{{ $bio->customer->meter_owner }}" />
-                        </div> --}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Your FirstName</label>
-                                <input type="text" name="first_name" class="form-control" value="{{Auth::user()->first_name }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Your LastName</label>
-                                <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Email Address</label>
-                                <input type="text" name="email" class="form-control meter-email" value="{{ Auth::user()->email }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Mobile Number</label>
-                                <input type="text" name="mobile" class="form-control" value="{{ Auth::user()->mobile }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Convienience Fee</label>
-                                <input type="text" value="100.00" readonly class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Amount</label>
-                                <input type="text" name="amount" class="form-control meter-amount" />
-                            </div>
-                        </div>
-                        
+                    <p class="text-center"><img src="/images/ekedc.jpg" width="80" /></p>
+                    <br>
+                    
+                    <form class="meter" method="post" action="">
                         <div class="form-group">
-                            <button class="btn btn-block btn-primary pay-meter1">Make Payment</button>
+                            <label for="Meter_number"><b>Prepaid Meter Number</b></label>
+                            
+                            <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number"
+                               
+                            required autofocus name="meter_no">
+                            
                         </div>
+                        <div class="form-group">
+                            <label for="convinience_fee"><b>Convenience Fee</b></label>
+                            
+                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly> <span class="input-group-addon">.00</span></div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="amount"><b>Amount</b></label>
+                            
+                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"> <span class="input-group-addon">.00</span></div>
+                        </div>
+                        <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                     </form>
-
                 </div>
             </div>
         </div>

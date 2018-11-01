@@ -257,6 +257,10 @@ class AdminController extends Controller
     {
         return $this->v('income_channel');
     }
+    public function manage_referal()
+    {
+        return $this->v('manage_referal');
+    }
     public function demographics()
     {
         return $this->v('demographics');
