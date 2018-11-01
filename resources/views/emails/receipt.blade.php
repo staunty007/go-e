@@ -4,12 +4,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Your </title>
-  
-  
-  
-  
-  
+  <title>Your Payment Receipt </title>
+
 </head>
 
 <body>
