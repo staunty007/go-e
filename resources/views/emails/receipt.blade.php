@@ -74,10 +74,11 @@
                                 <tr>
                                   <td align="center">
                                     <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;">
-                                        Your {{ $data->user_type == "OFFLINE_PREPAID" ? 'Prepaid': 'Postpaid'}} Purchase was successful
+                                        {{-- Your {{ $data->user_type == "OFFLINE_PREPAID" ? 'Prepaid': 'Postpaid' or 'Prepaod'}} Purchase was successful --}}
+                                        Your Prepaid Purchase was successful
                                     </div>
                                     <p style="font-size: 14px;">Your Token is</p>
-                                    <p style="font-size: 28px; font-weight: 400;">{{ $data->token_data }}</p>
+                                    <p style="font-size: 28px; font-weight: 400;">{{ $data->token_data or 'Not Available' }}</p>
                                     
                                   </td>
                                 </tr>
@@ -96,21 +97,24 @@
                                       <tbody style="border: 0; padding: 0; margin-top:20px;">
                                         <tr>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Transaction Reference</td>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;"><span style="font-family:'Monaco', monospace;border:1px solid #DAE1E9;letter-spacing:2px;padding:5px 8px;border-radius:4px;background-color:#F4F7FA;color:#2E7BC4;">{{ $data->payment_ref }}</span>
+                                          <td style="padding-bottom: 10px; padding-top: 10px;"><span style="font-family:'Monaco', monospace;border:1px solid #DAE1E9;letter-spacing:2px;padding:5px 8px;border-radius:4px;background-color:#F4F7FA;color:#2E7BC4;">{{ $data->payment_ref or 'refference' }}</span>
                                           </td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                           <td width="50%" valign="top" style="padding-bottom: 10px; padding-top: 10px;">Payment method</td>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Smiles Davis Ba... ******650</td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Date</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{ date('D-d-M-Y h:i:ga', strtotime($data->created_at)) }}</td>
+                                          <td style="padding-bottom: 10px; padding-top: 10px;">
+                                            {{ $data->created_at  or 'Today'}}
+                                            
+                                          </td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Estimated payout</td>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">December 05, 2017</td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                           <td height="24" &nbsp;=""></td>
                                         </tr>
@@ -125,25 +129,17 @@
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Amount
                                             <br/>
                                           </td>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;"> <strong>0.06505650 BTC</strong>
+                                          <td style="padding-bottom: 10px; padding-top: 10px;"> {{ $data->transaction->initial_amount or '0'}} NGN - Initial Amount
                                             <br/>
                                           </td>
                                         </tr>
                                         <tr>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">Exchange rate</td>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">@ $16,500.50 / BTC</td>
-                                        </tr>
-                                        <tr>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">Subtotal</td>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">$649.00</td>
-                                        </tr>
-                                        <tr>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">Fee</td>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">$1.00</td>
+                                          <td style="padding-bottom: 10px; padding-top: 10px;">Conv Fee</td>
+                                          <td style="padding-bottom: 10px; padding-top: 10px;">100 NGN</td>
                                         </tr>
                                         <tr>
                                           <td style="padding-bottom: 10px; padding-top: 10px;">Total</td>
-                                          <td style="padding-bottom: 10px; padding-top: 10px;">$650.00</td>
+                                          <td style="padding-bottom: 10px; padding-top: 10px;"><b>{{ $data->transaction->total_amount or '100'}} NGN</b></td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -152,46 +148,12 @@
                                 <tr>
                                   <td height="10">&nbsp;</td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                   <td>
                                     <a href="https://www.coinbase.com/signin" style="display:block; font-size: 16px; padding:15px 25px; background-color:#3C90DF; color:#ffffff; border: 1px solid #2E7BC4; border-radius:4px; text-decoration:none; text-align:center; font-weight:500;"
                                     )>View Purchase</a>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td height="24" &nbsp;=""></td>
-                                </tr>
-                                <tr>
-                                  <td height="1" bgcolor="#DAE1E9"></td>
-                                </tr>
-                                <tr>
-                                  <td height="24" &nbsp;=""></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div style="color:#48545d; font-size:14px; line-height:24px; text-align:center;">
-                                      <p style="text-align: center; margin-bottom: 24px; font-size: 18px; font-weight: 500;">Frequently asked questions</p>
-                                      <p>
-                                        <a href="https://support.coinbase.com/customer/en/portal/articles/2489501-how-long-does-a-purchase-or-deposit-take-to-complete-"
-                                        style="color: #2E7BC4;">How long does a purchase or deposit take to complete?</a>
-                                      </p>
-                                      <p>
-                                        <a href="https://support.coinbase.com/customer/en/portal/articles/1826294-how-are-fees-applied-when-i-buy-or-sell-digital-currency-?b_id=13521"
-                                        style="color: #2E7BC4;">How are fees applied when I buy or sell digital currency?</a>
-                                      </p>
-                                      <p>
-                                        <a href="https://support.coinbase.com/customer/en/portal/articles/1403864-cancelling-a-purchase?b_id=13521"
-                                        style="color: #2E7BC4;">Can I cancel my purchase?</a>
-                                      </p>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td height="24" &nbsp;=""></td>
-                                </tr>
-                                <tr>
-                                  <td height="1" bgcolor="#DAE1E9"></td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                   <td height="24" &nbsp;=""></td>
                                 </tr>
@@ -199,11 +161,11 @@
                                   <td align="center">
 <span style="color:#9BA6B2; font-size:12px; line-height:19px;">
   <p>
-    For customer service inquiries, please contact <a href="https://support.coinbase.com" style="color: #2E7BC4" target="_blank">customer support</a>.
-      Please include your reference code <strong>SMLSDVS</strong>.
+    For customer service inquiries, please contact <a href="https://mailto:customersupport@goenergee.com" style="color: #2E7BC4" target="_blank">customer support</a>.
   </p>
   <p>
-  Coinbase, Inc., 548 Market St., #23008, San Francisco, CA 94104-5401, (888) 908-7930.
+    <b>Head Office </b><br>
+    Contact Address: Plot 18 Fatai Idowu Arobieke, off Admiralty road, Lekki Phase 1, Lagos
 </p>
 
 </span>
@@ -222,7 +184,7 @@
                     <!-- Main CONTENT end here -->
                     <!-- PROMO column start here -->
                     <!-- Show mobile promo 75% of the time -->
-                    <table id="promo" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
+                    {{-- <table id="promo" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
                       <tbody>
                         <tr>
                           <td colspan="2" height="20"></td>
@@ -255,7 +217,7 @@
                           <td colspan="2" height="20"></td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> --}}
                     <!-- PROMO column end here -->
                     <!-- FOOTER start here -->
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -265,7 +227,7 @@
                         </tr>
                         <tr>
                           <td valign="top" align="center"> <span style="font-family: -apple-system,BlinkMacSystemFont,&#39;Segoe UI&#39;,&#39;Roboto&#39;,&#39;Oxygen&#39;,&#39;Ubuntu&#39;,&#39;Cantarell&#39;,&#39;Fira Sans&#39;,&#39;Droid Sans&#39;,&#39;Helvetica Neue&#39;,sans-serif; color:#9EB0C9; font-size:10px;">&copy;
-                            <a href="https://www.coinbase.com/" target="_blank" style="color:#9EB0C9 !important; text-decoration:none;">Coinbase</a> 2017
+                            <a href="https://www.coinbase.com/" target="_blank" style="color:#9EB0C9 !important; text-decoration:none;">GOENERGEE</a> 2018
                           </span>
 
                           </td>

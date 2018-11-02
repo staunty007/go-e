@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GOENREGEE | Customer Dashboard</title>
         <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <script src="/customer/js/jquery-3.1.1.min.js"></script>
         <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
         <link href="/customer/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="/customer/css/plugins/iCheck/custom.css" rel="stylesheet">
         <link href="/customer/css/plugins/steps/jquery.steps.css" rel="stylesheet">
         <link href="/customer/css/animate.css" rel="stylesheet">
-        <link href="/customer/css/style.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
         <link rel="icon" href="/customer/img/favicon.png" type='image/x-icon'>
         <!--Start of Tawk.to Script-->
         <script type="text/javascript">
@@ -203,7 +204,7 @@
 
 
             <!-- Mainly scripts -->
-            <script src="/customer/js/jquery-3.1.1.min.js"></script>
+            
             <script src="/customer/js/bootstrap.min.js"></script>
             <script src="/customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
             <script src="/customer/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>

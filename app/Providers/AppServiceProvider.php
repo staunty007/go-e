@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
 
 			// Payment Option blade component
 			Blade::component('components.payment-options', 'pay');
+			// Slider Component
+			Blade::component('components.slider','slider');
 
 		});
 	}

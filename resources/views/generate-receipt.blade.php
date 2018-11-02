@@ -107,12 +107,16 @@
                                                         @{{ details.token_data }}
                                                     </span>
                                                 </p>
-                                                <p>Amount: ₦@{{ details.transaction.initial_amount }}</p>
+                                                <p>Amount: ₦@{{ details.transaction !== null ? details.transaction.initial_amount : details.agent_transaction.initial_amount }}</p>
                                                 <p>Convenience Fee: ₦100</p>
-                                                <div>Total Amount: <span style="font-size: 2em">₦@{{ details.transaction.total_amount }}</span></div>
+                                                <div>Total Amount: 
+                                                    <span style="font-size: 2em">
+                                                        ₦@{{ details.transaction !== null ? details.transaction.total_amount : details.agent_transaction.total_amount }}
+                                                    </span>
+                                                </div>
                                                 <br>
                                                 <div style="margin-top: 1em">
-                                                    <a href="{{ url()->previous() }}" class="btn btn-success">Pay Another</a>
+                                                    <a href="{{ url()->previous() == url()->current() ? '/guest/each-service-type' : url()->previous() }}" class="btn btn-success">Pay Another</a>
                                                     <button class="btn-danger btn" >Print Receipt</button>
                                                     <a href="" class="btn btn-info">Refer a Friend</a>
                                                 </div>
@@ -170,9 +174,13 @@
                                 if(this.details.bonus_token !== "" && this.details.bonus_token.length > 10) {
                                     this.bsst = true;
                                 }
-                                console.log(res.data);
-                                if(this.details.token_data.length > 20) {
-                                    this.tokenError = true;
+
+                                if(
+                                    !this.details.token_data || 
+                                    this.details.token_data.length > 20 
+                                    || this.details.user_type == "OFFLINE_POSTPAID"
+                                ) {
+                                        this.tokenError = true;
                                 }
 
                                 this.orderDate = new Date(Date.parse(res.data.created_at));
@@ -180,7 +188,10 @@
                                 // console.log(this.orderDate);
                                 // // od = this.orderDate;
                             })
-                            .catch(err => console.log(err));
+                            .catch(err => {
+                                this.error = true;
+                                console.log(err);
+                            });
                     },
                     sendSMS: function() {
 

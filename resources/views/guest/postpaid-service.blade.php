@@ -29,9 +29,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-	{{-- <link href="{{asset('css/app.css')}}" rel="stylesheet">  --}}
+	{{--
+	<link href="{{asset('css/app.css')}}" rel="stylesheet"> --}}
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
@@ -54,8 +55,11 @@
 			border: none;
 			border-radius: 0;
 			line-height: 0;
-			padding: 0;
-			
+			padding: 0;	
+		}
+
+		.hidded {
+			display: none;
 		}
 	</style>
 	<!--[if IE]>
@@ -115,7 +119,9 @@
 			</div>
 
 		</div>
+
 		@slider()@endslider
+
 		<ul class="nav-ul">
 
 			<li class="nav-item item">
@@ -141,83 +147,83 @@
 		</ul>
 
 
-		<!-- main div -->			<div class="row">
-					<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
-							<!--divide col-->
-							<div class="row">
-								<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-2px ">
-									<!--divide col for buttons-->
-									<div class="row" style="margin-top:2px;">
-										<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-											@if (Auth::check())
-											<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
-												<i class="fas fa-user-circle"></i>
-												Logout
-											</button>
-											<form method="POST" action="{{ route('logout') }}" id="logout-fm">
-												@csrf
-											</form>
-											<script>
-												let logoutBtn = document.querySelector('#lg-btn');
-													let logoutForm = document.querySelector("#logout-fm");
-													logoutBtn.addEventListener('click', (e) => {
-														e.preventDefault();
-														logoutForm.submit();
-													});
-												</script>
-											@else
-											<a href="{{ route('guest.login') }}">
-												<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
-													<i class="fas fa-user-circle"></i>
-													Login
-												</button></a>
-											@endif
-										</div>
-										<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-											<a href="{{ route('guest.login') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
-													<i class="fas fa-user-plus"></i>
-													Sign Up
-												</button></a>
-										</div>
-									</div>
-									<div class="row" style="padding:0px;">
-										<div class="col-md-12 col-sm-12" style="padding:0px 2px;">
-											<div style="text-align:center;">
-												<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0px 0px; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
-													 class="grad-boxa">
-														<i class="far fa-credit-card"></i>
-														Make Payment
-													</button></a>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-											<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
-													<i class="fas fa-cogs"></i>
-													Support
-												</button></a>
-										</div>
-										<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
-												<a href="{{ route('guest.faq') }}">
-												<button type="button" class="grad-box" style="padding:50px 52px">
-													<i class="fas fa-question-circle"></i>
-													FAQ
-												</button>
-											</a>
-										</div>
-									</div>
+		<div class="row">
+			<div class="col-md-7 col-sm-12 col-xs-12" style="z-index:20;">
+				<!--divide col-->
+				<div class="row">
+					<div class="col-md-5 col-sm-12 col-xs-12" style="margin-top:-2px ">
+						<!--divide col for buttons-->
+						<div class="row" style="margin-top:2px;">
+							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+								@if (Auth::check())
+								<button type="button" class="grad-box" id="lg-btn" style="padding: 32px 20px;">
+									<i class="fas fa-user-circle"></i>
+									Logout
+								</button>
+								<form method="POST" action="{{ route('logout') }}" id="logout-fm">
+									@csrf
+								</form>
+								<script>
+									let logoutBtn = document.querySelector('#lg-btn');
+                                            let logoutForm = document.querySelector("#logout-fm");
+                                            logoutBtn.addEventListener('click', (e) => {
+                                                e.preventDefault();
+                                                logoutForm.submit();
+                                            });
+                                        </script>
+								@else
+								<a href="{{ route('guest.login') }}">
+									<button type="button" id="login_btn" class="grad-box" style="padding:50px 32px">
+										<i class="fas fa-user-circle"></i>
+										Login
+									</button></a>
+								@endif
+							</div>
+							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+								<a href="{{ route('guest.login') }}"><button type="button" id="sign_up_btn" class="grad-box" style="padding:50px 32px">
+										<i class="fas fa-user-plus"></i>
+										Sign Up
+									</button></a>
+							</div>
+						</div>
+						<div class="row" style="padding:0px;">
+							<div class="col-md-12 col-sm-12" style="padding:0px 2px;">
+								<div style="text-align:center;">
+									<a href="{{ route('guest.services') }}"><button type="button" id="payment_btn" style="margin:0px 0px; background-color: #fff !important; padding:40px 40px; color: #8CC74E;"
+										 class="grad-boxa">
+											<i class="far fa-credit-card"></i>
+											Make Payment
+										</button></a>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+								<a href="{{ route('guest.support') }}"><button type="button" class="grad-box" id="support_btn" style="padding:50px 32px">
+										<i class="fas fa-cogs"></i>
+										Support
+									</button></a>
+							</div>
+							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+								<a href="{{ route('guest.faq') }}">
+									<button type="button" class="grad-box" style="padding:50px 52px">
+										<i class="fas fa-question-circle"></i>
+										FAQ
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
 					<!--col-6 ends -->
 
-					<div id="make_payments">
-						
+					<div id="make_payments" style="overflow-y:scroll">
+
 						<div id="postpaid">
 							<form class="postpay" action="" method="POST">
 								<div class="row">
 									<div class="col-md-8">
 										<span class="text-center">
-											<img src="/images/ekedc.jpg" width="80"  class="text-center"/>
+											<img src="/images/ekedc.jpg" width="80" class="text-center" />
 										</span>
 									</div>
 									<div class="col-md-4">
@@ -229,60 +235,107 @@
 								<br>
 								<div class="row">
 									<div class="col-md-12">
-										<label>Enter your Account Number</label>
+										<div class="form-group">
+											<label>Enter your Account Number</label>
 											<input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='meterno'>
+										</div>
 									</div>
-									<div class="clearfix"></div>
 									<br>
 									<div class="col-md-12">
 										<div class="form-group">
-											<label>Select a Payment Type</label>
-											<select name="payment_type" class="form-control" id="payOption">
-												<option value="">Select a Payment Type</option>
-												<option value="POSTPAID">Postpaid</option>
-												<option value="others">Other Postpaid Payments</option>
-											</select>
+											<label>Enter your Order ID</label>
+											<input type="text" name="order_id" class="meterno form-control" placeholder="E.g 1234567" id='order_id'>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<br>
+									<div class="col-md-12">
 										<div class="form-group">
-											<label for="">Convenience Fee</label>
-											<input type="text" name="conv_fee" value="100.00" id="conv_fee"  class="prc" readonly>
+											<button class="btn btn-block btn-success" id="confirm-order">Confirm my Order</button>
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="">Amount</label>
-											<input type="text" name="amount" id="amount" placeholder="0.00" class="form-control meter-amount">
-										</div>
-									</div>
-									
-								</div>
-								<input type="hidden" id="payType" value="" />
-								<div class="col-md-12">
-									<div class="form-group">
-										<p class="text-center"><button class="btn btn-success pay-meter" id="payPostpaid">Continue</button></p>
 									</div>
 								</div>
+								<div class="row">
+									<div class="hidded">
+										
+										<div class="clearfix"></div>
+										<br>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="">Purpose of Payment</label>
+												<input type="text" name="service" id="service" readonly value="" class="form-control">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="">Amount</label>
+												<input type="text" name="amount" id="amount" placeholder="0.00" class="form-control">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="">Convenience Fee</label>
+												<input type="text" name="conv_fee" value="100.00" id="conv_fee" class="prc" readonly>
+											</div>
+										</div>
+										<input type="hidden" id="payType" value="" />
+										<br>
+										<div class="col-md-12">
+											{{-- <div class="form-group"> --}}
+												<button class="btn btn-success pay-meter btn-block">Continue</button>
+											{{-- </div> --}}
+										</div>
+									</div>
+								</div>
+								
 						</div>
 					</div>
 				</div>
 			</div>
 			<!---col-md-7 ends -->
-		
-		<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
-			<img src="/images/12.png" class='img-responsive side-img'>
+
+			<div class="col-md-5" style="padding: 3px 16px 8px 5px;">
+				<img src="/images/12.png" class='img-responsive side-img'>
+			</div>
 		</div>
-	</div>
 	</div>
 	<div class="footi">
 		Powered by <b>GOENERGEE</b>
 	</div>
-	
 	@include('partials._search-component')
-	@pay(['accountType' => 'POSTPAID'])
-	@endpay
-
+	{{-- @pay(['accountType' => 'POSTPAID'])
+	@endpay --}}
+	<script>
+		const orderBtn = document.querySelector("#confirm-order");		
+		orderBtn.addEventListener('click', (e) =>{
+			e.preventDefault();
+			orderBtn.disabled = true;
+			orderBtn.innerHTML = "Working ...";
+			const payload = {
+				"account" : document.getElementById("meterno").value,
+				"orderId" : document.getElementById("order_id").value
+			};
+			if(navigator.onLine) {
+				fetch(`/ekedc/pay-order-id/${payload.account}/${payload.orderId}`)
+					.then(res => res.json())
+					.then(result => {
+						console.log(result);
+						switch (result.response.retn) {
+							case 310:
+								alert('No record Found, Please check your orderID and try again');
+								break;
+							case 0:
+							break;
+							default:
+								alert('Response Fetched');
+								break;
+						}
+					})
+					.catch(err => alert(err));
+			}else {
+				alert('Please check your internet connection and try again');
+			}
+		});
+	</script>
 </body>
 
 </html>

@@ -77,9 +77,7 @@
                         <div class="form-group">
                             <label for="Meter_number"><b>Prepaid Meter Number</b></label>
                             
-                            <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number"
-                               
-                            required autofocus name="meter_no">
+                            <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
                             
                         </div>
                         <div class="form-group">
@@ -165,6 +163,6 @@
         });
     })
 </script>
-@pay(['accountType' => "OFFLINE_PREPAID"])
+@pay(['accountType' => "PREPAID"])
 @endpay
 @endpush

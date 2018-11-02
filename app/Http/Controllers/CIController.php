@@ -65,6 +65,7 @@ class CIController extends Controller
      */
     public function validateCustomer($accountType, $customerId)
     {
+        // return $accountType;
         // Get Partner details
         $partner = $this->partnerDetails();
         // Gets the global session TAMSES or create if it doesnt exists
@@ -87,7 +88,7 @@ class CIController extends Controller
             ])
         );
 
-        // return $results;
+        // return response()->json($results);
         // dd($results);
         if ($results->response->retn !== 0 || $results->response->retn == 400 || $results->response->desc == "Invalid Session") {
             return response()->json(
@@ -99,7 +100,7 @@ class CIController extends Controller
                 ]]
             );
         }
-        if ($results->response->customerInfo->accountType !== $accountType) {
+        if ($results->response->customerInfo->accountType !== "OFFLINE_".$accountType) {
             return response()->json(['response' => ["retn" => 102, "error" => "Invalid Account Type", $results->response]], 400);
         } else {
             // return $results;
@@ -118,10 +119,16 @@ class CIController extends Controller
             case 'PREPAID':
                 $account = "OFFLINE_PREPAID";
                 break;
+            case 'POSTPAID':
+                $account = "OFFLINE_POSTPAID";
+                break;
             default:
+                // $this->validatePayment("OFFLINE_POSTPAID",)
                 $account = "OFFLINE_POSTPAID";
                 break;
         }
+
+        // return $account;
         $payload = [
             'accounttype' => $account,
             'customer_id' => $customerId,
@@ -130,7 +137,7 @@ class CIController extends Controller
 
         // return ["payload" => $payload];
          // Get Partner details
-        $partner = $this->partnerDetails();
+         $partner = $this->partnerDetails();
          // Gets the global session TAMSES
         $sessionId = session()->get('TAMSES');
          // Instantiate the SOAPCLient
@@ -149,7 +156,7 @@ class CIController extends Controller
                 "params" => [
                     "accountType" => $account,
                     "customerId" => $customerId,
-                    // "orderId" => "$orderId",
+                    "orderId" => isset($orderId) or  '',
                     "extraData" => "",
                 ]
             ]]
@@ -168,7 +175,9 @@ class CIController extends Controller
     public function chargeWallet($amount, $accountType, $customerId)
     {
         $customerAccountNumVal = "";
-        switch ($accountType) {
+        $account = "OFFLINE_".$accountType;
+        // return $accsount;
+        switch ($account) {
             case 'OFFLINE_POSTPAID':
                 $customerAccountNumVal = "accountNumber";
                 break;
@@ -189,7 +198,7 @@ class CIController extends Controller
         $header = new SoapHeader('http://soap.convergenceondemand.net/TMP/', "sessionId", $sessionId);
 
         $client->__setSoapHeaders($header);
-
+        // return $accountType;
         $result = $client->__soapCall("chargeWalletV2", array("chargeWalletV2" => [
             'params' => [
                 'amount' => $amount,
@@ -201,7 +210,7 @@ class CIController extends Controller
                     ],
                     [
                         'key' => 'accountType',
-                        'value' => $accountType
+                        'value' => $account
                     ]
                 ]
             ]
@@ -276,6 +285,42 @@ class CIController extends Controller
         return $result;
 
     }
+
+    /**
+     * Pay Order ID
+     * Validates Payment using validatePayment operation
+     */
+
+     public function payOrderId($customerId, $orderId)
+     {
+         // Get Partner details
+         $partner = $this->partnerDetails();
+         // Gets the global session TAMSES
+        $sessionId = session()->get('TAMSES');
+         // Instantiate the SOAPCLient
+        $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
+         // Set Headers for the soap client
+        $header = new \SoapHeader('http://soap.convergenceondemand.net/TMP/', 'sessionId', $sessionId);
+         // Pass headers
+        $client->__setSoapHeaders($header);
+        // return $orderId;
+         //makes the soap call and passes the required parameters
+        $result = $client->__soapCall(
+            "validatePayment",
+            ["validatePayment" =>
+                [
+                "tenantId" => $partner['tenant_id'],
+                "params" => [
+                    "accountType" => "OFFLINE_POSTPAID",
+                    "customerId" => $customerId,
+                    "orderId" => !empty($orderId) ? $orderId : '',
+                    "extraData" => "",
+                ]
+            ]]
+        );
+
+        return response()->json($result);
+     }
 
 
     /**

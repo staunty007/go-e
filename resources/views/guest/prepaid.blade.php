@@ -251,7 +251,7 @@
 								</div>
 								<div class="col-md-4">
 									<span class="pull-right">
-										<a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+										<a href="{{ url()->previous() !== url('guest/service-type') ? url('guest/service-type') : url()->previous() }}" class="btn btn-primary">Back</a>
 									</span>
 								</div>
 							</div>
@@ -346,7 +346,7 @@
 		}
 	</script>
 	@include('partials._search-component')
-	@pay(['accountType' => 'OFFLINE_PREPAID'])
+	@pay(['accountType' => 'PREPAID'])
 	@endpay
 </body>
 

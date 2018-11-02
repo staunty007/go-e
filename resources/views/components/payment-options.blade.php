@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <link rel="stylesheet" href="/css/custom/vertical-tab.css">
 <!-- jQuery library -->
-<div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment">
+<div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment" style="display: block;padding-left: 15px;background-color: rgba(0,0,0,0.6);transition: opacity .2s ease-in-out;">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header headermodal text-center">
@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" value="" id="emailret" name="email" />
+                                <input class="form-control" value="" id="emailret" name="email"  />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -51,7 +51,10 @@
                                 <label>Phone Number</label>
                                 <input class="form-control" value="" id="phoneret" name="mobile" />
                             </div>
-                        </div>
+						</div>
+						@if(auth()->check() && auth()->id() == 2)
+							<input type="hidden" name="is_agent" value="1" id="is_agent">
+						@endif
                         <div class="col-md-12">
                         {{-- <p class="text-center form-group"> --}}
                             <input type="button" class="btn btn-primary" id="ctnPay" value="Continue to Payment">
@@ -161,8 +164,7 @@
 			$(".pay-meter").prop('disabled',true);
 			if (navigator.onLine) {
 				let amount = $("#amount").val();
-
-				if (parseInt(amount) < 900) {
+				if(accountType === "PREPAID" && parseInt(amount) < 900) {
 					$.alert({
 						title: 'Invalid Amount!',
 						content: `Amount Cannot be lesser than N900`,
@@ -176,74 +178,7 @@
 					});
 					$(".pay-meter").prop('disabled',false);
 				} else {
-					$('.pay-meter').html('Validating....');
-					meter_no = $('#meterno').val();
-					
-					fetch(`/ekedc/validate-customer/${accountType}/${meter_no}`)
-						.then(res => res.json())
-						.then(result => {
-							if (result.response.retn !== 0) {
-								$.alert({
-									title: 'Ooops!',
-									content: `${result.response.error} <br> Please Ensure your enter the correct <b>Meter Number</b>`,
-									type: 'red',
-									buttons: {
-										ok: {
-											text: 'Try Again',
-											btnClass: 'btn-red'
-										}
-									}
-								});
-								$('.pay-meter').html('Continue');
-								$(".pay-meter").prop('disabled',false);
-							} else {
-								// Validate Payment
-								const customerInfo = result.response;
-								console.log(customerInfo);
-								fetch(`/ekedc/validate-payment/${accountType}/${meter_no}`)
-									.then(res => res.json())
-									.then(result => {
-										// console.log(result.response.desc);
-										if(result.result.response.desc !== "No record" && result.result.response.retn !== '310') {
-											let { name } = customerInfo.customerInfo;
-											let names = name.split(' ', 2);
-											console.log(names[0]);
-											$("#firstname").val(names[0]);
-											$("#lastname").val(names[1]);
-											$("#emailret").val('');
-											$("#phoneret").val('');
-											$("#meter_no").val($("#meterno").val());
-											$("#total").val(parseInt($(".meter-amount").val()) + 100);
-											setTimeout(() => {
-												$('.pay-meter').html('Validated');
-												$("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
-												confirmDetails();
-											}, 2000);
-										}else {
-											// you have a debt
-										}
-									})
-									.catch(err => console.log(err));
-								
-							}
-						})
-						.catch(err => {
-							// alert('Sorry Something Went Wrong');
-							console.log(err);
-							$.alert({
-								title: 'Ooops!',
-								content: 'Something Bad Went Wrong',
-								type: 'red',
-								buttons: {
-									ok: {
-										text: 'Got It',
-										btnClass: 'btn-red'
-									}
-								}
-							});
-							$('.pay-meter').html('Continue');
-							$(".pay-meter").prop('disabled',false);
-						});
+					continuePayment();
 				}
 			} else {
 				$.alert({
@@ -266,14 +201,27 @@
 			if ($("#emailret").val() == "") {
 				alert('Please Enter an email address');
 			}else {
-				let payload = {
-					'meterno': '' + $("#meterno").val() + '',
-					'firstname': '' + $('#firstname').val() + '',
-					'lastname': '' + $('#lastname').val() + '',
-					'email': '' + $('#emailret').val() + '',
-					'mobile': '' + $('#phoneret').val() + '',
-					'amount': '' + $('.meter-amount').val() + '',
-				};
+				let payload;
+				if(document.body.contains(document.getElementById("is_agent"))) {
+					payload = {
+						'meterno': '' + $("#meterno").val() + '',
+						'firstname': '' + $('#firstname').val() + '',
+						'lastname': '' + $('#lastname').val() + '',
+						'email': '' + $('#emailret').val() + '',
+						'mobile': '' + $('#phoneret').val() + '',
+						'amount': '' + $('.meter-amount').val() + '',
+						'is_agent': '1'
+					};
+				}else {
+					payload = {
+						'meterno': '' + $("#meterno").val() + '',
+						'firstname': '' + $('#firstname').val() + '',
+						'lastname': '' + $('#lastname').val() + '',
+						'email': '' + $('#emailret').val() + '',
+						'mobile': '' + $('#phoneret').val() + '',
+						'amount': '' + $('.meter-amount').val() + '',
+					};
+				}
 				continuePay(payload);
 			}
 		});
@@ -284,8 +232,9 @@
 				method: 'POST',
 				data: payload,
 				success: (response) => {
+					// console.log(response);
 					if (response.code == "ok") {
-						console.log(response.text);
+						// console.log(response.text);
 						openOptions();
 					}
 				},
@@ -377,10 +326,85 @@
 			confirmDetails();
 		}
 
+		const continuePayment = () => {
+			$('.pay-meter').html('Validating....');
+				meter_no = $('#meterno').val();
+				
+				fetch(`/ekedc/validate-customer/${accountType}/${meter_no}`)
+					.then(res => res.json())
+					.then(result => {
+						if (result.response.retn !== 0) {
+							$.alert({
+								title: 'Ooops!',
+								content: `${result.response.error} <br> Please Ensure your enter the correct <b>Meter Number</b>`,
+								type: 'red',
+								buttons: {
+									ok: {
+										text: 'Try Again',
+										btnClass: 'btn-red'
+									}
+								}
+							});
+							$('.pay-meter').html('Continue');
+							$(".pay-meter").prop('disabled',false);
+						} else {
+							// Validate Payment
+							const customerInfo = result.response;
+							console.log(customerInfo);
+							fetch(`/ekedc/validate-payment/${accountType}/${meter_no}`)
+								.then(res => res.json())
+								.then(result => {
+									// console.log(result.response.desc);
+									if(result.result.response.desc !== "No record" && result.result.response.retn !== '310') {
+										let { name } = customerInfo.customerInfo;
+										let names = name.split(' ', 2);
+										console.log(names[0]);
+										$("#firstname").val(names[0]);
+										$("#lastname").val(names[1]);
+										$("#emailret").val('');
+										$("#phoneret").val('');
+										$("#meter_no").val($("#meterno").val());
+										$("#total").val(parseInt($(".meter-amount").val()) + 100);
+										setTimeout(() => {
+											$('.pay-meter').html('Validated');
+											$("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
+											confirmDetails();
+										}, 2000);
+									}else {
+										// you have a debt
+									}
+								})
+								.catch(err => console.log(err));
+							
+						}
+					})
+					.catch(err => {
+						// alert('Sorry Something Went Wrong');
+						console.log(err);
+						$.alert({
+							title: 'Ooops!',
+							content: 'Something Bad Went Wrong',
+							type: 'red',
+							buttons: {
+								ok: {
+									text: 'Got It',
+									btnClass: 'btn-red'
+								}
+							}
+						});
+						$('.pay-meter').html('Continue');
+						$(".pay-meter").prop('disabled',false);
+					});
+		}
+
 	</script>
 	<script>
+		
 		$(document).ready(function() {
-			$(".other").css({"display":"none"});
+			$(".other").css({
+				"transition":"all .2s cubic-bezier(0, 0.01, 0.35, 0.91)",
+				"display":"none"
+			});
 			$("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
 				e.preventDefault();
 				$(this).siblings('a.active').removeClass("active");
@@ -391,9 +415,19 @@
 			});
 
 			$("#bank_payment").change(function() {
+				let fetchUrl = "/bp/";
+				const bankVal = $(this).val();
+				switch (bankVal) {
+					case 'diamond':
+						fetchUrl = fetchUrl + "diamond/c-mandate"
+						break;
+					case 'zenith':
+						break;
+					default:
+						break;
+				}
 				if($(this).val() !== "") {
 					$(".other").css({
-						"transition":"all .2s cubic-bezier(0, 0.01, 0.35, 0.91)",
 						"display":"block"
 					});
 				}
@@ -408,3 +442,11 @@
 			})
 		});
 	</script>
+		<script>
+			$("#payOption").change(function() {
+				var vall = $(this).val();
+				if(vall !== "POSTPAID") {
+					window.location = `/guest/postpaid-service-type/${vall}`;
+				}
+			})
+		</script>

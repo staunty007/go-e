@@ -21,8 +21,9 @@ Route::prefix('guest')->group(function () {
     Route::get('home', 'GuestController@guestServices')->name('guest.services');
     Route::get('login', 'GuestController@guestLogIn')->name('guest.login');
     Route::get('signup', 'GuestController@guestSignUp')->name('guest.signup');
-    Route::get('service-type', 'GuestController@serviceType')->name('guest.service_type');
+    Route::get('each-service-type', 'GuestController@serviceType')->name('guest.service_type');
     Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
+    Route::get('postpaid-service-type/{service}', 'GuestController@eachTypeServicesSingle')->name('guest.each_type_service');
     Route::get('support', 'GuestController@support')->name('guest.support');
     Route::get('agent_reg', 'GuestController@agent_reg')->name('guest.agent_reg');
     Route::get('become_agent', 'GuestController@become_agent')->name('guest.become_agent');
@@ -42,20 +43,16 @@ Route::get('agents/signup', 'AgentController@agentSignup');
 // POST HTTP Method
 Route::post('agents/signup', 'AgentController@postAgentSignup');
 
-
-// Meter Test API Routes
-Route::post('/meter/api', 'MeterApiController@validateMeterUser');
-Route::get('/meter/api/', 'MeterApiController@validateMeterReturn');
-
-Route::get('finalize/{number}/{ref}', function () {
-    return view('finalize');
-})->name('finalize');
-// Route::get('faq', function () { return view('faq'); });
+/**
+ * Social Logins
+ */
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
-
+// 
 Route::post('account/login', 'AccountController@loginUser');
 Route::post('account/register', 'AccountController@registerUser')->name('signup');
+// Referral Registration
+Route::get('signup/r/{ref}', 'AccountController@referredSignup'); //http://localhost:8000/signup/r/pQhkLwErUi
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
@@ -88,23 +85,7 @@ Route::get('postpaidpayment', function () {
     return view('postpaidpayment')->withUser($loggedDetails);
 })->name('postpaid');
 
-Route::get('postpaid-payment', function () {
-
-})->name('postpaid-logged');
-
-Route::post('account/login', 'AccountController@loginUser');
-Route::post('account/register', 'AccountController@registerUser')->name('signup');
-
-// Referral Registration
-Route::get('signup/r/{ref}', 'AccountController@referredSignup'); //http://localhost:8000/signup/r/pQhkLwErUi
-
-Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
-Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
-Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
-
-
-Route::get('postpaidpayment/{ref}/success', 'AccountController@postpaidpaymentSuccess');
-Route::get('postpaidpayment/logged/{ref}/success', 'AccountController@loggedPostpaidPaymentSuccess');
+Route::get('postpaid-payment', function () { })->name('postpaid-logged');
 
 // Prepaid Payment Holder
 Route::post('payment/hold', 'AccountController@paymentHolder');
@@ -116,14 +97,12 @@ Route::post('payment/hold/postpaid', 'AccountController@paymentPostpaidHolder');
 Route::post('payment/hold/agent/postpaid', 'AccountController@paymentAgentPostpaidHolder');
 
 // User Dashboard
-
 Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('home', 'AccountController@home')->name('customer.home');
     Route::get('profile', 'AccountController@customerProfile')->name('customer.profile');
     Route::post('profile/update', 'AccountController@updateProfile')->name('customer.update-profile');
     Route::get('prepaid-payment', 'AccountController@prepaidPayment')->name('customer.prepaid-payment');
     Route::get('postpaid-payment', 'AccountController@postpaidPayment')->name('customer.postpaid-payment');
-
     Route::get('payment-frame', 'AccountController@paymentFrame');
     Route::post('prepaid-payment', 'AccountController@postPrepaidPayment');
     Route::post('postpaid-payment', 'AccountController@postPostpaidPayment');
@@ -132,7 +111,6 @@ Route::prefix('customer')->middleware('auth')->group(function () {
     Route::get('payment-history', 'AccountController@paymentHistory')->name('payment-history');
     Route::get('payment-history/{reciept_id}', 'AccountController@ViewPaymentReciept')->name('view-pay-history');
     Route::get('reciept/pdf/{reciept_id}', 'AccountController@pdfDownload');
-
     //postpaid-new
     Route::get('postpaid_new', 'AccountController@postpaid_new')->name('postpaid_new-history');
     //end post paid new
@@ -181,9 +159,7 @@ Route::prefix('backend')->group(function () {
         Route::get('customerlist', 'AdminController@customerlist')->name('admin.customerlist');
         Route::get('managecustomers', 'AdminController@managecustomers')->name('admin.managecustomers');
         Route::get('manage_referal', 'AdminController@manage_referal')->name('admin.manage_referal');
-
         Route::get('manage/users/payment/{meter_no}', 'UserManagerController@customerPayment')->name('users.payment');
-
         Route::prefix('tickets')->group(function () {
             Route::get('/all-tickets', 'TicketsController@adminTickets')->name('admin.tickets');
             Route::get('/view/{ticket}', 'TicketsController@adminShowTicket')->name('admin.show-ticket');
@@ -261,19 +237,8 @@ Route::get('password/reset/{token}', '\App\Http\Controllers\Auth\ResetPasswordCo
 Route::post('password/reset', '\App\Http\Controllers\Auth\ResetPasswordController@reset')->middleware(['guest', 'web']);
 // Auth::routes(['except' => ['register']]);
 
-Route::get('login', function () {
-    return redirect('/');
-})->name('login');
-Route::get('register', function () {
-    return redirect('/');
-})->name('register');
-
-
-// SOAP API TEST ROUTES / REST APIs ROUTES
-Route::prefix('in-app/api')->group(function () {
-    Route::get('soap/validate-customer/{number}', 'TestSoapController@validateCustomer');
-    Route::get('soap/charge/{amount}', 'TestSoapController@chargeWallet');
-});
+Route::get('login', function () { return redirect('/'); })->name('login');
+Route::get('register', function () { return redirect('/'); })->name('register');
 
 // Mobile Routes
 Route::prefix('mobile')->group(function () {
@@ -363,6 +328,7 @@ Route::prefix('ekedc')->group(function () {
     Route::get('validate-payment/{accountType}/{customerId}', 'CIController@validatePayment');
     Route::get('charge-wallet/{amount}/{accountType}/{customerId}', 'CIController@chargeWallet');
     Route::get('generate-token/{paymentRef}/{orderId}', 'CIController@generateToken');
+    Route::get('pay-order-id/{customerId}/{orderid}','CIController@payOrderId');
 });
 
 // Hold Generate Token Data
@@ -370,3 +336,5 @@ Route::post('gtk', 'AccountController@holdToken');
 Route::get('transaction/success', 'AccountController@paymentSuccess');
 Route::get('transaction/{order_id}/receipt', 'AccountController@generateReceipt')->name('receipt');
 Route::get('fetch/{order_id}', 'AccountController@fetchReceiptDetails');
+
+// Route::get('base-64-decode/{string}','AccountController@decodeEmail');

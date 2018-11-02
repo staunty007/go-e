@@ -7,6 +7,7 @@ use App\User;
 use App\AgentBiodata;
 use Mail;
 use App\Mail\AccountActivation;
+use Illuminate\Support\Str;
 
 class GuestController extends Controller
 {
@@ -73,6 +74,13 @@ class GuestController extends Controller
 		}
 
 	}
+
+	public function eachTypeServicesSingle($service) {
+		$original = $service;
+		$service = explode(' ',title_case($service));
+		return view('guest/postpaid-service')->withService($service[0])->withOri($original);
+	}
+
 	public function support()
 	{
 		return view('guest/support');

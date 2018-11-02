@@ -332,6 +332,11 @@ class UATController extends Controller
         dd($results);
     }
 
+    public function payOrder($orderId)
+    {
+        
+    }
+
 
 
 
