@@ -197,6 +197,7 @@ class AccountController extends Controller
             // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
+            
 
             // Set a variable for the token data
             if (
@@ -218,6 +219,7 @@ class AccountController extends Controller
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
 
+            $paymentId = "";
             $paymentId = DB::table('payments')->insertGetId([
                 'first_name' => $paymentDetails['firstname'],
                 'last_name' => $paymentDetails['lastname'],
@@ -283,6 +285,8 @@ class AccountController extends Controller
 
                 return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
             }
+
+            $transaction = new Transaction;
 
             $transaction->payment_id = $paymentId;
             $transaction->initial_amount = $paymentDetails['amount'];
