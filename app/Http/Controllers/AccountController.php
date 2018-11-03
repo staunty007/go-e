@@ -197,6 +197,7 @@ class AccountController extends Controller
             // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
+            
 
             // Set a variable for the token data
             if (
@@ -218,6 +219,7 @@ class AccountController extends Controller
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
 
+            $paymentId = "";
             $paymentId = DB::table('payments')->insertGetId([
                 'first_name' => $paymentDetails['firstname'],
                 'last_name' => $paymentDetails['lastname'],
@@ -238,6 +240,8 @@ class AccountController extends Controller
                 'created_at' => new Carbon('now'),
                 'updated_at' => new Carbon('now'),
             ]);
+
+            // Transaction Came from an agent
             
             if(isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
                 // $transaction = new Transaction;
@@ -283,6 +287,9 @@ class AccountController extends Controller
 
                 return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
             }
+
+            // Transaction is not coming from an agent
+            $transaction = new Transaction;
 
             $transaction->payment_id = $paymentId;
             $transaction->initial_amount = $paymentDetails['amount'];
