@@ -47,7 +47,8 @@ class UssdController extends Controller
     	}
 
     	// Echo the response back to the API
-    	header('Content-type: text/plain');
+		header('Content-type: text/plain');
+	
     	echo $response;
     }
 }
