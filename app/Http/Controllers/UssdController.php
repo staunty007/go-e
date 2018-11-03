@@ -8,7 +8,6 @@ class UssdController extends Controller
 {
     public function register()
     {
-    	<?php
     	// Reads the variables sent via POST from our gateway
     	$sessionId   = $_POST["sessionId"];
     	$serviceCode = $_POST["serviceCode"];
