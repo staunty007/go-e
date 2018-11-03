@@ -130,84 +130,55 @@ class AccountController extends Controller
 
     public function paymentHolder(Request $request)
     {
-        //return $request;
-        // Check if payment sending is not greater than that of admin
-        $adminDetails = AdminBiodata::first();
+        // return $request;
+        /**
+         *  Check if request is coming from agent
+         *  then fetch out and check agent's biodata
+         *  else hold payment information fir customers
+        */
+        if($request->has('is_agent')) {
+            $agentDetails = AgentBiodata::where('user_id', \Auth::user()->id)->first();
+            $adminDetails = AdminBiodata::first();
 
-        //return $adminDetails;
+            if ($agentDetails->wallet_balance < $request->amount || $adminDetails->wallet_balance < $request->amount) {
+                return response()->json(['errorText' => 'Insufficient Balance to complete the payment']);
+            }
+
+            // Flush Payment Details
+            session()->forget('payment_details');
+            session()->put(['payment_details' => $request->all()]);
+            return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
+
+        }
+
+        // Request is coming from the user
+        $adminDetails = AdminBiodata::first();
 
         if ($adminDetails->wallet_balance < $request->amount) {
             return response()->json(['code' => 'no']);
         }
         session(['payment_details' => $request->all()]);
-
         return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
     }
 
-
-    public function paymentAgentPrepaidHolder(Request $request)
+    public function decodeEmail($string)
     {
-
-        $agentDetails = AgentBiodata::where('user_id', \Auth::user()->id)->first();
-        $adminDetails = AdminBiodata::first();
-
-        if ($agentDetails->wallet_balance < $request->amount || $adminDetails->wallet_balance < $request->amount) {
-            return response()->json(['errorText' => 'Insufficient Balance to complete the payment, Please Topup']);
-        }
-        session(['payment_details' => $request->all()]);
-
-        return response()->json(['code' => 'ok']);
+        return base64_decode($string);
     }
 
-    public function paymentPostpaidHolder(Request $request)
-    {
-        //return $request;
-        // Check if payment sending is not greater than that of admin
-        $adminDetails = AdminBiodata::first();
 
-        //return $adminDetails;
-
-        if ($request->is_agent == 1) {
-            return $this->paymentAgentPostpaidHolder($request);
-        }
-
-        if ($adminDetails->wallet_balance < $request->amount) {
-
-            return response()->json(['code' => 'no']);
-        }
-        session(['payment_details' => $request->all()]);
-
-        return response()->json(['code' => 'ok']);
-    }
-
-    public function paymentAgentPostpaidHolder(Request $request)
-    {
-        
-        // Check if payment sending is not greater than that of admin
-        $adminDetails = AdminBiodata::first();
-        $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->first();
-
-        //return $adminDetails;
-
-        if ($adminDetails->wallet_balance < $request->amount) {
-
-            return response()->json(['code' => 'no']);
-        }
-
-        if ($agentBio->wallet_balance < $request->amount) {
-            return response()->json(['errorText' => 'Insufficient Funds, Please Topup']);
-        }
-        session(['payment_details' => $request->all()]);
-
-        return response()->json(['code' => 'ok']);
-    }
-
+    /**
+     * Customer Prepaid Payment View
+     */
     public function prepaidPayment()
     {
         $bio = $this->customerData();
         return view('customer.prepaid-payment')->withBio($bio);
     }
 
+    /**
+     * Customer Postpaid Payment View
+     */
     public function postpaidPayment()
     {
         $bio = $this->customerData();
@@ -219,51 +190,99 @@ class AccountController extends Controller
     public function paymentSuccess()
     {
         if (session()->exists('payment_details')) {
+            
             $paymentDetails = session('payment_details');
+            // return $paymentDetails;
             $tokenDetails = session()->get('token_data');
             // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
-            $transaction = new Transaction;
-
-            // return $tokenDetails;
 
             // Set a variable for the token data
-            if (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken'])) {
+            if (
+                isset($tokenDetails['response']['orderDetails']['tokenData']) 
+                && 
+                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])
+            ) {
                 $token_data = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
-            } else {
-                $token_data = $tokenDetails['response']['orderDetails']['tokenData']['status']['value'];
             }
 
             $bonus_token = "";
             
             // if bonus token is generated then set it
-            if (isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
+            if (
+                isset($tokenDetails['response']['orderDetails']['tokenData']) 
+                && 
+                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])
+            ){
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
 
-            // return $token_data;
-            // die();
             $paymentId = DB::table('payments')->insertGetId([
                 'first_name' => $paymentDetails['firstname'],
                 'last_name' => $paymentDetails['lastname'],
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
                 'meter_no' => $paymentDetails['meterno'],
-                'token_data' => $token_data,
-                'bonus_token' => $bonus_token,
+                'token_data' => isset($token_data) ? $token_data : null,
+                'bonus_token' => isset($bonus_token) ? $bonus_token : null,
                 'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
                 'transaction_type' => "Web",
                 'transaction_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
                 'value_of_kwh' => $paymentDetails['amount'] / 12.85,
-                'is_agent' => false,
+                'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
                 'payment_status' => $tokenDetails['response']['orderDetails']['status'],
                 'created_at' => new Carbon('now'),
                 'updated_at' => new Carbon('now'),
             ]);
+            
+            if(isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
+                // $transaction = new Transaction;
+                $transaction = new AgentTransaction;
+                $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+
+                $transaction->payment_id = $paymentId;
+                $transaction->agent_id = $agentBio->agent_id;
+                $transaction->initial_amount = $paymentDetails['amount'];
+                $transaction->conv_fee = 100;
+    
+                $total_amount = $paymentDetails['amount'] + 100;
+                $commission = $paymentDetails['amount'] * 0.02;
+                $pgp = $total_amount * 0.015;
+                $bal = (100 + $commission) - $pgp;
+                $spec = round($bal * 0.1,2);
+                $ralmuof = round($bal * 0.9,2);
+                $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+                $netAmount = $paymentDetails['amount'] - $commission;
+    
+                $transaction->total_amount = $total_amount;
+                $transaction->commission = $commission;
+                $transaction->pgp = $pgp;
+                $transaction->agent = 0.085 * $paymentDetails['amount'];
+                $transaction->bal = $bal;
+                $transaction->spec = $spec;
+                $transaction->ralmuof = $ralmuof;
+                $transaction->total_split = $totalSplit;
+                $transaction->net_amount = $netAmount;
+    
+                // Wallet Balance
+                $adminBio = AdminBiodata::first();
+                //return $adminBio;
+    
+                $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
+                $agentBio->wallet_balance -= $total_amount;
+    
+                $transaction->wallet_bal = $adminBio->wallet_balance;
+
+                $transaction->save();
+                $adminBio->save();
+                $agentBio->save();
+
+                return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
+            }
 
             $transaction->payment_id = $paymentId;
             $transaction->initial_amount = $paymentDetails['amount'];
@@ -291,11 +310,14 @@ class AccountController extends Controller
             $adminBio = AdminBiodata::first();
 
             $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
+            // $agentBio->wallet_balance -= $total_amount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
 
             $transaction->save();
             $adminBio->save();
+
+            // return $transaction;
             return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
         }
 
@@ -309,8 +331,16 @@ class AccountController extends Controller
 
     public function fetchReceiptDetails($orderId)
     {
-        $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
-        // return $payment->email;
+        $payment = Payment::where('order_id', $orderId)->firstOrFail();
+        // return $payment;
+        if($payment->is_agent == true) {
+            $payment = Payment::where('order_id',$orderId)->with('agent_transaction')->firstOrFail();
+            $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
+            return $payment;
+        }
+        
+        $payment = Payment::where('order_id',$orderId)->with('transaction')->firstOrFail();
+
         $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
         return $payment;
     }

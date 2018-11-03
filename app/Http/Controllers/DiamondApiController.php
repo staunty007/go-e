@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\AdminBiodata;
 
@@ -11,7 +12,7 @@ class DiamondApiController extends Controller
     public function generateAccessToken()
     {
         // API URL
-        $url = $this->baseUrl.'oauth/token';
+        $url = $this->baseUrl . 'oauth/token';
         // Initialize Curl
         $curl = curl_init();
         // Set CURL Params
@@ -35,7 +36,7 @@ class DiamondApiController extends Controller
 
         curl_close($curl);
         // return $response;
-        return json_decode($response, true);
+        // return json_decode($response, true);
         if ($err) {
             return response()->json(['error' => $err], 500);
         } else {
@@ -43,7 +44,8 @@ class DiamondApiController extends Controller
         }
 
     }
-    public function credit($amount) {
+    public function credit($amount)
+    {
         $access_token = $this->generateAccessToken();
         $token = $access_token['access_token'];
         // Initialize Curl
@@ -77,7 +79,7 @@ class DiamondApiController extends Controller
             return json_decode($response, true);
         }
 
-        
+
     }
 
     public function agentDebit($accountNumber, $amount)
@@ -85,12 +87,12 @@ class DiamondApiController extends Controller
         // check agent's amount is not greater tham admin's own
         $adminBiodata = AdminBiodata::find(1);
         // return $adminBiodata;
-        if($amount > $adminBiodata->wallet_balance) {
+        if ($amount > $adminBiodata->wallet_balance) {
             return response()->json('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
         }
         $getToken = $this->generateAccessToken();
         $token = $getToken['access_token'];
-        $curl = curl_init();   
+        $curl = curl_init();
         $transactionRef = str_random(20);
         // return $transactionRef;
         curl_setopt_array($curl, array(
@@ -103,7 +105,7 @@ class DiamondApiController extends Controller
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"$accountNumber\",\n\t\"sourceAccount\": \"$accountNumber\",\n\t\"transactionReference\": \"$transactionRef\",\n\t\"transactionNaration\": \"GOENERGEE Topup Debit\"\n}",
             CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer ".$token,
+                "Authorization: Bearer " . $token,
                 "Content-Type: application/json",
             ),
         ));
@@ -117,22 +119,22 @@ class DiamondApiController extends Controller
             return response()->json($err, 500);
         } else {
             $credit = $this->credit($amount);
-            if($credit == "Err") {
+            if ($credit == "Err") {
                 $cred2 = $this->credit($amount);
-                if($cred2 == "Err") {
+                if ($cred2 == "Err") {
                     return response()->json('Unable to finish transaction, Please Contact the Admin for further processing.');
                 }
-            }else {
+            } else {
                 return response()->json($response, 200);
             }
-            
+
         }
     }
     public function adminDebit($accountNumber, $amount)
     {
         $getToken = $this->generateAccessToken();
         $token = $getToken['access_token'];
-        $curl = curl_init();   
+        $curl = curl_init();
         $transactionRef = str_random(20);
         // return $transactionRef;
         curl_setopt_array($curl, array(
@@ -145,7 +147,7 @@ class DiamondApiController extends Controller
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"$accountNumber\",\n\t\"sourceAccount\": \"$accountNumber\",\n\t\"transactionReference\": \"$transactionRef\",\n\t\"transactionNaration\": \"GOENERGEE Topup Debit\"\n}",
             CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer ".$token,
+                "Authorization: Bearer " . $token,
                 "Content-Type: application/json",
             ),
         ));
@@ -159,15 +161,15 @@ class DiamondApiController extends Controller
             return response()->json($err, 500);
         } else {
             $credit = $this->credit($amount);
-            if($credit == "Err") {
+            if ($credit == "Err") {
                 $cred2 = $this->credit($amount);
-                if($cred2 == "Err") {
+                if ($cred2 == "Err") {
                     return response()->json('Unable to finish transaction, Please Contact the Admin for further processing.');
                 }
-            }else {
+            } else {
                 return response()->json($response, 200);
             }
-            
+
         }
     }
 

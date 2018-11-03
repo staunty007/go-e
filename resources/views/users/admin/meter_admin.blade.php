@@ -18,8 +18,9 @@
                         <div class="ibox">
                             <div class="ibox-content">
 
-                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="4" id="myTable">
-                                    <thead>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+       <thead>
                                         <tr>
 
                                             <th>Request ID</th>

@@ -11,7 +11,9 @@
             All Tickets 
         </div>
         <div class="ibox-content">
-            <table class="table table-responsive" id="myTable">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+
                 <thead>
                 <tr>
                     <th>ID #</th>

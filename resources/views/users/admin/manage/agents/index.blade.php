@@ -13,7 +13,9 @@
                     <div class="ibox-content">
                         <h3>All Agents</h3>
 
-                        <table class="table data-table table-condensed">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example">
+
                             <thead>
                                 <tr>
                                     <th>#</th>

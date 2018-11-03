@@ -11,6 +11,7 @@
             body {
                 background-color: #FDFDFD;
                 font-family: "Nunito Sans", sans-serif;
+                /* text-align: center; */
             }
             .alert-success {
                 color: #fafafa;
@@ -36,8 +37,8 @@
                     </div>
                     <div v-else>   
                         <div v-if="sent" style="margin-top: 1em">                     
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-2">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 col-md-offset-1">
                                     <div class="alert alert-success">
                                         Your Payment Was Successful
                                     </div>
@@ -50,7 +51,6 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Date: </td>
-                                                    {{-- <td>{{ date('D-d-M-Y @ h:i:sa', strtotime(now())) }}</td> --}}
                                                     <td>@{{ orderDate }}</td>
                                                 </tr>
                                                 <tr>
@@ -84,7 +84,7 @@
                                                         <td v-if="!tokenError">
                                                             <span v-if="bsst">
                                                                 <b>Std Token:</b> <b><big>@{{ details.token_data}}</big></b><br>
-                                                                <b>Bsst:</b> <b><big>@{{ details.bonus_token }}</big></b>
+                                                                <span class="text-info"><b>Bsst Token:</b> <b><big>@{{ details.bonus_token }}</big></b></span>
                                                             </span>
                                                             <span v-else>
                                                                 <b><big>@{{ details.token_data}}</big></b>
@@ -99,17 +99,24 @@
                                                 </tbody>
                                             </table>
                                             <div class="pull-right">
+                                                <p v-if="bsst">
+                                                    <span style="color: green;font-weight: bold; font-size: 1.5em;">
+                                                        Note: Enter the Bsst Token before the Std Token
                                                 <p v-if="tokenError">
                                                     <span style="color:red; font-weight: bold; font-size: 1em;">
                                                         @{{ details.token_data }}
                                                     </span>
                                                 </p>
-                                                <p>Amount: ₦@{{ details.transaction.initial_amount }}</p>
+                                                <p>Amount: ₦@{{ details.transaction !== null ? details.transaction.initial_amount : details.agent_transaction.initial_amount }}</p>
                                                 <p>Convenience Fee: ₦100</p>
-                                                <div>Total Amount: <span style="font-size: 2em">₦@{{ details.transaction.total_amount }}</span></div>
+                                                <div>Total Amount: 
+                                                    <span style="font-size: 2em">
+                                                        ₦@{{ details.transaction !== null ? details.transaction.total_amount : details.agent_transaction.total_amount }}
+                                                    </span>
+                                                </div>
                                                 <br>
                                                 <div style="margin-top: 1em">
-                                                    <a href="{{ url()->previous() }}" class="btn btn-success">Pay Another</a>
+                                                    <a href="{{ url()->previous() == url()->current() ? '/guest/each-service-type' : url()->previous() }}" class="btn btn-success">Pay Another</a>
                                                     <button class="btn-danger btn" >Print Receipt</button>
                                                     <a href="" class="btn btn-info">Refer a Friend</a>
                                                 </div>
@@ -131,7 +138,7 @@
                 </div>
             </div>
         </div>
-
+        </center>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/js/moment.js"></script>
@@ -164,12 +171,16 @@
                         axios.get(`/fetch/${this.orderid}`)
                             .then(res => {
                                 this.details = res.data;
-                                if(this.details.bonus_token !== "") {
+                                if(this.details.bonus_token !== "" && this.details.bonus_token.length > 10) {
                                     this.bsst = true;
                                 }
-                                
-                                if(this.details.token_data.length > 20) {
-                                    this.tokenError = true;
+
+                                if(
+                                    !this.details.token_data || 
+                                    this.details.token_data.length > 20 
+                                    || this.details.user_type == "OFFLINE_POSTPAID"
+                                ) {
+                                        this.tokenError = true;
                                 }
 
                                 this.orderDate = new Date(Date.parse(res.data.created_at));
@@ -177,7 +188,10 @@
                                 // console.log(this.orderDate);
                                 // // od = this.orderDate;
                             })
-                            .catch(err => console.log(err));
+                            .catch(err => {
+                                this.error = true;
+                                console.log(err);
+                            });
                     },
                     sendSMS: function() {
 

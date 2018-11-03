@@ -55,11 +55,6 @@
 	<link href="{{asset('css/osSlider.css')}}" rel="stylesheet">
 	<link href="{{asset('css/media-query.css')}}" rel="stylesheet">
 
-
-
-
-
-
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 		var Tawk_API = Tawk_API || {},
@@ -73,6 +68,14 @@
 			s1.setAttribute('crossorigin', '*');
 			s0.parentNode.insertBefore(s1, s0);
 		})();
+
+		fetch('/diamond/access-token')
+			.then(res => res.json())
+			.then(response => {
+				response = JSON.parse(response);
+				localStorage.setItem('DIAM_ACC',response.access_token);
+			})
+			.catch(err => console.log(err))
 	</script>
 	<!--End of Tawk.to Script-->
 	<style>

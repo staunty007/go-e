@@ -152,8 +152,9 @@
 
             <div class="ibox" style="overflow-x:auto;">
                 <div class="ibox-content">
-                    <table id="myTable" class="table table-striped table-responsive toggle-arrow-tiny" data-page-size="">
-                        <thead>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
                             <tr>
                                 <th data-hide="phone">Trans Date</th>
                                 <th data-hide="phone">Trans Ref</th>

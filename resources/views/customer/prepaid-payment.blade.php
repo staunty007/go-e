@@ -70,63 +70,29 @@
 
                 <div class="ibox-content">
                     {{-- @if(isset($before)) --}}
-                    <img src="/images/ekedc.jpg" width="80" />
-                    <span style="font-size: 16px"> Eko Electric Distribution Company </span>
-                    <br><br>
-                    <form action="" method="POST" class="meterSelf">
-                        {{ csrf_field()}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Meter No.</label>
-                                <input type="text" name="meter_no" id="meter_no" class="form-control" value="{{ $bio->customer->meter_no }}" />
-                            </div>
-                        </div>
-                        {{-- <div class="form-group">
-                            <label>Meter Owner's Name</label>
-                            <input type="text" name="meter_owner" disabled class="form-control" value="{{ $bio->customer->meter_owner }}" />
-                        </div> --}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Your FirstName</label>
-                                <input type="text" name="first_name" class="form-control" value="{{Auth::user()->first_name }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Your LastName</label>
-                                <input type="text" name="last_name" class="form-control" value="{{ Auth::user()->last_name }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Email Address</label>
-                                <input type="text" name="email" class="form-control meter-email" value="{{ Auth::user()->email }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Mobile Number</label>
-                                <input type="text" name="mobile" class="form-control" value="{{ Auth::user()->mobile }}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Convienience Fee</label>
-                                <input type="text" value="100.00" readonly class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Amount</label>
-                                <input type="text" name="amount" class="form-control meter-amount" />
-                            </div>
-                        </div>
-                        
+                    <p class="text-center"><img src="/images/ekedc.jpg" width="80" /></p>
+                    <br>
+                    
+                    <form class="meter" method="post" action="">
                         <div class="form-group">
-                            <button class="btn btn-block btn-primary pay-meter1">Make Payment</button>
+                            <label for="Meter_number"><b>Prepaid Meter Number</b></label>
+                            
+                            <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
+                            
                         </div>
+                        <div class="form-group">
+                            <label for="convinience_fee"><b>Convenience Fee</b></label>
+                            
+                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly> <span class="input-group-addon">.00</span></div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="amount"><b>Amount</b></label>
+                            
+                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"> <span class="input-group-addon">.00</span></div>
+                        </div>
+                        <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -197,126 +163,6 @@
         });
     })
 </script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-<script>
-    $(".pay-meter1").click((e) => {
-        e.preventDefault();
-        $(".pay-meter1").prop('disabled', true).html('Validating  ....');
-        let amount = "";
-        let meterNo = document.querySelector("#meter_no").value;
-
-        if (meterNo.length == 0 && meterNo.length > 6) {
-            $.alert({
-                title: 'Ooops!',
-                content: 'Meter No Field is Required',
-                type: 'red',
-                buttons: {
-                    ok: {
-                        text: 'Okay',
-                        btnClass: 'btn-red'
-                    }
-                }
-            });
-            $(".pay-meter1").prop('disabled', false).html('Make Payment');
-        } else {
-            fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
-                .then(res => res.json())
-                .then(response => {
-                    console.log(response);
-                    if (response.response.retn !== 0) {
-                        $.alert({
-                            title: 'Ooops!',
-                            content: 'Invalid Meter No!',
-                            type: 'red',
-                            buttons: {
-                                ok: {
-                                    text: 'Try Again',
-                                    btnClass: 'btn-red'
-                                }
-                            }
-                        });
-                        $(".pay-meter1").prop('disabled', false).html('Make Payment');
-                    } else {
-                        // Valid Meter no
-                        continuePay();
-                    }
-                })
-                .catch(err => {
-                    // alert('Sorry Something Went Wrong');
-                    $.alert({
-                        title: 'Ooops!',
-                        content: 'Something Bad Went Wrong',
-                        type: 'red',
-                        buttons: {
-                            ok: {
-                                text: 'Got It',
-                                btnClass: 'btn-red'
-                            }
-                        }
-                    });
-                    $(".pay-meter1").prop('disabled', false).html('Make Payment');
-                });
-
-        }
-
-        function continuePay() {
-            var formdata = $('.meterSelf').serialize();
-            $.ajax({
-                url: "{{ url('payment/hold') }}",
-                method: 'POST',
-                data: formdata,
-                success: (response) => {
-                    if (response.code == "ok") {
-                        payWithPaystack();
-                    } else {
-                        $.alert({
-                            title: 'Ooops!',
-                            content: 'Sorry, Payment Cannot be made at the moment, Please Contact Admin to resolve your issues\n\nPhone: 08052313815\n\nEmail: customersupport@goenergee.com',
-                            type: 'red',
-                            buttons: {
-                                ok: {
-                                    text: 'Got It',
-                                    btnClass: 'btn-red'
-                                }
-                            }
-                        });
-                        $(".pay-meter1").prop('disabled', false).html('Make Payment');
-                        $("#ifAdmin").css({
-                            'display': 'block'
-                        });
-                    }
-                },
-                error: (err) => {
-                    $(".pay-meter1").prop('disabled', false).html('Make Payment');
-                }
-            });
-        }
-
-    });
-
-    function payWithPaystack() {
-        var amountMeter = document.querySelector('.meter-amount').value;
-        var chargedAmount = parseInt(amountMeter) + 100;
-        console.log(chargedAmount);
-        var handler = PaystackPop.setup({
-            key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-            email: document.querySelector('.meter-email').value,
-            amount: chargedAmount + "00",
-            ref: "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-
-            callback: function (response) {
-                //   swal('Yay!','Payment Successfull','success');
-                setTimeout(() => {
-                    window.location.href = '/payment/' + response.reference + '/success';
-                }, 1000);
-            },
-            onClose: function () {
-                alert('Payment Cancelled');
-                $(".pay-meter1").prop('disabled', false).html('Make Payment');
-            }
-        });
-        handler.openIframe();
-    }
-</script>
+@pay(['accountType' => "PREPAID"])
+@endpay
 @endpush

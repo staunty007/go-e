@@ -1,4 +1,5 @@
 @extends('layouts.admin') @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -29,90 +30,99 @@
                     </div>
                     <div style="overflow-x:auto;">
                         <div class="ibox-content">
-                            <table class="table" id="myTable" style="width:100%">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
+
+
+                                    <thead>
+                                        <tr>
+                                            <th data-hide="phone">Trans Date</th>
+                                            <th data-hide="phone">Web</th>
+                                            <th data-hide="phone">Mobile</th>
+                                            <th data-hide="phone">USSD</th>
+                                            <th data-hide="phone">POS</th>
+                                            <th data-hide="phone">Mvisa</th>
 
 
 
-                                <thead>
-                                    <tr>
-                                        <th data-hide="phone">Trans Date</th>
-                                        <th data-hide="phone">Web</th>
-                                        <th data-hide="phone">Mobile</th>
-                                        <th data-hide="phone">USSD</th>
-                                        <th data-hide="phone">POS</th>
-                                        <th data-hide="phone">Mvisa</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
 
 
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="7">
+                                                <ul class="pagination pull-right"></ul>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
 
-
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-
-                                    </tr>
-
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="7">
-                                            <ul class="pagination pull-right"></ul>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-
+                            </div>
                         </div>
+
+
                     </div>
+
+
 
 
                 </div>
 
-
-
-
             </div>
-        
-    </div>
 
 
 
 
-</div>
-@push('scripts')
+        </div>
+        @push('scripts')
 
-<script src="js/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="js/plugins/fullcalendar/moment.min.js"></script>
+        <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="js/plugins/fullcalendar/moment.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ]
+                });
+            });
+        </script>
+        <script>
+            $(function () {
+                $('input[name="datetimes"]').daterangepicker({
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'M/DD hh:mm A'
+                    }
+                });
+            });
+        </script>
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable({
-            order: [
-                [0, 'desc']
-            ]
-        });
+        $('#myTable').DataTable();
     });
 </script>
-<script>
-    $(function () {
-        $('input[name="datetimes"]').daterangepicker({
-            timePicker: true,
-            startDate: moment().startOf('hour'),
-            endDate: moment().startOf('hour').add(32, 'hour'),
-            locale: {
-                format: 'M/DD hh:mm A'
-            }
-        });
-    });
-</script>
-
 @endpush
 @endsection
+      

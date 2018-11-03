@@ -145,7 +145,7 @@
                                     Transactions</a></li>
                             <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent
                                     Transactions</a></li>
-                                    <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment Channels
+                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment Channels
                                         </a></li>
 
 
@@ -162,6 +162,7 @@
                             <span class="nav-label">Commission Split</span>
                         </a>
                     </li>
+                    
                     <li class="{{$current_route_name =="admin.demographics" ? 'active' : ''}}">
                         <a href="{{route('admin.demographics')}}">
                             <i class="fa fa fa-yelp"></i>
@@ -201,6 +202,12 @@
                                     href="{{ route('discos.index') }}">Manage
                                     Discos</a></li>
                         </ul>
+                    </li>
+                    <li class="{{$current_route_name =="admin.manage_referal" ? 'active' : ''}}">
+                        <a href="{{route('admin.manage_referal')}}">
+                            <i class="fa fa-plug"></i>
+                            <span class="nav-label">Referal Manager</span>
+                        </a>
                     </li>
 
                     {{-- <li>

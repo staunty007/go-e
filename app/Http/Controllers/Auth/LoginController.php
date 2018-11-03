@@ -77,16 +77,17 @@ class LoginController extends Controller
     {
         //return $user;
         $authUser = User::where('provider_id', $user->id)->first();
-        if ($authUser) {
+
+        if ($authUser->email) {
             return $authUser;
         }
         $name = $this->split_name($user->name);
 
-        $userID =  User::create([
+        $userID = User::create([
             'first_name' => $name['0'],
             'last_name' => @$name['1'],
             'email' => $user->email,
-            'role_id'=>'0',
+            'role_id' => '0',
             'password' => Hash::make(str_random(8)),
             'provider' => $provider,
             'provider_id' => $user->id,

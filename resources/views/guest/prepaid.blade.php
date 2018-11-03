@@ -23,13 +23,10 @@
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="{{asset('css/custom.css')}}" rel="stylesheet">
 	<link href="{{asset('css/media-query.css')}}" rel="stylesheet">
-	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-	<link rel="stylesheet" href="/css/izi.css">
-	<link rel="stylesheet" href="/css/custom/vertical-tab.css">
+
 	{{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
 	<!--Start of Tawk.to Script-->
@@ -254,7 +251,7 @@
 								</div>
 								<div class="col-md-4">
 									<span class="pull-right">
-										<a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+										<a href="{{ url()->previous() !== url('guest/service-type') ? url('guest/service-type') : url()->previous() }}" class="btn btn-primary">Back</a>
 									</span>
 								</div>
 							</div>
@@ -302,76 +299,7 @@
 			}
 		});
 	</script>
-	<div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment">
-		<div class="modal-dialog " role="document">
-			<div class="modal-content">
-				<div class="modal-header headermodal text-center">
-					<br>
-					<img src="/images/ekedc.jpg" width="60" />
-					<span style="font-size: 16px"> </span>
-				</div>
-				<div class="modal-body">
-					<h3 class="modal-title text-center ">Confirm Details</h3>
-					<br>
-					<form id="payForm" method="POST" action="">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<p><label>Meter No</label>
-										<input class="form-control" value="" id="meter_no" name="meter_no" readonly />
-									</p>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Total Amount</label>
-									<input class="form-control" value="" id="total" name="amount" readonly />
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Firstname</label>
-									<input class="form-control" value="" id="firstname" name="first_name" readonly />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>lastname</label>
-									<input class="form-control" value="" id="lastname" name="last_name" readonly />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Email</label>
-									<input class="form-control" value="" id="emailret" name="email" />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Phone Number</label>
-									<input class="form-control" value="" id="phoneret" name="mobile" />
-								</div>
-							</div>
-							<div class="col-md-12">
-							{{-- <p class="text-center form-group"> --}}
-								<input type="button" class="btn btn-primary" id="ctnPay" value="Continue to Payment">
-								<input type="button" value="Cancel Payment" class="btn btn-outline-danger" onclick="window.location.reload()">
-							{{-- </p> --}}
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div><!-- /.modal-content -->
 	
-	</div>
-	</div>
-
-	</div>
-	<!--main div ends-->
-	</div>
 	
 
 	<div class="footi">Powered by GOENERGEE</div>
@@ -417,16 +345,9 @@
 			setTimeout(showSlides, 3000); // Change image every 3 seconds
 		}
 	</script>
-	<script src="/js/sweetalert.min.js"></script>
 	@include('partials._search-component')
-	<script>
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-	</script>
-	@include('partials._payment-options');
+	@pay(['accountType' => 'PREPAID'])
+	@endpay
 </body>
 
 </html>
