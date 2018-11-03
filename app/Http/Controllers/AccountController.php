@@ -240,6 +240,8 @@ class AccountController extends Controller
                 'created_at' => new Carbon('now'),
                 'updated_at' => new Carbon('now'),
             ]);
+
+            // Transaction Came from an agent
             
             if(isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
                 // $transaction = new Transaction;
@@ -286,6 +288,7 @@ class AccountController extends Controller
                 return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
             }
 
+            // Transaction is not coming from an agent
             $transaction = new Transaction;
 
             $transaction->payment_id = $paymentId;

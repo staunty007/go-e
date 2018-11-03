@@ -78,7 +78,7 @@ class LoginController extends Controller
         //return $user;
         $authUser = User::where('provider_id', $user->id)->first();
 
-        if ($authUser->email) {
+        if ($authUser) {
             return $authUser;
         }
         $name = $this->split_name($user->name);
