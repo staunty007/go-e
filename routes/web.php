@@ -282,8 +282,7 @@ Route::prefix('mobile')->group(function () {
     Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
 });
 
-
-
+Route::get('ussd/register','UssdController@register');
 
 
 
