@@ -4,50 +4,81 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class UssdController extends Controller
 {
-    public function register()
+    public function register(Request $request)
     {
     	// Reads the variables sent via POST from our gateway
-    	$sessionId   = $_POST["sessionId"];
-    	$serviceCode = $_POST["serviceCode"];
-    	$phoneNumber = $_POST["phoneNumber"];
-    	$text        = $_POST["text"];
+    	$sessionId   =$request->sessionId;
+    	$serviceCode =$request->serviceCode;
+    	$phoneNumber =$request->phoneNumber;
+    	$text        =$request->text;
 
-    	if ($text == "") {
-    	    // This is the first request. Note how we start the response with CON
-    	    $response  = "CON What would you want to check \n";
-    	    $response .= "1. My Account \n";
-    	    $response .= "2. My phone number";
 
-    	} else if ($text == "1") {
-    	    // Business logic for first level response
-    	    $response = "CON Choose account information you want to view \n";
-    	    $response .= "1. Account number \n";
-    	    $response .= "2. Account balance";
+        switch ($text) {
+            case '':
+                $response  = "CON Welcome to GoEnerge Payment Service \n";
+                $response .= "1. Make Payment \n";
+                $response .= "2. My phone number";
+                break;
 
-    	} else if ($text == "2") {
-    	    // Business logic for first level response
-    	    // This is a terminal request. Note how we start the response with END
-    	    $response = "END Your phone number is ".$phoneNumber;
+            case '1':
+                // Create EKEDC Session
+                if(!session()->get('TAMSES')) {
+                    CIUssdController::signon();
+                }
 
-    	} else if($text == "1*1") { 
-    	    // This is a second level response where the user selected 1 in the first instance
-    	    $accountNumber  = "ACC1001";
+                $response = "CON Make Payment \n";
+                $response .= "1. Prepaid \n";
+                $response .= "2. Postpaid";
+            break;
 
-    	    // This is a terminal request. Note how we start the response with END
-    	    $response = "END Your account number is ".$accountNumber;
+            case '2':
+                // Business logic for first level response
+                // This is a terminal request. Note how we start the response with END
+                $response = "END Your phone number is ".$phoneNumber;
+            break;
 
-    	} else if ( $text == "1*2" ) {
-    	    // This is a second level response where the user selected 1 in the first instance
-    	    $balance  = "NGN 10,000";
+            case '1*1':
+                // This is a second level response where the user selected 1 in the first instance
+                $prepaid = "CON Enter your Meter Number";
+                /**
+                 * Takes 2 parameters
+                 * @param $accountType // Must me 'PREPAID' or 'POSTPAID'
+                 * @param $customerId
+                 * @return mixed
+                 */
+                $result = CIUssdController::validateCustomer('PREPAID',$prepaid);
+                if($result == true) {
+                    $response = "CON Enter Amount you wish to pay";
+                }
+                // This is a terminal request. Note how we start the response with END
+                $response = "END ".$result;
+            break;
 
-    	    // This is a terminal request. Note how we start the response with END
-    	    $response = "END Your balance is ".$balance;
-    	}
+            case '1*2':
+                // This is a second level response where the user selected 1 in the first instance
+                $balance  = "NGN 10,000";
 
-    	// Echo the response back to the API
-    	header('Content-type: text/plain');
-    	echo $response;
+                // This is a terminal request. Note how we start the response with END
+                $response = "END Your balance is ".$balance;
+            break;
+
+                // Echo the response back to the API
+                header('Content-type: text/plain');
+            
+                echo $response;
+
+            
+            default:
+                $response = "END Apologies, something went wrong... \n";
+                // Print the response onto the page so that our gateway can read it
+                header('Content-type: text/plain');
+                echo $response;
+
+                break;
+        }
     }
+
 }
