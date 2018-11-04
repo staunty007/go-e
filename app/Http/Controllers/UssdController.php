@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class UssdController extends Controller
 {
-    public function register(Request $request)
+    public function register()
     {
     	// Reads the variables sent via POST from our gateway
-    	$sessionId   = $request->sessionId;
-    	$serviceCode = $request->serviceCode;
-    	$phoneNumber = $request->phoneNumber;
-    	$text        = $request->text;
+    	$sessionId   = $_POST["sessionId"];
+    	$serviceCode = $_POST["serviceCode"];
+    	$phoneNumber = $_POST["phoneNumber"];
+    	$text        = $_POST["text"];
 
     	if ($text == "") {
     	    // This is the first request. Note how we start the response with CON
@@ -47,8 +47,7 @@ class UssdController extends Controller
     	}
 
     	// Echo the response back to the API
-		header('Content-type: text/plain');
-	
+    	header('Content-type: text/plain');
     	echo $response;
     }
 }
