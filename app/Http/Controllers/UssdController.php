@@ -25,9 +25,9 @@ class UssdController extends Controller
 
             case '1':
                 // Create EKEDC Session
-                // if(!session()->get('TAMSES')) {
-                //     CIUssdController::signon();
-                // }
+                if(!session()->get('TAMSES')) {
+                    CIUssdController::signon();
+                }
 
                 $response = "CON Make Payment \n";
                 $response .= "1. Prepaid \n";
@@ -49,7 +49,7 @@ class UssdController extends Controller
                  * @param $customerId
                  * @return mixed
                  */
-                // $result = CIUssdController::validateCustomer('PREPAID',$prepaid);
+                $result = CIUssdController::validateCustomer('PREPAID',$prepaid);
                 if($result == true) {
                     $response = "CON Enter Amount you wish to pay";
                 }
