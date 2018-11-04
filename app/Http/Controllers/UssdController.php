@@ -25,9 +25,9 @@ class UssdController extends Controller
 
             case '1':
                 // Create EKEDC Session
-                if(!session()->get('TAMSES')) {
-                    CIUssdController::signon();
-                }
+                // if(!session()->get('TAMSES')) {
+                //     CIUssdController::signon();
+                // }
 
                 $response = "CON Make Payment \n";
                 $response .= "1. Prepaid \n";
@@ -49,7 +49,7 @@ class UssdController extends Controller
                  * @param $customerId
                  * @return mixed
                  */
-                $result = CIUssdController::validateCustomer('PREPAID',$prepaid);
+                // $result = CIUssdController::validateCustomer('PREPAID',$prepaid);
                 if($result == true) {
                     $response = "CON Enter Amount you wish to pay";
                 }
@@ -66,19 +66,21 @@ class UssdController extends Controller
             break;
 
                 // Echo the response back to the API
-                header('Content-type: text/plain');
+                // header('Content-type: text/plain');
             
-                echo $response;
+                // echo $response;
 
             
             default:
                 $response = "END Apologies, something went wrong... \n";
                 // Print the response onto the page so that our gateway can read it
                 header('Content-type: text/plain');
-                echo $response;
+                // echo $response;
 
                 break;
         }
+
+        echo $response;
     }
 
 }
