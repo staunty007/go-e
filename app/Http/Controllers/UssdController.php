@@ -50,12 +50,12 @@ class UssdController extends Controller
                  * @param $customerId
                  * @return mixed
                  */
-                $result = $ci->validateCustomer('PREPAID',$prepaid);
-                if($result == true) {
-                    $response = "CON Enter Amount you wish to pay";
-                }
+                // $result = $ci->validateCustomer('PREPAID',$prepaid);
+                // if($result == true) {
+                //     $response = "CON Enter Amount you wish to pay";
+                // }
                 // This is a terminal request. Note how we start the response with END
-                $response = "CON ".$result;
+                $response = "CON ".$prepaid;
             break;
 
             case '1*2':
