@@ -30,6 +30,6 @@ export default class Example extends Component {
   }
 }
 
-if (document.getElementById("app")) {
-  ReactDOM.render(<Example dataFrom="5" />, document.getElementById("app"));
-}
+// if (document.getElementById("app")) {
+//   ReactDOM.render(<Example dataFrom="5" />, document.getElementById("app"));
+// }

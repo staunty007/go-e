@@ -13,6 +13,12 @@ Route::get('/', function () {
     if (session()->has('TAMSES')) {
         session()->forget('TAMSES');
     }
+    // return url('discos');
+    // return url()->previous();
+    if(url()->previous() == url('discos')) {
+        return redirect('discos');
+        // return 'gotha';
+    }
     return view('guest.home');
 });
 
@@ -250,7 +256,8 @@ Route::prefix('mobile')->group(function () {
 
 Route::post('ussd/register','UssdController@register');
 
-
+Route::get('discos','PagesController@disco');
+Route::post('discos','PagesController@discoLogin')->name('disco-login');
 
 
 

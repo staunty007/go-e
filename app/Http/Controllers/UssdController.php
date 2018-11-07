@@ -16,7 +16,7 @@ class UssdController extends Controller
     	$phoneNumber =$request->phoneNumber;
     	$text        =$request->text;
 
-
+        $result = "";
         switch ($text) {
             case '':
                 $response  = "CON Welcome to GoEnerge Payment Service \n";
@@ -43,21 +43,26 @@ class UssdController extends Controller
 
             case '1*1':
                 // This is a second level response where the user selected 1 in the first instance
-                $prepaid = "CON Enter your Meter Number";
+                $response = "CON Enter your Meter Number";
                 /**
                  * Takes 2 parameters
                  * @param $accountType // Must me 'PREPAID' or 'POSTPAID'
                  * @param $customerId
                  * @return mixed
                  */
-                // $result = $ci->validateCustomer('PREPAID',$prepaid);
-                // if($result == true) {
-                //     $response = "CON Enter Amount you wish to pay";
-                // }
                 // This is a terminal request. Note how we start the response with END
-                $response = "CON ".$prepaid;
+                // $response = "END Yor Meer is ".$prepaid;
             break;
 
+            case "1*1*$text":
+                if(strlen($text) > 10) {
+                    $result = $ci->validateCustomer('PREPAID',$text);
+                    if($result == true) {
+                        $response = "CON Enter Amount you wish to pay";
+                    }
+                }
+                // $response = "CON Enter Amount";
+                break;
             case '1*2':
                 // This is a second level response where the user selected 1 in the first instance
                 $balance  = "NGN 10,000";

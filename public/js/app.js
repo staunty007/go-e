@@ -36188,7 +36188,7 @@ var Example = function (_Component) {
   _createClass(Example, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // console.log(jsVars.data[0].meterno);
+      console.log(jsVars.data);
     }
   }, {
     key: "render",
@@ -36214,7 +36214,8 @@ var Example = function (_Component) {
                 "div",
                 { className: "card-body" },
                 this.props.dataFrom,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null)
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                jsVars.data
               )
             )
           )
@@ -36226,12 +36227,12 @@ var Example = function (_Component) {
   return Example;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
+// if (document.getElementById("app")) {
+//   ReactDOM.render(<Example dataFrom="5" />, document.getElementById("app"));
+// }
+
+
 /* unused harmony default export */ var _unused_webpack_default_export = (Example);
-
-
-if (document.getElementById("app")) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Example, { dataFrom: "5" }), document.getElementById("app"));
-}
 
 /***/ }),
 /* 40 */
