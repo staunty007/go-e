@@ -20,7 +20,8 @@ Route::get('/', function () {
         // return 'gotha';
         return back();
     }
-    return view('guest.home');
+    return redirect('discos');
+    // return view('guest.home');
 });
 
 
