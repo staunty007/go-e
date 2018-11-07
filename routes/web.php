@@ -15,9 +15,10 @@ Route::get('/', function () {
     }
     // return url('discos');
     // return url()->previous();
-    if(url()->previous() == url('discos')) {
-        return redirect('discos');
+    if(url()->previous() == url('discos') || url('distributor/*')) {
+        // return redirect('discos');
         // return 'gotha';
+        return back();
     }
     return view('guest.home');
 });
