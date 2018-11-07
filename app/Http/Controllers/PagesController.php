@@ -20,4 +20,13 @@ class PagesController extends Controller
             return back()->withErrors(['err' => 'Email Address or Password is incorrect']);
         }
     }
+
+    public function discoLogout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/discos');
+    }
 }

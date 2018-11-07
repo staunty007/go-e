@@ -111,8 +111,8 @@
                                 </li> --}}
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
-                                    <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                                    <a href="{{ route('disco-logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
+                                    <form class="logout-form" method="POST" action="{{ route('disco-logout') }}">
                                         {{ csrf_field()}}
                                     </form>
                                 </li>

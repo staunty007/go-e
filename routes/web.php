@@ -258,6 +258,7 @@ Route::post('ussd/register','UssdController@register');
 
 Route::get('discos','PagesController@disco');
 Route::post('discos','PagesController@discoLogin')->name('disco-login');
+Route::post('disco-logout','PagesController@discoLogout')->name('disco-logout');
 
 
 
