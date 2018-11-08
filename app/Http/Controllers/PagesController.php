@@ -27,6 +27,6 @@ class PagesController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect('/discos');
+        return redirect('/ekedc');
     }
 }

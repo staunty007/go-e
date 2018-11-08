@@ -55,52 +55,7 @@
                         Financial Performance for GOENERGEE
                     </div>
                     <div class="ibox-content m-b-sm border-bottom">
-                        {{-- <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="order_id">Transaction ID</label>
-                                    <input type="number" id="transaction_id" name="transaction_id" value="" placeholder="Transaction ID"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="status">Energy Usage</label>
-                                    <input type="text" id="status" name="status" value="" placeholder="Energy Usage"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="customer">Post Paid</label>
-                                    <input type="number" id="meter#" name="Meter#" value="" placeholder="Post Paid Customers"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="customer">Pre Paid</label>
-                                    <input type="number" id="meter#" name="Meter#" value="" placeholder="Pre Paid Customers"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="amount">Amount</label>
-                                    <input type="text" id="amount" name="amount" value="" placeholder="Amount" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="amount">District</label>
-                                    <input type="text" id="district" name="district" value="" placeholder="District"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-md">Search</button> --}}
+                        
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -123,14 +78,13 @@
                                                     <th>Name</th>
                                                     <th>Status</th>
                                                     <th>Meter #</th>
-                                                    {{-- <th>District</th> --}}
-                                                    <th>Amount</th>
                                                     <th>TOKEN</th>
                                                     <th>KwH</th>
+                                                    <th>Amount Paid</th>
+                                                    <th>Conv. Fee</th>
                                                     <th>Total</th>
-
-
-
+                                                    <th>Commission</th>
+                                                    <th>Wallet Balance</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -143,32 +97,35 @@
                                                         {{ str_replace('OFFLINE_','',$d->user_type)}}
                                                     </td>
                                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
-
                                                     <td>
                                                         <span class="label label-primary">Successful</span>
                                                     </td>
-
                                                     <td>
                                                         {{ $d->meter_no }}
                                                     </td>
-                                                  
                                                     <td>
-
+                                                        {{ $d->token_data }} {{ ', '.$d->bsst_token  }}
+                                                    </td>
+                                                    <td>
+                                                        {{ round($d->value_of_kwh,2)}}
+                                                    </td>
+                                                    <td>
+                                                        ₦{{ number_format($d->transaction->initial_amount)}}
+                                                    </td>
+                                                    <td>
+                                                        ₦{{ $d->transaction->conv_fee }}
+                                                    </td>
+                                                    <td>
                                                         ₦{{ number_format($d->transaction->total_amount)}}
-
                                                     </td>
                                                     <td>
-                                                        {{ $d->token_data }}, {{ $d->bsst_token  }}
+                                                        ₦{{ number_format($d->transaction->commission)}}
                                                     </td>
                                                     <td>
-                                                        {{ round($d->transaction->total_amount / 12.85,2)}}
+
+                                                        ₦{{ number_format($d->transaction->wallet_bal)}}
+
                                                     </td>
-
-                                                    <td>
-                                                        ₦{{ number_format($d->transaction->total_amount)}}
-                                                    </td>
-
-
 
                                                 </tr>
                                                 @endforeach
