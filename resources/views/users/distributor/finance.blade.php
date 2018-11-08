@@ -123,12 +123,10 @@
                                                     <th>Name</th>
                                                     <th>Status</th>
                                                     <th>Meter #</th>
-                                                    <th>District</th>
+                                                    {{-- <th>District</th> --}}
                                                     <th>Amount</th>
                                                     <th>TOKEN</th>
                                                     <th>KwH</th>
-                                                    <th>Conv. Fee</th>
-                                                    <th>Commission</th>
                                                     <th>Total</th>
 
 
@@ -138,15 +136,11 @@
                                             <tbody>
                                                 @foreach ($finances as $d)
                                                 <tr>
-                                                    <td>{{ date('d/m/y', strtotime($d->created_at) ) }}</td>
-                                                    <td>{{ $d->transaction_ref }}</td>
+                                                    <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
+                                                    <td>{{ $d->payment_ref }}</td>
                                                     <td>Web</td>
                                                     <td>
-                                                        @if($d->user_type == 1)
-                                                        {{ 'Prepaid' }}
-                                                        @else
-                                                        {{ 'Postpaid'}}
-                                                        @endif
+                                                        {{ str_replace('OFFLINE_','',$d->user_type)}}
                                                     </td>
                                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
 
@@ -157,26 +151,19 @@
                                                     <td>
                                                         {{ $d->meter_no }}
                                                     </td>
-                                                    <td>
-                                                        Lekki
-                                                    </td>
+                                                  
                                                     <td>
 
                                                         ₦{{ number_format($d->transaction->total_amount)}}
 
                                                     </td>
                                                     <td>
-                                                        {{ $d->recharge_pin }}
+                                                        {{ $d->token_data }}, {{ $d->bsst_token  }}
                                                     </td>
                                                     <td>
                                                         {{ round($d->transaction->total_amount / 12.85,2)}}
                                                     </td>
-                                                    <td>
-                                                        ₦100
-                                                    </td>
-                                                    <td>
-                                                        ₦{{ (2/100) * $d->transaction->initial_amount }}
-                                                    </td>
+
                                                     <td>
                                                         ₦{{ number_format($d->transaction->total_amount)}}
                                                     </td>

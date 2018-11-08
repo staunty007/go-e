@@ -15,12 +15,12 @@ Route::get('/', function () {
     }
     // return url('discos');
     // return url()->previous();
-    if(url()->previous() == url('discos') || url('distributor/*')) {
+    if(url()->previous() == url('ekedc') || url('distributor/*')) {
         // return redirect('discos');
         // return 'gotha';
         return back();
     }
-    return redirect('discos');
+    return redirect('ekedc');
     // return view('guest.home');
 });
 
@@ -176,7 +176,6 @@ Route::prefix('backend')->group(function () {
     });
 });
 
-
 Route::prefix('agent')->group(function () {
     Route::get('profile', 'AgentController@profile')->name('agent.profile');
     Route::post('profile', 'AgentController@updateProfile')->name('agent.update');
@@ -258,8 +257,8 @@ Route::prefix('mobile')->group(function () {
 
 Route::post('ussd/register','UssdController@register');
 
-Route::get('discos','PagesController@disco');
-Route::post('discos','PagesController@discoLogin')->name('disco-login');
+Route::get('ekedc','PagesController@disco');
+Route::post('ekedc','PagesController@discoLogin')->name('disco-login');
 Route::post('disco-logout','PagesController@discoLogout')->name('disco-logout');
 
 
