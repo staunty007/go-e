@@ -55,6 +55,57 @@
                         Financial Performance for GOENERGEE
                     </div>
                     <div class="ibox-content m-b-sm border-bottom">
+                            
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                                <label class="control-label" for="status">Transaction Date Range</label>
+                                            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span> <i class="fa fa-caret-down"></i>
+                                </div>
+                                
+                                <script type="text/javascript">
+                                $(function() {
+                                
+                                    var start = moment().subtract(29, 'days');
+                                    var end = moment();
+                                
+                                    function cb(start, end) {
+                                        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                                    }
+                                
+                                    $('#reportrange').daterangepicker({
+                                        startDate: start,
+                                        endDate: end,
+                                        ranges: {
+                                           'Today': [moment(), moment()],
+                                           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                           'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                        }
+                                    }, cb);
+                                
+                                    cb(start, end);
+                                
+                                });
+                                </script>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label" for="status">Energy Usage</label>
+                                                <input type="text" id="status" name="status" value="" placeholder="Energy Usage" class="form-control">
+                                            </div>
+                                        </div>
+                    
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label" for="customer">Post Paid</label>
+                                                <input type="number" id="meter#" name="Meter#" value="" placeholder="Post Paid Customers" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
                         {{-- <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -121,13 +172,16 @@
                                                     <th>Channel</th>
                                                     <th>Type</th>
                                                     <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>District</th>
+                                                    <th>Bank</th>
                                                     <th>Status</th>
                                                     <th>Meter #</th>
-                                                    {{-- <th>District</th> --}}
-                                                    <th>Amount</th>
-                                                    <th>TOKEN</th>
+                                                     <th>TOKEN</th>
                                                     <th>KwH</th>
-                                                    <th>Total</th>
+                                                    <th>Amount</th>
+                                                    <th>Commision</th>
+                                                     <th>Total</th>
 
 
 
@@ -139,34 +193,21 @@
                                                     <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
                                                     <td>{{ $d->payment_ref }}</td>
                                                     <td>Web</td>
-                                                    <td>
-                                                        {{ str_replace('OFFLINE_','',$d->user_type)}}
-                                                    </td>
+                                                    <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
+                                                    <td><span class="label label-primary">Successful</span></td>
+                                                    <td>{{ $d->meter_no }}</td>
+                                                    <td>{{ number_format($d->transaction->total_amount)}} </td>
+                                                    <td>{{ $d->token_data }}, {{ $d->bsst_token  }}</td>
+                                                    <td> {{ round($d->transaction->total_amount / 12.85,2)}}</td>
+                                                    <td>{{ number_format($d->transaction->total_amount)}}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                 
 
-                                                    <td>
-                                                        <span class="label label-primary">Successful</span>
-                                                    </td>
-
-                                                    <td>
-                                                        {{ $d->meter_no }}
-                                                    </td>
-                                                  
-                                                    <td>
-
-                                                        ₦{{ number_format($d->transaction->total_amount)}}
-
-                                                    </td>
-                                                    <td>
-                                                        {{ $d->token_data }}, {{ $d->bsst_token  }}
-                                                    </td>
-                                                    <td>
-                                                        {{ round($d->transaction->total_amount / 12.85,2)}}
-                                                    </td>
-
-                                                    <td>
-                                                        ₦{{ number_format($d->transaction->total_amount)}}
-                                                    </td>
 
 
 
@@ -205,6 +246,13 @@
 
    
     @push('scripts')
+    <script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            "order": [[ 1, "desc" ]]
+        } );
+    } );
+    </script>
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     
