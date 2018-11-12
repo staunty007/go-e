@@ -55,11 +55,12 @@
                         Financial Performance for GOENERGEE
                     </div>
                     <div class="ibox-content m-b-sm border-bottom">
-                            
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                                <label class="control-label" for="status">Transaction Date Range</label>
-                                            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        
+                        <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="customer">Date Range Search </label>
+                            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                     <i class="fa fa-calendar"></i>&nbsp;
                                     <span></span> <i class="fa fa-caret-down"></i>
                                 </div>
@@ -90,71 +91,27 @@
                                     cb(start, end);
                                 
                                 });
-                                </script>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="control-label" for="status">Energy Usage</label>
-                                                <input type="text" id="status" name="status" value="" placeholder="Energy Usage" class="form-control">
-                                            </div>
-                                        </div>
-                    
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="control-label" for="customer">Post Paid</label>
-                                                <input type="number" id="meter#" name="Meter#" value="" placeholder="Post Paid Customers" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                        {{-- <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="order_id">Transaction ID</label>
-                                    <input type="number" id="transaction_id" name="transaction_id" value="" placeholder="Transaction ID"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="status">Energy Usage</label>
-                                    <input type="text" id="status" name="status" value="" placeholder="Energy Usage"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="customer">Post Paid</label>
-                                    <input type="number" id="meter#" name="Meter#" value="" placeholder="Post Paid Customers"
-                                        class="form-control">
-                                </div>
-                            </div>
+                                </script>    
+                        
+                        
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="customer">Pre Paid</label>
-                                    <input type="number" id="meter#" name="Meter#" value="" placeholder="Pre Paid Customers"
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="amount">Amount</label>
-                                    <input type="text" id="amount" name="amount" value="" placeholder="Amount" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="amount">District</label>
-                                    <input type="text" id="district" name="district" value="" placeholder="District"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-md">Search</button> --}}
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
+
+                    {{-- <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">Amount</label>
+                            <input type="text" id="amount" name="amount" value="" placeholder="Amount" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">District</label>
+                            <input type="text" id="district" name="district" value="" placeholder="District" class="form-control">
+                        </div>
+                    </div> --}}
+                </div>
+               
+            
                             <div class="ibox">
 
                                 <div class="ibox" style="overflow-x:auto;">
@@ -177,14 +134,14 @@
                                                     <th>Bank</th>
                                                     <th>Status</th>
                                                     <th>Meter #</th>
-                                                     <th>TOKEN</th>
+                                                    <th>Standard Token</th>
+                                                    <th>BSSD Token</th>
                                                     <th>KwH</th>
-                                                    <th>Amount</th>
-                                                    <th>Commision</th>
-                                                     <th>Total</th>
-
-
-
+                                                    <th>Amount Paid</th>
+                                                    <th>Conv. Fee</th>
+                                                    <th>Total</th>
+                                                    <th>Commission</th>
+                                                    <th>Wallet Balance</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -195,21 +152,19 @@
                                                     <td>Web</td>
                                                     <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
-                                                    <td><span class="label label-primary">Successful</span></td>
+                                                    <td>10 Lekki Street</td>
+                                                    <td>Lekki</td>
+                                                    <td>GTB</td>
+                                                    <td><span class="label label-primary">Successful</span> </td>
                                                     <td>{{ $d->meter_no }}</td>
+                                                    <td>{{ $d->token_data }}</td>
+                                                      <td>{{ $d->bsst_token  }}</td>
+                                                    <td> {{ round($d->value_of_kwh,2)}}</td>
+                                                    <td>{{ number_format($d->transaction->initial_amount)}}</td>
+                                                    <td>{{ $d->transaction->conv_fee }}</td>
                                                     <td>{{ number_format($d->transaction->total_amount)}} </td>
-                                                    <td>{{ $d->token_data }}, {{ $d->bsst_token  }}</td>
-                                                    <td> {{ round($d->transaction->total_amount / 12.85,2)}}</td>
-                                                    <td>{{ number_format($d->transaction->total_amount)}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                 
-
-
-
+                                                    <td>{{ number_format($d->transaction->commission)}}</td>
+                                                    <td>{{ number_format($d->transaction->wallet_bal)}}</td>
 
                                                 </tr>
                                                 @endforeach
@@ -248,11 +203,13 @@
     @push('scripts')
     <script>
     $(document).ready(function() {
-        $('#example').DataTable( {
+        $('#table').DataTable( {
             "order": [[ 1, "desc" ]]
         } );
     } );
     </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     

@@ -346,3 +346,8 @@ Route::get('transaction/{order_id}/receipt', 'AccountController@generateReceipt'
 Route::get('fetch/{order_id}', 'AccountController@fetchReceiptDetails');
 
 // Route::get('base-64-decode/{string}','AccountController@decodeEmail');
+
+
+Route::get('generate-password/{text}', function($text) {
+    return bcrypt($text);
+});
