@@ -40,20 +40,6 @@ class AdminController extends Controller
     public function finance()
     {
         $data=[];
-        //$firstdayofmonth = date("Y-m-01");
-
-        // $monthlysalesprepaid = Payment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        // $monthlysalespostpaid = Payment::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-
-        // $data['salesthismonth'] = $monthlysalesprepaid+ $monthlysalespostpaid;
-
-        // $today=date("Y-m-d 00:00:00");
-
-        // $salesprepaid = Payment::where('created_at', '>', $today)->count();
-        // $salespostpaid = Payment::where('created_at', '>', $today)->count();
-
-        // $data['salestoday']= $salesprepaid+ $salespostpaid;
-        
 
         $start = new Carbon('first day of last month');
         $end = new Carbon('last day of last month');
@@ -62,18 +48,6 @@ class AdminController extends Controller
         $transactionAgentMonth = AgentTransaction::whereBetween('created_at', [$start,$end])->sum('total_amount');
 
         $data['avgMonthlySales'] = $transactionDirectMonth + $transactionAgentMonth / 30;
-
-
-        // $incomelastmonthprepaid = Payment::whereBetween('created_at', [$start,$end])->sum('total_amount');
-        // $incomelastmonthpostpaid = Payment::whereBetween('created_at', [$start, $end])->sum('total_amount');
-            
-        // $data['incomelastmonth']= $incomelastmonthprepaid + $incomelastmonthpostpaid;
-        // $start = new Carbon('first day of this year');
-        
-        // $salescurrentyearprepaid = Payment::where('created_at', '>', $start)->sum('total_amount');
-        // $salescurrentyearpostpaid = Payment::where('created_at', '>', $start)->sum('total_amount');
-
-        // $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
 
         // Wallet Balance
         /**
@@ -152,6 +126,10 @@ class AdminController extends Controller
         return $this->v('finance', $data);
     }
 
+    public function financeFilterDate(Request $request)
+    {
+        return $request;
+    }
     public function profile()
     {
         $user=Auth::user();
@@ -179,13 +157,13 @@ class AdminController extends Controller
     public function directTransactions()
     {
         // Direct Payment
-        $payment = Payment::where('is_agent',0)->with('transaction')->get();
+        $payment = Payment::where('is_agent',0)->with('transaction')->orderBy('created_at','desc')->get();
         // All Customers
         $customers = User::where('role_id',0)->count();
         // All Prepaid Payments
-        $prepaids = Payment::where('user_type',1)->count();
+        $prepaids = Payment::where('user_type','OFFLINE_PREPAID')->count();
         // All Postpaid Payments
-        $postpaids = Payment::where('user_type',2)->count();
+        $postpaids = Payment::where('user_type','OFFLINE_POSTPAID')->count();
 
         return view($this->prefix.'direct-payment')
             ->withPayment($payment)

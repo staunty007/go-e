@@ -29,35 +29,9 @@ class DistributorController extends Controller
     public function finance()
     {
         $data = [];
-        // $firstdayofmonth = date("Y-m-01");
-        // $monthlysalesprepaid = Transaction::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        // $monthlysalespostpaid = Transaction::where('created_at', '>', $firstdayofmonth)->sum('total_amount');
-        // $data['salesthismonth'] = $monthlysalesprepaid + $monthlysalespostpaid;
-        // $today = date("Y-m-d 00:00:00");
-        // $salesprepaid = Transaction::where('created_at', '>', $today)->count();
-        // $salespostpaid = Transaction::where('created_at', '>', $today)->count();
-        // $data['salestoday'] = $salesprepaid + $salespostpaid;
-
-
-        // $start = new Carbon('first day of last month');
-        // $end = new Carbon('last day of last month');
-        // $incomelastmonthprepaid = Transaction::whereBetween('created_at', [$start, $end])->sum('total_amount');
-        // $incomelastmonthpostpaid = Transaction::whereBetween('created_at', [$start, $end])->sum('total_amount');
-
-        // $data['incomelastmonth'] = $incomelastmonthprepaid + $incomelastmonthpostpaid;
-        // $start = new Carbon('first day of this year');
-
-        // $salescurrentyearprepaid = Transaction::where('created_at', '>', $start)->sum('total_amount');
-        // $salescurrentyearpostpaid = Transaction::where('created_at', '>', $start)->sum('total_amount');
-
-        // $data['salescurrentyear'] = $salescurrentyearprepaid + $salescurrentyearpostpaid;
-
-        // $data['registeredcustomers'] = User::where('role_id', 3)->count();
-        // $data['registeredagents'] = User::where('role_id', 2)->count();
-
         // All Direct Payment
-        $payments = Payment::where('is_agent',0)->with('transaction')->orderBy('created_at','desc')->get();
-
+        $payments = Payment::where('is_agent',0)->with('transaction')->get();
+        // return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
 
@@ -67,6 +41,17 @@ class DistributorController extends Controller
             ->withFinances($payments)
             ->withBalance($wallet_balance->wallet_balance)
             ;
+    }
+
+    public function financeFilterDate(Request $request)
+    {
+        $from = Carbon::parse($request->from);
+        $to = Carbon::parse($request->to);
+        
+        $finances = Payment::whereBetween('created_at',[$from, $to])->get();
+        // return $finances;
+        $wallet_balance = AdminBiodata::first();
+        return view($this->prefix.'finance', compact('finances'))->withBalance($wallet_balance->wallet_balance);
     }
     public function profile()
     {

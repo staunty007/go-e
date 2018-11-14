@@ -10,7 +10,6 @@
         <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
         <link href="/customer/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="/customer/css/plugins/iCheck/custom.css" rel="stylesheet">
-        <link href="/customer/css/plugins/steps/jquery.steps.css" rel="stylesheet">
         <link href="/customer/css/animate.css" rel="stylesheet">
         <link href="/css/style.css" rel="stylesheet">
         <link rel="icon" href="/customer/img/favicon.png" type='image/x-icon'>
@@ -29,11 +28,11 @@
             })();
         </script>
         <!--End of Tawk.to Script-->
-        <style>
+        {{-- <style>
             #myModal6:active {
             z-index: -10;
         }
-        </style>
+        </style> --}}
 
         @stack('style')
     </head>
@@ -213,8 +212,6 @@
             <script src="/customer/js/inspinia.js"></script>
             <script src="/customer/js/plugins/pace/pace.min.js"></script>
 
-            <!-- Steps -->
-            <script src="/customer/js/plugins/steps/jquery.steps.min.js"></script>
 
             <!-- Jquery Validate -->
             <script src="/customer/js/plugins/validate/jquery.validate.min.js"></script>

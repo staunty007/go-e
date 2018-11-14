@@ -244,6 +244,9 @@
                                 }
                             });
                             profileUpdate.innerHTML = "Update Profile";
+                            // setTimeout(() => {
+                            //     $("form#profile-update").submit();
+                            // },2000);
                             break;
                     }
                 })

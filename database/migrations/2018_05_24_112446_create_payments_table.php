@@ -19,6 +19,9 @@ class CreatePaymentsTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('email');
             $table->text('phone_number');
+            $table->text('customer_address');
+            $table->text('bank')->nullable();
+            $table->text('district');
             $table->text('meter_no');
             $table->string('bonus_token')->nullable();
             $table->string('token_data')->nullable();

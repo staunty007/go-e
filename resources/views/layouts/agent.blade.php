@@ -13,7 +13,6 @@
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
-    <link href="{{asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
 
@@ -27,53 +26,7 @@
     <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
     <link rel="icon" href="{{asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api(),
-                        data;
-
-                    // Remove the formatting to get integer data for summation
-                    var intVal = function (i) {
-                        return typeof i === 'string' ?
-                            i.replace(/[\$,]/g, '') * 1 :
-                            typeof i === 'number' ?
-                            i : 0;
-                    };
-
-                    // Total over all pages
-                    total = api
-                        .column(4)
-                        .data()
-                        .reduce(function (a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0);
-
-                    // Total over this page
-                    pageTotal = api
-                        .column(4, {
-                            page: 'current'
-                        })
-                        .data()
-                        .reduce(function (a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0);
-
-                    // Update footer
-                    $(api.column(4).footer()).html(
-                        '$' + pageTotal + ' ( $' + total + ' total)'
-                    );
-                }
-            });
-        });
-    </script>
-
-    <script type="text/javascript" class="init">
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>
+   
 </head>
 
 <body>
@@ -237,9 +190,9 @@
     <!-- Mainly scripts -->
 
 
-    <script src="{{asset('js/table.js')}}"></script>
+    {{-- <script src="{{asset('js/table.js')}}"></script>
     <script src="{{asset('js/tab.js')}}"></script>
-    <script src="{{asset('js/table1.js')}}"></script>
+    <script src="{{asset('js/table1.js')}}"></script> --}}
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
@@ -314,6 +267,13 @@
     <script>
         function payWithPaystack() {
             var amount = document.querySelector('#topup-amount').value;
+
+            if(amount.length == 0 || amount == "") {
+                alert('Please Enter an Amount');
+            }else {
+                alert('good to go');
+                return;
+            }
             // var handler = PaystackPop.setup({
             // 	key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
             // 	email: "admin@goenergee.com",
@@ -449,7 +409,7 @@
         });
     </script>
     @stack('popups') @stack('scripts')
-
+{{-- 
     <!-- Mainly scripts -->
     <script src="{{asset('js/jquery-2.1.1.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
@@ -461,7 +421,7 @@
 
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
+    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script> --}}
 
     <!-- Page-Level Scripts -->
     <script>

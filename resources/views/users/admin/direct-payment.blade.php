@@ -194,11 +194,7 @@
                                     <span class="label label-primary">Successful</span>
                                 </td>
                                 <td>
-                                    @if ($p->user_type == 1)
-                                    {{ 'Prepaid' }}
-                                    @else
-                                    {{ 'Postpaid' }}
-                                    @endif
+                                   {{ str_replace('OFFLINE_','',$p->user_type)}}
                                 </td>
 
                                 <td>Lekki</td>

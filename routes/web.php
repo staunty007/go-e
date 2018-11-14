@@ -15,13 +15,13 @@ Route::get('/', function () {
     }
     // return url('discos');
     // return url()->previous();
-    if(url()->previous() == url('ekedc') || url('distributor/*')) {
-        // return redirect('discos');
-        // return 'gotha';
-        return back();
-    }
-    return redirect('ekedc');
-    // return view('guest.home');
+    // if(url()->previous() == url('ekedc') || url('distributor/*')) {
+    //     // return redirect('discos');
+    //     // return 'gotha';
+    //     return back();
+    // }
+    // return redirect('ekedc');
+    return view('guest.home');
 });
 
 
@@ -146,6 +146,7 @@ Route::prefix('backend')->group(function () {
         Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
         Route::get('administrator', 'AdminController@home')->name('admin.home');
         Route::get('finance', 'AdminController@finance')->name('admin.finance');
+        Route::get('finance/filter-by-date','AdminController@financeFilterDate');
         Route::get('profile', 'AdminController@profile')->name('admin.profile');
         Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
         Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
@@ -202,6 +203,7 @@ Route::prefix('distributor')->group(function () {
     // Administrator
     Route::get('distributor', 'DistributorController@home')->name('distributor.home');
     Route::get('finance', 'DistributorController@finance')->name('distributor.finance');
+    Route::post('filter-by-date', 'DistributorController@financeFilterDate');
     Route::get('profile', 'DistributorController@profile')->name('distributor.profile');
     Route::get('customer_payment', 'DistributorController@customer_payment')->name('distributor.customer_payment');
     Route::get('demographics', 'DistributorController@demographics')->name('distributor.demographics');

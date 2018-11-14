@@ -225,6 +225,8 @@ class AccountController extends Controller
                 'last_name' => $paymentDetails['lastname'],
                 'email' => $paymentDetails['email'],
                 'phone_number' => $paymentDetails['mobile'],
+                'customer_address' => $tokenDetails['response']['orderDetails']['customerAddress'],
+                'district' => $tokenDetails['response']['orderDetails']['customerBusinessUnit'],
                 'meter_no' => $paymentDetails['meterno'],
                 'token_data' => isset($token_data) ? $token_data : null,
                 'bonus_token' => isset($bonus_token) ? $bonus_token : null,
@@ -233,7 +235,7 @@ class AccountController extends Controller
                 'transaction_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
-                'value_of_kwh' => $paymentDetails['amount'] / 12.85,
+                'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : 0),
                 'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
                 'payment_status' => $tokenDetails['response']['orderDetails']['status'],
@@ -276,8 +278,8 @@ class AccountController extends Controller
                 $adminBio = AdminBiodata::first();
                 //return $adminBio;
     
-                $adminBio->wallet_balance = $adminBio->wallet_balance - $total_amount;
-                $agentBio->wallet_balance -= $total_amount;
+                $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
+                $agentBio->wallet_balance -= $paymentDetails['amount'];
     
                 $transaction->wallet_bal = $adminBio->wallet_balance;
 
@@ -316,7 +318,7 @@ class AccountController extends Controller
             // Wallet Balance
             $adminBio = AdminBiodata::first();
 
-            $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
+            $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
             // $agentBio->wallet_balance -= $total_amount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
@@ -579,7 +581,7 @@ class AccountController extends Controller
         // if no user already used the meter no
         if ($user < 1) {
             // Validate the customer from EKO
-            $valid = $ci->validateCustomer('OFFLINE_PREPAID', $meter);
+            $valid = $ci->validateCustomer('OFFLINE_PREPAID',$meter);
             return $valid;
         }
 

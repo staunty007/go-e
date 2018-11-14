@@ -40,8 +40,7 @@
                         <tr>
                           <td valign="top" align="center">
                             <a href="{{ url('/') }}" style="display:inline-block; cursor:pointer; text-align:center;">
-                              <img src="{{ asset('images/logo.png') }}"
-                              height="24" width="104" border="0" alt="GOENERGEE">
+                              <img src="{{ asset('images/logo.png') }}" height="24" width="130" alt="GOENERGEE">
                             </a>
                           </td>
                         </tr>
