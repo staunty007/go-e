@@ -7,7 +7,7 @@
 <!--<![endif]-->
 
 <head>
-	<title>GOENERGEE:::Prepaid Elctricity</title>
+	<title>GOENERGEE:::Prepaid Electricity</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -251,7 +251,7 @@
 								</div>
 								<div class="col-md-4">
 									<span class="pull-right">
-										<a href="{{ url()->previous() !== url('guest/service-type') ? url('guest/service-type') : url()->previous() }}" class="btn btn-primary">Back</a>
+										<a href="{{ url()->previous() !== url('guest/service-type') ? url('guest/each-service-type') : url()->previous() }}" class="btn btn-primary">Back</a>
 									</span>
 								</div>
 							</div>

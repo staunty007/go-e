@@ -75,8 +75,15 @@
                             
                         </form>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">District</label>
+                            <input type="text" id="district" name="district" value="" placeholder="District" class="form-control">
+                        </div>
+                    </div> --}}
+                </div>
+               
+            
                             <div class="ibox">
 
                                 <div class="ibox" style="overflow-x:auto;">
@@ -93,10 +100,11 @@
                                                     <th>Name</th>
                                                     <th>Address</th>
                                                     <th>District</th>
+                                                    <th>Bank</th>
                                                     <th>Status</th>
                                                     <th>Meter #</th>
-                                                    <th>STD TOKEN</th>
-                                                    <th>BSST</th>
+                                                    <th>Standard Token</th>
+                                                    <th>BSSD Token</th>
                                                     <th>KwH</th>
                                                     <th>Amount Paid</th>
                                                     <th>Total</th>
@@ -110,9 +118,7 @@
                                                     <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
                                                     <td>{{ $d->payment_ref }}</td>
                                                     <td>Web</td>
-                                                    <td>
-                                                        {{ str_replace('OFFLINE_','',$d->user_type)}}
-                                                    </td>
+                                                    <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
                                                     <td>{{ $d->customer_address }}</td>
                                                     <td>{{ $d->district }}</td>
