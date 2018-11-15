@@ -30,28 +30,27 @@ class DistributorController extends Controller
     {
         $data = [];
         // All Direct Payment
-        $payments = Payment::where('is_agent',0)->with('transaction')->get();
+        $payments = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
         // return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
 
         //return $payments;
         $wallet_balance = AdminBiodata::first();
-        return view($this->prefix.'finance')
+        return view($this->prefix . 'finance')
             ->withFinances($payments)
-            ->withBalance($wallet_balance->wallet_balance)
-            ;
+            ->withBalance($wallet_balance->wallet_balance);
     }
 
     public function financeFilterDate(Request $request)
     {
         $from = Carbon::parse($request->from);
         $to = Carbon::parse($request->to);
-        
-        $finances = Payment::whereBetween('created_at',[$from, $to])->get();
+
+        $finances = Payment::whereBetween('created_at', [$from, $to])->get();
         // return $finances;
         $wallet_balance = AdminBiodata::first();
-        return view($this->prefix.'finance', compact('finances'))->withBalance($wallet_balance->wallet_balance);
+        return view($this->prefix . 'finance', compact('finances'))->withBalance($wallet_balance->wallet_balance);
     }
     public function profile()
     {
@@ -73,7 +72,7 @@ class DistributorController extends Controller
     }
     public function meter_admin()
     {
-        $meters = MeterRequest::orderBy('created_at','desc')->get();
+        $meters = MeterRequest::orderBy('created_at', 'desc')->get();
         return $this->v('meter_admin')->withRequests($meters);
     }
     public function settings()
@@ -84,14 +83,16 @@ class DistributorController extends Controller
     {
         return $this->v('sms');
     }
-    public function getChangeStatus($id) {
+    public function getChangeStatus($id)
+    {
         // Find Meter Row via ID
         $meter = MeterRequest::find($id);
         // Return a view for the meter
-        return view($this->prefix.'meter-change')->withMeter($meter);
+        return view($this->prefix . 'meter-change')->withMeter($meter);
     }
 
-    public function postChangeStatus(Request $request, $id) {
+    public function postChangeStatus(Request $request, $id)
+    {
         // Find the meter with the respective id
         $meter = MeterRequest::find($id);
 

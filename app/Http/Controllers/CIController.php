@@ -100,7 +100,7 @@ class CIController extends Controller
                 ]]
             );
         }
-        if ($results->response->customerInfo->accountType !== "OFFLINE_".$accountType) {
+        if ($results->response->customerInfo->accountType !== "OFFLINE_" . $accountType) {
             return response()->json(['response' => ["retn" => 102, "error" => "Invalid Account Type", $results->response]], 400);
         } else {
             // return $results;
@@ -137,7 +137,7 @@ class CIController extends Controller
 
         // return ["payload" => $payload];
          // Get Partner details
-         $partner = $this->partnerDetails();
+        $partner = $this->partnerDetails();
          // Gets the global session TAMSES
         $sessionId = session()->get('TAMSES');
          // Instantiate the SOAPCLient
@@ -156,7 +156,7 @@ class CIController extends Controller
                 "params" => [
                     "accountType" => $account,
                     "customerId" => $customerId,
-                    "orderId" => isset($orderId) or  '',
+                    "orderId" => isset($orderId) or '',
                     "extraData" => "",
                 ]
             ]]
@@ -175,7 +175,7 @@ class CIController extends Controller
     public function chargeWallet($amount, $accountType, $customerId)
     {
         $customerAccountNumVal = "";
-        $account = "OFFLINE_".$accountType;
+        $account = "OFFLINE_" . $accountType;
         // return $accsount;
         switch ($account) {
             case 'OFFLINE_POSTPAID':
@@ -291,10 +291,10 @@ class CIController extends Controller
      * Validates Payment using validatePayment operation
      */
 
-     public function payOrderId($customerId, $orderId)
-     {
+    public function payOrderId($customerId, $orderId)
+    {
          // Get Partner details
-         $partner = $this->partnerDetails();
+        $partner = $this->partnerDetails();
          // Gets the global session TAMSES
         $sessionId = session()->get('TAMSES');
          // Instantiate the SOAPCLient
@@ -320,7 +320,7 @@ class CIController extends Controller
         );
 
         return response()->json($result);
-     }
+    }
 
 
     /**

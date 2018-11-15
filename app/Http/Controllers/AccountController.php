@@ -42,8 +42,8 @@ class AccountController extends Controller
 
         if ($request->has('referred')) {
             // Activate the bonus upon registration
-            $fetchCustomer = User::where('refer_id', $request->referred)->first();
-            $customer = CustomerBiodata::where('user_id', $fetchCustomer->id)->first();
+            $fetchCustomer = User::where('refer_id', $request->referred)->firstOrFail();
+            $customer = CustomerBiodata::where('user_id', $fetchCustomer->id)->firstOrFail();
             if ($fetchCustomer !== null) {
                 $customer->refer_bonus += 2;
                 $customer->save();
@@ -72,7 +72,7 @@ class AccountController extends Controller
         $bio->address = "";
         $bio->save();
 
-        $user = User::where('id', $userID)->first();
+        $user = User::where('id', $userID)->firstOrFail();
         Mail::to($user->email)->send(new AccountActivation($user));
 
 
@@ -84,7 +84,7 @@ class AccountController extends Controller
      */
     public function referredSignup($ref)
     {
-        $findRef = User::where('refer_id', $ref)->first();
+        $findRef = User::where('refer_id', $ref)->firstOrFail();
         if (empty($findRef)) {
             return redirect('/');
         } else {
@@ -111,12 +111,16 @@ class AccountController extends Controller
     public function activateAccount($token)
     {
         // if(session()->has('referred'))
-        $user = User::where('access_token', $token)->first();
+        $user = User::where('access_token', $token)->firstOrFail();
+        if ($user->is_activated == 1) {
+            Auth::login($user);
+            return view('activating')->withDone(1);
+
+        }
         $user->is_activated = 1;
         $user->save();
 
         Auth::login($user, true);
-
         session()->forget('account_info');
 
         return view('activating');
@@ -135,10 +139,10 @@ class AccountController extends Controller
          *  Check if request is coming from agent
          *  then fetch out and check agent's biodata
          *  else hold payment information fir customers
-        */
-        if($request->has('is_agent')) {
-            $agentDetails = AgentBiodata::where('user_id', \Auth::user()->id)->first();
-            $adminDetails = AdminBiodata::first();
+         */
+        if ($request->has('is_agent')) {
+            $agentDetails = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
+            $adminDetails = AdminBiodata::firstOrFail();
 
             if ($agentDetails->wallet_balance < $request->amount || $adminDetails->wallet_balance < $request->amount) {
                 return response()->json(['errorText' => 'Insufficient Balance to complete the payment']);
@@ -152,7 +156,7 @@ class AccountController extends Controller
         }
 
         // Request is coming from the user
-        $adminDetails = AdminBiodata::first();
+        $adminDetails = AdminBiodata::firstOrFail();
 
         if ($adminDetails->wallet_balance < $request->amount) {
             return response()->json(['code' => 'no']);
@@ -190,7 +194,7 @@ class AccountController extends Controller
     public function paymentSuccess()
     {
         if (session()->exists('payment_details')) {
-            
+
             $paymentDetails = session('payment_details');
             // return $paymentDetails;
             $tokenDetails = session()->get('token_data');
@@ -200,22 +204,18 @@ class AccountController extends Controller
             
 
             // Set a variable for the token data
-            if (
-                isset($tokenDetails['response']['orderDetails']['tokenData']) 
-                && 
-                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])
-            ) {
+            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+                &&
+                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])) {
                 $token_data = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
             }
 
             $bonus_token = "";
             
             // if bonus token is generated then set it
-            if (
-                isset($tokenDetails['response']['orderDetails']['tokenData']) 
-                && 
-                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])
-            ){
+            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+                &&
+                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
 
@@ -244,26 +244,26 @@ class AccountController extends Controller
             ]);
 
             // Transaction Came from an agent
-            
-            if(isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
+
+            if (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
                 // $transaction = new Transaction;
                 $transaction = new AgentTransaction;
-                $agentBio = AgentBiodata::where('user_id',\Auth::user()->id)->first();
+                $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
 
                 $transaction->payment_id = $paymentId;
                 $transaction->agent_id = $agentBio->agent_id;
                 $transaction->initial_amount = $paymentDetails['amount'];
                 $transaction->conv_fee = 100;
-    
+
                 $total_amount = $paymentDetails['amount'] + 100;
                 $commission = $paymentDetails['amount'] * 0.02;
                 $pgp = $total_amount * 0.015;
                 $bal = (100 + $commission) - $pgp;
-                $spec = round($bal * 0.1,2);
-                $ralmuof = round($bal * 0.9,2);
-                $totalSplit = ($pgp + $bal + $spec +$ralmuof) - $bal;
+                $spec = round($bal * 0.1, 2);
+                $ralmuof = round($bal * 0.9, 2);
+                $totalSplit = ($pgp + $bal + $spec + $ralmuof) - $bal;
                 $netAmount = $paymentDetails['amount'] - $commission;
-    
+
                 $transaction->total_amount = $total_amount;
                 $transaction->commission = $commission;
                 $transaction->pgp = $pgp;
@@ -275,12 +275,12 @@ class AccountController extends Controller
                 $transaction->net_amount = $netAmount;
     
                 // Wallet Balance
-                $adminBio = AdminBiodata::first();
+                $adminBio = AdminBiodata::firstOrFail();
                 //return $adminBio;
-    
+
                 $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
                 $agentBio->wallet_balance -= $paymentDetails['amount'];
-    
+
                 $transaction->wallet_bal = $adminBio->wallet_balance;
 
                 $transaction->save();
@@ -316,7 +316,7 @@ class AccountController extends Controller
             $transaction->net_amount = $netAmount;
 
             // Wallet Balance
-            $adminBio = AdminBiodata::first();
+            $adminBio = AdminBiodata::firstOrFail();
 
             $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
             // $agentBio->wallet_balance -= $total_amount;
@@ -342,13 +342,13 @@ class AccountController extends Controller
     {
         $payment = Payment::where('order_id', $orderId)->firstOrFail();
         // return $payment;
-        if($payment->is_agent == true) {
-            $payment = Payment::where('order_id',$orderId)->with('agent_transaction')->firstOrFail();
+        if ($payment->is_agent == true) {
+            $payment = Payment::where('order_id', $orderId)->with('agent_transaction')->firstOrFail();
             $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
             return $payment;
         }
-        
-        $payment = Payment::where('order_id',$orderId)->with('transaction')->firstOrFail();
+
+        $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
 
         $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
         return $payment;
@@ -366,7 +366,7 @@ class AccountController extends Controller
 
             $is_agent = false;
 
-            $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->first();
+            $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
 
             if ($paymentDetails['is_agent'] == 1) {
                 $is_agent = true;
@@ -410,7 +410,7 @@ class AccountController extends Controller
             $transaction->net_amount = $netAmount;
 
             // Wallet Balance
-            $adminBio = AdminBiodata::first();
+            $adminBio = AdminBiodata::firstOrFail();
 
             $adminBio->wallet_balance -= $netAmount;
 
@@ -453,7 +453,7 @@ class AccountController extends Controller
 
             $is_agent = false;
 
-            $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->first();
+            $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
 
             if ($paymentDetails['is_agent'] == 1) {
                 $is_agent = true;
@@ -497,7 +497,7 @@ class AccountController extends Controller
             $transaction->net_amount = $netAmount;
 
             // Wallet Balance
-            $adminBio = AdminBiodata::first();
+            $adminBio = AdminBiodata::firstOrFail();
 
             $adminBio->wallet_balance = $adminBio->wallet_balance - $netAmount;
 
@@ -544,7 +544,7 @@ class AccountController extends Controller
                     break;
                 case '2':
                 // Agent is logged in
-                    $agent = AgentBiodata::where('user_id', \Auth::user()->id)->first();
+                    $agent = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
                     $allProfit = AgentTransaction::sum('agent');
                     session()->put(['agentDetails' => $agent]);
                     return view('users.agent.financial')
@@ -569,7 +569,7 @@ class AccountController extends Controller
     public function customerProfile()
     {
         // Fetch User Profile From CustomerBiodata
-        $profile = User::where('id', \Auth::user()->id)->with('customer')->first();
+        $profile = User::where('id', \Auth::user()->id)->with('customer')->firstOrFail();
         // return $profile;
         return view('customer.customer_profile')->withProfile($profile);
     }
@@ -581,7 +581,7 @@ class AccountController extends Controller
         // if no user already used the meter no
         if ($user < 1) {
             // Validate the customer from EKO
-            $valid = $ci->validateCustomer('OFFLINE_PREPAID',$meter);
+            $valid = $ci->validateCustomer('OFFLINE_PREPAID', $meter);
             return $valid;
         }
 
@@ -613,7 +613,7 @@ class AccountController extends Controller
             $user->refer_id = str_random(10);
         }
 
-        $bio = CustomerBiodata::where('user_id', $request->customer_id)->first();
+        $bio = CustomerBiodata::where('user_id', $request->customer_id)->firstOrFail();
 
         $bio->meter_no = $request->meter_no;
         $bio->address = $request->address;
@@ -636,7 +636,7 @@ class AccountController extends Controller
         $userEmail = \Auth::user()->email;
         //return $userEmail;
 
-        $prepaid = Payment::where('email', $userEmail)->first();
+        $prepaid = Payment::where('email', $userEmail)->firstOrFail();
         //return $prepaid;
         return view('customer.make-payment')->withBefore($prepaid);
     }
@@ -684,7 +684,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         $reciepts = Payment::where('email', $userEmail)->where('id', $reciept_id)
-            ->with('transaction')->first();
+            ->with('transaction')->firstOrFail();
         // return $reciepts;
         return view('customer.payment_reciept', compact('reciepts'));
     }
@@ -692,7 +692,7 @@ class AccountController extends Controller
     public function pdfDownload($order_id)
     {
         $userEmail = \Auth::user()->email;
-        $reciepts = Payment::where('order_id', $order_id)->with('transaction')->first();
+        $reciepts = Payment::where('order_id', $order_id)->with('transaction')->firstOrFail();
         // return $reciepts;
         $pdf = PDF::loadView('customer.payment_reciept', compact('reciepts'));
         return $pdf->download('invoice.pdf');
@@ -708,12 +708,12 @@ class AccountController extends Controller
 
     public function customerData()
     {
-        return User::where('id', \Auth::user()->id)->with('customer')->first();
+        return User::where('id', \Auth::user()->id)->with('customer')->firstOrFail();
     }
 
     public function updateFunds($amount)
     {
-        $user = CustomerBiodata::where('user_id', auth()->id())->first();
+        $user = CustomerBiodata::where('user_id', auth()->id())->firstOrFail();
         $user->wallet_balance += $amount;
         $user->save();
 
