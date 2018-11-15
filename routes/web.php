@@ -15,13 +15,13 @@ Route::get('/', function () {
     }
     // return url('discos');
     // return url()->previous();
-    // if(url()->previous() == url('ekedc') || url('distributor/*')) {
-    //     // return redirect('discos');
-    //     // return 'gotha';
-    //     return back();
-    // }
-    // return redirect('ekedc');
-    return view('guest.home');
+    if (url()->previous() == url('ekedc') || url('distributor/*')) {
+        // return redirect('discos');
+        // return 'gotha';
+        return back();
+    }
+    return redirect('ekedc');
+    // return view('guest.home');
 });
 
 
@@ -93,7 +93,8 @@ Route::get('postpaidpayment', function () {
     return view('postpaidpayment')->withUser($loggedDetails);
 })->name('postpaid');
 
-Route::get('postpaid-payment', function () { })->name('postpaid-logged');
+Route::get('postpaid-payment', function () {
+})->name('postpaid-logged');
 
 // Prepaid Payment Holder
 Route::post('payment/hold', 'AccountController@paymentHolder');
@@ -146,7 +147,7 @@ Route::prefix('backend')->group(function () {
         Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
         Route::get('administrator', 'AdminController@home')->name('admin.home');
         Route::get('finance', 'AdminController@finance')->name('admin.finance');
-        Route::get('finance/filter-by-date','AdminController@financeFilterDate');
+        Route::get('finance/filter-by-date', 'AdminController@financeFilterDate');
         Route::get('profile', 'AdminController@profile')->name('admin.profile');
         Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
         Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
@@ -246,8 +247,12 @@ Route::get('password/reset/{token}', '\App\Http\Controllers\Auth\ResetPasswordCo
 Route::post('password/reset', '\App\Http\Controllers\Auth\ResetPasswordController@reset')->middleware(['guest', 'web']);
 // Auth::routes(['except' => ['register']]);
 
-Route::get('login', function () { return redirect('/'); })->name('login');
-Route::get('register', function () { return redirect('/'); })->name('register');
+Route::get('login', function () {
+    return redirect('/');
+})->name('login');
+Route::get('register', function () {
+    return redirect('/');
+})->name('register');
 
 // Mobile Routes
 Route::prefix('mobile')->group(function () {
@@ -257,11 +262,11 @@ Route::prefix('mobile')->group(function () {
     Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
 });
 
-Route::post('ussd/register','UssdController@register');
+Route::post('ussd/register', 'UssdController@register');
 
-Route::get('ekedc','PagesController@disco');
-Route::post('ekedc','PagesController@discoLogin')->name('disco-login');
-Route::post('disco-logout','PagesController@discoLogout')->name('disco-logout');
+Route::get('ekedc', 'PagesController@disco');
+Route::post('ekedc', 'PagesController@discoLogin')->name('disco-login');
+Route::post('disco-logout', 'PagesController@discoLogout')->name('disco-logout');
 
 
 
@@ -338,7 +343,7 @@ Route::prefix('ekedc')->group(function () {
     Route::get('validate-payment/{accountType}/{customerId}', 'CIController@validatePayment');
     Route::get('charge-wallet/{amount}/{accountType}/{customerId}', 'CIController@chargeWallet');
     Route::get('generate-token/{paymentRef}/{orderId}', 'CIController@generateToken');
-    Route::get('pay-order-id/{customerId}/{orderid}','CIController@payOrderId');
+    Route::get('pay-order-id/{customerId}/{orderid}', 'CIController@payOrderId');
 });
 
 // Hold Generate Token Data
@@ -350,6 +355,6 @@ Route::get('fetch/{order_id}', 'AccountController@fetchReceiptDetails');
 // Route::get('base-64-decode/{string}','AccountController@decodeEmail');
 
 
-Route::get('generate-password/{text}', function($text) {
+Route::get('generate-password/{text}', function ($text) {
     return bcrypt($text);
 });
