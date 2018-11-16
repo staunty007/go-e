@@ -28,7 +28,7 @@
                     <h3 class="text-center">Oooops!, We've done this before, Logging You in...</h3>
                 @else
                     <div class="text-center p-4">
-                        <img src="/images/setup-wizard.svg" class="img-responsive" width="500" alt="setup wizard"/>
+                        <img src="/images/setup.svg" class="img-responsive" draggable="false" alt="setup wizard" />
                     </div>
 
                     <h3 class="text-center">Please Wait while we setup your account...</h3>
@@ -37,9 +37,7 @@
         </div>
     </div>
     <script>
-        setTimeout(() => {
-            window.location.href='/home';
-        },2000);
+        setTimeout(() => window.location.href = '/home', 3000);
     </script>
 </body>
 </html>

@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
 // Route::get('/', function () { return view('index'); });
 Route::get('/', function () {
-    if (session()->has('TAMSES')) {
-        session()->forget('TAMSES');
-    }
-    // return url('discos');
-    // return url()->previous();
-    if (url()->previous() == url('ekedc') || url('distributor/*')) {
-        // return redirect('discos');
-        // return 'gotha';
-        return back();
-    }
-    return redirect('ekedc');
-    // return view('guest.home');
+    // return view('test');
+    // if (session()->has('TAMSES')) {
+    //     session()->forget('TAMSES');
+    // }
+    // // return url('discos');
+    // // return url()->previous();
+    // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
+    //     // return redirect('discos');
+    //     // return 'gotha';
+    //     return back();
+    // }
+    // return redirect('ekedc');
+    return view('guest.home');
 });
 
 

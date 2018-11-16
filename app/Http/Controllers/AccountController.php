@@ -201,7 +201,6 @@ class AccountController extends Controller
             // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
-            
 
             // Set a variable for the token data
             if (isset($tokenDetails['response']['orderDetails']['tokenData'])
@@ -278,7 +277,7 @@ class AccountController extends Controller
                 $adminBio = AdminBiodata::firstOrFail();
                 //return $adminBio;
 
-                $adminBio->wallet_balance = $adminBio->wallet_balance - $paymentDetails['amount'];
+                $adminBio->wallet_balance -= $paymentDetails['amount'] - $commission;
                 $agentBio->wallet_balance -= $paymentDetails['amount'];
 
                 $transaction->wallet_bal = $adminBio->wallet_balance;

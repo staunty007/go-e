@@ -161,13 +161,13 @@
 	let accountType = "{{ $accountType }}";
 	$(".pay-meter").click((e) => {
 		e.preventDefault();
-		$(".pay-meter").prop('disabled', true);
+		$(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
 		if (navigator.onLine) {
 			let amount = $("#amount").val();
-			if (accountType === "PREPAID" && parseInt(amount) < 900) {
+			if (accountType === "PREPAID" && parseInt(amount) < 1000) {
 				$.alert({
 					title: 'Invalid Amount!',
-					content: `Amount Cannot be lesser than N900`,
+					content: `Amount Cannot be lesser than N1000`,
 					type: 'red',
 					buttons: {
 						gotit: {
@@ -176,7 +176,7 @@
 						}
 					}
 				});
-				$(".pay-meter").prop('disabled', false);
+				$(".pay-meter").prop('disabled', false).html('Continue');
 			} else {
 				continuePayment();
 			}
@@ -260,17 +260,18 @@
 				// charge wallet
 				let dataBack;
 				document.querySelector("#response").innerHTML =`<div class="modal-footer">
-								<h2>Validating Transaction...</h2>
+								<h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
 							</div>`;
 				console.log('charging Wallet...');
-				fetch(`/ekedc/charge-wallet/${amount}/${accountType}/${meter_no}`)
+				let amountCommission = amount - amount * 0.02;
+				fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
 					.then(res => res.json())
 					.then(chargeWalletResult => {
 						console.log('Generating Token...');
 						const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
 						const orderId = chargeWalletResult.response.result.orderId;
 						document.querySelector("#response").innerHTML = `<div class="modal-footer">
-								<h2>Completing Transaction...</h2>
+								<h2>Completing Transaction... <div class="loader-css"></div></h2> 
 						</div>`;
 						fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
 							.then(res => res.json())
@@ -279,7 +280,7 @@
 								// Get the token data and redirect to receipt page
 								document.querySelector("#response").innerHTML = `<div class="modal-footer">
 										<h2>Transaction Completed</h2>
-										<p>Redirecting...</p>
+										<p>Redirecting... <div class="loader-css"></div></p>
 
 									</div>`;
 								$.ajax({
@@ -331,7 +332,7 @@
 	}
 
 	const continuePayment = () => {
-		$('.pay-meter').html('Validating....');
+		$('.pay-meter').html('<div class="loader-css"></div>');
 		meter_no = $('#meterno').val();
 
 		fetch(`/ekedc/validate-customer/${accountType}/${meter_no}`)

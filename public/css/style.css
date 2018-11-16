@@ -10805,3 +10805,43 @@ body.md-skin {
 .details-holder {
   margin-top: 80px !important;
 }
+
+.loader-css {
+  /* display: inline; */
+  width: 10px;
+  height: 10px;
+  border: 2px solid transparent;
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-radius: 50%;
+  animation: spinki .5s linear infinite;
+  position: relative;
+}
+
+.bg-darrk {
+  border-color: #000;
+}
+
+@keyframes spinki {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    animation-direction: reverse;
+    transform: translate(0px 180px);
+    /* border-top-color: #fff;
+    border-bottom-color: #fff; */
+  }
+
+  70% {
+    animation-direction: reverse;
+    transform: translate(0px 180px);
+    /* border-top-color: #f00;
+    border-bottom-color: #f00; */
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
