@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-@import url('https://fonts.googleapis.com/css?family=Rubik:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 /*
  *
@@ -2824,7 +2823,7 @@ div.dt-button-info {
   width: 100%;
   font-size: 0.75em;
   line-height: 1.333333em;
-  font-family: open sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
+  font-family: Open Sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
   padding: 5px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -4172,7 +4171,7 @@ body.tour-open .animated {
 }
 
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;
@@ -9841,7 +9840,7 @@ body.skin-3 {
 }
 
 body.md-skin {
-  font-family: "Rubik", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #ffffff;
 }
 
@@ -9851,7 +9850,7 @@ body.md-skin {
 
 .md-skin .label,
 .md-skin .badge {
-  font-family: 'Rubik';
+  font-family: 'Open Sans';
 }
 
 .md-skin ul.nav-second-level {
@@ -9924,11 +9923,11 @@ body.md-skin {
 
 .md-skin #nestable-output,
 .md-skin #nestable2-output {
-  font-family: 'Rubik', lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
+  font-family: 'Open Sans', lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
 }
 
 .md-skin .landing-page {
-  font-family: 'Rubik', helvetica, arial, sans-serif;
+  font-family: 'Open Sans', helvetica, arial, sans-serif;
 }
 
 .md-skin .landing-page.navbar-default.navbar-scroll {
@@ -9941,7 +9940,7 @@ body.md-skin {
 }
 
 .md-skin .landing-page.navbar-default .nav li a {
-  font-family: 'Rubik', helvetica, arial, sans-serif;
+  font-family: 'Open Sans', helvetica, arial, sans-serif;
 }
 
 .md-skin .nav>li>a {
@@ -10153,7 +10152,7 @@ body.md-skin {
 }
 
 .md-skin.landing-page .navbar-default .nav li a {
-  font-family: 'Rubik', helvetica, arial, sans-serif;
+  font-family: 'Open Sans', helvetica, arial, sans-serif;
 }
 
 .md-skin.landing-page .nav>li>a {

@@ -1,12 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400+500+700');
+
 body {
     padding: 0em 2em 0em 1em;
+    font-family: 'Open Sans', sans-serif;
 }
+
 .mt-10 {
     margin-top: 10px;
 }
+
 .logout-btn {
     text-transform: capitalize;
 }
+
 footer {
     position: fixed;
     left: 0;
@@ -24,6 +30,7 @@ footer {
     right: 23px;
 }
 
+
 #support {
     background-color: #ffffff;
     height: 390px;
@@ -38,16 +45,16 @@ footer {
     min-height: 150px;
     min-width: 100%;
     object-fit: fill;
-   
+
 }
 
-.static{
-    margin-top: 13px!important;
+.static {
+    margin-top: 13px !important;
     margin-left: 12px;
 }
 
-@media (min-width: 768px){
-.modal-sm {
-    width: 383px;
-}
+@media (min-width: 768px) {
+    .modal-sm {
+        width: 383px;
+    }
 }
