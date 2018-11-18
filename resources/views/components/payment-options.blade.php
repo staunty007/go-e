@@ -76,7 +76,7 @@
 			<div id="payment-modal">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
+						<div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container" style="margin-bottom: 1.5em">
 							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
 								<div class="list-group">
 									<a href="#" class="list-group-item active text-center">
@@ -88,6 +88,11 @@
 									<a href="#" class="list-group-item text-center">
 										<h4 class="fa fa-university"></h4><br />mVisa
 									</a>
+									@auth
+									<a href="#" class="list-group-item text-center">
+										<h4 class="fa fa-money"></h4><br />My Wallet
+									</a>
+									@endauth
 									{{-- <a href="#" class="list-group-item text-center">
 										<h4 class="glyphicon glyphicon-road"></h4><br />Train
 									</a>
@@ -135,6 +140,14 @@
 										<h3>Amount: N<span id="mvisa"></span></h3>
 									</center>
 								</div>
+								@auth
+								{{-- Charge Customer Wallet --}}
+								<div class="bhoechie-tab-content">
+									<center>
+										<button class="btn btn-primary btn-lg" id="chargeMyWallet">Charge my Wallet</button>
+									</center>
+								</div>
+								@endauth
 							</div>
 						</div>
 					</div>
@@ -159,11 +172,12 @@
 <script>
 	let meter_no = '';
 	let accountType = "{{ $accountType }}";
+	let amount;
 	$(".pay-meter").click((e) => {
 		e.preventDefault();
 		$(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
 		if (navigator.onLine) {
-			let amount = $("#amount").val();
+			amount = $("#amount").val();
 			if (accountType === "PREPAID" && parseInt(amount) < 1000) {
 				$.alert({
 					title: 'Invalid Amount!',
@@ -192,7 +206,7 @@
 					}
 				}
 			});
-			$(".pay-meter").prop('disabled', false);
+			$(".pay-meter").prop('disabled', false).html('Continue');
 		}
 	})
 	$("#ctnPay").click((e) => {
@@ -247,7 +261,7 @@
 	}
 
 	function payWithPaystack() {
-		var amount = document.querySelector('.meter-amount').value;
+		// var amount = document.querySelector('.meter-amount').value;
 
 		var chargedAmount = parseInt(amount) + 100;
 		var handler = PaystackPop.setup({
@@ -403,6 +417,68 @@
 				$(".pay-meter").prop('disabled', false);
 			});
 	}
+
+	// Pay With Wallet
+	$("#chargeMyWallet").click(function() {
+		$(this).html('<div class="loader-css"></div>').prop('disabled',true);
+		const authId = "{{ auth()->id() }}";
+
+		// Fetch Wallet Balance
+		fetch(`/profile/user/wb/${authId}/${amount}`)
+			.then(res => res.json())
+			.then(result => {
+				console.log(result);
+				// if(result.success == 'OK') {
+				// 	// Sufficient funds
+				// document.querySelector("#response").innerHTML =`<div class="modal-footer">
+				// 				<h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
+				// 			</div>`;
+				// console.log('charging Wallet...');
+				// let amountCommission = amount - amount * 0.02;
+				// fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
+				// 	.then(res => res.json())
+				// 	.then(chargeWalletResult => {
+				// 		console.log('Generating Token...');
+				// 		const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
+				// 		const orderId = chargeWalletResult.response.result.orderId;
+				// 		document.querySelector("#response").innerHTML = `<div class="modal-footer">
+				// 				<h2>Completing Transaction... <div class="loader-css"></div></h2> 
+				// 		</div>`;
+				// 		fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
+				// 			.then(res => res.json())
+				// 			.then(generateTokenResult => {
+				// 				// console.log(generateTokenResult.response);
+				// 				// Get the token data and redirect to receipt page
+				// 				document.querySelector("#response").innerHTML = `<div class="modal-footer">
+				// 						<h2>Transaction Completed</h2>
+				// 						<p>Redirecting... <div class="loader-css"></div></p>
+
+				// 					</div>`;
+				// 				$.ajax({
+				// 					url: '/gtk',
+				// 					method: "POST",
+				// 					data: generateTokenResult.response,
+				// 					success: (result) => {
+				// 						if(result == "ok") {
+				// 							window.location.href = '/transaction/success';
+				// 						}
+				// 					},
+				// 					error: (err) => {
+				// 						alert('Something Bad Went Wrong, Please log a complain');
+				// 					}
+				// 				})
+				// 			})
+				// 			.catch(err => console.log(err));
+				// 	})
+				// 	.catch(err => console.log(err));
+				// }else {
+				// 	// Insufficiient Funds
+				// 	$("#chargeMyWallet").html('Charge My Wallet');
+				// 	$("#error-wallet").html('Insufficient funds, Please Top up and try again');
+				// }
+			})
+	})
+	
 </script>
 <script>
 	$(document).ready(function () {

@@ -65,8 +65,9 @@ Route::get('signup/r/{ref}', 'AccountController@referredSignup'); //http://local
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
 Route::get('registration/activate/{token}', 'AccountController@activateAccount')->name('activate.account');
 Route::get('payment/{ref}/success', 'AccountController@paymentSuccess');
-
-
+// Route::get('password/reset/{token}','AccountController@resetPassword');
+// Route::post('password/reset/{token}','AccountController@resetPassword')->name('password.request');
+// Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('home', 'AccountController@home')->name('home');
 });
@@ -359,3 +360,8 @@ Route::get('fetch/{order_id}', 'AccountController@fetchReceiptDetails');
 Route::get('generate-password/{text}', function ($text) {
     return bcrypt($text);
 });
+
+/**
+ * In API
+ */
+Route::get('profile/user/wb/{id}','ApiController@getUserWalletBalance');

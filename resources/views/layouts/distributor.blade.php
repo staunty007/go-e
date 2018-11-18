@@ -11,18 +11,12 @@
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
-    <link href="{{asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
-
     <link href="{{asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{asset('css/table1.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
-
-       <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet">
-
-    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
     <link rel="icon" href="{{asset('images/favicon.png')
     
     }}" type='image/x-icon'>
@@ -150,150 +144,19 @@
 
         </div>
     </div>
-
-    <!-- Mainly scripts -->
-
-{{-- 
-    <script src="{{asset('js/table.js')}}"></script>
-    <script src="{{asset('js/tab.js')}}"></script>
-    <script src="{{asset('js/table1.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-    <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{asset('js/inspinia.js')}}"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
-
-    <!-- ChartJS-->
-    <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
-    <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
-    <script src="{{asset('js/demo/income_channel_chart.js')}}"></script>
-
-
-    <!-- Peity -->
-    <script src="{{asset('js/plugins/peity/jquery.peity.min.js')}}"></script>
-    <script src="{{asset('js/demo/peity-demo.js')}}"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{asset('js/inspinia.js')}}"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
-
-    <!-- jQuery UI -->
-    <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-
-    <script src="{{asset('js/plugins/footable/footable.all.min.js')}}"></script> --}}
-
-t>
-    {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
-    <script>
-        function payWithPaystack() {
-            var amount = document.querySelector('#topup-amount').value;
-            // var handler = PaystackPop.setup({
-            // 	key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-            // 	email: "admin@goenergee.com",
-            // 	amount: amount + "00",
-            // 	ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-
-            // 	callback: function (response) {
-            // swal('Yay!', 'Payment Successfull', 'success');
-            setTimeout(() => {
-                window.location.href = '/backend/topup-admin/success/' + amount;
-            }, 1000);
-            // 	},
-            // 	onClose: function () {
-            // 		alert('Payment Cancelled');
-            // 		document.querySelector('#topUpBtn').innerHTML = "Top up Now";
-            // 	}
-            // });
-            // handler.openIframe();
-        }
-    </script>
     
-    @stack('popups') @stack('scripts')
-
+    
     <!-- Mainly scripts -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
-    <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script src="{{asset('js/plugins/daterangepicker/daterangepicker.js')}}"></script>
     <script src="{{asset('js/plugins/dataTables/datatables.min.js')}}"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <!-- Custom and plugin javascript -->
     <script src="/js/inspinia.js"></script>
     <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
-
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function () {
-            // $('.dataTables-example').DataTable({
-            //     dom: '<"html5buttons"B>lTfgitp',
-            //     buttons: [{
-            //             extend: 'copy'
-            //         },
-            //         {
-            //             extend: 'csv'
-            //         },
-            //         {
-            //             extend: 'excel',
-            //             title: 'Data-Excel'
-            //         },
-            //         {
-            //             extend: 'pdf',
-            //             title: 'Data-Pdf'
-            //         },
-
-            //         {
-            //             extend: 'print',
-            //             customize: function (win) {
-            //                 $(win.document.body).addClass('white-bg');
-            //                 $(win.document.body).css('font-size', '10px');
-
-            //                 $(win.document.body).find('table')
-            //                     .addClass('compact')
-            //                     .css('font-size', 'inherit');
-            //             }
-            //         }
-            //     ]
-
-            // });
-
-            // /* Init DataTables */
-            // var oTable = $('#editable').DataTable();
-
-            // /* Apply the jEditable handlers to the table */
-            // oTable.$('td').editable('../example_ajax.php', {
-            //     "callback": function (sValue, y) {
-            //         var aPos = oTable.fnGetPosition(this);
-            //         oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-            //     },
-            //     "submitdata": function (value, settings) {
-            //         return {
-            //             "row_id": this.parentNode.getAttribute('id'),
-            //             "column": oTable.fnGetPosition(this)[2]
-            //         };
-            //     },
-
-            //     "width": "90%",
-            //     "height": "100%"
-            // });
-
-
-        });
-
-        // function fnClickAddRow() {
-        //     $('#editable').dataTable().fnAddData([
-        //         "Custom row",
-        //         "New row",
-        //         "New row",
-        //         "New row",
-        //         "New row"
-        //     ]);
-
-        // }
-    </script>
-
+    
+    @stack('popups') @stack('scripts')
 </body>
 
 

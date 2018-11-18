@@ -118,13 +118,18 @@ class AccountController extends Controller
 
         }
         $user->is_activated = 1;
-        $user->save();
+        // $user->save();
 
-        Auth::login($user, true);
+        // Auth::login($user, true);
         session()->forget('account_info');
 
         return view('activating');
     }
+
+    /**
+     * Password Request Update
+     */
+    
 
     public function paymentFrame()
     {
@@ -575,16 +580,40 @@ class AccountController extends Controller
 
     public function validateMeter($meter, CIController $ci)
     {
-        // 
-        $user = CustomerBiodata::where('meter_no', $meter)->count();
-        // if no user already used the meter no
-        if ($user < 1) {
-            // Validate the customer from EKO
-            $valid = $ci->validateCustomer('OFFLINE_PREPAID', $meter);
-            return $valid;
-        }
+        if(auth()->check()) {
+            $user = User::where('id',auth()->id())->first();
+            
+            // Check if user already updated their profile
+            if($user->is_completed == 1) {
+                $account_type = "PREPAID";
+                if(str_contains($meter, '-') == true) {
+                    $account_type = "POSTPAID";
+                }
+                return $account_type;
+                $valid = $ci->validateCustomer($account_type, $meter);
+                return $valid;
+                // return response()->json(['response' => ['retn' => 0, 'desc' => 'Request Successful']]);
+                
+            }else {
+                
+                $user = CustomerBiodata::where('meter_no', $meter)->count();
+                // if no user already used the meter no
+                if ($user < 1) {
+                    // Validate the customer from EKO
+                    $account_type = "PREPAID";
+                    if(str_contains($meter, '-') == true) {
+                        $account_type = "POSTPAID";
+                    }
+                    // return $account_type;
+                    $valid = $ci->validateCustomer($account_type, $meter);
+                    return $valid;
+                }
 
-        return response()->json(['response' => ['retn' => 233, 'error' => 'A user already used the meter no']]);
+                return response()->json(['response' => ['retn' => 233, 'error' => 'A user already used the meter no']]);
+            }
+        }
+        // 
+        
 
     }
 
@@ -602,6 +631,7 @@ class AccountController extends Controller
     public function updateProfile(Request $request)
     {
         $user = User::find($request->customer_id);
+
         $names = explode(" ", $request->fullname);
         $user->first_name = $names[0];
         $user->last_name = $names[1];

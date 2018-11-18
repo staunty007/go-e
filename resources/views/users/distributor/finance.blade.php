@@ -1,9 +1,5 @@
 @extends('layouts.distributor') @section('content')
-<link rel="stylesheet" href="/css/classic.css">
-<link rel="stylesheet" href="/css/classic.date.css">
 
-<script src="/js/picker.js"></script>
-<script src="/js/picker.date.js"></script>
 
 <div class="col-lg-4">
     <div class="ibox float-e-margins">
@@ -54,7 +50,20 @@
             </div>
             <div class="ibox-content m-b-sm border-bottom">
                 <div class="row">
-                    <form action="filter-by-date" method="post" class="form-horizontal">
+                    <div class="col-md-4">
+                        <h4>Filter By Date</h4>
+                        <div class="input-group input-daterange">
+                    
+                            <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="dd/mm/yy" placeholder="From:">
+                    
+                            <div class="input-group-addon">to</div>
+                            <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="dd/mm/yy" placeholder="To:">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {{-- <form action="filter-by-date" method="post" class="form-horizontal">
                         {{ csrf_field() }}
                         <div class="col-md-6">
                             <div class="row">
@@ -70,11 +79,46 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <div class="col-sm-4">
+                    </form> --}}
+                    <div class="col-sm-2">
                         <div class="form-group">
-                            <label class="control-label" for="amount">District</label>
-                            <input type="text" id="district" name="district" value="" placeholder="District" class="form-control">
+                            <label class="control-label" for="amount">Filter By District</label>
+                            <select id="district" class="form-control">
+                                <option value="Agbara">Agbara</option>
+                                <option value="Ojo">Ojo</option>
+                                <option value="Festac">Festac</option>
+                                <option value="Ijora">Ijora</option>
+                                <option value="Mushin">Mushin</option>
+                                <option value="Apapa">Apapa</option>
+                                <option value="Lekki">Lekki</option>
+                                <option value="Island">Island</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">Filter By Channel</label>
+                            <select id="channel" class="form-control">
+                                <option value="Web">Web</option>
+                                <option value="POS">POS</option>
+                                <option value="Mobile">Mobile</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">Filter By Bank</label>
+                            <select id="bank" class="form-control">
+                                <option value="Bank">Bank</option>
+                                <option value="Access Bank">Access Bank</option>
+                                <option value="First Bank">First Bank</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">Filter By Acc / Meter</label>
+                            <input type="text" class="form-control" id="meter_account">
                         </div>
                     </div>
                 </div> <!-- Row ends -->
@@ -182,13 +226,69 @@
 
 
 @push('scripts')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable({
+        const tabili = $('#myTable').DataTable({
             order: [['1','desc']],
+            // searching: false
         });
-        $(".pickadate").pickadate();
+
+        $('.dataTables_filter').hide();
+
+        $('#meter_account').on('keyup', function() {
+           tabili
+                .search($('#meter_account').val(), false, true)
+                .draw();
+        });
+        $('#district').on('change', function() {
+            tabili
+                .search($('#district').val(), false, true)
+                .draw();
+        });
+        $('#channel').on('change', function() {
+            tabili
+                .columns(2)
+                .search($('#channel').val(), false, true)
+                .draw();
+        });
+        $('#bank').on('change', function() {
+            tabili
+                .columns(7)
+                .search($('#bank').val(), false, true)
+                .draw();
+        });
+
+        // $(".pickadate").pickadate();
+        $('.input-daterange input').each(function() {
+            $(this).datepicker('clearDates');
+        });
+
+
+        // Extend dataTables search
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var min = $('#min-date').val();
+                var max = $('#max-date').val();
+                var createdAt = data[0] || 0; // Our date column in the table
+            //createdAt=createdAt.split(" ");
+                var startDate   = moment(min, "DD/MM/YY");
+                var endDate     = moment(max, "DD/MM/YY");
+                var diffDate = moment(createdAt, "DD/MM/YY");
+
+                if ( (min == "" || max == "") || diffDate.isBetween(startDate, endDate, 'days'))
+                {  return true;  }
+                
+                return false;
+            }
+        );
+
+        // Re-draw the table when the a date range filter changes
+        $('.date-range-filter').change(function() {
+            tabili.draw();
+        });
+
     });
 </script>
 @endpush

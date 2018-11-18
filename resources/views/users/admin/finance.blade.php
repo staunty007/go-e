@@ -306,7 +306,7 @@
 
     <script>
         let token = "{{ csrf_token() }}";
-        postData(`http://localhost:8000/login-api`, {
+        postData(`/login-api`, {
             email:"admin@goenergee.com",
             passowrd: "admin",
             _token: token

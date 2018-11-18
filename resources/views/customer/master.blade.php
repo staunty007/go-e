@@ -130,14 +130,14 @@
                                             name="top-search" id="top-search">
                                     </div>
                                 </form> --}}
-                                <div class="row" style="margin-top: 1em">
+                                {{-- <div class="row" style="margin-top: 1em">
                                     <div class="col-md-4">
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Buy
+                                        <button class="btn btn-primary" >Buy
                                             Token</button>
                                     </div>
 
 
-                                </div>
+                                </div> --}}
                                 <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">

@@ -88,9 +88,13 @@ class CIController extends Controller
             ])
         );
 
+        // if(!isset($results->response)) {
+        //     return response()->json($results);
+        // }
         // return response()->json($results);
         // dd($results);
-        if ($results->response->retn !== 0 || $results->response->retn == 400 || $results->response->desc == "Invalid Session") {
+        if (!isset($results->response) || $results->response->retn !== 0 || $results->response->retn == 400 || $results->response->desc == "Invalid Session") {
+            // Connection Not Successful to Host
             return response()->json(
                 ['response' =>
                     [
