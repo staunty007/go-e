@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>GOENERGEE </title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="{{asset('//code.jquery.com/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -112,12 +110,12 @@
                             <span class="nav-label">CRM</span>
                         </a>
                     </li> --}}
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.tickets' )}}">
                             <i class="fa fa-ticket"></i>
                             <span class="nav-label">Support Tickets</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </nav>
@@ -190,9 +188,6 @@
     <!-- Mainly scripts -->
 
 
-    {{-- <script src="{{asset('js/table.js')}}"></script>
-    <script src="{{asset('js/tab.js')}}"></script>
-    <script src="{{asset('js/table1.js')}}"></script> --}}
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
@@ -408,21 +403,6 @@
 
         });
     </script>
-    @stack('popups') @stack('scripts')
-{{-- 
-    <!-- Mainly scripts -->
-    <script src="{{asset('js/jquery-2.1.1.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-    <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
-    <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script src="{{asset('js/plugins/daterangepicker/daterangepicker.js')}}"></script>
-    <script src="{{asset('js/plugins/dataTables/datatables.min.js')}}"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script> --}}
-
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
@@ -492,7 +472,7 @@
 
         }
     </script>
-
+    @stack('popups') @stack('scripts')
 </body>
 
 

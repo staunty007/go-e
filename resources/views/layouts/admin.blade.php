@@ -5,28 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOENERGEE </title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="{{asset('//code.jquery.com/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
     <link href="{{asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
-    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
     <link href="{{asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
-    <link href="{{asset('css/table1.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/table1.css') }}" rel="stylesheet">
 
-    <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 
-       <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
-    <link rel="icon" href="{{asset('images/favicon.png')
-    
-    }}" type='image/x-icon'>
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <script>
@@ -230,9 +226,9 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                        {{-- <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
                             Top up Wallet Account
-                        </button>
+                        </button> --}}
                         @push('popups')
                         <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
@@ -293,10 +289,6 @@
     </div>
     <!-- Mainly scripts -->
 
-
-    <script src="{{asset('js/table.js')}}"></script>
-    <script src="{{asset('js/tab.js')}}"></script>
-    <script src="{{asset('js/table1.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
