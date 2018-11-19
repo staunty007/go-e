@@ -129,7 +129,7 @@ class AccountController extends Controller
     /**
      * Password Request Update
      */
-    
+
 
     public function paymentFrame()
     {
@@ -322,7 +322,7 @@ class AccountController extends Controller
             // Wallet Balance
             $adminBio = AdminBiodata::firstOrFail();
 
-            $adminBio->wallet_balance = $netAmount;
+            $adminBio->wallet_balance -= $netAmount;
             // $agentBio->wallet_balance -= $total_amount;
 
             $transaction->wallet_bal = $adminBio->wallet_balance;
@@ -580,28 +580,28 @@ class AccountController extends Controller
 
     public function validateMeter($meter, CIController $ci)
     {
-        if(auth()->check()) {
-            $user = User::where('id',auth()->id())->first();
+        if (auth()->check()) {
+            $user = User::where('id', auth()->id())->first();
             
             // Check if user already updated their profile
-            if($user->is_completed == 1) {
+            if ($user->is_completed == 1) {
                 $account_type = "PREPAID";
-                if(str_contains($meter, '-') == true) {
+                if (str_contains($meter, '-') == true) {
                     $account_type = "POSTPAID";
                 }
                 return $account_type;
                 $valid = $ci->validateCustomer($account_type, $meter);
                 return $valid;
                 // return response()->json(['response' => ['retn' => 0, 'desc' => 'Request Successful']]);
-                
-            }else {
-                
+
+            } else {
+
                 $user = CustomerBiodata::where('meter_no', $meter)->count();
                 // if no user already used the meter no
                 if ($user < 1) {
                     // Validate the customer from EKO
                     $account_type = "PREPAID";
-                    if(str_contains($meter, '-') == true) {
+                    if (str_contains($meter, '-') == true) {
                         $account_type = "POSTPAID";
                     }
                     // return $account_type;
@@ -613,7 +613,7 @@ class AccountController extends Controller
             }
         }
         // 
-        
+
 
     }
 
