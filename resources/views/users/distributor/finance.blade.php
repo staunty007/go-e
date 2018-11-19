@@ -156,11 +156,11 @@
                                     <th>Status</th>
                                     <th>Meter #</th>
                                     <th>Standard Token</th>
-                                    <th>BSSD Token</th>
+                                    <th>BSST Token</th>
                                     <th>KwH</th>
                                     <th>Amount Paid</th>
-                                    <th>Total</th>
                                     <th>Commission</th>
+                                    <th>Net Total</th>
                                     <th>Wallet Balance</th>
                                 </tr>
                             </thead>
@@ -192,10 +192,10 @@
                                         {{ number_format($d->transaction->initial_amount)}}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->total_amount)}}
+                                        {{ number_format($d->transaction->commission)}}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->commission)}}
+                                        {{ number_format($d->transaction->initial_amount - $d->transaction->commission)}}
                                     </td>
                                     <td>
                                         {{ number_format($d->transaction->wallet_bal)}}
