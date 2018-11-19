@@ -117,6 +117,16 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
+                            <label class="control-label" for="amount">Filter By Type</label>
+                            <select id="type" class="form-control">
+                                <option value="">Select an option</option>
+                                <option value="PREPAID">Prepaid</option>
+                                <option value="Postpaid">Postpaid</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
                             <label class="control-label" for="amount">Filter By Acc / Meter</label>
                             <input type="text" class="form-control" id="meter_account">
                         </div>
@@ -231,7 +241,7 @@
 <script>
     $(document).ready(function () {
         const tabili = $('#myTable').DataTable({
-            order: [['1','desc']],
+            order: [['0','desc']],
             // searching: false
         });
 
@@ -257,6 +267,12 @@
             tabili
                 .columns(7)
                 .search($('#bank').val(), false, true)
+                .draw();
+        });
+        $('#type').on('change', function() {
+            tabili
+                .columns(3)
+                .search($('#type').val(), false, true)
                 .draw();
         });
 
