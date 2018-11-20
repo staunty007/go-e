@@ -251,7 +251,8 @@
 				// console.log(response);
 				if (response.code == "ok") {
 					// console.log(response.text);
-					openOptions();
+					// openOptions();
+					payWithPaystack();
 				}
 			},
 			error: (err) => {

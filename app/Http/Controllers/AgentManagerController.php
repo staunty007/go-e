@@ -21,9 +21,9 @@ class AgentManagerController extends Controller
      */
     public function index()
     {
-        $agents = User::where('role_id',2)->with('agent')->get();
+        $agents = User::where('role_id', 2)->with('agent')->get();
         //return $agents;
-        return view($this->prefix.'index')->withAgents($agents);
+        return view($this->prefix . 'index')->withAgents($agents);
     }
 
     /**
@@ -33,7 +33,7 @@ class AgentManagerController extends Controller
      */
     public function create()
     {
-        return view($this->prefix.'create');
+        return view($this->prefix . 'create');
     }
 
     /**
@@ -44,9 +44,7 @@ class AgentManagerController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = new User;
-
         // Insert into database and return the id
         $userId = DB::table('users')->insertGetId([
             'role_id' => 2,
@@ -66,9 +64,9 @@ class AgentManagerController extends Controller
             'agent_id' => $request->agent_id,
             'address' => $request->address
         ]);
-        
-        if($updatebio) {
-            Session::flash('Agent Created Successfully');
+
+        if ($updatebio) {
+            $response()->session('flash', 'Agent Created Successfully');
             return redirect()->route('agents.index');
         }
         return back();
@@ -93,7 +91,7 @@ class AgentManagerController extends Controller
      */
     public function edit($id)
     {
-        $agent = User::where('id',$id)->with('agent')->first();
+        $agent = User::where('id', $id)->with('agent')->first();
         return $agent;
     }
 
