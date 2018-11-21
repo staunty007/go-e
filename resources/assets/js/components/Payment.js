@@ -8,8 +8,8 @@ class PayStack extends Component {
     this.loadScript = this.loadScript.bind(this);
     this.state = {
       scriptLoaded: null,
-    //   text: this.props.text || "Make Payment",
-    //   class: this.props.class || this.props.className || "",
+      text: this.props.text || "Make Payment",
+      class: this.props.class || this.props.className || "",
       metadata: this.props.metadata || {},
       currency: this.props.currency || "NGN",
       plan: this.props.plan || "",
@@ -17,7 +17,7 @@ class PayStack extends Component {
       subaccount: this.props.subaccount || "",
       transaction_charge: this.props.transaction_charge || 0,
       bearer: this.props.bearer || "",
-    //   disabled: this.props.disabled || false
+      disabled: this.props.disabled || false
     };
   }
 
@@ -39,34 +39,9 @@ class PayStack extends Component {
   }
 
   loadScript(callback) {
-	  const script = document.createElement("script");
-	  script.innerHTML = `
-	  
-	  var handler = PaystackPop.setup({
-		key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
-		email: 'customer@email.com',
-		amount: 10000,
-		ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-		metadata: {
-		   custom_fields: [
-			  {
-				  display_name: "Mobile Number",
-				  variable_name: "mobile_number",
-				  value: "+2348012345678"
-			  }
-		   ]
-		},
-		callback: function(response){
-			alert('success. transaction ref is ' + response.reference);
-		},
-		onClose: function(){
-			alert('window closed');
-		}
-	  });
-	  handler.openIframe();
-		}
-	  `;
-    document.getElementsByTagName("body")[0].appendChild(script);
+    const script = document.createElement("script");
+    script.src = "https://js.paystack.co/v1/inline.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
     if (script.readyState) {
       // IE
       script.onreadystatechange = () => {
@@ -89,18 +64,58 @@ class PayStack extends Component {
   payWithPaystack() {
     this.state.scriptLoaded &&
       this.state.scriptLoaded.then(() => {
-        
+        let paystackOptions = {
+          key: this.props.paystackkey,
+          email: this.props.email,
+          amount: `${this.props.amount}00`,
+          ref: this.props.reference,
+          metadata: this.state.metadata,
+          callback: response => {
+            this.props.callback(response);
+          },
+          onClose: () => {
+            this.props.close();
+          },
+          currency: this.state.currency,
+          plan: this.state.plan,
+          quantity: this.state.quantity,
+          subaccount: this.state.subaccount,
+          transaction_charge: this.state.transaction_charge,
+          bearer: this.state.bearer
+        };
+        if (this.props.embed) {
+          paystackOptions.container = "paystackEmbedContainer";
+        }
+        const handler = window.PaystackPop.setup(paystackOptions);
+        // if (!this.props.embed) {
+          handler.openIframe();
+        // }
       });
   }
 
   render() {
-	  return (<React.Fragment>
-		{this.payWithPaystack()}
-	  </React.Fragment>);
+    return this.props.embed ? (
+      <div id="paystackEmbedContainer" />
+    ) : (
+		<span>
+			{this.payWithPaystack()}	
+        {/* <button
+          type="button"
+          className={this.state.class}
+          onClick={this.payWithPaystack}
+          disabled={this.state.disabled}
+        >
+          {this.state.text}
+        </button> */}
+      </span>
+    );
   }
 }
 
 PayStack.propTypes = {
+  embed: PropTypes.bool,
+  text: PropTypes.string,
+  class: PropTypes.string,
   metadata: PropTypes.object,
   currency: PropTypes.string,
   plan: PropTypes.string,
@@ -114,7 +129,7 @@ PayStack.propTypes = {
   paystackkey: PropTypes.string.isRequired,
   callback: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
-//   disabled: PropTypes.bool
+  disabled: PropTypes.bool
 };
 
 export default PayStack;

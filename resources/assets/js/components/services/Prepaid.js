@@ -3,7 +3,8 @@ import Slider from '../Slider';
 import Rodal from 'rodal';
 import { FormValidation } from "calidation";
 import Rerror from '../states/Rerror';
-import PayStack from '../Paystack';
+import PayStack from '../Payment';
+
 import { AppConfig } from '../../config';
 
 export default class Prepaid extends Component {
@@ -15,10 +16,12 @@ export default class Prepaid extends Component {
 			otherErrors: '',
 			customerInfo: undefined,
 			paymentInfo: '',
+			showPaymentModal: false
 		}
 
 		this.showModal = this.showModal.bind(this);
 		this.hide = this.hide.bind(this);
+		this.close = this.close.bind(this);
 		this.hideEmailFormModal = this.hideEmailFormModal.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.finishPayment = this.finishPayment.bind(this);
@@ -80,7 +83,13 @@ export default class Prepaid extends Component {
 	}
 
 	close(){
-		console.log("Payment closed");
+		console.log("Payment Canced");
+		this.setState({
+			customerInfo: null,
+			paymentInfo: null,
+			continuePay: false,
+			showPaymentModal: false
+		})
 	}
 	finishPayment({ fields, errors, isValid }) {
 	
@@ -93,18 +102,17 @@ export default class Prepaid extends Component {
 					email: fields.email,
 					phone: fields.phone
 				},
-				paymentInfo: state.customerInfo
 			}));
 			setTimeout(() => {
-				this.render (<PayStack
-					callback={this.callback}
-					close={this.close}
-					reference={"GOEPRE" + Math.floor((Math.random() * 1000000000) + 1)}
-					email={fields.email}
-					amount={this.state.paymentInfo.amount}
-					paystackkey={AppConfig.PS_KEY}
-				/>)
+				
+				this.setState((state) => ({
+					showPaymentModal: true,
+					paymentInfo: state.customerInfo
+				}));
+				console.log(this.state.paymentInfo);
 			}, 1000);
+			// console.log(this.state.paymentInfo);
+			// return <PayStack />
 			// return (
 				
 			// );
@@ -149,6 +157,17 @@ export default class Prepaid extends Component {
 		}
 		return (
 			<div>
+				{this.state.showPaymentModal && 
+					<PayStack
+						callback={this.callback}
+						close={this.close}
+						reference={"GOEPRE" + Math.floor((Math.random() * 1000000000) + 1)}
+						email={this.state.paymentInfo.email}
+						amount={this.state.paymentInfo.amount}
+						paystackkey={AppConfig.PS_KEY}
+						embed={false}
+					/>
+				}
 				<Slider />
 				{this.state.errors && <p>{this.state.errors}</p>}
 				<h4 className="text-center text-muted p-3">Enter Your Prepaid Details</h4>
@@ -158,7 +177,7 @@ export default class Prepaid extends Component {
 							{this.state.otherErrors.length > 0 ? <div className='alert alert-danger'>{this.state.otherErrors}</div> : ''}
 						</p>
 						<FormValidation onSubmit={this.onSubmit} config={config}>
-							{({ fields, errors, submitted }) => (
+							{({ errors, submitted }) => (
 								<Fragment>
 									<div className="form-group">
 										<label htmlFor="meter_no">Enter Your Meter No</label>
