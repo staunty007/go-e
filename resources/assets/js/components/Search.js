@@ -122,10 +122,10 @@ export default class Search extends Component {
 					onClose={this.hide}
 					animation="slideUp"
 					customStyles={{ width: '80%' }}
-					duration="400"
+					duation={400}
 					showCloseButton={true}
 				>
-					<h4 style={{ marginBottom: '2rem'}}>Select a Service Type</h4>
+					<h6 style={{ marginBottom: '2rem'}}>Select a Service Type</h6>
 					<hr />
 					<Link to="/mobile/services/ekedc/prepaid" className="btn btn-success btn-block">
 						Prepaid Meter Recharge
