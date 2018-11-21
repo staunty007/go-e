@@ -74,11 +74,12 @@
                                   <td align="center">
                                     <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;">
                                         {{-- Your {{ $data->user_type == "OFFLINE_PREPAID" ? 'Prepaid': 'Postpaid' or 'Prepaod'}} Purchase was successful --}}
-                                        Your Prepaid Purchase was successful
+                                        Your {{ $user }} purchase transation was successful
                                     </div>
+                                    @if($user == "Prepaid")
                                     <p style="font-size: 14px;">Your Token is</p>
                                     <p style="font-size: 28px; font-weight: 400;">{{ $data->token_data or 'Not Available' }}</p>
-                                    
+                                    @endif
                                   </td>
                                 </tr>
                                 <tr>

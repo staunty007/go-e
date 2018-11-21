@@ -1,15 +1,15 @@
-@extends('mobile.master')
-@section('mobile-content')
+{{-- @extends('mobile.master')
+@section('mobile-content') --}}
 
 <!--main section starts here-->
 <div class="container">
     <div class="row">
-        <div class="col" style="padding-right: 0px">
+        {{-- <div class="col" style="padding-right: 0px">
             <a class="btn btn-success btn-block" href="{{ route('mobile.login') }}">Login</a>
         </div>
         <div class="col" style="padding-left: 0.5rem;">
             <a class="btn btn-success btn-block" href="{{ route('mobile.sign-up') }}">SignUp</a>
-        </div>
+        </div> --}}
     </div>
     <div class="row" style="margin-top: 0.5rem; margin-bottom: 0.5rem">
         <div class="col">

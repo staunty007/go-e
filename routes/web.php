@@ -223,7 +223,7 @@ Route::get('diamond/access-token', 'DiamondApiController@generateAccessToken');
 // Credit aPI
 Route::get('diamond/credit/{amount}', 'DiamondApiController@credit');
 // Debit API
-Route::get('diamond/debit/agent/{accountnumber}/{amount}', 'DiamondApiController@agentDebit');
+Route::get('diamond/debit/{accountnumber}/{amount}', 'DiamondApiController@agentDebit');
 Route::get('diamond/debit/admin/{accountnumber}/{amount}', 'DiamondApiController@adminDebit');
 
 // End to End API
@@ -235,7 +235,7 @@ Route::get('e2e/api/customers', function () {
 
 Route::get('/lists/services/{keyword}', function ($keyword) {;
     // return $keyword;
-    return DB::table('services_list')->where('title', 'LIKE', "%$keyword%")->get();
+    return response()->json(DB::table('services_list')->where('title', 'LIKE', "%$keyword%")->get());
 });
 
 // Services 
@@ -257,11 +257,15 @@ Route::get('register', function () {
 })->name('register');
 
 // Mobile Routes
+
 Route::prefix('mobile')->group(function () {
-    Route::get('/home', 'MobileController@index')->name('mobile.home');
-    Route::get('login', 'MobileController@login')->name('mobile.login');
-    Route::get('sign-up', 'MobileController@signUp')->name('mobile.sign-up');
-    Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
+    Route::get('/{path?}', function () {
+        return view('mobile.mobile');
+    })->where('path', '.*');
+    // Route::get('/home', 'MobileController@index')->name('mobile.home');
+    // Route::get('login', 'MobileController@login')->name('mobile.login');
+    // Route::get('sign-up', 'MobileController@signUp')->name('mobile.sign-up');
+    // Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
 });
 
 Route::post('ussd/register', 'UssdController@register');
@@ -350,9 +354,9 @@ Route::prefix('ekedc')->group(function () {
 
 // Hold Generate Token Data
 Route::post('gtk', 'AccountController@holdToken');
-Route::get('transaction/success', 'AccountController@paymentSuccess');
-Route::get('transaction/{order_id}/receipt', 'AccountController@generateReceipt')->name('receipt');
-Route::get('fetch/{order_id}', 'AccountController@fetchReceiptDetails');
+Route::get('transaction/success/{user_type}/{ref}', 'AccountController@paymentSuccess');
+Route::get('transaction/{order_id}/{user_type}/receipt', 'AccountController@generateReceipt')->name('receipt');
+Route::get('fetch/{order_id}/{user_type}', 'AccountController@fetchReceiptDetails');
 
 // Route::get('base-64-decode/{string}','AccountController@decodeEmail');
 

@@ -54,6 +54,10 @@
                                                     <td>@{{ orderDate }}</td>
                                                 </tr>
                                                 <tr>
+                                                    <td>Transaction ID.: </td>
+                                                    <td>@{{ details.transaction_ref }}</td>
+                                                </tr>
+                                                <tr>
                                                     <td>Transaction Ref.: </td>
                                                     <td>@{{ details.payment_ref }}</td>
                                                 </tr>
@@ -160,6 +164,7 @@
                     bsst: false,
                     tokenError: false,
                     orderDate: '',
+                    user_type: "{{ $user_type }}"
                 },
                 mounted: function() {
                     this.fetchOrderDetails()
@@ -168,7 +173,7 @@
                 methods: {
                     fetchOrderDetails: function() {
                         // let app = this;
-                        axios.get(`/fetch/${this.orderid}`)
+                        axios.get(`/fetch/${this.orderid}/${this.user_type}`)
                             .then(res => {
                                 this.details = res.data;
                                 if(this.details.bonus_token !== "" && this.details.bonus_token.length > 10) {

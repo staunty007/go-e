@@ -147,6 +147,7 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Ref</th>
+                                    <th>Trans ID.</th>
                                     <th>Channel</th>
                                     <th>Type</th>
                                     <th>Name</th>
@@ -169,6 +170,7 @@
                                 <tr>
                                     <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
+                                    <td>{{ $d->transaction_ref }}</td>
                                     <td>Web</td>
                                     <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
