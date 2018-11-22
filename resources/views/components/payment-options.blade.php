@@ -192,7 +192,22 @@
 				});
 				$(".pay-meter").prop('disabled', false).html('Continue');
 			} else {
-				continuePayment();
+				if(parseInt(amount) <= 100) {
+					$.alert({
+						title: 'Invalid Amount!',
+						content: `Amount Cannot be lesser than N100`,
+						type: 'red',
+						buttons: {
+							gotit: {
+								text: 'Got It!',
+								btnClass: 'btn-red'
+							}
+						}
+					});
+					$(".pay-meter").prop('disabled', false).html('Continue');
+				}else {	
+					continuePayment();
+				}
 			}
 		} else {
 			$.alert({
