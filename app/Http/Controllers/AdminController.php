@@ -121,14 +121,34 @@ class AdminController extends Controller
             $avg_profit_daily = $totalToday / $todayCount;
             $data['avg_daily_p'] = $avg_profit_daily;
         }
+        
+        $payments = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+        // return $payments;
+        // TotalWalletDeposit
+        $deps = DB::table('admin_topups')->sum('topup_amount');
+
+        //return $payments;
+        $wallet_balance = AdminBiodata::first();
+
+        // return view($this->prefix . 'finance')
+        //     ->withFinances($payments)
+        //     ->withBalance($wallet_balance->wallet_balance);
+
     
-    
-        return $this->v('finance', $data);
+       return $this->v('finance', $data)
+           ->withFinances($payments)
+            ->withBalance($wallet_balance->wallet_balance);
     }
 
     public function financeFilterDate(Request $request)
     {
-        return $request;
+        $from = Carbon::parse($request->from);
+        $to = Carbon::parse($request->to);
+
+        $finances = Payment::whereBetween('created_at', [$from, $to])->get();
+        // return $finances;
+        $wallet_balance = AdminBiodata::first();
+        return view($this->prefix.'finance', compact('finances'))->withBalance($wallet_balance->wallet_balance);
     }
     public function profile()
     {

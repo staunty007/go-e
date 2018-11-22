@@ -184,6 +184,7 @@ Route::prefix('agent')->group(function () {
     Route::get('profile', 'AgentController@profile')->name('agent.profile');
     Route::post('profile', 'AgentController@updateProfile')->name('agent.update');
     Route::get('payment-history', 'AgentController@paymentHistory')->name('agent.payHistory');
+    Route::get('filter-by-date', 'AgentController@financeFilterDate');
     Route::get('meter-management', 'AgentController@meterManagement')->name('agent.meter');
     Route::post('meter-management', 'AccountController@postMeterRequest')->name('meter.post-request');
     Route::get('prepaid-token', 'AgentController@prepaidToken')->name('agent.prepaid-token');
