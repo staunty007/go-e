@@ -8,6 +8,11 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @if ($errors->all())
+                        <div class="alert alert-danger">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('disco-login') }}">
                         @csrf
 
@@ -41,10 +46,10 @@
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                    </label>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" id="customCheck1" type="checkbox" name="remember" {{ old('remember') ? 'checked' : 'checked' }}> 
+                                    <label class="custom-control-label" for="customCheck1">{{ __('Remember Me') }}</label>
+                                    
                                 </div>
                             </div>
                         </div>

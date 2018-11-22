@@ -4,6 +4,8 @@ import Rodal from 'rodal';
 import { FormValidation } from "calidation";
 import Rerror from '../states/Rerror';
 import PayStack from '../Payment';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import { AppConfig } from '../../config';
 
@@ -16,7 +18,13 @@ export default class Prepaid extends Component {
 			otherErrors: '',
 			customerInfo: undefined,
 			paymentInfo: '',
-			showPaymentModal: false
+			showPaymentModal: false,
+			transactionProgress: false,
+			transactionProgressMessage: {
+				status: 'success',
+				message: ''
+			},
+			redireTo: ''
 		}
 
 		this.showModal = this.showModal.bind(this);
@@ -25,6 +33,8 @@ export default class Prepaid extends Component {
 		this.hideEmailFormModal = this.hideEmailFormModal.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.finishPayment = this.finishPayment.bind(this);
+		this.callback = this.callback.bind(this);
+		this.generateToken = this.generateToken.bind(this);
 	}
 
 	showModal() {
@@ -79,11 +89,22 @@ export default class Prepaid extends Component {
 	};
 
 	callback(response){
-		console.log(response); // card charged successfully, get reference here
+		// alert('Payment Successfull');
+		// Card Charged Successfully
+		this.setState({
+			// Hide and Show Necessary Modals
+			continuePay: false,
+			showPaymentModal: false,
+			// Show Progress Modal
+			transactionProgress: true
+		});
+		// generate Token
+		console.log(response);
+		this.generateToken(this.state.paymentInfo, response);
 	}
 
 	close(){
-		console.log("Payment Canced");
+		console.log("Payment Cancelled");
 		this.setState({
 			customerInfo: null,
 			paymentInfo: null,
@@ -103,17 +124,13 @@ export default class Prepaid extends Component {
 					phone: fields.phone
 				},
 			}));
-			setTimeout(() => {
-				
+			setTimeout(() => {		
 				this.setState((state) => ({
 					showPaymentModal: true,
 					paymentInfo: state.customerInfo
 				}));
-				console.log(this.state.paymentInfo);
+				// console.log(this.state.paymentInfo);
 			}, 1000);
-			// console.log(this.state.paymentInfo);
-			// return <PayStack />
-			// return (
 				
 			// );
 		} else {
@@ -123,8 +140,61 @@ export default class Prepaid extends Component {
 		// console.log(this.state.customerInfo);
 	}
 
-	generateToken(value) {
-
+	generateToken(data, paystack) {
+		this.setState({ transactionProgressMessage: { message: 'Validating Transaction...'}});
+		console.log(data);
+		let amountCommission = data.amount - 100;
+		console.log(amountCommission);
+		// console.log(amountCommission * 0.02);
+		fetch(`/ekedc/charge-wallet/${amountCommission - amountCommission * 0.02}/PREPAID/${data.meterNo}`)
+			.then(res => res.json())
+			.then(chargeWalletResult => {
+				console.log('Generating Token...');
+				const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
+				const orderId = chargeWalletResult.response.result.orderId;
+				this.setState({
+					transactionProgressMessage: {
+						message: 'Completing Transaction...'
+					}
+				});
+				fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
+					.then(res => res.json())
+					.then(generateTokenResult => {
+						console.log(generateTokenResult.response);
+						// Get the token data and redirect to receipt page
+						this.setState({
+							transactionProgressMessage: {
+								message: 'Transaction Completed..'
+							}
+						});
+						let tokenn = document.getElementsByName('csrf')
+						axios.post('/gtk', {
+							data: generateTokenResult.response,
+						})
+						.then(result=> {
+							// console.log('Finishing ...', result);
+							if(result.data == "ok") {
+								// alert('done');
+								// Send Get request to store data in the database
+								fetch(`/mobile-transaction/success/PREPAID/${paystack.reference}`)
+								.then(res => res.json())
+								.then(response => {
+									console.log(response);
+									console.log(this.state.paymentInfo);
+									// redirect to receipt
+								})
+								.catch(err => console.log(err));
+								// return window.location.href = `/transaction/success/${accountType}/${reff}`;
+								// this.setState({ redirTo: `/mobile/transaction/success/PREPAID/${paystack.reference}` });
+							}
+						})
+						.catch(err => {
+							alert('Something Bad Went Wrong, Please log a complain');
+						})
+					})
+					.catch(err => console.log(err));
+			})
+			.catch(err => console.log(err));
 	}
 	render() {
 		const config = {
@@ -231,7 +301,7 @@ export default class Prepaid extends Component {
 						<div></div>
 					</div>
 				</Rodal>
-
+				{/*  */}
 				<Rodal
 					visible={this.state.continuePay}
 					onClose={this.hideEmailFormModal}
@@ -245,7 +315,7 @@ export default class Prepaid extends Component {
 							textAlign: 'center',
 
 						}}
-					duration={300}
+					duration={500}
 					showCloseButton={true}
 				>
 					<h5>Continue Payment</h5>
@@ -286,6 +356,27 @@ export default class Prepaid extends Component {
 					</FormValidation>
 					
 				</Rodal>
+				{/* Transaction Progress Modal */}
+				<Rodal
+					visible={this.state.transactionProgress}
+					animation="fade"
+					customStyles= {{
+						textAlign: 'center',
+						height: '20vh',
+						width: '80vw',
+						color: '#222'
+					}}
+				>
+					<h6>{this.state.transactionProgressMessage.message}</h6> <br />
+					<center>
+					<div class="la-ball-fall la-dark text-center">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+					</center>
+				</Rodal>
+				{this.state.transactionDone && <Redirect to={this.state.redirTo} /> }
 			</div>
 		);
 	}

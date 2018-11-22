@@ -192,7 +192,8 @@
 				});
 				$(".pay-meter").prop('disabled', false).html('Continue');
 			} else {
-				if(parseInt(amount) <= 100) {
+				// alert('nooo');
+				if(amount < 100) {
 					$.alert({
 						title: 'Invalid Amount!',
 						content: `Amount Cannot be lesser than N100`,

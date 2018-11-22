@@ -268,6 +268,7 @@ Route::prefix('mobile')->group(function () {
     // Route::get('sign-up', 'MobileController@signUp')->name('mobile.sign-up');
     // Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
 });
+Route::get('/mobile-transaction/success/{user_type}/{ref}', 'AccountController@mobilePaymentSuccess');
 
 Route::post('ussd/register', 'UssdController@register');
 
@@ -360,7 +361,6 @@ Route::get('transaction/{order_id}/{user_type}/receipt', 'AccountController@gene
 Route::get('fetch/{order_id}/{user_type}', 'AccountController@fetchReceiptDetails');
 
 // Route::get('base-64-decode/{string}','AccountController@decodeEmail');
-
 
 Route::get('generate-password/{text}', function ($text) {
     return bcrypt($text);

@@ -336,6 +336,151 @@ class AccountController extends Controller
 
         return redirect('/');
     }
+    public function mobilePaymentSuccess($user_type, $reff)
+    {
+        if (session()->exists('payment_details')) {
+
+            $paymentDetails = session('payment_details');
+            // return $paymentDetails;
+            $tokenDetails = session()->get('token_data');
+            // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
+            // Insert into prepaid_payment
+            $prepaid = new Payment;
+
+            // Set a variable for the token data
+            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+                &&
+                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])) {
+                $token_data = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
+            }
+
+            $bonus_token = "";
+            
+            // if bonus token is generated then set it
+            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+                &&
+                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
+                $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
+            }
+
+            $paymentId = "";
+            $paymentId = DB::table('payments')->insertGetId([
+                'first_name' => $paymentDetails['firstname'],
+                'last_name' => $paymentDetails['lastname'],
+                'email' => $paymentDetails['email'],
+                'phone_number' => $paymentDetails['mobile'],
+                'customer_address' => $tokenDetails['response']['orderDetails']['customerAddress'],
+                'district' => $tokenDetails['response']['orderDetails']['customerBusinessUnit'],
+                'meter_no' => $paymentDetails['meterno'],
+                'token_data' => isset($token_data) ? $token_data : null,
+                'bonus_token' => isset($bonus_token) ? $bonus_token : null,
+                'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
+                'transaction_type' => "Web",
+                'transaction_ref' => $reff,
+                'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
+                'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
+                'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : 0),
+                'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
+                'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
+                'payment_status' => $tokenDetails['response']['orderDetails']['status'],
+                'created_at' => new Carbon('now'),
+                'updated_at' => new Carbon('now'),
+            ]);
+
+            // Transaction Came from an agent
+
+            if (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
+                // $transaction = new Transaction;
+                $transaction = new AgentTransaction;
+                $agentBio = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
+
+                $transaction->payment_id = $paymentId;
+                $transaction->agent_id = $agentBio->agent_id;
+                $transaction->initial_amount = $paymentDetails['amount'];
+                $transaction->conv_fee = 100;
+
+                $total_amount = $paymentDetails['amount'] + 100;
+                $commission = $paymentDetails['amount'] * 0.02;
+                $pgp = $total_amount * 0.015;
+                $bal = (100 + $commission) - $pgp;
+                $spec = round($bal * 0.1, 2);
+                $ralmuof = round($bal * 0.9, 2);
+                $totalSplit = ($pgp + $bal + $spec + $ralmuof) - $bal;
+                $netAmount = $paymentDetails['amount'] - $commission;
+
+                $transaction->total_amount = $total_amount;
+                $transaction->commission = $commission;
+                $transaction->pgp = $pgp;
+                $transaction->agent = 0.085 * $paymentDetails['amount'];
+                $transaction->bal = $bal;
+                $transaction->spec = $spec;
+                $transaction->ralmuof = $ralmuof;
+                $transaction->total_split = $totalSplit;
+                $transaction->net_amount = $netAmount;
+    
+                // Wallet Balance
+                $adminBio = AdminBiodata::firstOrFail();
+                //return $adminBio;
+
+                $adminBio->wallet_balance -= $netAmount;
+                $agentBio->wallet_balance -= $paymentDetails['amount'];
+
+                $transaction->wallet_bal = $adminBio->wallet_balance;
+
+                $transaction->save();
+                $adminBio->save();
+                $agentBio->save();
+
+                return redirect()->route('receipt', [$tokenDetails['response']['orderDetails']['orderId'], $user_type]);
+            }
+
+            // Transaction is not coming from an agent
+            $transaction = new Transaction;
+
+            $transaction->payment_id = $paymentId;
+            $transaction->initial_amount = $paymentDetails['amount'];
+            $transaction->conv_fee = 100;
+
+            $total_amount = $paymentDetails['amount'] + 100;
+            $commission = $paymentDetails['amount'] * 0.02;
+            $pgp = $total_amount * 0.015;
+            $bal = (100 + $commission) - $pgp;
+            $spec = round($bal * 0.1, 2);
+            $ralmuof = round($bal * 0.9, 2);
+            $totalSplit = ($pgp + $bal + $spec + $ralmuof) - $bal;
+            $netAmount = $paymentDetails['amount'] - $commission;
+
+            $transaction->total_amount = $total_amount;
+            $transaction->commission = $commission;
+            $transaction->pgp = $pgp;
+            $transaction->bal = $bal;
+            $transaction->spec = $spec;
+            $transaction->ralmuof = $ralmuof;
+            $transaction->total_split = $totalSplit;
+            $transaction->net_amount = $netAmount;
+
+            // Wallet Balance
+            $adminBio = AdminBiodata::firstOrFail();
+
+            $adminBio->wallet_balance -= $netAmount;
+            // $agentBio->wallet_balance -= $total_amount;
+
+            $transaction->wallet_bal = $adminBio->wallet_balance;
+
+            $transaction->save();
+            $adminBio->save();
+
+            // return $transaction;
+            return response()->json(
+                [
+                    'order' => $tokenDetails['response']['orderDetails']['orderId'],
+                    'user' => $user_type
+                ]
+            );
+        }
+
+        // return redirect('/mobile');
+    }
 
     public function generateReceipt($orderId, $user_type)
     {

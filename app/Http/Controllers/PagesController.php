@@ -17,7 +17,7 @@ class PagesController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role_id' => 3])) {
             return redirect('/distributor/finance');
         } else {
-            return back()->withErrors(['err' => 'Email Address or Password is incorrect']);
+            return back()->withErrors('Email Address or password is incorrect');
         }
     }
 
