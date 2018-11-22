@@ -30,7 +30,7 @@ class DistributorController extends Controller
     {
         $data = [];
         // All Direct Payment
-        $payments = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+        $payments = Payment::where('is_agent', 0)->with('transaction')->orderBy('created_at','desc')->latest()->get();
         // return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');

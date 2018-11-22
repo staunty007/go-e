@@ -66048,7 +66048,9 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Homepage__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Services__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_NotFound__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Receipt__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_NotFound__ = __webpack_require__(201);
+
 
 
 
@@ -66064,7 +66066,8 @@ var Routes = function Routes() {
 			null,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], { path: '/mobile/', component: __WEBPACK_IMPORTED_MODULE_2__components_Homepage__["a" /* default */], exact: true }),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], { path: '/mobile/services/:biller/:service?', component: __WEBPACK_IMPORTED_MODULE_3__components_Services__["a" /* default */] }),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], { component: __WEBPACK_IMPORTED_MODULE_4__components_NotFound__["a" /* default */] })
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], { path: '/mobile/receipt/:order/:user', component: __WEBPACK_IMPORTED_MODULE_4__components_Receipt__["a" /* default */] }),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], { component: __WEBPACK_IMPORTED_MODULE_5__components_NotFound__["a" /* default */] })
 		)
 	);
 };
@@ -70463,7 +70466,8 @@ var Prepaid = function (_Component) {
 				status: 'success',
 				message: ''
 			},
-			redireTo: ''
+			transactionDone: false,
+			redirTo: null
 		};
 
 		_this.showModal = _this.showModal.bind(_this);
@@ -70585,15 +70589,46 @@ var Prepaid = function (_Component) {
 							amount: state.customerInfo.amount,
 							email: fields.email,
 							phone: fields.phone
+						},
+						paymentInfo: {
+							name: state.customerInfo.name,
+							meter: state.customerInfo.meterNo,
+							amount: state.customerInfo.amount,
+							email: fields.email,
+							phone: fields.phone
 						}
 					};
 				});
 				setTimeout(function () {
 					_this3.setState(function (state) {
 						return {
-							showPaymentModal: true,
-							paymentInfo: state.customerInfo
+							showPaymentModal: true
+							// paymentInfo: state.customerInfo
 						};
+					});
+					// hold payment
+					var _state$customerInfo = _this3.state.customerInfo,
+					    name = _state$customerInfo.name,
+					    meter = _state$customerInfo.meter,
+					    email = _state$customerInfo.email,
+					    phone = _state$customerInfo.phone,
+					    amount = _state$customerInfo.amount;
+
+					var names = name.split(' ', 2);
+					var payload = {
+						meterno: meter,
+						firstname: names[0],
+						lastname: names[1],
+						email: email,
+						mobile: phone,
+						amount: amount
+					};
+					__WEBPACK_IMPORTED_MODULE_6_axios___default.a.post('/payment/hold', {
+						data: payload
+					}).then(function (response) {
+						console.log(response.data);
+					}).catch(function (err) {
+						return console.log(err);
 					});
 					// console.log(this.state.paymentInfo);
 				}, 1000);
@@ -70615,7 +70650,7 @@ var Prepaid = function (_Component) {
 			var amountCommission = data.amount - 100;
 			console.log(amountCommission);
 			// console.log(amountCommission * 0.02);
-			fetch('/ekedc/charge-wallet/' + (amountCommission - amountCommission * 0.02) + '/PREPAID/' + data.meterNo).then(function (res) {
+			fetch('/ekedc/charge-wallet/' + (amountCommission - amountCommission * 0.02) + '/PREPAID/' + data.meter).then(function (res) {
 				return res.json();
 			}).then(function (chargeWalletResult) {
 				console.log('Generating Token...');
@@ -70647,8 +70682,15 @@ var Prepaid = function (_Component) {
 							fetch('/mobile-transaction/success/PREPAID/' + paystack.reference).then(function (res) {
 								return res.json();
 							}).then(function (response) {
-								console.log(response);
-								console.log(_this4.state.paymentInfo);
+								// console.log(response);
+								_this4.setState({
+									redirTo: {
+										order: response.order,
+										user: response.user
+									},
+									transactionDone: true
+								});
+								// console.log(this.state.paymentInfo);
 								// redirect to receipt
 							}).catch(function (err) {
 								return console.log(err);
@@ -70842,7 +70884,7 @@ var Prepaid = function (_Component) {
 							textAlign: 'center'
 
 						},
-						duration: 500,
+						duration: 600,
 						showCloseButton: true
 					},
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70937,7 +70979,7 @@ var Prepaid = function (_Component) {
 						)
 					)
 				),
-				this.state.transactionDone && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_react_router_dom__["c" /* Redirect */], { to: this.state.redirTo })
+				this.state.transactionDone && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_react_router_dom__["c" /* Redirect */], { to: '/mobile/receipt/' + this.state.redirTo.order + '/' + this.state.redirTo.user })
 			);
 		}
 	}]);
@@ -71709,6 +71751,435 @@ var NotFound = function (_Component) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 203 */,
+/* 204 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_content_loader__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var Receipt = function (_Component) {
+    _inherits(Receipt, _Component);
+
+    function Receipt(props) {
+        _classCallCheck(this, Receipt);
+
+        var _this = _possibleConstructorReturn(this, (Receipt.__proto__ || Object.getPrototypeOf(Receipt)).call(this, props));
+
+        _this.state = {
+            loading: true,
+            receipt: null
+        };
+        return _this;
+    }
+
+    _createClass(Receipt, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            fetch('/fetch/' + this.props.match.params.order + '/' + this.props.match.params.user).then(function (res) {
+                return res.json();
+            }).then(function (result) {
+                _this2.setState({ receipt: result, loading: false });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+                null,
+                this.state.loading ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row justify-content-center' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-md-8 py-4' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h5',
+                            { className: 'text-center text-success' },
+                            'Preparing Your Receipt'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            __WEBPACK_IMPORTED_MODULE_1_react_content_loader__["a" /* default */],
+                            {
+                                height: 500,
+                                width: 400,
+                                speed: 2,
+                                primaryColor: '#f59295',
+                                secondaryColor: '#f7afaf'
+                                // {...props}
+                            },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '14.23', y: '6.67', rx: '0', ry: '0', width: '383.38', height: '296.35' }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '35.22', y: '315.37', rx: '3', ry: '3', width: '332.5', height: '6.08' }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '36.22', y: '337.37', rx: '3', ry: '3', width: '332.5', height: '6.08' }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '36.22', y: '360.37', rx: '3', ry: '3', width: '332.5', height: '6.08' })
+                        )
+                    )
+                ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'jumbotron text-center', style: { marginBottom: 0 } },
+                        'Transaction Receipt'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'alert alert-success' },
+                        'Transaction Successful'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'container' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'row' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'col-md-12' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'p',
+                                    { className: 'text-center' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/mobile-sys/images/logo.png', width: 150 })
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'card' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'card-body' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'h6',
+                                            null,
+                                            'Receipt Details'
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'strong',
+                                                null,
+                                                'Date: '
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'strong',
+                                                null,
+                                                'Transaction Ref: '
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'h6',
+                                            null,
+                                            'Transaction Details'
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'u',
+                                                null,
+                                                'Service Paid For: '
+                                            ),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                                            'EKEDC Prepaid Electricity Payment'
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'strong',
+                                                null,
+                                                'Meter No.'
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'strong',
+                                                null,
+                                                'Standard Token'
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'strong',
+                                                null,
+                                                'Bsst Token'
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'p',
+                                            null,
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'span',
+                                                { className: 'pulled-left' },
+                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                    'strong',
+                                                    null,
+                                                    'Status'
+                                                )
+                                            ),
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'span',
+                                                { className: 'pulled-right badge badge-success' },
+                                                'Successful'
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Receipt;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Receipt);
+
+/***/ }),
+/* 205 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export defaultProps */
+/* unused harmony export Facebook */
+/* unused harmony export Instagram */
+/* unused harmony export Code */
+/* unused harmony export List */
+/* unused harmony export BulletList */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var uid = (function () {
+  return Math.random().toString(36).substring(2);
+});
+
+var Wrap = function Wrap(props) {
+  var idClip = props.uniquekey ? props.uniquekey + "-idClip" : uid();
+  var idGradient = props.uniquekey ? props.uniquekey + "-idGradient" : uid();
+
+  var defautlAnimation = ["-3; 1", "-2; 2", "-1; 3"];
+  var rtlAnimation = ["1; -3", "2; -2", "3; -1"];
+
+  var animationValues = props.rtl ? rtlAnimation : defautlAnimation;
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    "svg",
+    {
+      viewBox: "0 0 " + props.width + " " + props.height,
+      style: props.style,
+      preserveAspectRatio: props.preserveAspectRatio,
+      className: props.className
+    },
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", {
+      style: { fill: "url(#" + idGradient + ")" },
+      clipPath: "url(#" + idClip + ")",
+      x: "0",
+      y: "0",
+      width: props.width,
+      height: props.height
+    }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+      "defs",
+      null,
+      Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+        "clipPath",
+        { id: idClip },
+        props.children
+      ),
+      Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+        "linearGradient",
+        { id: idGradient },
+        Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+          "stop",
+          {
+            offset: "0%",
+            stopColor: props.primaryColor,
+            stopOpacity: props.primaryOpacity
+          },
+          props.animate && Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("animate", {
+            attributeName: "offset",
+            values: animationValues[0],
+            dur: props.speed + "s",
+            repeatCount: "indefinite"
+          })
+        ),
+        Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+          "stop",
+          {
+            offset: "50%",
+            stopColor: props.secondaryColor,
+            stopOpacity: props.secondaryOpacity
+          },
+          props.animate && Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("animate", {
+            attributeName: "offset",
+            values: animationValues[1],
+            dur: props.speed + "s",
+            repeatCount: "indefinite"
+          })
+        ),
+        Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+          "stop",
+          {
+            offset: "100%",
+            stopColor: props.primaryColor,
+            stopOpacity: props.primaryOpacity
+          },
+          props.animate && Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("animate", {
+            attributeName: "offset",
+            values: animationValues[2],
+            dur: props.speed + "s",
+            repeatCount: "indefinite"
+          })
+        )
+      )
+    )
+  );
+};
+
+var FacebookStyle = function FacebookStyle(props) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    ContentLoader,
+    props,
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "70", y: "15", rx: "4", ry: "4", width: "117", height: "6.4" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "70", y: "35", rx: "3", ry: "3", width: "85", height: "6.4" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "80", rx: "3", ry: "3", width: "350", height: "6.4" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "100", rx: "3", ry: "3", width: "380", height: "6.4" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "120", rx: "3", ry: "3", width: "201", height: "6.4" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("circle", { cx: "30", cy: "30", r: "30" })
+  );
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var InstagramStyle = function InstagramStyle(props) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    ContentLoader,
+    _extends({}, props, { height: 480 }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("circle", { cx: "30", cy: "30", r: "30" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "75", y: "13", rx: "4", ry: "4", width: "100", height: "13" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "75", y: "37", rx: "4", ry: "4", width: "50", height: "8" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "70", rx: "5", ry: "5", width: "400", height: "400" })
+  );
+};
+
+var CodeStyle = function CodeStyle(props) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    ContentLoader,
+    props,
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "0", rx: "3", ry: "3", width: "70", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "80", y: "0", rx: "3", ry: "3", width: "100", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "190", y: "0", rx: "3", ry: "3", width: "10", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "15", y: "20", rx: "3", ry: "3", width: "130", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "155", y: "20", rx: "3", ry: "3", width: "130", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "15", y: "40", rx: "3", ry: "3", width: "90", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "115", y: "40", rx: "3", ry: "3", width: "60", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "185", y: "40", rx: "3", ry: "3", width: "60", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "60", rx: "3", ry: "3", width: "30", height: "10" })
+  );
+};
+
+var ListStyle = function ListStyle(props) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    ContentLoader,
+    props,
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "0", rx: "3", ry: "3", width: "250", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "20", y: "20", rx: "3", ry: "3", width: "220", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "20", y: "40", rx: "3", ry: "3", width: "170", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "60", rx: "3", ry: "3", width: "250", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "20", y: "80", rx: "3", ry: "3", width: "200", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "20", y: "100", rx: "3", ry: "3", width: "80", height: "10" })
+  );
+};
+
+var BulletListStyle = function BulletListStyle(props) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    ContentLoader,
+    props,
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("circle", { cx: "10", cy: "20", r: "8" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "25", y: "15", rx: "5", ry: "5", width: "220", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("circle", { cx: "10", cy: "50", r: "8" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "25", y: "45", rx: "5", ry: "5", width: "220", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("circle", { cx: "10", cy: "80", r: "8" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "25", y: "75", rx: "5", ry: "5", width: "220", height: "10" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("circle", { cx: "10", cy: "110", r: "8" }),
+    Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "25", y: "105", rx: "5", ry: "5", width: "220", height: "10" })
+  );
+};
+
+var defaultProps = {
+  animate: true,
+  height: 130,
+  preserveAspectRatio: "xMidYMid meet",
+  primaryColor: "#f0f0f0",
+  primaryOpacity: 1,
+  rtl: false,
+  secondaryColor: "#e0e0e0",
+  secondaryOpacity: 1,
+  speed: 2,
+  width: 400
+};
+
+var InitialComponent = function InitialComponent(props) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])("rect", { x: "0", y: "0", rx: "5", ry: "5", width: props.width, height: props.height });
+};
+
+var ContentLoader = function ContentLoader(props) {
+  var mergedProps = _extends({}, defaultProps, props);
+  var children = props.children ? props.children : Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(InitialComponent, mergedProps);
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(
+    Wrap,
+    mergedProps,
+    children
+  );
+};
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ContentLoader);
+
 
 /***/ })
 /******/ ]);

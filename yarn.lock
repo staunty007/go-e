@@ -4711,6 +4711,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-content-loader@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-3.2.0.tgz#39a6a035a5dddc2270432c1df7950e37f179dcf2"
+  integrity sha512-1+wg2rhUD8s1HNUIODKXrQC2nb8Iu/KKJJgt7KW8vPEP3+8vvzkmYkVdlZk302qypmS8DsGHoZTgjw3SD+EhBw==
+
 react-dom@^16.2.0:
   version "16.6.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.6.0.tgz#6375b8391e019a632a89a0988bce85f0cc87a92f"

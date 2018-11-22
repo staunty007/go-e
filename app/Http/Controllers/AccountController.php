@@ -203,6 +203,7 @@ class AccountController extends Controller
             $paymentDetails = session('payment_details');
             // return $paymentDetails;
             $tokenDetails = session()->get('token_data');
+            // return $tokenDetails;
             // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
@@ -336,14 +337,15 @@ class AccountController extends Controller
 
         return redirect('/');
     }
+
+    // Payment for mobile
     public function mobilePaymentSuccess($user_type, $reff)
     {
         if (session()->exists('payment_details')) {
 
-            $paymentDetails = session('payment_details');
-            // return $paymentDetails;
-            $tokenDetails = session()->get('token_data');
-            // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
+            $paymentDetails = session('payment_details')['data'];
+
+            $tokenDetails = session()->get('token_data')['data'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
 
@@ -375,7 +377,7 @@ class AccountController extends Controller
                 'token_data' => isset($token_data) ? $token_data : null,
                 'bonus_token' => isset($bonus_token) ? $bonus_token : null,
                 'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
-                'transaction_type' => "Web",
+                'transaction_type' => "Mobile",
                 'transaction_ref' => $reff,
                 'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
@@ -396,11 +398,12 @@ class AccountController extends Controller
 
                 $transaction->payment_id = $paymentId;
                 $transaction->agent_id = $agentBio->agent_id;
-                $transaction->initial_amount = $paymentDetails['amount'];
+                $transaction->initial_amount = $paymentDetails['amount'] - 100;
                 $transaction->conv_fee = 100;
 
-                $total_amount = $paymentDetails['amount'] + 100;
-                $commission = $paymentDetails['amount'] * 0.02;
+                $total_amount = $paymentDetails['amount'];
+                $initial_am = $paymentDetails['amount'] - 100;
+                $commission =  $initial_am * 0.02;
                 $pgp = $total_amount * 0.015;
                 $bal = (100 + $commission) - $pgp;
                 $spec = round($bal * 0.1, 2);
@@ -438,11 +441,12 @@ class AccountController extends Controller
             $transaction = new Transaction;
 
             $transaction->payment_id = $paymentId;
-            $transaction->initial_amount = $paymentDetails['amount'];
+            $transaction->initial_amount = $paymentDetails['amount'] - 100;
             $transaction->conv_fee = 100;
 
-            $total_amount = $paymentDetails['amount'] + 100;
-            $commission = $paymentDetails['amount'] * 0.02;
+            $total_amount = $paymentDetails['amount'];
+            $initial_am = $paymentDetails['amount'] - 100;
+            $commission =  $initial_am * 0.02;
             $pgp = $total_amount * 0.015;
             $bal = (100 + $commission) - $pgp;
             $spec = round($bal * 0.1, 2);
@@ -501,7 +505,7 @@ class AccountController extends Controller
         $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
 
         $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
-        return $payment;
+        return response()->json($payment);
     }
 
 

@@ -24,7 +24,8 @@ export default class Prepaid extends Component {
 				status: 'success',
 				message: ''
 			},
-			redireTo: ''
+			transactionDone: false,
+			redirTo: null
 		}
 
 		this.showModal = this.showModal.bind(this);
@@ -123,12 +124,37 @@ export default class Prepaid extends Component {
 					email: fields.email,
 					phone: fields.phone
 				},
+				paymentInfo: {
+					name: state.customerInfo.name,
+					meter: state.customerInfo.meterNo,
+					amount: state.customerInfo.amount,
+					email: fields.email,
+					phone: fields.phone
+				},
 			}));
 			setTimeout(() => {		
 				this.setState((state) => ({
 					showPaymentModal: true,
-					paymentInfo: state.customerInfo
+					// paymentInfo: state.customerInfo
 				}));
+				// hold payment
+				let { name, meter, email, phone, amount } = this.state.customerInfo;
+				const names = name.split(' ',2);
+				const payload = {
+					meterno: meter,
+					firstname: names[0],
+					lastname: names[1],
+					email: email,
+					mobile: phone,
+					amount: amount
+				}
+				axios.post('/payment/hold', {
+					data: payload
+				})
+				.then(response => {
+					console.log(response.data);
+				})
+				.catch(err => console.log(err));
 				// console.log(this.state.paymentInfo);
 			}, 1000);
 				
@@ -146,7 +172,7 @@ export default class Prepaid extends Component {
 		let amountCommission = data.amount - 100;
 		console.log(amountCommission);
 		// console.log(amountCommission * 0.02);
-		fetch(`/ekedc/charge-wallet/${amountCommission - amountCommission * 0.02}/PREPAID/${data.meterNo}`)
+		fetch(`/ekedc/charge-wallet/${amountCommission - amountCommission * 0.02}/PREPAID/${data.meter}`)
 			.then(res => res.json())
 			.then(chargeWalletResult => {
 				console.log('Generating Token...');
@@ -179,8 +205,15 @@ export default class Prepaid extends Component {
 								fetch(`/mobile-transaction/success/PREPAID/${paystack.reference}`)
 								.then(res => res.json())
 								.then(response => {
-									console.log(response);
-									console.log(this.state.paymentInfo);
+									// console.log(response);
+									this.setState({ 
+										redirTo: {
+											order: response.order,
+											user: response.user
+										},
+										transactionDone: true
+									 });
+									// console.log(this.state.paymentInfo);
 									// redirect to receipt
 								})
 								.catch(err => console.log(err));
@@ -315,7 +348,7 @@ export default class Prepaid extends Component {
 							textAlign: 'center',
 
 						}}
-					duration={500}
+					duration={600}
 					showCloseButton={true}
 				>
 					<h5>Continue Payment</h5>
@@ -376,7 +409,7 @@ export default class Prepaid extends Component {
 					</div>
 					</center>
 				</Rodal>
-				{this.state.transactionDone && <Redirect to={this.state.redirTo} /> }
+				{this.state.transactionDone && <Redirect to={`/mobile/receipt/${this.state.redirTo.order}/${this.state.redirTo.user}`} /> }
 			</div>
 		);
 	}
