@@ -70759,7 +70759,7 @@ var Prepaid = function (_Component) {
 						customStyles: {
 							width: '80vw',
 							// height: 'auto',
-							minHeight: '50vh',
+							minHeight: '60vh',
 							// background: 'rgba(0,0,0,0.5)',
 							textAlign: 'center'
 
@@ -70783,13 +70783,6 @@ var Prepaid = function (_Component) {
 							return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								__WEBPACK_IMPORTED_MODULE_0_react__["Fragment"],
 								null,
-								'Welcome ',
-								_this4.state.continuePay && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'p',
-									{ style: { fontWeight: '500' } },
-									'Welcome ',
-									_this4.state.customerInfo.name
-								),
 								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 									'div',
 									{ className: 'form-group' },

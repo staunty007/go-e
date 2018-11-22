@@ -240,7 +240,7 @@ export default class Prepaid extends Component {
 						{
 							width: '80vw',
 							// height: 'auto',
-							minHeight: '50vh',
+							minHeight: '60vh',
 							// background: 'rgba(0,0,0,0.5)',
 							textAlign: 'center',
 
@@ -254,12 +254,12 @@ export default class Prepaid extends Component {
 						{({ fields, errors, submitted }) => (
 							<Fragment>
 								
-									Welcome {this.state.continuePay && 
-									<p style={{ fontWeight: '500'}}>
-										Welcome {this.state.customerInfo.name}
-									</p>
-									}
-								
+								{/* Welcome {this.state.continuePay && 
+								<p style={{ fontWeight: '500'}}>
+									Welcome {this.state.customerInfo.name}
+								</p>
+								}
+								 */}
 								<div className="form-group">
 									<label htmlFor="meter_no">Enter Your Email Address</label>
 									<input className="form-control" type="text" id="email" name="email" />

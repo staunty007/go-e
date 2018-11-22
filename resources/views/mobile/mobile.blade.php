@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="app-root"></div>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
