@@ -149,7 +149,7 @@
                                                 </div>
                                             </form>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                onclick="this.innerHTML='Connecting to payment gateway'; payWithPaystack()"
+                                                onclick="this.innerHTML='Processing...'; payWithPaystack()"
                                                 id="topUpBtn">
                                                 <strong>Top Up Now</strong>
                                             </button>
@@ -266,8 +266,10 @@
             if(amount.length == 0 || amount == "") {
                 alert('Please Enter an Amount');
             }else {
-                alert('good to go');
-                return;
+                // Connect to diamond API to deduct amount fro agent's Account
+                fetch(`diamond/debit/${accountNumber}/${amount}`)
+                    .then(res => res.json())
+                    .then(response => console.log(response));
             }
             // var handler = PaystackPop.setup({
             // 	key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',

@@ -24,7 +24,6 @@
                     <div class="text-center p-4">
                         <img src="/images/done.svg" class="img-responsive" width="500" alt="setup wizard"/>
                     </div>
-
                     <h3 class="text-center">Oooops!, We've done this before, Logging You in...</h3>
                 @else
                     <div class="text-center p-4">

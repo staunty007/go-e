@@ -265,11 +265,21 @@
 		// var amount = document.querySelector('.meter-amount').value;
 
 		var chargedAmount = parseInt(amount) + 100;
+		let reff;
+		switch(accountType) {
+			case 'POSTPAID':
+				reff = "GOEPOS" + Math.floor((Math.random() * 1000000000) + 1)
+			break;
+
+			default: 
+				reff = "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1)
+			break;
+		}
 		var handler = PaystackPop.setup({
 			key: "{{ env('PS_KEY') }}",
 			email: document.querySelector('#emailret').value,
 			amount: chargedAmount + "00",
-			ref: "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1),
+			ref: reff,
 			callback: function (response) {
 				console.log(response);
 				// charge wallet
@@ -304,7 +314,7 @@
 									data: generateTokenResult.response,
 									success: (result) => {
 										if(result == "ok") {
-											window.location.href = '/transaction/success';
+											window.location.href = `/transaction/success/${accountType}/${reff}`;
 										}
 									},
 									error: (err) => {

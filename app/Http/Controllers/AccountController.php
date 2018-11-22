@@ -196,7 +196,7 @@ class AccountController extends Controller
     }
 
 
-    public function paymentSuccess()
+    public function paymentSuccess($user_type, $reff)
     {
         if (session()->exists('payment_details')) {
 
@@ -236,7 +236,7 @@ class AccountController extends Controller
                 'bonus_token' => isset($bonus_token) ? $bonus_token : null,
                 'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
                 'transaction_type' => "Web",
-                'transaction_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
+                'transaction_ref' => $reff,
                 'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
                 'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : 0),
@@ -291,7 +291,7 @@ class AccountController extends Controller
                 $adminBio->save();
                 $agentBio->save();
 
-                return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
+                return redirect()->route('receipt', [$tokenDetails['response']['orderDetails']['orderId'], $user_type]);
             }
 
             // Transaction is not coming from an agent
@@ -331,30 +331,31 @@ class AccountController extends Controller
             $adminBio->save();
 
             // return $transaction;
-            return redirect()->route('receipt', $tokenDetails['response']['orderDetails']['orderId']);
+            return redirect()->route('receipt', [$tokenDetails['response']['orderDetails']['orderId'], $user_type]);
         }
 
         return redirect('/');
     }
 
-    public function generateReceipt($orderId)
+    public function generateReceipt($orderId, $user_type)
     {
-        return view('generate-receipt', compact('orderId'));
+        return view('generate-receipt', compact('orderId', 'user_type'));
     }
 
-    public function fetchReceiptDetails($orderId)
+    public function fetchReceiptDetails($orderId, $user_type)
     {
+
         $payment = Payment::where('order_id', $orderId)->firstOrFail();
         // return $payment;
         if ($payment->is_agent == true) {
             $payment = Payment::where('order_id', $orderId)->with('agent_transaction')->firstOrFail();
-            $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
+            $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
             return $payment;
         }
 
         $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
 
-        $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment));
+        $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
         return $payment;
     }
 

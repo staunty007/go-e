@@ -27,7 +27,7 @@
 				)
 				{
 					// Mobile Browser is detected
-					location.replace('/mobile/home')
+					location.replace('/mobile/')
 				}
 				
 			})();
