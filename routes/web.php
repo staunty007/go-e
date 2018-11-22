@@ -16,13 +16,13 @@ Route::get('/', function () {
     // }
     // // return url('discos');
     // // return url()->previous();
-    // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
-    //     // return redirect('discos');
-    //     // return 'gotha';
-    //     return back();
-    // }
-    // return redirect('ekedc');
-    return view('guest.home');
+    if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
+        // return redirect('discos');
+        // return 'gotha';
+        return back();
+    }
+    return redirect('ekedc');
+    // return view('guest.home');
 });
 
 

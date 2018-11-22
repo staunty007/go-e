@@ -54,10 +54,6 @@
                                                     <td>@{{ orderDate }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Transaction ID.: </td>
-                                                    <td>@{{ details.transaction_ref }}</td>
-                                                </tr>
-                                                <tr>
                                                     <td>Transaction Ref.: </td>
                                                     <td>@{{ details.payment_ref }}</td>
                                                 </tr>
