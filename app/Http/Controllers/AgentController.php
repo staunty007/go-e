@@ -55,7 +55,7 @@ class AgentController extends Controller
 
         $payments = array_flatten($combine);
 
-        // Total Sellage
+        // // Total Sellage
         $allSellage = Payment::where('is_agent','=',1)->with('agent_transaction')->get();
         
         $sold = 0;
@@ -63,15 +63,38 @@ class AgentController extends Controller
         foreach ($allSellage as $sells) {
             $sold += $sells->agent_transaction->total_amount;
         }
+
+        $payments = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+        // return $payments;
+        // TotalWalletDeposit
+        $deps = DB::table('admin_topups')->sum('topup_amount');
+
+        //return $payments;
+        $wallet_balance = AdminBiodata::first();        
+
+
         //return $sold;
         // return $payments;
         return view($this->prefix.'payment_history')
-            ->withHistory($payments)
-            ->withBalance($agent->wallet_balance)
+            ->withFinances($payments)
+            ->withBalance($wallet_balance->wallet_balance)
+            // ->withHistory($payments)
+            // ->withBalance($agent->wallet_balance)
             ->withTheLast($lastTopup['amount'])
             ->withAllSold($sold)
             ;
     }
+
+    // public function financeFilterDate(Request $request)
+    // {
+    //     $from = Carbon::parse($request->from);
+    //     $to = Carbon::parse($request->to);
+
+    //     $finances = Payment::whereBetween('created_at', [$from, $to])->get();
+    //     // return $finances;
+    //     $wallet_balance = AdminBiodata::first();
+    //     return view($this->prefix . 'payment_history', compact('finances'))->withBalance($wallet_balance->wallet_balance);
+    // }
 
     public function ViewPaymentReceipt($reciept_id)
     {
