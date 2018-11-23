@@ -175,7 +175,7 @@
                             <tbody>
                                 @foreach ($finances as $d)
                                 <tr>
-                                    <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
+                                    <td>{{ date('d/m/y H:i:s A', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
                                     <td>{{ $d->transaction_ref }}</td>
                                     <td>Web</td>
