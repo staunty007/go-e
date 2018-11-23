@@ -1,5 +1,5 @@
 @extends('layouts.distributor') @section('content')
-
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"> --}}
 
 <div class="col-lg-4">
     <div class="ibox float-e-margins">
@@ -250,6 +250,10 @@
 <script>
     $(document).ready(function () {
         const tabili = $('#myTable').DataTable({
+            dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
             order: [['0','desc']],
             // searching: false
         });
