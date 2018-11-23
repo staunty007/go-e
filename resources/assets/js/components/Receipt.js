@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import ContentLoader from 'react-content-loader';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import * as moment from 'moment';
 
 export default class Receipt extends Component {
     constructor(props) {
@@ -12,12 +13,17 @@ export default class Receipt extends Component {
         };
     }
     componentDidMount() {
+        console.log('Mounted');
         fetch(`/fetch/${this.props.match.params.order}/${this.props.match.params.user}`)
             .then(res => res.json())
             .then(result => {
-                this.setState({ receipt: result, loading: false})
+                this.setState({ receipt: result, loading: false});
             })
+
+        // console.log('rECEIPT', this.state.receipt);
     }
+
+    
     render() {
         return (
             <Fragment>
@@ -58,36 +64,57 @@ export default class Receipt extends Component {
                                 </p>
                                 <div className="card">
                                     <div className="card-body">
-                                        <h6>Receipt Details</h6>
+                                        <h6><u>Receipt Details</u></h6>
                                         <p>
-                                            <strong>Date: </strong>
+                                            <h6>Date: </h6><span>{
+                                            moment(new Date(Date.parse(this.state.receipt.created_at))).format('llll')
+                                            
+                                            }</span>
                                         </p>
                                         <p>
-                                            <strong>Transaction Ref: </strong>
+                                            <h6>Transaction Ref: </h6>
+                                            
+                                            <span>{this.state.receipt.payment_ref}</span>
                                         </p>
-                                       <h6>Transaction Details</h6>
+                                       <h6><u>Transaction Details</u></h6>
                                        <p>
-                                           <u>Service Paid For: </u><br />
-                                           EKEDC Prepaid Electricity Payment
+                                            <h6>Service Paid For:</h6>
+                                           <span>EKEDC {
+                                               
+                                               this.state.receipt.user_type.split('_',2)[1]
+                                            } Electricity Payment
+                                            </span>
                                        </p>
                                        <p>
-                                           <strong>Meter No.</strong>
+                                           <h6>Meter No.</h6>
+                                           {this.state.receipt.meter_no}
+                                       </p>
+                                    
+                                        {
+                                            this.state.receipt.token_data && 
+                                            <p>
+                                                <h6>Standard Token: </h6>
+                                                { this.state.receipt.token_data }
+                                            </p>
+                                        }
                                            
-                                       </p>
-                                       <p>
-                                           <strong>Standard Token</strong>
-
-                                       </p>
-                                       <p>
-                                           <strong>Bsst Token</strong>
-
-                                       </p>
+                                       
+                                       {
+                                            this.state.receipt.bsst_token &&
+                                                <p>
+                                                    <h6>Bsst Token</h6>
+                                                    { this.state.receipt.bsst_token }
+                                                </p>
+                                       }
                                        <p>
                                            <span className="pulled-left">
                                             <strong>Status</strong>
                                             </span>
                                             <span className="pulled-right badge badge-success">Successful</span>
                                        </p>
+                                       {
+                                           this.state.receipt.bsst_token && <span className="text-warning">Please Enter the Bsst Token Before the Standard</span>
+                                       }
                                     </div>
                                 </div>
                             </div>
