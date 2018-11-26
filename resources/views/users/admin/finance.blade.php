@@ -193,28 +193,12 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    {{-- <form action="filter-by-date" method="post" class="form-horizontal">
-                        {{ csrf_field() }}
-                        <div class="col-md-6">
-                            <div class="row">
-                                <h3 class="text-center">Filter By Date</h3>
-                                <div class="col-md-5">
-                                    <input class="form-control pickadate" name="from" placeholder="Date From" style="background-color: #fff; border: 1px soild #222; cursor: pointer">
-                                </div>
-                                <div class="col-md-5">
-                                    <input class="form-control pickadate" name="to" placeholder="Date To" style="background-color: #fff; border: 1px soild #222; cursor: pointer">
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary">Filter</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form> --}}
+                <div class="row"> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By District</label>
                             <select id="district" class="form-control">
+                                <option value="">All</option>
                                 <option value="Agbara">Agbara</option>
                                 <option value="Ojo">Ojo</option>
                                 <option value="Festac">Festac</option>
@@ -223,6 +207,8 @@
                                 <option value="Apapa">Apapa</option>
                                 <option value="Lekki">Lekki</option>
                                 <option value="Island">Island</option>
+                                <option value="Ibeju">Ibeju</option>
+                                <option value="Orile">Orile</option>
                             </select>
                         </div>
                     </div>
@@ -230,9 +216,12 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By Channel</label>
                             <select id="channel" class="form-control">
+                                <option value="">All</option>
                                 <option value="Web">Web</option>
                                 <option value="POS">POS</option>
-                                <option value="Mobile">Mobile</option>
+                                <option value="Mobile">Ussd</option>
+                                <option value="Mobile">mVisa</option>
+                                <option value="Mobile">Agency</option>
                             </select>
                         </div>
                     </div>
@@ -240,9 +229,28 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By Bank</label>
                             <select id="bank" class="form-control">
-                                <option value="Bank">Bank</option>
-                                <option value="Access Bank">Access Bank</option>
-                                <option value="First Bank">First Bank</option>
+                                <option value="">All Banks</option>
+                                <option value="Access Bank Plc">Access Bank Plc</option>
+                                <option value="Citibank Nigeria Limited">Citibank Nigeria Limited</option> 
+                                <option value="Diamond Bank Plc">Diamond Bank Plc</option>
+                                <option value="Ecobank Nigeria Plc">Ecobank Nigeria Plc</option>
+                                <option value="Fidelity Bank Plc">Fidelity Bank Plc</option>
+                                <option value="FIRST BANK NIGERIA LIMITED">FIRST BANK NIGERIA LIMITED</option>
+                                <option value="First City Monument Bank Plc">First City Monument Bank Plc</option>
+                                <option value="Guaranty Trust Bank Plc">Guaranty Trust Bank Plc</option>
+                                <option value="Heritage Banking Company Ltd">Heritage Banking Company Ltd</option> 
+                                <option value="Key Stone Bank">Key Stone Bank</option>
+                                <option value="Polaris Bank">Polaris Bank</option>
+                                <option value="Providus Bank">Providus Bank</option> 
+                                <option value="Stanbic IBTC Bank Ltd">Stanbic IBTC Bank Ltd</option> 
+                                <option value="Standard Chartered Bank Nigeria Ltd">Standard Chartered Bank Nigeria Ltd</option>
+                                <option value="Sterling Bank Plc">Sterling Bank Plc</option>
+                                <option value="SunTrust Bank Nigeria Limited">SunTrust Bank Nigeria Limited</option>
+                                <option value="Union Bank of Nigeria Plc">Union Bank of Nigeria Plc</option>
+                                <option value="United Bank For Africa Plc">United Bank For Africa Plc</option> 
+                                <option value="Unity Bank Plc">Unity Bank Plc</option>
+                                <option value="Wema Bank Plc">Wema Bank Plc</option>
+                                <option value="Zenith Bank Plc">Zenith Bank Plc</option>
                             </select>
                         </div>
                     </div>
@@ -250,7 +258,7 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By Type</label>
                             <select id="type" class="form-control">
-                                <option value="">Select an option</option>
+                                <option value="">All</option>
                                 <option value="PREPAID">Prepaid</option>
                                 <option value="Postpaid">Postpaid</option>
                             </select>
@@ -266,6 +274,7 @@
             </div>
 
         </div>
+
                                 <div class="ibox">
 
             <div class="ibox" style="overflow-x:auto;">

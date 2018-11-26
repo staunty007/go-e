@@ -88,8 +88,9 @@
                                 <option value="">All</option>
                                 <option value="Web">Web</option>
                                 <option value="POS">POS</option>
-                                <option value="Mobile">Mobile</option>
                                 <option value="Mobile">Ussd</option>
+                                <option value="Mobile">mVisa</option>
+                                <option value="Mobile">Agency</option>
                             </select>
                         </div>
                     </div>
@@ -175,7 +176,7 @@
                             <tbody>
                                 @foreach ($finances as $d)
                                 <tr>
-                                    <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
+                                    <td>{{ date('d/m/y H:i:s A', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
                                     <td>{{ $d->transaction_ref }}</td>
                                     <td>Web</td>
