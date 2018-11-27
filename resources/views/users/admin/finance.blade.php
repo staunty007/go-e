@@ -215,6 +215,7 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By District</label>
                             <select id="district" class="form-control">
+                                <option value="">All</option>
                                 <option value="Agbara">Agbara</option>
                                 <option value="Ojo">Ojo</option>
                                 <option value="Festac">Festac</option>
@@ -223,6 +224,8 @@
                                 <option value="Apapa">Apapa</option>
                                 <option value="Lekki">Lekki</option>
                                 <option value="Island">Island</option>
+                                <option value="Ibeju">Ibeju</option>
+                                <option value="Orile">Orile</option>
                             </select>
                         </div>
                     </div>
@@ -230,9 +233,11 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By Channel</label>
                             <select id="channel" class="form-control">
+                                <option value="">All</option>
                                 <option value="Web">Web</option>
                                 <option value="POS">POS</option>
                                 <option value="Mobile">Mobile</option>
+                                <option value="Mobile">Ussd</option>
                             </select>
                         </div>
                     </div>
@@ -240,9 +245,28 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By Bank</label>
                             <select id="bank" class="form-control">
-                                <option value="Bank">Bank</option>
-                                <option value="Access Bank">Access Bank</option>
-                                <option value="First Bank">First Bank</option>
+                                <option value="">All Banks</option>
+                                <option value="Access Bank Plc">Access Bank Plc</option>
+                                <option value="Citibank Nigeria Limited">Citibank Nigeria Limited</option> 
+                                <option value="Diamond Bank Plc">Diamond Bank Plc</option>
+                                <option value="Ecobank Nigeria Plc">Ecobank Nigeria Plc</option>
+                                <option value="Fidelity Bank Plc">Fidelity Bank Plc</option>
+                                <option value="FIRST BANK NIGERIA LIMITED">FIRST BANK NIGERIA LIMITED</option>
+                                <option value="First City Monument Bank Plc">First City Monument Bank Plc</option>
+                                <option value="Guaranty Trust Bank Plc">Guaranty Trust Bank Plc</option>
+                                <option value="Heritage Banking Company Ltd">Heritage Banking Company Ltd</option> 
+                                <option value="Key Stone Bank">Key Stone Bank</option>
+                                <option value="Polaris Bank">Polaris Bank</option>
+                                <option value="Providus Bank">Providus Bank</option> 
+                                <option value="Stanbic IBTC Bank Ltd">Stanbic IBTC Bank Ltd</option> 
+                                <option value="Standard Chartered Bank Nigeria Ltd">Standard Chartered Bank Nigeria Ltd</option>
+                                <option value="Sterling Bank Plc">Sterling Bank Plc</option>
+                                <option value="SunTrust Bank Nigeria Limited">SunTrust Bank Nigeria Limited</option>
+                                <option value="Union Bank of Nigeria Plc">Union Bank of Nigeria Plc</option>
+                                <option value="United Bank For Africa Plc">United Bank For Africa Plc</option> 
+                                <option value="Unity Bank Plc">Unity Bank Plc</option>
+                                <option value="Wema Bank Plc">Wema Bank Plc</option>
+                                <option value="Zenith Bank Plc">Zenith Bank Plc</option>
                             </select>
                         </div>
                     </div>
@@ -296,14 +320,20 @@
                             <tbody>
                                 @foreach ($finances as $d)
                                 <tr>
-                                    <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
+                                    <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
                                     <td>Web</td>
                                     <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
                                     <td>{{ $d->customer_address }}</td>
                                     <td>{{ $d->district }}</td>
-                                    <td>Bank</td>
+                                <td>
+                                    @if( $d->bank === NULL)
+                                         BANK
+                                    @else 
+                                        {{ $d->bank }}
+                                    @endif
+                                </td>
                                     <td>
                                         <span class="label label-primary">Successful</span>
                                     </td>
@@ -379,6 +409,10 @@
 <script>
     $(document).ready(function () {
         const tabili = $('#myTable').DataTable({
+            dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
             order: [['0','desc']],
             // searching: false
         });
@@ -397,19 +431,19 @@
         });
         $('#channel').on('change', function() {
             tabili
-                .columns(2)
+                .columns(3)
                 .search($('#channel').val(), false, true)
                 .draw();
         });
         $('#bank').on('change', function() {
             tabili
-                .columns(7)
+                .columns(8)
                 .search($('#bank').val(), false, true)
                 .draw();
         });
         $('#type').on('change', function() {
             tabili
-                .columns(3)
+                .columns(4)
                 .search($('#type').val(), false, true)
                 .draw();
         });
