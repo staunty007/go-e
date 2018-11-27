@@ -305,14 +305,20 @@
                             <tbody>
                                 @foreach ($finances as $d)
                                 <tr>
-                                    <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
+                                    <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
                                     <td>Web</td>
                                     <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
                                     <td>{{ $d->customer_address }}</td>
                                     <td>{{ $d->district }}</td>
-                                    <td>Bank</td>
+                                <td>
+                                    @if( $d->bank === NULL)
+                                         BANK
+                                    @else 
+                                        {{ $d->bank }}
+                                    @endif
+                                </td>
                                     <td>
                                         <span class="label label-primary">Successful</span>
                                     </td>
@@ -388,6 +394,10 @@
 <script>
     $(document).ready(function () {
         const tabili = $('#myTable').DataTable({
+            dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
             order: [['0','desc']],
             // searching: false
         });
@@ -406,19 +416,19 @@
         });
         $('#channel').on('change', function() {
             tabili
-                .columns(2)
+                .columns(3)
                 .search($('#channel').val(), false, true)
                 .draw();
         });
         $('#bank').on('change', function() {
             tabili
-                .columns(7)
+                .columns(8)
                 .search($('#bank').val(), false, true)
                 .draw();
         });
         $('#type').on('change', function() {
             tabili
-                .columns(3)
+                .columns(4)
                 .search($('#type').val(), false, true)
                 .draw();
         });

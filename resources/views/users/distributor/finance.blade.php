@@ -184,7 +184,13 @@
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
                                     <td>{{ $d->customer_address }}</td>
                                     <td>{{ $d->district }}</td>
-                                    <td>Bank</td>
+                                    <td>
+                                        @if( $d->bank === NULL)
+                                        BANK
+                                        @else 
+                                            {{ $d->bank }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <span class="label label-primary">Successful</span>
                                     </td>
