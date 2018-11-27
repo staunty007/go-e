@@ -193,24 +193,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    {{-- <form action="filter-by-date" method="post" class="form-horizontal">
-                        {{ csrf_field() }}
-                        <div class="col-md-6">
-                            <div class="row">
-                                <h3 class="text-center">Filter By Date</h3>
-                                <div class="col-md-5">
-                                    <input class="form-control pickadate" name="from" placeholder="Date From" style="background-color: #fff; border: 1px soild #222; cursor: pointer">
-                                </div>
-                                <div class="col-md-5">
-                                    <input class="form-control pickadate" name="to" placeholder="Date To" style="background-color: #fff; border: 1px soild #222; cursor: pointer">
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary">Filter</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form> --}}
+                <div class="row"> 
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By District</label>
@@ -236,8 +219,9 @@
                                 <option value="">All</option>
                                 <option value="Web">Web</option>
                                 <option value="POS">POS</option>
-                                <option value="Mobile">Mobile</option>
                                 <option value="Mobile">Ussd</option>
+                                <option value="Mobile">mVisa</option>
+                                <option value="Mobile">Agency</option>
                             </select>
                         </div>
                     </div>
@@ -274,7 +258,7 @@
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By Type</label>
                             <select id="type" class="form-control">
-                                <option value="">Select an option</option>
+                                <option value="">All</option>
                                 <option value="PREPAID">Prepaid</option>
                                 <option value="Postpaid">Postpaid</option>
                             </select>
@@ -290,6 +274,7 @@
             </div>
 
         </div>
+
                                 <div class="ibox">
 
             <div class="ibox" style="overflow-x:auto;">
