@@ -342,6 +342,7 @@ Route::prefix('uat-test')->group(function () {
 });
 
 
+
 /**
  * EKEDC Internal API Endpoint
  */
@@ -354,6 +355,12 @@ Route::prefix('ekedc')->group(function () {
     Route::get('pay-order-id/{customerId}/{orderid}', 'CIController@payOrderId');
 });
 
+/**
+ * NIBBS Web Routes
+ */
+Route::prefix('nibbs')->group(function () {
+    Route::get('all-banks', 'NIBBSController@getBanks');
+});
 // Hold Generate Token Data
 Route::post('gtk', 'AccountController@holdToken');
 Route::get('transaction/success/{user_type}/{ref}', 'AccountController@paymentSuccess');
