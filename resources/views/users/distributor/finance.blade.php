@@ -88,8 +88,9 @@
                                 <option value="">All</option>
                                 <option value="Web">Web</option>
                                 <option value="POS">POS</option>
-                                <option value="Mobile">Mobile</option>
                                 <option value="Mobile">Ussd</option>
+                                <option value="Mobile">mVisa</option>
+                                <option value="Mobile">Agency</option>
                             </select>
                         </div>
                     </div>
@@ -183,7 +184,13 @@
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
                                     <td>{{ $d->customer_address }}</td>
                                     <td>{{ $d->district }}</td>
-                                    <td>Bank</td>
+                                    <td>
+                                        @if( $d->bank === NULL)
+                                        BANK
+                                        @else 
+                                            {{ $d->bank }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <span class="label label-primary">Successful</span>
                                     </td>
