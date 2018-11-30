@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class NIBBSController extends Controller
 {
-    private $host = "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
+    // private $host = "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
+    private $host = "https://staging.nibss-plc.com.ng/CentralPayPlus/pay";
     // Get Banks List 
     public function getBanks()
     {
