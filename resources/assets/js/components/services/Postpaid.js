@@ -69,7 +69,7 @@ export default class Postpaid extends Component {
 						this.setState({
 							customerInfo: {
 								name: customer.name,
-								meterNo: callback.response.customerInfo.meterNumber,
+								meterNo: callback.response.customerInfo.accountNumber,
 								amount: parseInt(recharge_amount) + 100
 							},
 							visible: false,
@@ -157,7 +157,7 @@ export default class Postpaid extends Component {
 				})
 				.catch(err => console.log(err));
 				// console.log(this.state.paymentInfo);
-			}, 1000);
+			}, 500);
 				
 			// );
 		} else {
@@ -173,7 +173,7 @@ export default class Postpaid extends Component {
 		let amountCommission = data.amount - 100;
 		console.log(amountCommission);
 		// console.log(amountCommission * 0.02);
-		fetch(`/ekedc/charge-wallet/${amountCommission - amountCommission * 0.02}/PREPAID/${data.meter}`)
+		fetch(`/ekedc/charge-wallet/${amountCommission - amountCommission * 0.02}/POSTPAID/${data.meter}`)
 			.then(res => res.json())
 			.then(chargeWalletResult => {
 				console.log('Generating Token...');
@@ -203,7 +203,7 @@ export default class Postpaid extends Component {
 							if(result.data == "ok") {
 								// alert('done');
 								// Send Get request to store data in the database
-								fetch(`/mobile-transaction/success/PREPAID/${paystack.reference}`)
+								fetch(`/mobile-transaction/success/POSTPAID/${paystack.reference}`)
 								.then(res => res.json())
 								.then(response => {
 									// console.log(response);
@@ -223,7 +223,7 @@ export default class Postpaid extends Component {
 							}
 						})
 						.catch(err => {
-							alert('Something Bad Went Wrong, Please log a complain');
+							alert('Something Bad Went Wrong, Please log a complain', err);
 						})
 					})
 					.catch(err => console.log(err));
@@ -318,7 +318,7 @@ export default class Postpaid extends Component {
 										<div>
 											<div className="form-group">
 												<label htmlFor="amount">Enter Amount</label>
-												<input className="form-control" type="text" name="recharge_amount" placeholder="Minimum is 100NGN" />
+												<input className="form-control" type="text" name="recharge_amount" placeholder="Minimum is 100 NGN" />
 												{submitted && errors.recharge_amount &&
 													<span className="help-text text-danger">{errors.recharge_amount}</span>
 												}

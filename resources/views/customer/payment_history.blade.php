@@ -37,7 +37,7 @@
                                 <td>N{{ number_format($pay->transaction->total_amount) }}</td>
                                 <td>{{ $pay->token_data }}</td>
                                 <td>{{ round($pay->value_of_kwh,2) }}</td>  
-                                <th><a href="{{ route('receipt',$pay->order_id) }}" class="btn btn-info">Reciept</a></th>               
+                                <th><a href="{{ route('receipt',[$pay->order_id,str_replace('OFFLINE_','',$pay->user_type)]) }}" class="btn btn-info">Reciept</a></th>               
                             </tr>
                         @endforeach
                     </tbody>
@@ -53,7 +53,7 @@
             $('#myTable').DataTable({
                 order: ['0','desc'],
             });
-        } );
+        });
     </script>
     @endpush
 @endsection

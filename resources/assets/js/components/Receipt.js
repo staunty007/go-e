@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import ContentLoader from 'react-content-loader';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as moment from 'moment';
+import * as jsPDF from 'jspdf';
 
 export default class Receipt extends Component {
     constructor(props) {
@@ -11,6 +12,8 @@ export default class Receipt extends Component {
             loading: true,
             receipt: null,
         };
+
+        this.saveAsPdf = this.saveAsPdf.bind(this);
     }
     componentDidMount() {
         console.log('Mounted');
@@ -23,10 +26,33 @@ export default class Receipt extends Component {
         // console.log('rECEIPT', this.state.receipt);
     }
 
+    saveAsPdf() {
+        if(!this.state.loading) {
+            const pdfView = new jsPDF();
+            let specialElementHandlers = {
+                '#editor': function(element, renderer){
+                    return true;
+                },
+            };
+
+            const htmlView = document.querySelector("#app-root").innerHTML;
+            // console.log(htmlView);
+            pdfView.fromHTML(htmlView, 15, 15, {
+                'width': 170,
+                'elementHandlers': specialElementHandlers
+            });
+
+            pdfView.save('GOENERGEE_PAYMENT_RECEIPT.pdf');       
+        }else {
+            console.log('Not Done with rendering.... Waiting');
+        }
+    }
     
     render() {
         return (
             <Fragment>
+                <div>
+                <div id="editor"></div>
             { this.state.loading ?
                 (
                     <div className="row justify-content-center">
@@ -86,7 +112,7 @@ export default class Receipt extends Component {
                                             </span>
                                        </p>
                                        <p>
-                                           <h6>Meter No.</h6>
+                                           <h6>Meter / Acc. No.</h6>
                                            {this.state.receipt.meter_no}
                                        </p>
                                     
@@ -101,10 +127,10 @@ export default class Receipt extends Component {
                                        
                                        {
                                             this.state.receipt.bsst_token &&
-                                                <p>
-                                                    <h6>Bsst Token</h6>
-                                                    { this.state.receipt.bsst_token }
-                                                </p>
+                                            <p>
+                                                <h6>Bsst Token</h6>
+                                                { this.state.receipt.bsst_token }
+                                            </p>
                                        }
                                        <p>
                                            <span className="pulled-left">
@@ -120,8 +146,12 @@ export default class Receipt extends Component {
                             </div>
                         </div>
                     </div>
+                    <div style={{ margin: '1em 0em'}}>
+                        <button className="btn btn-success" onClick={window.print}>Download Receipt</button>
+                    </div>
                 </Fragment>
             }
+            </div>
             </Fragment>
         );
     }
