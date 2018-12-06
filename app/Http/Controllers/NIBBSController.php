@@ -59,7 +59,7 @@ class NIBBSController extends Controller
 
     public function getBanks()
     {
-        return hash('sha256', 'NIBSS0000000128058codergab@gmail.comGOENERGEE POSTPAID PAYMENT5000566GTEFF5454FFFhttp://localhost:8000/nibbs/callbackF78BE99289AB52FDF97190CEBFC1D6B8');
+        // return hash('sha256', 'NIBSS0000000128058codergab@gmail.comGOENERGEE POSTPAID PAYMENT5000566GTEFF5454FFFhttp://localhost:8000/nibbs/callbackF78BE99289AB52FDF97190CEBFC1D6B8');
         return [
             [
                 "bankCode" => "214",
