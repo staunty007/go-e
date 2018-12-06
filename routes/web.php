@@ -360,6 +360,10 @@ Route::prefix('ekedc')->group(function () {
  */
 Route::prefix('nibbs')->group(function () {
     Route::get('all-banks', 'NIBBSController@getBanks');
+    Route::get('callback', function () {
+
+    });
+    Route::get('try-form', 'NIBBSController@tryForm');
 });
 // Hold Generate Token Data
 Route::post('gtk', 'AccountController@holdToken');

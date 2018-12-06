@@ -118,8 +118,7 @@
 											<label>Please Select Your Bank</label>
 											<select class="form-control" name="bank_payment" id="bank_payment">
 												<option value="">Select your bank</option>
-												<option value="Diamond">Diamond Bank</option>
-												<option value="Zenith">Zenith Bank</option>
+												
 											</select>
 										</div>
 										<div class="other">
@@ -136,8 +135,16 @@
 								<div class="bhoechie-tab-content">
 									<center>
 										<h3>Please Scan the QR Code below</h3>
-										<img src="/images/qr-code.svg" draggable="false" height="100" />
-										<h3>Amount: N<span id="mvisa"></span></h3>
+										{{-- <img src="/images/qr-code.svg" draggable="false" height="100" />
+										<h3>Amount: N<span id="mvisa"></span></h3> --}}
+										<a data-isw-payment-button data-isw-ref='7OD4h9rMEp'>
+											<script type='text/javascript' 
+											  src='https://www.interswitchgroup.com/paymentgateway/public/js/webpay.js'
+											  data-isw-trans-amount='10000'
+											  data-isw-customer-ref='1543221650633'
+											  data-isw-customer-callback='customCallback'>
+											</script>
+										  </a>
 									</center>
 								</div>
 								@auth
@@ -153,9 +160,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="response">
-
-			</div>
+			<div id="response"></div>
 
 		</div>
 	</div>
@@ -173,6 +178,7 @@
 	let meter_no = '';
 	let accountType = "{{ $accountType }}";
 	let amount;
+
 	$(".pay-meter").click((e) => {
 		e.preventDefault();
 		$(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
@@ -267,8 +273,8 @@
 				// console.log(response);
 				if (response.code == "ok") {
 					// console.log(response.text);
-					// openOptions();
-					payWithPaystack();
+					openOptions();
+					// payWithPaystack();
 				}
 			},
 			error: (err) => {
@@ -521,7 +527,7 @@
 			$("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
 			$("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
 		});
-
+		loadBanks();
 		$("#bank_payment").change(function () {
 			let fetchUrl = "/bp/";
 			const bankVal = $(this).val();
@@ -547,7 +553,20 @@
 			if (nuban.value.length !== 0) {
 				document.querySelector('#make-btn').disabled = false;
 			}
-		})
+		});
+
+		function loadBanks() {
+			fetch('/nibbs/all-banks')
+				.then(res => res.json())
+				.then(response => {
+					let innerDom = document.querySelector('#bank_payment');
+					for (const banks in response) {
+						const bank = response[banks];
+						innerDom.innerHTML +=`<option value="${bank.bankCode}" valueName="${bank.bankName}">${bank.bankName}</option>`;
+					}
+				})
+				.catch(err => console.log(err));
+		}
 	});
 </script>
 <script>
@@ -557,4 +576,10 @@
 			window.location = `/guest/postpaid-service-type/${vall}`;
 		}
 	})
+</script>
+
+<script>
+function customCallback(response){ 
+	console.log(response);
+}
 </script>
