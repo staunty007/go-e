@@ -19,16 +19,18 @@ class AppServiceProvider extends ServiceProvider
 		view()->composer('*', function ($view) {
 
 			$current_route_name = \Request::route()->getName();
-
 			$view->with('current_route_name', $current_route_name);
-
-			// Customer
+			
+			if(auth()->check()) {
+				$agent = User::where('id',auth()->id())->with('agent')->first();
+				$view->with('agent_details',$agent);
+			}
 
 			// Payment Option blade component
 			Blade::component('components.payment-options', 'pay');
 			// Slider Component
 			Blade::component('components.slider','slider');
-
+			Blade::component('components.logged-in-payment-options','logged-pay');
 		});
 		// Sharing Customer Data Across Views
 		view()->composer('customer/*', function($view){
@@ -37,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
 				$view->with('customer',$customer);
 			}
 		});
+
 	}
 
 	/**

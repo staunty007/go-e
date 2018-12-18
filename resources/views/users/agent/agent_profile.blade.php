@@ -17,26 +17,26 @@
                         </h2>
                             <small>GOENERGEE - AGENT</small>
                         </div>
-                        <!--<img src="/images/face-head-man-icon-1.png" class="img-circle circle-border m-b-md" alt="profile">-->
+
                         <ul class="list-unstyled m-t-md">
-                        <div class="text-left">
+
                          <li>
-                             <span class="fa fa-address-card-o m-r-xs"></span>
+
                              <label> FullName:</label>
                              {{ $profile->user->first_name." ".$profile->user->last_name }}
                          </li>
                          <li>
-                             <span class="fa fa-envelope m-r-xs"></span>
+
                              <label>Email:</label>
                              {{ $profile->user->email }}
                          </li>
                          <li>
-                             <span class="fa fa-home m-r-xs"></span>
+
                              <label>Address:</label>
                              {{ $profile->address}}
                          </li>
                          <li>
-                             <span class="fa fa-phone m-r-xs"></span>
+
                             <label>Contact:</label>
                              {{ $profile->user->mobile}}
                          </li>
@@ -59,14 +59,7 @@
                             <form id="form" action="{{ route('agent.update') }}" enctype="multipart/form-data" method="POST">
                                 {{ csrf_field()}}
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="meter_no">Meter No</label>
-                                            <input id="meter_no" type="text" class="form-control" name="meter_no" value="{{ $profile->meter_no }}">
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="clearfix"></div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Firstname</label>
@@ -90,18 +83,46 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Phone Number</label>
-                                            <input type="text" class="form-control" name="mobile" value="{{ $profile->user->mobile }}">
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
                                             <label>Agent ID</label>
                                             <input type="text" name="agent_id" class="form-control" value="{{ $profile->agent_id }}" readonly>
                                         </div>
                                         
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Update Password</label>
+                                            <input type="text" class="form-control" name="password" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Address</label>
+                                            <textarea class="form-control" name="address" rows="4">{{ $profile->address }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Change Profile Picture</label>
+                                            <input type="file" name="avatar">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="business_name">Business Name</label>
+                                        <input type="text" id="business_name" name="business_name" class="form-control" value="{{ $agent_details->agent->business_name }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Business Phone Number</label>
+                                            <input type="text" class="form-control" name="mobile" value="{{ $profile->user->mobile }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="business_address">Business Address</label>
+                                            <input type="text" name="business_address" id="business_address" class="form-control" value="{{ $agent_details->agent->business_name }}">
+                                        </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -111,26 +132,7 @@
                                         
                                     </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="">Update Password</label>
-                                            <input type="text" class="form-control" name="password">
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="">Address</label>
-                                            <textarea class="form-control" name="address" rows="4">{{ $profile->address }}</textarea>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="">Choose Profile Picture</label>
-                                            <input type="file" name="avatar">
-                                        </div>   
-                                    </div>
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button class="btn btn-primary btn-block" id="profileUpdate">Update Profile</button>
@@ -205,5 +207,9 @@
             
         }
     });
+</script>
+<script>
+    // Validate Diamond Bank Account
+
 </script>
 @endpush

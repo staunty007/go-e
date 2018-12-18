@@ -17,14 +17,24 @@ use PDF;
 class AgentController extends Controller
 {
     private $prefix = "users.agent.";
-
+	
+    public function __construct() {
+    	$this->middleware('auth');
+    }
 
     public function v($file) {
         return view($this->prefix.$file);
     }
 
     public function dashboard() {
-        return redirect('home');
+	    $agent = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
+	    $allProfit = AgentTransaction::sum('agent');
+	    $totalTransaction = Payment::where('is_agent',1)->count();
+	    session()->put(['agentDetails' => $agent]);
+	    return view('users.agent.financial')
+		    ->withDetails($agent)
+		    ->withTotalTransaction($totalTransaction)
+		    ->withProfit($allProfit);
     }
 
     public function paymentHistory()
@@ -85,16 +95,7 @@ class AgentController extends Controller
             ;
     }
 
-    // public function financeFilterDate(Request $request)
-    // {
-    //     $from = Carbon::parse($request->from);
-    //     $to = Carbon::parse($request->to);
 
-    //     $finances = Payment::whereBetween('created_at', [$from, $to])->get();
-    //     // return $finances;
-    //     $wallet_balance = AdminBiodata::first();
-    //     return view($this->prefix . 'payment_history', compact('finances'))->withBalance($wallet_balance->wallet_balance);
-    // }
 
     public function ViewPaymentReceipt($reciept_id)
     {
@@ -329,5 +330,9 @@ class AgentController extends Controller
         }
 
         return redirect('/');
+    }
+    
+    public function otherPostpaid() {
+    	return view('users.agent.other-payments');
     }
 }
