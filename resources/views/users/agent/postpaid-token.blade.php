@@ -7,22 +7,7 @@
     }
 </style>
 <div class="row">
-    {{-- @if($violated == "Yes")
-    <div class="col-md-12 text-center">
-        <div class="alert alert-danger">
-            Please Contact Admin to Buy Token or Make Payment
-        </div>
-        <h5>
-            <b>Phone:</b> 08052313815</h5>
-        <h5>
-            <b>Email:</b> customersupport@goenergee.com</h5>
-    </div>
-    <style>
-        #mtrR {
-                            display: none;
-                        }
-                    </style>
-    @endif --}}
+
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -33,6 +18,15 @@
                 {{-- @if(isset($before)) --}}
                 <form class="meter" method="post" action="">
                     <div class="form-group">
+                        <label for="payOption"><b>Select POSTPAID Service Category</b></label>
+                        <select class="form-control m-b" name="postpaid_category" id="payOption">
+                            <option value="POSTPAID">Postpaid Payment</option>
+                            <option value="others">Other Postpaid Payments</option>
+
+                        </select>
+
+                    </div>
+                    <div class="form-group">
                         <label for="Meter_number"><b>PostPaid Account or Meter Number</b></label>
                         
                         <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PostPaid Account or Meter Number"
@@ -40,25 +34,17 @@
                         required autofocus name="meter_no">
                         
                     </div>
-                    <div class="form-group">
-                        <label for="postpaid_category"><b>Select POSTPAID Service Category</b></label>
-                        <select class="form-control m-b" name="postpaid_category" id="payOption">
-                            <option value="POSTPAID">Postpaid Payment</option>
-                            <option value="others">Other Postpaid Payments</option>
-                            
-                        </select>
-                        
-                    </div>
+
                     <div class="form-group">
                         <label for="convinience_fee"><b>Convenience Fee</b></label>
                         
-                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly> <span class="input-group-addon">.00</span></div>
+                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly></div>
                     </div>
                    
                     <div class="form-group">
                         <label for="amount"><b>Amount</b></label>
                         
-                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"> <span class="input-group-addon">.00</span></div>
+                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"></div>
                     </div>
                     <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                 </form>
@@ -102,5 +88,14 @@
     </div>
     @endsection
     @push('scripts')
-    @pay(['accountType' => "POSTPAID"])@endpay
+        <script>
+            $("#payOption").change(function () {
+                var vall = $(this).val();
+                if (vall !== "POSTPAID") {
+                    window.location = `{{ route('agent.other-postpaid') }}`;
+                }
+            })
+        </script>
+    {{--@pay(['accountType' => "POSTPAID"])@endpay--}}
+
     @endpush

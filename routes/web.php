@@ -181,6 +181,7 @@ Route::prefix('backend')->group(function () {
 });
 
 Route::prefix('agent')->group(function () {
+	Route::get('dashboard', 'AgentController@dashboard')->name('agent.dashboard');
     Route::get('profile', 'AgentController@profile')->name('agent.profile');
     Route::post('profile', 'AgentController@updateProfile')->name('agent.update');
     Route::get('payment-history', 'AgentController@paymentHistory')->name('agent.payHistory');
@@ -189,7 +190,7 @@ Route::prefix('agent')->group(function () {
     Route::post('meter-management', 'AccountController@postMeterRequest')->name('meter.post-request');
     Route::get('prepaid-token', 'AgentController@prepaidToken')->name('agent.prepaid-token');
     Route::get('postpaid-token', 'AgentController@postpaidToken')->name('agent.postpaid-token');
-    Route::get('dashboard', 'AgentController@dashboard')->name('agent.dashboard');
+    Route::get('other-postpaid-payments', 'AgentController@otherPostpaid')->name('agent.other-postpaid');
     Route::get('check-admin-balance', 'AgentController@checkAdminBalance');
     Route::get('topup-agent/success/{amount}', 'AgentController@completeTopup');
     Route::get('payment-agent/{ref}/success', 'AgentController@agentTokenSuccess');

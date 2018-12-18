@@ -13,7 +13,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ asset('css/b3.css') }}">
+	<!-- Latest compiled JavaScript -->
+	<script src="{{ asset('js/b3.js') }}"></script>
 	<link href="/css/animate.css" rel="stylesheet">
 	<!-- <link href="/css/application.css" rel="stylesheet"> -->
 	<link href="/css/emojione.min.css" rel="stylesheet">
@@ -24,7 +26,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="{{ asset('js/app.js') }}"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">

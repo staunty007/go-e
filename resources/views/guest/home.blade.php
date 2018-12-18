@@ -13,9 +13,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/images/favicon.png" rel="shortcut icon" type="image/png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 	<script>
-
 			(function () {
 				if( navigator.userAgent.match(/Android/i)
 					|| navigator.userAgent.match(/webOS/i)
@@ -41,11 +39,9 @@
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{ asset('js/app.js') }}"></script>
-	{{-- <script src="{{ asset('js/goenergee.js') }}"></script> --}}
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="{{ asset('css/b3.css') }}">
 	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="{{ asset('js/b3.js') }}"></script>
 	<link href="/css/animate.css" rel="stylesheet">
 	<!-- <link href="/css/application.css" rel="stylesheet"> -->
 	<link href="/css/emojione.min.css" rel="stylesheet">

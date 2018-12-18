@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-xs-8 text-right">
                     <span>Wallet Deposit </span>
-                    <h2 class="font-bold">{{ $details->wallet_balance}}</h2>
+                    <h2 class="font-bold">{{ number_format($details->wallet_balance)}}</h2>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-xs-8 text-right">
                     <span> Total Transaction</span>
-                    <h2 class="font-bold">0</h2>
+                    <h2 class="font-bold">{{ $totalTransaction }}</h2>
                 </div>
             </div>
         </div>

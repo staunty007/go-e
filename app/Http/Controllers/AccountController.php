@@ -95,19 +95,7 @@ class AccountController extends Controller
             // return view('referral-signup')->withRef($findRef->refer_id);
         }
     }
-
-    // public function sendAccountMail()
-    // {
-    //     if (session()->exists('account_info')) {
-    //         $accountInfo = session('account_info');
-
-    //         Mail::to($accountInfo->email)->send(new AccountActivation($accountInfo));
-
-    //         return view('emails.sent-success');
-    //     }
-    //     return redirect('/');
-    // }
-
+    
     public function activateAccount($token)
     {
         // if(session()->has('referred'))
@@ -115,22 +103,15 @@ class AccountController extends Controller
         if ($user->is_activated == 1) {
             Auth::login($user);
             return view('activating')->withDone(1);
-
         }
         $user->is_activated = 1;
-        // $user->save();
 
-        // Auth::login($user, true);
         session()->forget('account_info');
 
         return view('activating');
     }
 
-    /**
-     * Password Request Update
-     */
-
-
+    
     public function paymentFrame()
     {
         return view('postpaidpayment-frame');
@@ -697,13 +678,9 @@ class AccountController extends Controller
                     return redirect('/backend/finance');
                     break;
                 case '2':
-                // Agent is logged in
-                    $agent = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
-                    $allProfit = AgentTransaction::sum('agent');
-                    session()->put(['agentDetails' => $agent]);
-                    return view('users.agent.financial')
-                        ->withDetails($agent)
-                        ->withProfit($allProfit);
+                //  Agent is logged in
+				//  Redirect to Dashboard
+					return redirect('agent/dashboard');
                     break;
                 case '3':
                     //return view('users.distributor.finance');

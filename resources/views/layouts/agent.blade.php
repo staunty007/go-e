@@ -74,7 +74,7 @@
                     </li>
                     @else
                     <li class="{{ Request::is('home') ? 'active': '' }}"><a href="{{ route('agent.dashboard') }}"><span>&#8358;</span></i>
-                            <span class="nav-label">&nbsp;My Dashboard</span></a>
+                            <span class="nav-label">&nbsp My Dashboard</span></a>
                     </li>
                     <li class="{{ Request::is('agent/payment-history') ? 'active': '' }}">
                         <a href="{{ route('agent.payHistory') }}"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment
@@ -127,6 +127,11 @@
                         <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
                             Top up Wallet Account
                         </button>
+                        <a class="btn btn-info mt-10" href="{{ route('agent.prepaid-token') }}">
+                            Buy Token
+                        </a>
+                        <button class="btn btn-default mt-10">
+                            <span class="text-black-50" style="font-weight: bold">Wallet Balance: N{{ number_format($agent_details->agent->wallet_balance) }}</span></button>
                         @push('popups')
                         <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
