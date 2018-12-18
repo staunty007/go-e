@@ -267,8 +267,7 @@
 									<b>SALES</b> outlets closest to you and transact with our Agent.
 								</h5>
 							</div>
-						
-							
+
 							<div class="col-md-6 col-xs-6" style="padding:0px 2px; min-height:18px;">
 									<a href="#"><button type="button" class="grad-boxa" id="support_btn" style="background-color: #fff !important; color: #8CC74E; padding:23px 32px">
 											<i class="fas fa-mobile-alt fa-2x"></i><br>
