@@ -66,7 +66,7 @@ class AgentController extends Controller
         $payments = array_flatten($combine);
 
         // // Total Sellage
-        $allSellage = Payment::where('is_agent','=',1)->with('agent_transaction')->get();
+        $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->get();
         
         $sold = 0;
 
@@ -74,7 +74,7 @@ class AgentController extends Controller
             $sold += $sells->agent_transaction->total_amount;
         }
 
-        $payments = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+        $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('transaction')->latest()->get();
         // return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');

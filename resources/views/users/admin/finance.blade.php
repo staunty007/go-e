@@ -1,119 +1,6 @@
 @extends('layouts.admin') @section('content')
 <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
-{{-- <div class="row">
 
-    <div class="col-sm-4">
-        <h1 class="m-b-xs">
-            <span>&#8358;</span>
-            {{$data['salesthismonth']}}
-        </h1>
-        <small>
-            Sales in current month
-        </small>
-        <div id="sparkline1" class="m-b-sm"></div>
-        <div class="row">
-            <div class="col-xs-4">
-                <small class="stats-label">Pages / Visit</small>
-                <h4>236,321</h4>
-            </div>
-
-            <div class="col-xs-4">
-                <small class="stats-label">% New Visits</small>
-                <h4>46.11%</h4>
-            </div>
-            <div class="col-xs-4">
-                <small class="stats-label">Last week</small>
-                <h4>432</h4>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-sm-4">
-        <h1 class="m-b-xs">
-            <span>&#8358;</span>
-            {{$data['salestoday']}}
-        </h1>
-        <small>
-            Sales in last 24h
-        </small>
-        <div id="sparkline2" class="m-b-sm"></div>
-        <div class="row">
-            <div class="col-xs-4">
-                <small class="stats-label">Pages / Visit</small>
-                <h4>166,781</h4>
-            </div>
-
-            <div class="col-xs-4">
-                <small class="stats-label">% New Visits</small>
-                <h4>22.45%</h4>
-            </div>
-            <div class="col-xs-4">
-                <small class="stats-label">Last week</small>
-                <h4>862</h4>
-            </div>
-        </div>
-
-
-
-    </div>
-    <div class="col-sm-4">
-
-        <div class="row m-t-xs">
-            <div class="col-xs-6">
-                <h5 class="m-b-xs">Income last month</h5>
-                <h1 class="no-margins">
-                    <span>&#8358;</span>{{$data['incomelastmonth']}}</h1>
-                <div class="font-bold text-navy">98%
-                    <i class="fa fa-bolt"></i>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <h5 class="m-b-xs">Sales current year</h5>
-                <h1 class="no-margins">
-                    <span>&#8358;</span>{{$data['salescurrentyear']}}</h1>
-                <div class="font-bold text-navy">98%
-                    <i class="fa fa-bolt"></i>
-                </div>
-            </div>
-        </div>
-
-
-        <table class="table small m-t-sm">
-            <tbody>
-                <tr>
-                    <td>
-                        <strong>{{$data['registeredcustomers']}}</strong> Customers
-
-                    </td>
-                    <td>
-                        <strong>22</strong> Messages
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <strong>61</strong> Comments
-                    </td>
-                    <td>
-                        <strong>3</strong> Reported issues
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>{{$data['registeredagents']}}</strong> Agents
-                    </td>
-                    <td>
-                        <strong>3</strong> Payment Channels
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-
-
-    </div>
-
-</div> --}}
 
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -157,10 +44,6 @@
                 <div class="ibox-title">
                     
                     Wallet Balance
-
-                    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-                    {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
-                    <script src="app.js"></script>
 
                 </div>
                 <div class="ibox-content">
@@ -307,7 +190,8 @@
                                 <tr>
                                     <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
-                                    <td>Web</td>
+                                    <td>{{ $d->is_agent }}</td>
+                                    <td>{{ $d->is_agent == 1 ? 'Agent-'.$d->transaction_type : $d->transaction_type }}</td>
                                     <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
                                     <td>{{ $d->customer_address }}</td>

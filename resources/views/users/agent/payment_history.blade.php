@@ -65,23 +65,7 @@
                         </div>
                         <br>
                         <div class="row">
-                            {{-- <form action="filter-by-date" method="post" class="form-horizontal">
-                                {{ csrf_field() }}
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <h3 class="text-center">Filter By Date</h3>
-                                        <div class="col-md-5">
-                                            <input class="form-control pickadate" name="from" placeholder="Date From" style="background-color: #fff; border: 1px soild #222; cursor: pointer">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input class="form-control pickadate" name="to" placeholder="Date To" style="background-color: #fff; border: 1px soild #222; cursor: pointer">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button class="btn btn-primary">Filter</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form> --}}
+
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label" for="amount">Filter By District</label>

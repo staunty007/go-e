@@ -58,10 +58,6 @@ class AdminController extends Controller
         $admin = AdminBiodata::find(1);
         $data['wallet_balance'] = $admin->wallet_balance;
 
-        //Income
-        // $incomePrepaid = Payment::where('user_type',1)->with('transaction')->get();
-        // //eturn $incomePrepaid;
-        // $incomePostpaid = Payment::where('user_type',2)->with('transaction')->sum('total_amount');
         
         /**
          * Income = 
@@ -122,7 +118,8 @@ class AdminController extends Controller
             $data['avg_daily_p'] = $avg_profit_daily;
         }
         
-        $payments = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+//        $non_agent = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+//        $agent = Payment::
         // return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
