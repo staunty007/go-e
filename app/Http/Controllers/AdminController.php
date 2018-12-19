@@ -118,7 +118,7 @@ class AdminController extends Controller
             $data['avg_daily_p'] = $avg_profit_daily;
         }
         
-//        $non_agent = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+        $non_agent = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
 //        $agent = Payment::
         // return $payments;
         // TotalWalletDeposit
@@ -133,7 +133,7 @@ class AdminController extends Controller
 
     
        return $this->v('finance', $data)
-           ->withFinances($payments)
+           ->withFinances($non_agent)
             ->withBalance($wallet_balance->wallet_balance);
     }
 
