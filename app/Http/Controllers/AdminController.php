@@ -119,7 +119,7 @@ class AdminController extends Controller
         }
         
         $non_agent = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
-//        $agent = Payment::
+        
         // return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
@@ -190,7 +190,11 @@ class AdminController extends Controller
             ;
         
     }
-    public function agentTransactions()
+	
+	/**
+	 * @return mixed
+	 */
+	public function agentTransactions()
     {
         // Direct Payment
         $payment = Payment::where('is_agent',1)->with('agent_transaction')->get();
@@ -210,8 +214,11 @@ class AdminController extends Controller
             ->withPostpaids($postpaids)
             ;
     }
-
-    public function customer_report()
+	
+	/**
+	 * @return mixed
+	 */
+	public function customer_report()
     {
         $data=[];
 
@@ -239,8 +246,11 @@ class AdminController extends Controller
                 // ->withDailySignup($dailySignup)
                 ;
     }
-
-    public function payment_history()
+	
+	/**
+	 * @return mixed
+	 */
+	public function payment_history()
     {
         return $this->v('payment_history');
     }
