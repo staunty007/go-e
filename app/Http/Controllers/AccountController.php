@@ -823,10 +823,11 @@ class AccountController extends Controller
 
         $meterRequest->save();
 
-        Session::flash('success', 'Meter Request Submitted Successfully, Our Admin has been notified, we would get back to you shortly');
+        session()->flash('success', 'Meter Request Submitted Successfully, Our Admin has been notified, we would get back to you shortly');
 
         return back();
     }
+
     public function paymentHistory()
     {
         $userEmail = \Auth::user()->email;
@@ -853,8 +854,6 @@ class AccountController extends Controller
         $pdf = PDF::loadView('customer.payment_reciept', compact('reciepts'));
         return $pdf->download('invoice.pdf');
     }
-
-
 
     public function logout()
     {

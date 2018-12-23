@@ -110,11 +110,10 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big1.png">
-
+                                <img alt="image" class="img-responsive" src="/customer/img/p_big1.png" style="height: 320px">
                             </div>
-                            <div class="item ">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big2.jpg">
+                            <div class="item">
+                                <img alt="image" class="img-responsive" src="/customer/img/p_big2.jpg" style="height: 320px">
 
                             </div>
 

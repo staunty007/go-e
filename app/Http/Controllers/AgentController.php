@@ -66,16 +66,16 @@ class AgentController extends Controller
         $payments = array_flatten($combine);
 
         // // Total Sellage
-        $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->get();
+        $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('transaction')->get();
         
         $sold = 0;
 
         foreach ($allSellage as $sells) {
-            $sold += $sells->agent_transaction->total_amount;
+            $sold += $sells->transaction->total_amount;
         }
 
         $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('transaction')->latest()->get();
-        // return $payments;
+//         return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
 
@@ -165,9 +165,6 @@ class AgentController extends Controller
         $user->mobile = $request->mobile;
         $user->is_completed = 1;
 
-        // if($request->password !== NULL) {
-        //     $user->password = bcrypt($request->password);
-        // }
 
         $agentBio = AgentBiodata::where('user_id',$user->id)->first();
         $agentBio->address = $request->address;
@@ -187,6 +184,7 @@ class AgentController extends Controller
 
         return back()->withSuccess('Profile Updated Successfully');
     }
+
     // complete agent topup
     public function completeTopup($amount) {
         //return $amount;
