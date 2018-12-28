@@ -124,12 +124,13 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
-                            Top up Wallet Account
-                        </button>
+
                         <a class="btn btn-info mt-10" href="{{ route('agent.prepaid-token') }}">
                             Buy Token
                         </a>
+                        <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                            Top up Wallet Account
+                        </button>
                         <button class="btn btn-default mt-10">
                             <span class="text-black-50" style="font-weight: bold">Wallet Balance: N{{ number_format($agent_details->agent->wallet_balance) }}</span></button>
                         @push('popups')
@@ -154,7 +155,7 @@
                                                 </div>
                                             </form>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                onclick="this.innerHTML='Processing...'; payWithPaystack()"
+                                                onclick="this.innerHTML='Processing...'; diamondPay()"
                                                 id="topUpBtn">
                                                 <strong>Top Up Now</strong>
                                             </button>
@@ -271,14 +272,16 @@
     </script>
     {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
     <script>
-        function payWithPaystack() {
+        function diamondPay() {
             var amount = document.querySelector('#topup-amount').value;
 
             if(amount.length == 0 || amount == "") {
                 alert('Please Enter an Amount');
             }else {
+                // Get Agent's Account Details
+
                 // Connect to diamond API to deduct amount fro agent's Account
-                fetch(`diamond/debit/${accountNumber}/${amount}`)
+                fetch(`/diamond/debit/${amount}`)
                     .then(res => res.json())
                     .then(response => console.log(response));
             }
@@ -290,9 +293,9 @@
 
             // 	callback: function (response) {
             // swal('Yay!', 'Payment Successfull', 'success');
-            setTimeout(() => {
-                window.location.href = '/backend/topup-admin/success/' + amount;
-            }, 1000);
+            // setTimeout(() => {
+            //     window.location.href = '/backend/topup-admin/success/' + amount;
+            // }, 1000);
             // 	},
             // 	onClose: function () {
             // 		alert('Payment Cancelled');

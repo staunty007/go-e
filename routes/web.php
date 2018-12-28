@@ -223,9 +223,9 @@ Route::prefix('distributor')->group(function () {
 // Initialize Access Token
 Route::get('diamond/access-token', 'DiamondApiController@generateAccessToken');
 // Credit aPI
-Route::get('diamond/credit/{amount}', 'DiamondApiController@credit');
+Route::get('diamond/credit/{amount}/{narration}', 'DiamondApiController@credit');
 // Debit API
-Route::get('diamond/debit/{accountnumber}/{amount}', 'DiamondApiController@agentDebit');
+Route::get('diamond/debit/{amount}', 'DiamondApiController@agentDebit');
 Route::get('diamond/debit/admin/{accountnumber}/{amount}', 'DiamondApiController@adminDebit');
 
 // End to End API
