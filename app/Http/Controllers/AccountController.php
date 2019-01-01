@@ -120,7 +120,7 @@ class AccountController extends Controller
 
     public function paymentHolder(Request $request)
     {
-        // return $request;
+        return $request;
         /**
          *  Check if request is coming from agent
          *  then fetch out and check agent's biodata
