@@ -120,13 +120,13 @@ class AccountController extends Controller
 
     public function paymentHolder(Request $request)
     {
-        // return $request;
         /**
          *  Check if request is coming from agent
          *  then fetch out and check agent's biodata
          *  else hold payment information fir customers
          */
         if ($request->has('is_agent')) {
+            // Logged in Agent
             $agentDetails = AgentBiodata::where('user_id', \Auth::user()->id)->firstOrFail();
             $adminDetails = AdminBiodata::firstOrFail();
 
