@@ -120,7 +120,6 @@ class AccountController extends Controller
 
     public function paymentHolder(Request $request)
     {
-        return $request;
         /**
          *  Check if request is coming from agent
          *  then fetch out and check agent's biodata
@@ -134,11 +133,18 @@ class AccountController extends Controller
                 return response()->json(['errorText' => 'Insufficient Balance to complete the payment']);
             }
 
+            $paymentDetails[] = $request->all();
+            
             // Flush Payment Details
             session()->forget('payment_details');
-            session()->put(['payment_details' => $request->all()]);
+            if(auth()->check()) {
+                $agent_id = auth()->id();
+                $id['agent_id'] = $agent_id;
+                $newarray = array_collapse(array_prepend($paymentDetails,$id));
+                session()->put(['payment_details' => $newarray]);
+            }
+            
             return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
-
         }
 
         // Request is coming from the user
@@ -150,12 +156,6 @@ class AccountController extends Controller
         session(['payment_details' => $request->all()]);
         return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
     }
-
-    public function decodeEmail($string)
-    {
-        return base64_decode($string);
-    }
-
 
     /**
      * Customer Prepaid Payment View
@@ -176,11 +176,9 @@ class AccountController extends Controller
         //return "We are working on this <a href='/home'>Back</a>";
     }
 
-
     public function paymentSuccess($user_type, $reff)
     {
         if (session()->exists('payment_details')) {
-
             $paymentDetails = session('payment_details');
             // return $paymentDetails;
             $tokenDetails = session()->get('token_data');
@@ -223,6 +221,7 @@ class AccountController extends Controller
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
                 'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : 0),
                 'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
+                'agent_id' => (isset($paymentDetails['is_agent']) ? $paymentDetails['agent_id'] : '' ),
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
                 'payment_status' => $tokenDetails['response']['orderDetails']['status'],
                 'created_at' => new Carbon('now'),
@@ -230,7 +229,6 @@ class AccountController extends Controller
             ]);
 
             // Transaction Came from an agent
-
             if (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') {
                 // $transaction = new Transaction;
                 $transaction = new AgentTransaction;

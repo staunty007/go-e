@@ -38,7 +38,7 @@ Route::prefix('guest')->group(function () {
     Route::get('become_agent', 'GuestController@become_agent')->name('guest.become_agent');
     Route::get('agent_solution', 'GuestController@agent_solution')->name('guest.agent_solution');
     Route::get('agent_signup', 'GuestController@agent_signup')->name('guest.agent_signup');
-    Route::get('agent_signup', 'GuestController@agent_signup')->name('guest.agent_signup');
+    Route::post('agent_signup', 'GuestController@agentSignup')->name('guest.agent_signup-store');
     Route::get('agent_benefit', 'GuestController@agent_benefit')->name('guest.agent_benefit');
 
     Route::post('agent_reg', 'GuestController@postAgentSignup');

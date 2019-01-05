@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link rel="stylesheet" href="/css/jquery-confirm.css">
 <link rel="stylesheet" href="/css/custom/vertical-tab.css">
 <!-- jQuery library -->
 <div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment" style="display: block;padding-left: 15px;background: rgba(0, 0, 0, 0.77);">
@@ -174,7 +174,7 @@
 	});
 </script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="/js/jquery-confirm.js"></script>
 <script>
 	let meter_no = '';
 	let accountType = "{{ $accountType }}";
@@ -185,7 +185,7 @@
 		$(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
 		if (navigator.onLine) {
 			amount = $("#amount").val();
-			if (accountType === "PREPAID" && parseInt(amount) < 1000) {
+			if (accountType === "PREPAID" && parseFloat(amount) < 1000) {
 				$.alert({
 					title: 'Invalid Amount!',
 					content: `Amount Cannot be lesser than N1000`,
@@ -249,7 +249,6 @@
 					'mobile': '' + $('#phoneret').val() + '',
 					'amount': '' + $('.meter-amount').val() + '',
 					'is_agent': '1',
-					'agent_id': document.querySelector('#agent_id').value
 				};
 			} else {
 				payload = {
@@ -373,7 +372,7 @@
 		confirmDetails();
 	}
 
-	const continuePayment = () => {
+	function continuePayment() {
 		$('.pay-meter').html('<div class="loader-css"></div>');
 		meter_no = $('#meterno').val();
 

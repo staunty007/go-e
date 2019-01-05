@@ -341,4 +341,31 @@ class CIController extends Controller
         ];
     }
 
+
+    public function dfnf()
+    {
+            
+        $client = new SoapClient("https://path.svc?wsdl");
+
+        $res = $client->SendRequest(
+            [
+                'CompanyCode'=>'CIB001484',
+                'UserID'=>'test_user',
+                'Password'=>'pass*145%83078',
+                'UseSingleDebitMultiplecredit'=>false,
+                'Amount'=>'2000',
+                'BeneficiaryAccount'=>'1020047624',
+                'BeneficiaryBankCode'=>'057',
+                'BeneficiaryName'=>'JOHN UBAH',
+                'DebitAccount'=>'2020076821',
+                'TransactionRef'=>'CIB/TEST/BD/15265',
+                'Payment_Due_date'=>'17/1/2019'
+            ]
+        );
+    // $response = strtr($xml_string, ['</soap:' => '</', '<soap:' => '<']);
+    // $output = json_decode(json_encode(simplexml_load_string($response)));
+    // var_dump($output->body->SendRequest->ResponseCode);
+        var_dump(json_encode($res->SendRequestResult));
+
+    }
 }

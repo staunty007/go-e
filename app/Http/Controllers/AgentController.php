@@ -51,51 +51,51 @@ class AgentController extends Controller
 
         // return $lastTopup['amount'];
         $prepaidAgent = Payment::where([
-            ['user_type','=',1],
-            ['is_agent','=',1]
+            ['user_type','OFFLINE_PREPAID'],
+            ['is_agent',1],
+            ['agent_id', auth()->id()]
         ])->with('agent_transaction')->get();
 
         //return $prepaidAgent;
-        $postpaidAgent = Payment::where([
-            ['user_type','=',2],
-            ['is_agent','=',1]
-        ])->with('agent_transaction')->get();
+        $postpaidAgent = Payment::where(
+            [
+                'user_type' => 'OFFLINE_POSTPAID',
+                'is_agent' => 1,
+                'agent_id' => auth()->id()
+            ]
+        )->with('agent_transaction')->get();
 
         $combine = collect($prepaidAgent,$postpaidAgent);
 
         $payments = array_flatten($combine);
 
         // // Total Sellage
-        $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('transaction')->get();
+        $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->get();
         
         $sold = 0;
-
         foreach ($allSellage as $sells) {
-            $sold += $sells->transaction->total_amount;
+            if($sells->agent_transaction !== NULL) {
+                $sold += $sells->agent_transaction->total_amount;
+            }else {
+                $sold += 0;
+            }
         }
 
-        $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('transaction')->latest()->get();
+        $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->latest()->get();
 //         return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
 
         //return $payments;
-        $wallet_balance = AdminBiodata::first();        
-
-
-        //return $sold;
-        // return $payments;
+        $wallet_balance = AgentBiodata::where('user_id',auth()->id())->first();
+        
         return view($this->prefix.'payment_history')
             ->withFinances($payments)
             ->withBalance($wallet_balance->wallet_balance)
-            // ->withHistory($payments)
-            // ->withBalance($agent->wallet_balance)
             ->withTheLast($lastTopup['amount'])
             ->withAllSold($sold)
             ;
     }
-
-
 
     public function ViewPaymentReceipt($reciept_id)
     {

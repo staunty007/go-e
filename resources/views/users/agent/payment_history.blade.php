@@ -171,7 +171,7 @@
                                             <th>Amount Paid</th>
                                             <th>Commission</th>
                                             <th>Net Total</th>
-                                            <th>Wallet Balance</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -199,17 +199,15 @@
                                                 {{ round($d->value_of_kwh,2)}}
                                             </td>
                                             <td>
-                                                {{ number_format($d->transaction->initial_amount)}}
+                                                {{ number_format($d->agent_transaction->initial_amount)}}
                                             </td>
                                             <td>
-                                                {{ number_format($d->transaction->commission)}}
+                                                {{ number_format($d->agent_transaction->commission)}}
                                             </td>
                                             <td>
-                                                {{ number_format($d->transaction->initial_amount - $d->transaction->commission)}}
+                                                {{ number_format($d->agent_transaction->initial_amount - $d->transaction->commission)}}
                                             </td>
-                                            <td>
-                                                {{ number_format($d->transaction->wallet_bal)}}
-                                            </td>
+                                           
         
                                         </tr>
                                         @endforeach
@@ -315,36 +313,5 @@
                 });
             </script>
 
-            <script>
-                let agentDetails = {!!json_encode(session('agentDetails')) !!
-                };
-                localStorage.setItem('ga_d', JSON.stringify(agentDetails));
-            </script>
-
             <!-- ChartJS-->
-   
-
-          <script>
-          // Bar chart
-new Chart(document.getElementById("bar-chart"), {
-type: 'bar',
-data: {
-labels: ["Electricity", "TV Subscription", "Internet/Data", "LCC", "Water Bills"],
-datasets: [
-{
-label: "Sales (Thousands)",
-backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-data: [2478,5267,734,784,433]
-}
-]
-},
-options: {
-legend: { display: false },
-title: {
-display: true,
-text: 'Business Performance across all service Offerings'
-}
-}
-});
-          </script>
             @endpush

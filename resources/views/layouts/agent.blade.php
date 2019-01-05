@@ -246,7 +246,8 @@
 
     <!-- Sparkline demo data  -->
     <script src="{{asset('js/demo/sparkline-demo.js')}}"></script>
-
+    <script src="{{asset('js/plugins/dataTables/datatables.min.js')}}"></script>
+    <script src="/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
 
