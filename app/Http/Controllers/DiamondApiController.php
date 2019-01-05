@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AgentBiodata;
 use Illuminate\Http\Request;
 use App\AdminBiodata;
 
@@ -50,6 +51,7 @@ class DiamondApiController extends Controller
         $curl = curl_init();
         // Transation Ref
         $transactref = str_random(10);
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
             CURLOPT_RETURNTRANSFER => true,
@@ -80,8 +82,9 @@ class DiamondApiController extends Controller
 
     }
 
-    public function agentDebit($accountNumber, $amount)
+    public function agentDebit($amount)
     {
+//        return $this->generateAccessToken();
         // check agent's amount is not greater tham admin's own
         $adminBiodata = AdminBiodata::find(1);
         // return $adminBiodata;
@@ -89,7 +92,15 @@ class DiamondApiController extends Controller
             return response()->json('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
         }
         $token = $this->generateAccessToken();
-
+//        $token = $getToken['access_token'];
+        /*
+         * Payment Description
+         * Agent's Name - agent id
+         */
+        // Find Agent
+        $agentBiodata = AgentBiodata::where('user_id',auth()->id())->firstOrFail();
+        $accountNumber = $agentBiodata->account_number;
+        $description = "GOENERGEE Agent ".auth()->user()->firstname."_".auth()->user()->lastname."_".$agentBiodata->agent_id." Topup Debit".date('d-m-y');
         // return $token;
         $curl = curl_init();
         $transactionRef = str_random(20);
@@ -102,7 +113,7 @@ class DiamondApiController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"$accountNumber\",\n\t\"sourceAccount\": \"$accountNumber\",\n\t\"transactionReference\": \"$transactionRef\",\n\t\"transactionNaration\": \"GOENERGEE Topup Debit\"\n}",
+            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"$accountNumber\",\n\t\"sourceAccount\": \"$accountNumber\",\n\t\"transactionReference\": \"$transactionRef\",\n\t\"transactionNaration\": \"$description\"\n}",
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer " . $token,
                 "Content-Type: application/json",

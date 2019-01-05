@@ -51,15 +51,19 @@ class AgentController extends Controller
 
         // return $lastTopup['amount'];
         $prepaidAgent = Payment::where([
-            ['user_type','=',1],
-            ['is_agent','=',1]
+            ['user_type','OFFLINE_PREPAID'],
+            ['is_agent',1],
+            ['agent_id', auth()->id()]
         ])->with('agent_transaction')->get();
 
         //return $prepaidAgent;
-        $postpaidAgent = Payment::where([
-            ['user_type','=',2],
-            ['is_agent','=',1]
-        ])->with('agent_transaction')->get();
+        $postpaidAgent = Payment::where(
+            [
+                'user_type' => 'OFFLINE_POSTPAID',
+                'is_agent' => 1,
+                'agent_id' => auth()->id()
+            ]
+        )->with('agent_transaction')->get();
 
         $combine = collect($prepaidAgent,$postpaidAgent);
 
@@ -69,33 +73,29 @@ class AgentController extends Controller
         $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->get();
         
         $sold = 0;
-
         foreach ($allSellage as $sells) {
-            $sold += $sells->agent_transaction->total_amount;
+            if($sells->agent_transaction !== NULL) {
+                $sold += $sells->agent_transaction->total_amount;
+            }else {
+                $sold += 0;
+            }
         }
 
-        $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('transaction')->latest()->get();
-        // return $payments;
+        $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->latest()->get();
+//         return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
 
         //return $payments;
-        $wallet_balance = AdminBiodata::first();        
-
-
-        //return $sold;
-        // return $payments;
+        $wallet_balance = AgentBiodata::where('user_id',auth()->id())->first();
+        
         return view($this->prefix.'payment_history')
             ->withFinances($payments)
             ->withBalance($wallet_balance->wallet_balance)
-            // ->withHistory($payments)
-            // ->withBalance($agent->wallet_balance)
             ->withTheLast($lastTopup['amount'])
             ->withAllSold($sold)
             ;
     }
-
-
 
     public function ViewPaymentReceipt($reciept_id)
     {
@@ -165,9 +165,6 @@ class AgentController extends Controller
         $user->mobile = $request->mobile;
         $user->is_completed = 1;
 
-        // if($request->password !== NULL) {
-        //     $user->password = bcrypt($request->password);
-        // }
 
         $agentBio = AgentBiodata::where('user_id',$user->id)->first();
         $agentBio->address = $request->address;
@@ -187,6 +184,7 @@ class AgentController extends Controller
 
         return back()->withSuccess('Profile Updated Successfully');
     }
+
     // complete agent topup
     public function completeTopup($amount) {
         //return $amount;

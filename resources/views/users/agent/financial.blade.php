@@ -6,11 +6,11 @@
         <div class="widget style1 navy-bg">
             <div class="row">
                 <div class="col-xs-4">
-                    <i class="fa fa-wallet fa-5x" style="color: white;">&#8358;</i>
 
+                    <i class="fa fa-money fa-5x" style="color: white"></i>
                 </div>
                 <div class="col-xs-8 text-right">
-                    <span>Wallet Deposit </span>
+                    <span>Wallet Balance </span>
                     <h2 class="font-bold">{{ number_format($details->wallet_balance)}}</h2>
                 </div>
             </div>
@@ -33,7 +33,8 @@
         <div class="widget style1 yellow-bg">
             <div class="row">
                 <div class="col-xs-4">
-                    <i class="fa fa-key fa-5x" style="color: white;"></i>
+
+                    <i class="fa fa-wallet fa-5x" style="color: white;">&#8358;</i>
                 </div>
                 <div class="col-xs-8 text-right">
                     <span> Total Profit </span>
@@ -58,7 +59,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-7">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div>

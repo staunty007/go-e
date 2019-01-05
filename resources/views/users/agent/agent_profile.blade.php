@@ -151,62 +151,62 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script>
     const baseUrl = "{{ url('/') }}";
-    let profileUpdate = document.querySelector("#profileUpdate");
-    profileUpdate.addEventListener('click',(e) => {
-        e.preventDefault();
-        let meterNo = document.querySelector("#meter_no").value;
-
-        if(meterNo.length == 0 && meterNo.length > 6) {
-            $.alert({
-                title: 'Ooops!',
-                content: 'Meter No Field is Required',
-                type: 'red',
-                buttons: {
-                    ok: {
-                        text: 'Okay',
-                        btnClass: 'btn-red'
-                    }
-                }
-            });
-        }else {
-            fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
-                .then(res => res.json())
-                .then(response => {
-                    console.log(response);
-                    if(response.response.retn !== 0) {
-                        $.alert({
-                            title: 'Ooops!',
-                            content: 'Invalid Meter No!',
-                            type: 'red',
-                            buttons: {
-                                ok: {
-                                    text: 'Try Again',
-                                    btnClass: 'btn-red'
-                                }
-                            }
-                        });
-                    }else {
+    // let profileUpdate = document.querySelector("#profileUpdate");
+    // profileUpdate.addEventListener('click',(e) => {
+    //     e.preventDefault();
+    //     let meterNo = document.querySelector("#meter_no").value;
+    //
+    //     if(meterNo.length == 0 && meterNo.length > 6) {
+    //         $.alert({
+    //             title: 'Ooops!',
+    //             content: 'Meter No Field is Required',
+    //             type: 'red',
+    //             buttons: {
+    //                 ok: {
+    //                     text: 'Okay',
+    //                     btnClass: 'btn-red'
+    //                 }
+    //             }
+    //         });
+    //     }else {
+            // fetch(`/in-app/api/soap/validate-customer/${meterNo}`)
+            //     .then(res => res.json())
+            //     .then(response => {
+            //         console.log(response);
+            //         if(response.response.retn !== 0) {
+            //             $.alert({
+            //                 title: 'Ooops!',
+            //                 content: 'Invalid Meter No!',
+            //                 type: 'red',
+            //                 buttons: {
+            //                     ok: {
+            //                         text: 'Try Again',
+            //                         btnClass: 'btn-red'
+            //                     }
+            //                 }
+            //             });
+            //         }else {
                         // Valid Meter no
-                        $('#form').submit();
-                    }
-                })
-                .catch(err => {
+                        // $('#form').submit();
+                    // }
+                // })
+                // .catch(err => {
                     // alert('Sorry Something Went Wrong');
-                    $.alert({
-                        title: 'Ooops!',
-                        content: 'Something Bad Went Wrong',
-                        type: 'red',
-                        buttons: {
-                            ok: {
-                                text: 'Got It',
-                                btnClass: 'btn-red'
-                            }
-                        }
-                    });
-                });
+                //     $.alert({
+                //         title: 'Ooops!',
+                //         content: 'Something Bad Went Wrong',
+                //         type: 'red',
+                //         buttons: {
+                //             ok: {
+                //                 text: 'Got It',
+                //                 btnClass: 'btn-red'
+                //             }
+                //         }
+                //     });
+                // });
             
         }
-    });
+    // });
 </script>
 <script>
     // Validate Diamond Bank Account

@@ -1,5 +1,5 @@
 @extends('layouts.distributor') @section('content')
-{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"> --}}
+ <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
 
 <div class="col-lg-4">
     <div class="ibox float-e-margins">
@@ -144,7 +144,6 @@
 
         </div>
 
-
         <div class="ibox">
 
             <div class="ibox" style="overflow-x:auto;">
@@ -244,9 +243,6 @@
         </div>
 
     </div>
-</div>
-</div>
-</div>
 </div>
 
 

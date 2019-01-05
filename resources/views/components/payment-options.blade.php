@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link rel="stylesheet" href="/css/jquery-confirm.css">
 <link rel="stylesheet" href="/css/custom/vertical-tab.css">
 <!-- jQuery library -->
 <div class="modal fade" tabindex="-1" role="dialog" style="" id="confirm-payment" style="display: block;padding-left: 15px;background: rgba(0, 0, 0, 0.77);">
@@ -54,12 +54,13 @@
 						</div>
 						@if(auth()->check() && auth()->id() == 2)
 						<input type="hidden" name="is_agent" value="1" id="is_agent">
+						<input type="hidden" name="agent_id" value="{{ auth()->id() }}" id="agent_id">
 						@endif
 						<div class="col-md-12">
-							{{-- <p class="text-center form-group"> --}}
+							
 								<input type="button" class="btn btn-primary" id="ctnPay" value="Continue to Payment">
 								<input type="button" value="Cancel Payment" class="btn btn-outline-danger" onclick="window.location.reload()">
-								{{-- </p> --}}
+							
 						</div>
 					</div>
 				</form>
@@ -173,7 +174,7 @@
 	});
 </script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="/js/jquery-confirm.js"></script>
 <script>
 	let meter_no = '';
 	let accountType = "{{ $accountType }}";
@@ -184,7 +185,7 @@
 		$(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
 		if (navigator.onLine) {
 			amount = $("#amount").val();
-			if (accountType === "PREPAID" && parseInt(amount) < 1000) {
+			if (accountType === "PREPAID" && parseFloat(amount) < 1000) {
 				$.alert({
 					title: 'Invalid Amount!',
 					content: `Amount Cannot be lesser than N1000`,
@@ -247,7 +248,7 @@
 					'email': '' + $('#emailret').val() + '',
 					'mobile': '' + $('#phoneret').val() + '',
 					'amount': '' + $('.meter-amount').val() + '',
-					'is_agent': '1'
+					'is_agent': '1',
 				};
 			} else {
 				payload = {
@@ -257,7 +258,6 @@
 					'email': '' + $('#emailret').val() + '',
 					'mobile': '' + $('#phoneret').val() + '',
 					'amount': '' + $('.meter-amount').val() + '',
-
 				};
 			}
 			continuePay(payload);
@@ -269,12 +269,9 @@
 			url: '/payment/hold',
 			method: 'POST',
 			data: payload,
-			success: (response) => {
-				// console.log(response);
+			success: (response) => {				
 				if (response.code == "ok") {
-					// console.log(response.text);
 					openOptions();
-					// payWithPaystack();
 				}
 			},
 			error: (err) => {
@@ -284,15 +281,12 @@
 	}
 
 	function payWithPaystack() {
-		// var amount = document.querySelector('.meter-amount').value;
-
 		var chargedAmount = parseInt(amount) + 100;
 		let reff;
 		switch(accountType) {
 			case 'POSTPAID':
 				reff = "GOEPOS" + Math.floor((Math.random() * 1000000000) + 1)
 			break;
-
 			default: 
 				reff = "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1)
 			break;
@@ -378,7 +372,7 @@
 		confirmDetails();
 	}
 
-	const continuePayment = () => {
+	function continuePayment() {
 		$('.pay-meter').html('<div class="loader-css"></div>');
 		meter_no = $('#meterno').val();
 

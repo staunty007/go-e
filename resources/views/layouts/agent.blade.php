@@ -124,12 +124,13 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
-                            Top up Wallet Account
-                        </button>
+
                         <a class="btn btn-info mt-10" href="{{ route('agent.prepaid-token') }}">
                             Buy Token
                         </a>
+                        <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                            Top up Wallet Account
+                        </button>
                         <button class="btn btn-default mt-10">
                             <span class="text-black-50" style="font-weight: bold">Wallet Balance: N{{ number_format($agent_details->agent->wallet_balance) }}</span></button>
                         @push('popups')
@@ -154,7 +155,7 @@
                                                 </div>
                                             </form>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                onclick="this.innerHTML='Processing...'; payWithPaystack()"
+                                                onclick="this.innerHTML='Processing...'; diamondPay()"
                                                 id="topUpBtn">
                                                 <strong>Top Up Now</strong>
                                             </button>
@@ -187,6 +188,12 @@
             <div class="wrapper wrapper-content animated fadeIn">
                 @yield('content')
             </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <div>
+            <strong>Powered by</strong> GOENERGEE &copy; 2018
         </div>
     </div>
     </div>
@@ -239,7 +246,8 @@
 
     <!-- Sparkline demo data  -->
     <script src="{{asset('js/demo/sparkline-demo.js')}}"></script>
-
+    <script src="{{asset('js/plugins/dataTables/datatables.min.js')}}"></script>
+    <script src="/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -265,14 +273,16 @@
     </script>
     {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
     <script>
-        function payWithPaystack() {
+        function diamondPay() {
             var amount = document.querySelector('#topup-amount').value;
 
             if(amount.length == 0 || amount == "") {
                 alert('Please Enter an Amount');
             }else {
+                // Get Agent's Account Details
+
                 // Connect to diamond API to deduct amount fro agent's Account
-                fetch(`diamond/debit/${accountNumber}/${amount}`)
+                fetch(`/diamond/debit/${amount}`)
                     .then(res => res.json())
                     .then(response => console.log(response));
             }
@@ -284,9 +294,9 @@
 
             // 	callback: function (response) {
             // swal('Yay!', 'Payment Successfull', 'success');
-            setTimeout(() => {
-                window.location.href = '/backend/topup-admin/success/' + amount;
-            }, 1000);
+            // setTimeout(() => {
+            //     window.location.href = '/backend/topup-admin/success/' + amount;
+            // }, 1000);
             // 	},
             // 	onClose: function () {
             // 		alert('Payment Cancelled');
@@ -410,74 +420,9 @@
 
         });
     </script>
-    <!-- Page-Level Scripts -->
+    {{--<!-- Page-Level Scripts -->--}}
     <script>
-        $(document).ready(function () {
-            $('.dataTables-example').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [{
-                        extend: 'copy'
-                    },
-                    {
-                        extend: 'csv'
-                    },
-                    {
-                        extend: 'excel',
-                        title: 'ExampleFile'
-                    },
-                    {
-                        extend: 'pdf',
-                        title: 'ExampleFile'
-                    },
 
-                    {
-                        extend: 'print',
-                        customize: function (win) {
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable('../example_ajax.php', {
-                "callback": function (sValue, y) {
-                    var aPos = oTable.fnGetPosition(this);
-                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-                },
-                "submitdata": function (value, settings) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition(this)[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            });
-
-
-        });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData([
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row"
-            ]);
-
-        }
     </script>
     @stack('popups') @stack('scripts')
 </body>
