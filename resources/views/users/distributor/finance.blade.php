@@ -8,7 +8,7 @@
             <h5>Transaction to EKEDC</h5>
         </div>
         <div class="ibox-content">
-            <h1 class="no-margins">₦400,888,200</h1>
+            <h1 class="no-margins">₦{{ number_format(5000000) }}</h1>
 
             <small>Total Monies Paid to EKEDC</small>
         </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="ibox-content">
             <h1 class="no-margins">₦{{ number_format($balance) }}</h1>
-            <small>remaining Wallet Trading Deposit</small>
+            <small>remaining Wallet Deposit</small>
             {{-- <small>5 days before next Top Up</small> --}}
         </div>
 
@@ -204,16 +204,21 @@
                                         {{ round($d->value_of_kwh,2)}}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->initial_amount)}}
+                                        {{
+                                            $d->transaction ? number_format($d->transaction->initial_amount) : number_format($d->agent_transaction->initial_amount)  }}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->commission)}}
+                                        {{
+                                            $d->transaction ? number_format((0.2 * $d->transaction->initial_amount)) : number_format((0.2 * $d->agent_transaction->initial_amount))
+                                        }}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->initial_amount - $d->transaction->commission)}}
+                                        {{
+                                            $d->transaction ? number_format($d->transaction->net_amount) : number_format($d->agent_transaction->net_amount)
+                                        }}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->wallet_bal)}}
+                                        {{ number_format($d->transaction ? $d->transaction->wallet_bal : $d->agent_transaction->wallet_bal )}}
                                     </td>
 
                                 </tr>

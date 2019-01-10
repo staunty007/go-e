@@ -38,7 +38,7 @@ class GuestController extends Controller
 		return view('guest/agent_signup');
 	}
 
-	public function agentSignup(Request $request) {
+	public function agentSignup(Requaest $request) {
 
 	    return $request;
     }

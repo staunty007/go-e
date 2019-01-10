@@ -93,7 +93,9 @@
                                                         </td>
                                                         <td>
                                                             <span class="label label-success">
-                                                                @{{ details.payment_status === "CONFIRMED" ? 'Successful': details.payment_status }}
+                                                                <span class="badge badge-success">
+                                                                    @{{ details.payment_status === "CONFIRMED" ? 'Successful': details.payment_status }}</span>
+
                                                             </span>
                                                         </td>
                                                 </tbody>

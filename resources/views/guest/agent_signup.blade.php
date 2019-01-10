@@ -224,7 +224,7 @@
                                 <label for="password">
                                     <b>Confirm-Password</b>
                                 </label>
-                                <input type="password" name="password" id="password" class=" input-sm"
+                                <input type="password" name="confirm_password" id="password" class=" input-sm"
                                        placeholder="*********">
                             </div>
                         </div>
@@ -264,8 +264,8 @@
                                 <label for="min_wallet"> Have balance of N10k</label>
                                 <select name="min_wallet" id="min_wallet" required class="form-control">
                                     <option value="" selected="selected">- Select -</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
 
                                 </select>
 
@@ -276,8 +276,8 @@
                                 <label for="tools">Own a PC/Phone</label>
                                 <select name="tools" id="tools" required class="form-control">
                                     <option value="" selected="selected">- Select -</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
 
                                 </select>
 

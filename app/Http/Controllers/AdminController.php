@@ -118,7 +118,7 @@ class AdminController extends Controller
             $data['avg_daily_p'] = $avg_profit_daily;
         }
         
-        $non_agent = Payment::where('is_agent', 0)->with('transaction')->latest()->get();
+        $non_agent = Payment::with('transaction','agent_transaction')->latest()->get();
         
         // return $payments;
         // TotalWalletDeposit
@@ -199,7 +199,6 @@ class AdminController extends Controller
         // Direct Payment
         $payment = Payment::where('is_agent',1)->with('agent_transaction')->get();
 
-        // return $payment;
         // All Customers
         $customers = User::where('role_id',0)->count();
         // All Prepaid Payments

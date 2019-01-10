@@ -26,12 +26,15 @@ class DistributorController extends Controller
     {
         return view($this->prefix . $file, compact('data'));
     }
+
     public function finance()
     {
         $data = [];
         // All Direct Payment
-        $payments = Payment::where('is_agent', 0)->with('transaction')->orderBy('created_at','desc')->latest()->get();
-        // return $payments;
+        $non_agent_payments = Payment::with('transaction', 'agent_transaction')->orderBy('created_at', 'desc')->latest()->get();
+//        $agent_payments = Payment::where('is_agent', 1)->with('agent_transaction')->orderBy('created_at', 'desc')->latest()->get();
+        $payments = collect($non_agent_payments);
+//        return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
 
@@ -52,37 +55,45 @@ class DistributorController extends Controller
         $wallet_balance = AdminBiodata::first();
         return view($this->prefix . 'finance', compact('finances'))->withBalance($wallet_balance->wallet_balance);
     }
+
     public function profile()
     {
         return $this->v('profile');
     }
+
     public function customer_payment()
     {
         $data = [];
 
         return $this->v('customer_payment', $data);
     }
+
     public function payment_history()
     {
         return $this->v('payment_history');
     }
+
     public function demographics()
     {
         return $this->v('demographics');
     }
+
     public function meter_admin()
     {
         $meters = MeterRequest::orderBy('created_at', 'desc')->get();
         return $this->v('meter_admin')->withRequests($meters);
     }
+
     public function settings()
     {
         return $this->v('settings');
     }
+
     public function sms()
     {
         return $this->v('sms');
     }
+
     public function getChangeStatus($id)
     {
         // Find Meter Row via ID

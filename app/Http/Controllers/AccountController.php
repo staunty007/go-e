@@ -183,8 +183,6 @@ class AccountController extends Controller
             $paymentDetails = session('payment_details');
             // return $paymentDetails;
             $tokenDetails = session()->get('token_data');
-            // return $tokenDetails;
-            // return $tokenDetails['response']['orderDetails']['tokenData']['stdToken'];
             // Insert into prepaid_payment
             $prepaid = new Payment;
 
@@ -222,7 +220,7 @@ class AccountController extends Controller
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
                 'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : 0),
                 'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
-                'agent_id' => (isset($paymentDetails['is_agent']) ? $paymentDetails['agent_id'] : '' ),
+                'agent_id' => (isset($paymentDetails['is_agent']) ? $paymentDetails['agent_id'] : 0 ),
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
                 'payment_status' => $tokenDetails['response']['orderDetails']['status'],
                 'created_at' => new Carbon('now'),

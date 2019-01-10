@@ -17,5 +17,7 @@ class Payment extends Model
         return $this->hasOne(AgentTransaction::class);
     }
 
-    
+    public function agent() {
+        return $this->belongsTo(AgentBiodata::class);
+    }
 }

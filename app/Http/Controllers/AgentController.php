@@ -49,33 +49,24 @@ class AgentController extends Controller
             $lastTopup['amount'] = $topup->topup_amount;
         }
 
-        // return $lastTopup['amount'];
-        $prepaidAgent = Payment::where([
-            ['user_type','OFFLINE_PREPAID'],
-            ['is_agent',1],
-            ['agent_id', auth()->id()]
-        ])->with('agent_transaction')->get();
 
-        //return $prepaidAgent;
-        $postpaidAgent = Payment::where(
+        $payments = Payment::where(
             [
-                'user_type' => 'OFFLINE_POSTPAID',
                 'is_agent' => 1,
                 'agent_id' => auth()->id()
             ]
         )->with('agent_transaction')->get();
 
-        $combine = collect($prepaidAgent,$postpaidAgent);
-
-        $payments = array_flatten($combine);
+//        return $payments;
 
         // // Total Sellage
         $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->get();
+//        return $allSellage;
         
         $sold = 0;
         foreach ($allSellage as $sells) {
             if($sells->agent_transaction !== NULL) {
-                $sold += $sells->agent_transaction->total_amount;
+                $sold += $sells->agent_transaction->initial_amount;
             }else {
                 $sold += 0;
             }

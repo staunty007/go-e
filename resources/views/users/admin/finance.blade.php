@@ -188,21 +188,22 @@
                             <tbody>
                                 @foreach ($finances as $d)
                                 <tr>
-                                    <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
+                                    <td>{{ date('d/m/y H:i:s A', strtotime($d->created_at) ) }}</td>
                                     <td>{{ $d->payment_ref }}</td>
-                                    <td>{{ $d->is_agent }}</td>
                                     <td>{{ $d->is_agent == 1 ? 'Agent-'.$d->transaction_type : $d->transaction_type }}</td>
-                                    <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
+                                    <td>{{ $d->transaction_type }}</td>
                                     <td>{{ $d->first_name." ". $d->last_name }}</td>
+                                    {{--<td>{{ $d->is_agent == 1 ? 'Agent-'.$d->transaction_type : $d->transaction_type }}</td>--}}
+                                    {{--<td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>--}}
                                     <td>{{ $d->customer_address }}</td>
                                     <td>{{ $d->district }}</td>
-                                <td>
-                                    @if( $d->bank === NULL)
-                                         BANK
-                                    @else 
-                                        {{ $d->bank }}
-                                    @endif
-                                </td>
+                                    <td>
+                                        @if( $d->bank === NULL)
+                                             BANK
+                                        @else
+                                            {{ $d->bank }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <span class="label label-primary">Successful</span>
                                     </td>
@@ -217,16 +218,21 @@
                                         {{ round($d->value_of_kwh,2)}}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->initial_amount)}}
+                                        {{
+                                            $d->transaction ? number_format($d->transaction->initial_amount) : number_format($d->agent_transaction->initial_amount)  }}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->commission)}}
+                                        {{
+                                            $d->transaction ? number_format((0.2 * $d->transaction->initial_amount)) : number_format((0.2 * $d->agent_transaction->initial_amount))
+                                        }}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->initial_amount - $d->transaction->commission)}}
+                                        {{
+                                            $d->transaction ? number_format($d->transaction->net_amount) : number_format($d->agent_transaction->net_amount)
+                                        }}
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction->wallet_bal)}}
+                                        {{ number_format($d->transaction ? $d->transaction->wallet_bal : $d->agent_transaction->wallet_bal )}}
                                     </td>
 
                                 </tr>
@@ -279,9 +285,9 @@
     $(document).ready(function () {
         const tabili = $('#myTable').DataTable({
             dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
             order: [['0','desc']],
             // searching: false
         });

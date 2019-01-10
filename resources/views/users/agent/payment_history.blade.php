@@ -177,7 +177,7 @@
                                     <tbody>
                                         @foreach ($finances as $d)
                                         <tr>
-                                            <td>{{ date('d/m/y h:i:s', strtotime($d->created_at) ) }}</td>
+                                            <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
                                             <td>{{ $d->payment_ref }}</td>
                                             <td>Web</td>
                                             <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
@@ -205,7 +205,7 @@
                                                 {{ number_format($d->agent_transaction->commission)}}
                                             </td>
                                             <td>
-                                                {{ number_format($d->agent_transaction->initial_amount - $d->transaction->commission)}}
+                                                {{ number_format($d->agent_transaction->initial_amount - $d->agent_transaction->commission)}}
                                             </td>
                                            
         
@@ -215,16 +215,12 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="7">
-                                                <ul class="pagination pull-right"></ul>
+                                                {{--<ul class="pagination pull-right"></ul>--}}
                                             </td>
                                         </tr>
                                     </tfoot>
                                 </table>
-        
-        
-        
                             </div>
-        
         
                         </div>
         

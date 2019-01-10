@@ -95,8 +95,6 @@
         }
     </style>
 
-
-
     <body class="bg-img">
         <!-- header navbar -->
         <div class="container">
