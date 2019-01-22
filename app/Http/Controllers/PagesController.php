@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use PDF;
+use App\Payment;
+use App\Transaction;
 
 class PagesController extends Controller
 {
@@ -28,5 +31,16 @@ class PagesController extends Controller
         $request->session()->invalidate();
 
         return redirect('/ekedc');
+    }
+
+    public function downloadReciept($payment_ref) {
+
+        $reciept = Payment::where('payment_ref', $payment_ref)->with('transaction')->firstOrFail();
+        //return $reciepts;
+        //return view('download-reciept-page', compact('reciept'));
+        $pdf = PDF::loadView('download-reciept-page', compact('reciept'));
+        return $pdf->download('reciept-download.pdf');
+        // $pdf = PDF::loadView('download-reciept-page');
+		// return $pdf->download('reciept-download.pdf');
     }
 }
