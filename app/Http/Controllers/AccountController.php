@@ -847,9 +847,9 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         $reciepts = Payment::where('order_id', $order_id)->with('transaction')->firstOrFail();
-        // return $reciepts;
-        $pdf = PDF::loadView('customer.payment_reciept', compact('reciepts'));
-        return $pdf->download('invoice.pdf');
+        return $reciepts;
+        // $pdf = PDF::loadView('customer.payment_reciept', compact('reciepts'));
+        // return $pdf->download('invoice.pdf');
     }
 
     public function logout()

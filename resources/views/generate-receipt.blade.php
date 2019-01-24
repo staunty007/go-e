@@ -119,7 +119,7 @@
                                                 <br>
                                                 <div style="margin-top: 1em">
                                                     <a href="{{ url()->previous() == url()->current() ? '/guest/each-service-type' : url()->previous() }}" class="btn btn-success">Pay Another</a>
-                                                    <button class="btn-danger btn" >Print Receipt</button>
+                                                    <a :href="'/download-reciept/' + details.payment_ref" class="btn-danger btn">Print Receipt</a>
                                                     <a href="" class="btn btn-info">Refer a Friend</a>
                                                 </div>
                                             </div>

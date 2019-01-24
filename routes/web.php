@@ -25,6 +25,7 @@ Route::get('/', function () {
     // return view('guest.home');
 });
 
+Route::get("download-reciept/{payment_ref}","PagesController@downloadReciept")->name('download-reciept');
 
 Route::prefix('guest')->group(function () {
     Route::get('home', 'GuestController@guestServices')->name('guest.services');
