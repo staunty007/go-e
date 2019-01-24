@@ -44,13 +44,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" value="" id="emailret" name="email"/>
+                                <input class="form-control" id="emailret" name="email" value="{{ auth()->check() ? auth()->user()->email : ''}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input class="form-control" value="" id="phoneret" name="mobile"/>
+                                <input class="form-control" id="phoneret" name="mobile" value="{{ auth()->check() ? auth()->user()->mobile : '' }}"/>
                             </div>
                         </div>
                         @if(auth()->check() && auth()->id() == 2)
@@ -90,7 +90,7 @@
                                     <a href="#" class="list-group-item text-center">
                                         <h4 class="fa fa-university"></h4><br/>Bank to Bank
                                     </a>
-                                    <a href="#" class="list-group-item text-center">
+                                    <a href="#" id="qrd" class="list-group-item text-center">
                                         <h4 class="fa fa-university"></h4><br/>mVisa
                                     </a>
                                     @auth
@@ -146,10 +146,11 @@
                                         <h3>Please Scan the QR Code below</h3>
                                         {{-- <img src="/images/qr-code.svg" draggable="false" height="100" />
                                         <h3>Amount: N<span id="mvisa"></span></h3> --}}
+                                        <div id="qr"></div>
                                         <a data-isw-payment-button data-isw-ref='7OD4h9rMEp'>
                                             <script type='text/javascript'
                                                     src='https://www.interswitchgroup.com/paymentgateway/public/js/webpay.js'
-                                                    data-isw-trans-amount='10000'
+                                                    data-isw-trans-amount='40000'
                                                     data-isw-customer-ref='1543221650633'
                                                     data-isw-customer-callback='customCallback'>
                                             </script>
@@ -426,8 +427,8 @@
                                 console.log(names[0]);
                                 $("#firstname").val(names[0]);
                                 $("#lastname").val(names[1]);
-                                $("#emailret").val('');
-                                $("#phoneret").val('');
+                                
+                                
                                 $("#meter_no").val($("#meterno").val());
                                 $("#total").val(parseInt($(".meter-amount").val()) + 100);
                                 setTimeout(() => {
@@ -444,8 +445,9 @@
                 }
             })
             .catch(err => {
-                // alert('Sorry Something Went Wrong');
-                console.log(err);
+                $('.pay-meter').html('Continue');
+                $(".pay-meter").prop('disabled', false);
+                
                 $.alert({
                     title: 'Ooops!',
                     content: 'Something Bad Went Wrong',
@@ -457,8 +459,7 @@
                         }
                     }
                 });
-                $('.pay-meter').html('Continue');
-                $(".pay-meter").prop('disabled', false);
+               
             });
     }
 
@@ -587,6 +588,12 @@
             window.location = `/guest/postpaid-service-type/${vall}`;
         }
     })
+
+    // $("#qrd").click(function() {
+    //     $("#qr").html(`
+            
+    //     `);
+    // })
 </script>
 
 <script>

@@ -229,12 +229,6 @@
 								<br>
 								<div class="row">
 									<div class="col-md-12">
-										<label>Enter your Account Number</label>
-											<input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='meterno'>
-									</div>
-									<div class="clearfix"></div>
-									<br>
-									<div class="col-md-12">
 										<div class="form-group">
 											<label>Select a Payment Type</label>
 											<select name="payment_type" class="form-control" id="payOption">
@@ -244,6 +238,11 @@
 											</select>
 										</div>
 									</div>
+									<div class="col-md-12">
+										<label>Enter your Account Number</label>
+										<input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='meterno'>
+									</div>
+									<div class="clearfix"></div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="">Convenience Fee</label>
