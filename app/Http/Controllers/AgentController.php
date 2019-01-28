@@ -39,29 +39,19 @@ class AgentController extends Controller
 
     public function paymentHistory()
     {
+        // Get Agent's Biodata
         $agent = AgentBiodata::where('user_id',\Auth::user()->id)->first();
-        
+        // Fetch Agent All Topups
         $allTopups = DB::table('agent_topups')->where('agent_id','=',$agent->agent_id)->get();
-
+        // Create an empty Topup
         $lastTopup = [];
         $lastTopup['amount'] = 0;
         foreach(last($allTopups) as $topup) {
             $lastTopup['amount'] = $topup->topup_amount;
         }
 
-
-        $payments = Payment::where(
-            [
-                'is_agent' => 1,
-                'agent_id' => auth()->id()
-            ]
-        )->with('agent_transaction')->get();
-
-//        return $payments;
-
-        // // Total Sellage
+        // Total Sells
         $allSellage = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->get();
-//        return $allSellage;
         
         $sold = 0;
         foreach ($allSellage as $sells) {
@@ -72,12 +62,11 @@ class AgentController extends Controller
             }
         }
 
+        // All Payments made by Logged in Agent
         $payments = Payment::where(['is_agent' => 1, 'agent_id' => auth()->id()])->with('agent_transaction')->latest()->get();
-//         return $payments;
         // TotalWalletDeposit
         $deps = DB::table('admin_topups')->sum('topup_amount');
-
-        //return $payments;
+        // Agent's Wallet Balance
         $wallet_balance = AgentBiodata::where('user_id',auth()->id())->first();
         
         return view($this->prefix.'payment_history')

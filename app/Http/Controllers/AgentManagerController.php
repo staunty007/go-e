@@ -22,7 +22,7 @@ class AgentManagerController extends Controller
     public function index()
     {
         $agents = User::where('role_id', 2)->with('agent')->get();
-        //return $agents;
+        // return $agents;
         return view($this->prefix . 'index')->withAgents($agents);
     }
 

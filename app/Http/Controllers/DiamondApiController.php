@@ -10,6 +10,9 @@ class DiamondApiController extends Controller
 {
     private $baseUrl = "https://certify.diamondbank.com/diamondconnecttest/";
 
+    /**
+     * Generate Access Token
+     */
     public function generateAccessToken()
     {
         // API URL
@@ -43,6 +46,10 @@ class DiamondApiController extends Controller
 
 
     }
+
+    /**
+     * Admin Credit
+     */
     public function credit($amount)
     {
         $access_token = $this->generateAccessToken();
@@ -53,7 +60,7 @@ class DiamondApiController extends Controller
         $transactref = str_random(10);
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
+            CURLOPT_URL => $this->baseUrl."api/Transaction/credit",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -82,6 +89,9 @@ class DiamondApiController extends Controller
 
     }
 
+    /**
+     * Agent Debit
+     */
     public function agentDebit($amount)
     {
 //        return $this->generateAccessToken();
@@ -106,7 +116,7 @@ class DiamondApiController extends Controller
         $transactionRef = str_random(20);
         // return $transactionRef;
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/debit",
+            CURLOPT_URL => $this->baseUrl."api/Transaction/debit",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -142,6 +152,10 @@ class DiamondApiController extends Controller
 
         // }
     }
+
+    /** 
+     * Debit Admin when topping up
+     */
     public function adminDebit($accountNumber, $amount)
     {
         $getToken = $this->generateAccessToken();
