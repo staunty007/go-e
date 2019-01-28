@@ -22,6 +22,9 @@
     <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+
+    <link href="{{ asset('js/amcharts/examples/javascript/donut-chart/donus.css') }}" rel="stylesheet">
+
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
@@ -114,9 +117,10 @@
                         </div>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.finance" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
+                    <li class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
                         <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
+                        <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                             <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
                             <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income
                                     Report</a></li>
@@ -160,7 +164,22 @@
                         </a>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.demographics" ? 'active' : ''}}">
+                    <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' || Request::is('backend/agent-transactions') ? 'active' :'' }}">
+                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Payment History</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.direct-transactions') }}">Direct
+                                    Transactions</a></li>
+                            <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent
+                                    Transactions</a></li>
+                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment
+                                    Channels
+                                </a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="{{ Request::is('backend/admin.demographics') ? 'active' :'' || Request::is('backend/admin.demographics') ? 'active' :'' }}">
+                 
                         <a href="{{route('admin.demographics')}}">
                             <i class="fa fa fa-yelp"></i>
                             <span class="nav-label">Energy Consumption</span>
@@ -267,8 +286,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Meter
-                                platform.</span>
+                            <span class="m-r-sm text-muted welcome-message"> Hello Admin |  Welcome to <strong>GOENERGEE</strong> Utility Platform.</span>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
@@ -556,6 +574,11 @@
     <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
     <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
     <script src="{{asset('js/demo/income_channel_chart.js')}}"></script>
+
+    <script src="{{ asset('js/amcharts/examples/javascript/donut-chart/donus.js') }}"></script>
+    <script src="{{ asset('js/amcharts/core.js') }}"></script>
+    <script src="{{ asset('js/amcharts/charts.js') }}"></script>
+    <script src="{{ asset('js/amcharts/themes/animated.js') }}"></script>
 
     <!-- Flot -->
     <script src="{{asset('js/plugins/flot/jquery.flot.js')}}"></script>
