@@ -150,6 +150,7 @@ Route::prefix('backend')->group(function () {
         Route::post('updateprofile', 'AdminController@updateprofile')->name('admin.updateprofile');
         Route::get('administrator', 'AdminController@home')->name('admin.home');
         Route::get('finance', 'AdminController@finance')->name('admin.finance');
+        Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
         Route::get('finance/filter-by-date', 'AdminController@financeFilterDate');
         Route::get('profile', 'AdminController@profile')->name('admin.profile');
         Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
