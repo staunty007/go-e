@@ -299,7 +299,7 @@
 							</div>
 						</div><!---col-md-7 ends -->
 					</div>
-					<div class="col-md-5" style="padding: 3px 16px 8px 2px;">
+					<div class="col-md-5" style="padding: 3px 16px 3px 2px;">
 						<img src="/images/12.png" class='img-responsive side-img'>
 					</div>
 				</div>

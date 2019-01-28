@@ -2,53 +2,54 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 <div class="row">
-    <div class="col-lg-4">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                {{-- <span class="label label-info pull-right">Annual</span> --}}
-                <h5>Total Topup</h5>
+        <div class="col-lg-4 col-md-4">
+
+            <div class="stat">
+
+                <div class="stat__icon-wrapper stat--bg-green">
+                    <i data-feather="corner-left-up" class="stat__icon"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Previous Top Up</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span>{{ $totalTops }}</p>
+                </div>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins"></h1>
-                <h3>N{{ $totalTops }}</h3>
+        </div>
+        <!-- <div class="col-lg-3 col-md-3">
+            <div class="stat stat--has-icon-right">
+                <div class="stat__icon-wrapper stat--bg-blue">
+                    <i data-feather="corner-up-right" class="stat__icon"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Current Top Up</h1>
+                    <p class="stat__subheader">1</p>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-lg-4 col-md-4">
+            <div class="stat stat--has-icon-right">
+                <div class="stat__icon-wrapper stat--bg-dark_grey">
+                    <i data-feather="home" class="stat__icon stat--color-white"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Current Top Up</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span>{{ $adminTotalTops }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="stat stat--has-icon-right">
+                <div class="stat__icon-wrapper stat--bg-orange">
+                    <i data-feather="grid" class="stat__icon stat--color-white"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Cummulative Top Up</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span>{{ $agentTotalTops }}</p>
+                </div>
             </div>
         </div>
     </div>
-
-
-    <div class="col-lg-4">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-
-                <h5>Total Admin Top up</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins"></h1>
-
-                <h3>N{{ $adminTotalTops }}</h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-
-
-                <h5>Total Agent Top up</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins"></h1>
-                <h3>N{{ $agentTotalTops }}</h3>
-            </div>
-        </div>
-
-    </div>
-
-
-
-
-
+</div>
 
     <div class="row">
         <div class="col-lg-12">
@@ -336,5 +337,33 @@
                 $('#myTable').DataTable();
             });
         </script>
-        @endpush
-        @endsection
+          <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-dd-MMM-yyyy.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                order: [
+                    [0, 'desc']
+                ]
+            });
+        });
+    </script>
+    <script src="{{asset('js/index.js')}}"></script>
+    <!-- Mainly scripts -->
+    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+    <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="{{asset('js/inspinia.js')}}"></script>
+    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
+
+    <!-- ChartJS-->
+    <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+    <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
+    @endpush
+    @endsection
+       

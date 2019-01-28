@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>GOENERGEE </title>
+    <title>GOENERGEE ::: Agent </title>
     <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
@@ -170,7 +170,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Meter
+                            <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility 
                                 platform.</span>
                         </li>
                         <li>
@@ -193,7 +193,7 @@
     </div>
     <div class="footer">
         <div>
-            <strong>Powered by</strong> GOENERGEE &copy; 2018
+            Powered by <strong>GOENERGEE </strong> &copy; 2019
         </div>
     </div>
     </div>

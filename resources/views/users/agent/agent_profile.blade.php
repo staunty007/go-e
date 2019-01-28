@@ -22,7 +22,7 @@
 
                          <li>
 
-                             <label> FullName:</label>
+                             <label> Full Name:</label>
                              {{ $profile->user->first_name." ".$profile->user->last_name }}
                          </li>
                          <li>
@@ -62,13 +62,13 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Firstname</label>
+                                            <label>First Name</label>
                                             <input type="text" class="form-control" name="first_name" value="{{ $profile->user->first_name }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Lastname</label>
+                                            <label>Last Name</label>
                                             <input type="text" class="form-control" name="last_name" value="{{ $profile->user->last_name }}">
                                         </div>
                                     </div>
@@ -88,10 +88,16 @@
                                         </div>
                                         
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Update Password</label>
                                             <input type="text" class="form-control" name="password" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Update District</label>
+                                            <input type="text" class="form-control" name="district" />
                                         </div>
                                     </div>
 
@@ -126,7 +132,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Your Diamond Account Number</label>
+                                            <label>Your keystone Account Number</label>
                                             <input type="text" name="account_no" class="form-control" value="{{ $profile->account_number }}">
                                         </div>
                                         

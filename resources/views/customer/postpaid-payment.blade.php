@@ -23,6 +23,63 @@
                         }
                     </style>
     @endif --}}
+    <div class="col-lg-3 col-md-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              
+                <h5>Energy Balance</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">150<span>KwH</span></h1>
+                <!-- <small>Energy Remaining is 150KwH</small> -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
+                <h5>Meter Balance</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
+                <!-- <small>Money Remaining is 25,800</small> -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{-- <span class="label label-primary pull-right">Year</span>
+                    <span class="label label-primary pull-right">Month</span>
+                    <span class="label label-primary pull-right">Week</span>
+                    <span class="label label-primary pull-right">Today</span> --}}
+                <h5>Previous Top Up</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins"><span>&#8358;</span>120</h1>
+                <!-- <small>Average Cost of Electricity Per day</small> -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{-- <span class="label label-success pull-right">Year</span>
+                <span class="label label-success pull-right">Quater</span>
+                <span class="label label-success pull-right">Month</span> --}}
+                <h5>Days before Last Top Up</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">60</h1>
+                {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div> --}}
+                <!-- <small>Avg Daily Energy I Consumed</small> -->
+            </div>
+        </div>
+    </div>
+    
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -52,13 +109,13 @@
                     <div class="form-group">
                         <label for="convinience_fee"><b>Convenience Fee</b></label>
                         
-                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly> <span class="input-group-addon">.00</span></div>
+                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly> </div>
                     </div>
                    
                     <div class="form-group">
                         <label for="amount"><b>Amount</b></label>
                         
-                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"> <span class="input-group-addon">.00</span></div>
+                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"> </div>
                     </div>
                     <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                 </form>

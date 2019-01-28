@@ -42,9 +42,7 @@ $(function() {
             [3, 19],
             [4, 34],
             [5, 32],
-			[6, 32],
-			[7, 34],
-            [8, 25],
+            [6, 44]
         ]
     };
     $.plot($("#flot-bar-chart"), [barData], barOptions);
@@ -95,7 +93,6 @@ $(function() {
             [4, 34],
             [5, 32],
             [6, 44]
-
         ]
     };
     $.plot($("#flot-line-chart"), [barData], barOptions);
@@ -250,16 +247,16 @@ $(function() {
     ];
 
     function euroFormatter(v, axis) {
-        return v.toFixed(axis.tickDecimals) + " ";
+        return v.toFixed(axis.tickDecimals) + "€";
     }
 
     function doPlot(position) {
         $.plot($("#flot-line-chart-multi"), [{
             data: oilprices,
-            label: "Pre-Paid Customers"
+            label: "Oil price ($)"
         }, {
             data: exchangerates,
-            label: "Post Paid Customers",
+            label: "USD/EUR exchange rate",
             yaxis: 2
         }], {
             xaxes: [{

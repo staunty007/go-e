@@ -115,7 +115,7 @@
                     </li>
 
                     <li class="{{$current_route_name =="admin.finance" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
-                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Admin Dashboard</span> <span class="fa arrow"></span></a>
+                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
                             <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income
@@ -141,8 +141,9 @@
                                     Transactions</a></li>
                             <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent
                                     Transactions</a></li>
-                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment Channels
-                                        </a></li>
+                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment
+                                    Channels
+                                </a></li>
 
 
                         </ul>
@@ -158,7 +159,7 @@
                             <span class="nav-label">Commission Split</span>
                         </a>
                     </li>
-                    
+
                     <li class="{{$current_route_name =="admin.demographics" ? 'active' : ''}}">
                         <a href="{{route('admin.demographics')}}">
                             <i class="fa fa fa-yelp"></i>
@@ -285,8 +286,262 @@
                 @yield('content')
             </div>
         </div>
+        <style>
+    /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+    @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+    @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+    html,
+    body {
+        min-height: 100%;
+        /* background: #ecf0f1; */
+    }
+
+    .header,
+    .closing,
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header {
+        margin-top: 2vh;
+        text-align: center;
+    }
+
+    .header h1 {
+        color: #333;
+        font-family: Raleway, sans-serif;
+        font-size: 2.5em;
+        text-transform: uppercase;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .closing {
+        font-family: Raleway, sans-serif;
+        margin: 1em 0;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+    .closing__icon {
+        margin: 0 0.3em;
+        color: #D90429;
+        transition: all 0.3s ease;
+        fill: transparent;
+    }
+
+    .closing__icon:hover {
+        fill: #D90429;
+        cursor: pointer;
+    }
+
+    .closing__icon:active {
+        animation: rotate 2s infinite;
+    }
+
+    .closing a {
+        text-decoration: none;
+        color: #EF233C;
+        border-bottom: 1px solid transparent;
+        transition: border 0.3s ease-in;
+    }
+
+    .closing a:hover {
+        border-bottom: 1px solid;
+    }
+
+    .container {
+        flex-wrap: wrap;
+    }
+
+    .container .stat {
+        margin-right: 1em;
+        margin-bottom: 1em;
+    }
+
+    .stat {
+        min-width: 280px;
+        height: 90px;
+        background: #fff;
+        display: flex;
+        font-family: Lato, sans-serif;
+        cursor: pointer;
+        box-shadow: none;
+        transition: box-shadow 0.1s ease-in;
+    }
+
+    .stat:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .stat:active {
+        box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .stat--has-icon-right {
+        flex-direction: row-reverse;
+    }
+
+    .stat__icon-wrapper {
+        width: 90px;
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stat__icon {
+        color: #2A3036;
+        width: 45px;
+        height: 45px;
+    }
+
+    .stat__data {
+        flex: 1 0 90px;
+        height: 45px;
+        align-self: center;
+        padding: 0 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .stat__header {
+        margin: 0;
+        color: #2A3036;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .stat__subheader {
+        color: #373E45;
+        margin: 0;
+        font-size: 1em;
+    }
+
+    .stat--bg-white {
+        background: #F7FFF7;
+    }
+
+    .stat--bg-dark_grey {
+        background: #2F4050;
+    }
+
+    .stat--bg-dark-white {
+        background: #deffde;
+    }
+
+    .stat--color-white {
+        color: #F7FFF7;
+    }
+
+    .stat--bg-green {
+        background: #9BC53D;
+    }
+
+    .stat--bg-dark-green {
+        background: #8cb336;
+    }
+
+    .stat--color-green {
+        color: #9BC53D;
+    }
+
+    .stat--bg-yellow {
+        background: #FDE74C;
+    }
+
+    .stat--bg-dark-yellow {
+        background: #fde433;
+    }
+
+    .stat--color-yellow {
+        color: #FDE74C;
+    }
+
+    .stat--bg-orange {
+        background: #FA7921;
+    }
+
+    .stat--bg-dark-orange {
+        background: #f96a08;
+    }
+
+    .stat--color-orange {
+        color: #FA7921;
+    }
+
+    .stat--bg-blue {
+        background: #5BC0EB;
+    }
+
+    .stat--bg-dark-blue {
+        background: #44b7e8;
+    }
+
+    .stat--bg-dark-grey {
+        background: #2F4050;
+    }
+
+    .stat--color-blue {
+        color: #5BC0EB;
+    }
+
+    .stat--color-light_blue {
+        color: #2F4050;
+    }
+
+
+
+    .stat--bg-red {
+        background: #E55934;
+    }
+
+    .stat--bg-dark-red {
+        background: #e2471d;
+    }
+
+    .stat--color-red {
+        color: #E55934;
+    }
+
+    .stat--has-text-right {
+        text-align: right;
+    }
+</style>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+        <div class="footer">
+
+        <div class="container text-center">
+                Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+            </div>
+        </div>
     </div>
-    </div>
+
+
     <!-- Mainly scripts -->
 
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
@@ -581,362 +836,382 @@
 
         }
     </script>
-     <!-- Mainly scripts -->
-     <script src="js/jquery-2.1.1.js"></script>
-     <script src="js/bootstrap.min.js"></script>
- 
-     <!-- Custom and plugin javascript -->
-     <script src="js/inspinia.js"></script>
-     <script src="js/plugins/pace/pace.min.js"></script>
-     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
- 
-     <!-- Chosen -->
-     <script src="js/plugins/chosen/chosen.jquery.js"></script>
- 
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Chosen -->
+    <script src="js/plugins/chosen/chosen.jquery.js"></script>
+
     <!-- JSKnob -->
     <script src="js/plugins/jsKnob/jquery.knob.js"></script>
- 
+
     <!-- Input Mask-->
-     <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
- 
+    <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
     <!-- Data picker -->
     <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
- 
+
     <!-- NouSlider -->
     <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
- 
+
     <!-- Switchery -->
     <script src="js/plugins/switchery/switchery.js"></script>
- 
-     <!-- IonRangeSlider -->
-     <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
- 
-     <!-- iCheck -->
-     <script src="js/plugins/iCheck/icheck.min.js"></script>
- 
-     <!-- MENU -->
-     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
- 
-     <!-- Color picker -->
-     <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
- 
-     <!-- Clock picker -->
-     <script src="js/plugins/clockpicker/clockpicker.js"></script>
- 
-     <!-- Image cropper -->
-     <script src="js/plugins/cropper/cropper.min.js"></script>
- 
-     <!-- Date range use moment.js same as full calendar plugin -->
-     <script src="js/plugins/fullcalendar/moment.min.js"></script>
- 
-     <!-- Date range picker -->
-     <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
- 
-     <!-- Select2 -->
-     <script src="js/plugins/select2/select2.full.min.js"></script>
- 
-     <!-- TouchSpin -->
-     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
- 
-     <script>
-         $(document).ready(function(){
- 
-             var $image = $(".image-crop > img")
-             $($image).cropper({
-                 aspectRatio: 1.618,
-                 preview: ".img-preview",
-                 done: function(data) {
-                     // Output the result data for cropping image.
-                 }
-             });
- 
-             var $inputImage = $("#inputImage");
-             if (window.FileReader) {
-                 $inputImage.change(function() {
-                     var fileReader = new FileReader(),
-                             files = this.files,
-                             file;
- 
-                     if (!files.length) {
-                         return;
-                     }
- 
-                     file = files[0];
- 
-                     if (/^image\/\w+$/.test(file.type)) {
-                         fileReader.readAsDataURL(file);
-                         fileReader.onload = function () {
-                             $inputImage.val("");
-                             $image.cropper("reset", true).cropper("replace", this.result);
-                         };
-                     } else {
-                         showMessage("Please choose an image file.");
-                     }
-                 });
-             } else {
-                 $inputImage.addClass("hide");
-             }
- 
-             $("#download").click(function() {
-                 window.open($image.cropper("getDataURL"));
-             });
- 
-             $("#zoomIn").click(function() {
-                 $image.cropper("zoom", 0.1);
-             });
- 
-             $("#zoomOut").click(function() {
-                 $image.cropper("zoom", -0.1);
-             });
- 
-             $("#rotateLeft").click(function() {
-                 $image.cropper("rotate", 45);
-             });
- 
-             $("#rotateRight").click(function() {
-                 $image.cropper("rotate", -45);
-             });
- 
-             $("#setDrag").click(function() {
-                 $image.cropper("setDragMode", "crop");
-             });
- 
-             $('#data_1 .input-group.date').datepicker({
-                 todayBtn: "linked",
-                 keyboardNavigation: false,
-                 forceParse: false,
-                 calendarWeeks: true,
-                 autoclose: true
-             });
- 
-             $('#data_2 .input-group.date').datepicker({
-                 startView: 1,
-                 todayBtn: "linked",
-                 keyboardNavigation: false,
-                 forceParse: false,
-                 autoclose: true,
-                 format: "dd/mm/yyyy"
-             });
- 
-             $('#data_3 .input-group.date').datepicker({
-                 startView: 2,
-                 todayBtn: "linked",
-                 keyboardNavigation: false,
-                 forceParse: false,
-                 autoclose: true
-             });
- 
-             $('#data_4 .input-group.date').datepicker({
-                 minViewMode: 1,
-                 keyboardNavigation: false,
-                 forceParse: false,
-                 autoclose: true,
-                 todayHighlight: true
-             });
- 
-             $('#data_5 .input-daterange').datepicker({
-                 keyboardNavigation: false,
-                 forceParse: false,
-                 autoclose: true
-             });
- 
-             var elem = document.querySelector('.js-switch');
-             var switchery = new Switchery(elem, { color: '#1AB394' });
- 
-             var elem_2 = document.querySelector('.js-switch_2');
-             var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
- 
-             var elem_3 = document.querySelector('.js-switch_3');
-             var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
- 
-             $('.i-checks').iCheck({
-                 checkboxClass: 'icheckbox_square-green',
-                 radioClass: 'iradio_square-green'
-             });
- 
-             $('.demo1').colorpicker();
- 
-             var divStyle = $('.back-change')[0].style;
-             $('#demo_apidemo').colorpicker({
-                 color: divStyle.backgroundColor
-             }).on('changeColor', function(ev) {
-                         divStyle.backgroundColor = ev.color.toHex();
-                     });
- 
-             $('.clockpicker').clockpicker();
- 
-             $('input[name="daterange"]').daterangepicker();
- 
-             $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
- 
-             $('#reportrange').daterangepicker({
-                 format: 'MM/DD/YYYY',
-                 startDate: moment().subtract(29, 'days'),
-                 endDate: moment(),
-                 minDate: '01/01/2012',
-                 maxDate: '12/31/2015',
-                 dateLimit: { days: 60 },
-                 showDropdowns: true,
-                 showWeekNumbers: true,
-                 timePicker: false,
-                 timePickerIncrement: 1,
-                 timePicker12Hour: true,
-                 ranges: {
-                     'Today': [moment(), moment()],
-                     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                     'This Month': [moment().startOf('month'), moment().endOf('month')],
-                     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                 },
-                 opens: 'right',
-                 drops: 'down',
-                 buttonClasses: ['btn', 'btn-sm'],
-                 applyClass: 'btn-primary',
-                 cancelClass: 'btn-default',
-                 separator: ' to ',
-                 locale: {
-                     applyLabel: 'Submit',
-                     cancelLabel: 'Cancel',
-                     fromLabel: 'From',
-                     toLabel: 'To',
-                     customRangeLabel: 'Custom',
-                     daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-                     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                     firstDay: 1
-                 }
-             }, function(start, end, label) {
-                 console.log(start.toISOString(), end.toISOString(), label);
-                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-             });
- 
-             $(".select2_demo_1").select2();
-             $(".select2_demo_2").select2();
-             $(".select2_demo_3").select2({
-                 placeholder: "Select a state",
-                 allowClear: true
-             });
- 
- 
-             $(".touchspin1").TouchSpin({
-                 buttondown_class: 'btn btn-white',
-                 buttonup_class: 'btn btn-white'
-             });
- 
-             $(".touchspin2").TouchSpin({
-                 min: 0,
-                 max: 100,
-                 step: 0.1,
-                 decimals: 2,
-                 boostat: 5,
-                 maxboostedstep: 10,
-                 postfix: '%',
-                 buttondown_class: 'btn btn-white',
-                 buttonup_class: 'btn btn-white'
-             });
- 
-             $(".touchspin3").TouchSpin({
-                 verticalbuttons: true,
-                 buttondown_class: 'btn btn-white',
-                 buttonup_class: 'btn btn-white'
-             });
- 
- 
-         });
-         var config = {
-                 '.chosen-select'           : {},
-                 '.chosen-select-deselect'  : {allow_single_deselect:true},
-                 '.chosen-select-no-single' : {disable_search_threshold:10},
-                 '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-                 '.chosen-select-width'     : {width:"95%"}
-                 }
-             for (var selector in config) {
-                 $(selector).chosen(config[selector]);
-             }
- 
-         $("#ionrange_1").ionRangeSlider({
-             min: 0,
-             max: 5000,
-             type: 'double',
-             prefix: "$",
-             maxPostfix: "+",
-             prettify: false,
-             hasGrid: true
-         });
- 
-         $("#ionrange_2").ionRangeSlider({
-             min: 0,
-             max: 10,
-             type: 'single',
-             step: 0.1,
-             postfix: " carats",
-             prettify: false,
-             hasGrid: true
-         });
- 
-         $("#ionrange_3").ionRangeSlider({
-             min: -50,
-             max: 50,
-             from: 0,
-             postfix: "°",
-             prettify: false,
-             hasGrid: true
-         });
- 
-         $("#ionrange_4").ionRangeSlider({
-             values: [
-                 "January", "February", "March",
-                 "April", "May", "June",
-                 "July", "August", "September",
-                 "October", "November", "December"
-             ],
-             type: 'single',
-             hasGrid: true
-         });
- 
-         $("#ionrange_5").ionRangeSlider({
-             min: 10000,
-             max: 100000,
-             step: 100,
-             postfix: " km",
-             from: 55000,
-             hideMinMax: true,
-             hideFromTo: false
-         });
- 
-         $(".dial").knob();
- 
-         $("#basic_slider").noUiSlider({
-             start: 40,
-             behaviour: 'tap',
-             connect: 'upper',
-             range: {
-                 'min':  20,
-                 'max':  80
-             }
-         });
- 
-         $("#range_slider").noUiSlider({
-             start: [ 40, 60 ],
-             behaviour: 'drag',
-             connect: true,
-             range: {
-                 'min':  20,
-                 'max':  80
-             }
-         });
- 
-         $("#drag-fixed").noUiSlider({
-             start: [ 40, 60 ],
-             behaviour: 'drag-fixed',
-             connect: true,
-             range: {
-                 'min':  20,
-                 'max':  80
-             }
-         });
- 
- 
-     </script>
+
+    <!-- IonRangeSlider -->
+    <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- MENU -->
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Color picker -->
+    <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <!-- Clock picker -->
+    <script src="js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+            $("#download").click(function () {
+                window.open($image.cropper("getDataURL"));
+            });
+
+            $("#zoomIn").click(function () {
+                $image.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut").click(function () {
+                $image.cropper("zoom", -0.1);
+            });
+
+            $("#rotateLeft").click(function () {
+                $image.cropper("rotate", 45);
+            });
+
+            $("#rotateRight").click(function () {
+                $image.cropper("rotate", -45);
+            });
+
+            $("#setDrag").click(function () {
+                $image.cropper("setDragMode", "crop");
+            });
+
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $('#data_2 .input-group.date').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+
+            $('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            $('#data_4 .input-group.date').datepicker({
+                minViewMode: 1,
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, {
+                color: '#1AB394'
+            });
+
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, {
+                color: '#ED5565'
+            });
+
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, {
+                color: '#1AB394'
+            });
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+
+            $('.demo1').colorpicker();
+
+            var divStyle = $('.back-change')[0].style;
+            $('#demo_apidemo').colorpicker({
+                color: divStyle.backgroundColor
+            }).on('changeColor', function (ev) {
+                divStyle.backgroundColor = ev.color.toHex();
+            });
+
+            $('.clockpicker').clockpicker();
+
+            $('input[name="daterange"]').daterangepicker();
+
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment()
+                .format('MMMM D, YYYY'));
+
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                        'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                        'August', 'September', 'October', 'November', 'December'
+                    ],
+                    firstDay: 1
+                }
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                    'MMMM D, YYYY'));
+            });
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+
+
+            $(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+        });
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': {
+                allow_single_deselect: true
+            },
+            '.chosen-select-no-single': {
+                disable_search_threshold: 10
+            },
+            '.chosen-select-no-results': {
+                no_results_text: 'Oops, nothing found!'
+            },
+            '.chosen-select-width': {
+                width: "95%"
+            }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+
+        $(".dial").knob();
+
+        $("#basic_slider").noUiSlider({
+            start: 40,
+            behaviour: 'tap',
+            connect: 'upper',
+            range: {
+                'min': 20,
+                'max': 80
+            }
+        });
+
+        $("#range_slider").noUiSlider({
+            start: [40, 60],
+            behaviour: 'drag',
+            connect: true,
+            range: {
+                'min': 20,
+                'max': 80
+            }
+        });
+
+        $("#drag-fixed").noUiSlider({
+            start: [40, 60],
+            behaviour: 'drag-fixed',
+            connect: true,
+            range: {
+                'min': 20,
+                'max': 80
+            }
+        });
+    </script>
 </body>
+
 </html>

@@ -40,7 +40,7 @@
                                 </div>
                                 
                             </div>
-                            <label class="col-sm-2 control-label">Distribution Company</label>
+                            <label class="col-sm-2 control-label">DISCO</label>
                                 <div class="col-sm-3">
                                     <select name="dist_company" class="form-control m-b" name="account">
                                         <option value="EKEDC">EKEDC</option>
@@ -51,15 +51,16 @@
                             <label class="col-sm-2 control-label">District/Location</label>
                                 <div class="col-sm-3">
                                     <select class="form-control m-b" name="district">
-                                        <option value="Ajele">Ajele</option>
-                                        <option value="Ojo">Ojo</option>
-                                        <option value="Mushin">Mushin</option>
-                                        <option value="Lekki">Lekki</option>
-                                        <option value="Isolo">Isolo  </option>
+                                        <option value="Agbara">Agbara</option>
+                                        <option value="Apapa">Apapa</option>
                                         <option value="Festac">Festac</option>
                                         <option value="Ibeju">Ibeju</option>
+                                        <option value="Ojora">Ojora  </option>
+                                        <option value="Island">Island</option>
+                                        <option value="Lekki">Lekki</option>
+                                        <option value="Mushin">Mushin</option>
+                                        <option value="Ojo">Ojo</option>
                                         <option value="Orile">Orile</option>
-                                        <option value="Agbara">Agbara</option>
                                         
                                     </select>
                                 </div>

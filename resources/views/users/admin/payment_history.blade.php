@@ -122,7 +122,7 @@
                                             <td>0.1%</td>
                                             <td>0.90%</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td style="vertical-align:middle" rowspan="2">3</td>
                                             <td style="vertical-align:middle" rowspan="2">mCash</td>
                                             <td style="vertical-align:middle" rowspan="4" colspan="2">&ensp;&ensp;&ensp;&ensp;&ensp;100</td>
@@ -188,9 +188,9 @@
                                             <td>0.00%</td>
                                             <td>0.1%</td>
                                             <td>0.90%</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
-                                            <td style="vertical-align:middle">4</td>
+                                            <td style="vertical-align:middle">3</td>
                                             <td style="vertical-align:middle">USSD</td>
                                             <td>100</td>
                                             <td>100</td>
@@ -209,7 +209,7 @@
                                             <td>0.90%</td>
                                         </tr>
                                         <tr>
-                                            <td style="vertical-align:middle">5</td>
+                                            <td style="vertical-align:middle">4</td>
                                             <td style="vertical-align:middle">mVisa</td>
                                             <td>1.50%</td>
                                             <td>2000</td>

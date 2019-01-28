@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+// Demo Stylings
+
+html, body {
+  min-height: 100%;
+  background: #ecf0f1;
+}
+
+%center-children {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  @extend %center-children;
+  margin-top: 2vh;
+  text-align: center;
+  
+  h1 {
+    color: #333;
+    font-family: Raleway, sans-serif;
+    font-size: 2.5em;
+    text-transform: uppercase;
+  }
+  
+}
+
+@keyframes rotate {
+  from { 
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+  }
+}
+
+.closing {
+  @extend %center-children;
+  font-family: Raleway, sans-serif;
+  margin: 1em 0;
+  text-align: center;
+  flex-wrap: wrap;
+  
+  &__icon {
+    margin: 0 0.3em;
+    color: #D90429;
+    transition: all 0.3s ease;
+    fill: transparent;
+    
+    &:hover {
+      fill: #D90429;
+      cursor: pointer;
+    }
+    
+    &:active {
+      animation: rotate 2s infinite;
+    }
+    
+  }
+  
+  a {
+    text-decoration: none;
+    color: #EF233C;
+    border-bottom: 1px solid transparent;
+    transition: border 0.3s ease-in;
+    
+    &:hover {
+      border-bottom: 1px solid;
+    }
+    
+  }
+  
+}
+
+.container {
+  @extend %center-children;
+  flex-wrap: wrap;
+  
+  .stat {
+    margin-right: 1em;
+    margin-bottom: 1em;
+  }
+  
+}
+
+// Statistic Stylings
+$colors: (
+  'white': #F7FFF7,
+  'green': #9BC53D,
+  'yellow': #FDE74C,
+  'orange': #FA7921,
+  'blue': #5BC0EB,
+  'red': #E55934
+);
+
+$green: rgba(140, 179, 105, 1);
+$yellow: rgba(244, 226, 133, 1);
+$blue: rgba(244, 162, 89, 1);
+$orange: rgba(91, 142, 125, 1);
+$red: rgba(188, 75, 81, 1);
+
+.stat {
+  min-width: 280px;
+  height: 90px;
+  background: #fff;
+  display: flex;
+  font-family: Lato, sans-serif;
+  cursor: pointer;
+  box-shadow: none;
+  transition: box-shadow 0.1s ease-in;
+  
+  &:hover {
+    	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12),
+                  0 2px 4px 0 rgba(0,0,0,0.08);
+  }
+  
+  &:active {
+    	box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11),
+                  0 5px 15px 0 rgba(0,0,0,0.08);
+  }
+  
+  &--has-icon-right {
+    flex-direction: row-reverse;
+  }
+  
+  &__icon-wrapper {
+    width: 90px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+  }
+  
+  &__icon {
+    color: #2A3036;
+    width: 45px;
+    height: 45px;
+  }
+  
+  &__data {
+    flex: 1 0 90px;
+    height: 45px;
+    align-self: center;
+    padding: 0 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  &__header {
+    margin: 0;
+    color: #2A3036;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  &__subheader {
+    color: #373E45;
+    margin: 0;
+    font-size: 1em;
+  }
+  
+  @each $name, $color in $colors {
+    &--bg-#{$name} {
+      background: $color;
+    }
+    
+    &--bg-dark-#{$name} {
+      background: darken($color, 5%);
+    }
+    
+    &--color-#{$name} {
+      color: $color;
+    }
+  }
+  
+  &--has-text-right {
+    text-align: right;
+  }
+  
+}

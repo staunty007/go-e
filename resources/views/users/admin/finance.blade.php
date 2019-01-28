@@ -153,7 +153,8 @@
                             <input type="text" class="form-control" id="meter_account">
                         </div>
                     </div>
-                </div> <!-- Row ends -->
+                </div> 
+                <!-- Row ends -->
             </div>
 
         </div>
@@ -267,12 +268,12 @@
             
         </div>
     </div>
-    <div class="footer">
+    <!-- <div class="footer">
 
         <div>
-            <strong>Copyright</strong> GOENERGEE &copy; 2018
+            <strong>Copyright</strong> GOENERGEE &copy; 2019
         </div>
-    </div>
+    </div> -->
 </div>
 
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>GOENREGEE | Customer Dashboard</title>
+        <title>GOENERGEE | Customer Dashboard</title>
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <script src="/customer/js/jquery-3.1.1.min.js"></script>
         <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
@@ -130,14 +130,54 @@
                                             name="top-search" id="top-search">
                                     </div>
                                 </form> --}}
-                                {{-- <div class="row" style="margin-top: 1em">
-                                    <div class="col-md-4">
-                                        <button class="btn btn-primary" >Buy
-                                            Token</button>
+                               <div class="row" style="margin-top: 1em">
+                                  
+                                        <button class="btn btn-primary" >Pay Bill
+                                            </button>
+                                   
+                                    <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                            Top up Wallet Account
+                        </button>
+                        <button class="btn btn-default mt-10">
+                            <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
+                        @push('popups')
+                        <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                        <h4 class="modal-title">Top Up Wallet</h4>
                                     </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <form id="admin_amount">
+                                                <div class="form-group">
+                                                    <label>Amount</label>
+                                                    <input id="topup-amount" placeholder="Enter Amount" class="form-control">
+                                                </div>
+                                                <div>
+                                                </div>
+                                            </form>
+                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
+                                                onclick="this.innerHTML='Processing...'; diamondPay()"
+                                                id="topUpBtn">
+                                                <strong>Top Up Now</strong>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @endpush
+                    
 
 
-                                </div> --}}
+                                </div> 
                                 <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
@@ -159,9 +199,9 @@
                             </div>
                             <ul class="nav navbar-top-links navbar-right">
                                 <li>
-                                    <span class="m-r-sm welcome-message" style="color: #fff">Welcome <b>{{
-                                            Auth::user()->first_name}} {{ Auth::user()->last_name}}</b> to GOENERGEE
-                                        Utility Payment Platform.</span>
+                                    <span class="m-r-sm welcome-message" style="color: #fff">  Welcome <b>{{
+                                            Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>| GOENERGEE
+                                        Utility Platform  </span>
                                 </li>
                                 <li>
 
@@ -194,7 +234,7 @@
                 <div class="footer">
 
                     <div>
-                        <strong>Powered by</strong> GOENERGEE &copy; 2018
+                        Powered by<strong> GOENERGEE</strong> &copy; 2019
                     </div>
                 </div>
 

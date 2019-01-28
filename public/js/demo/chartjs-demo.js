@@ -1,21 +1,21 @@
 $(function () {
 
     var lineData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [
 
             {
-                label: "Active Current",
+                label: "Data 1",
                 backgroundColor: 'rgba(26,179,148,0.5)',
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [28, 48, 40, 19, 86, 27, 90, 80, 45, 67, 45, 80., 67]
+                data: [28, 48, 40, 19, 86, 27, 90]
             },{
-                label: "Reactive Current",
+                label: "Data 2",
                 backgroundColor: 'rgba(220, 220, 220, 0.5)',
                 pointBorderColor: "#fff",
-                data: [65, 59, 80, 81, 56, 55, 40, 23, 56, 23, 56, 23, 90]
+                data: [65, 59, 80, 81, 56, 55, 40]
             }
         ]
     };
@@ -29,25 +29,22 @@ $(function () {
     new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
 
     var barData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [
             {
-                label: "PRE PAID",
+                label: "Data 1",
                 backgroundColor: 'rgba(220, 220, 220, 0.5)',
                 pointBorderColor: "#fff",
-                data: [65, 59, 80, 81, 56, 55, 40, 23, 56, 23, 56, 23, 90]
+                data: [65, 59, 80, 81, 56, 55, 40]
             },
             {
-                label: "POST",
+                label: "Data 2",
                 backgroundColor: 'rgba(26,179,148,0.5)',
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [28, 48, 40, 19, 86, 27, 90, 54, 34, 78, 56, 56, 45]
+                data: [28, 48, 40, 19, 86, 27, 90]
             }
-            
-            
-            
         ]
     };
 
