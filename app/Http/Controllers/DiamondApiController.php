@@ -67,7 +67,7 @@ class DiamondApiController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"0051212352\",\n\t\"sourceAccount\": \"0051212352\",\n\t\"transactionReference\": \"$transactref\",\n\t\"transactionNaration\": \"Initial Test Credit\"\n}",
+            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"0035257775\",\n\t\"sourceAccount\": \"0035257775\",\n\t\"transactionReference\": \"$transactref\",\n\t\"transactionNaration\": \"Initial Test Credit\"\n}",
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer $token",
                 "Cache-Control: no-cache",
@@ -94,7 +94,6 @@ class DiamondApiController extends Controller
      */
     public function agentDebit($amount)
     {
-//        return $this->generateAccessToken();
         // check agent's amount is not greater tham admin's own
         $adminBiodata = AdminBiodata::find(1);
         // return $adminBiodata;
@@ -102,7 +101,6 @@ class DiamondApiController extends Controller
             return response()->json('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
         }
         $token = $this->generateAccessToken();
-//        $token = $getToken['access_token'];
         /*
          * Payment Description
          * Agent's Name - agent id
@@ -137,20 +135,6 @@ class DiamondApiController extends Controller
 
         return response()->json(json_decode($response, true));
 
-        // if ($err) {
-        //     return response()->json(json_decode($err, true), 500);
-        // } else {
-        //     $credit = $this->credit($amount);
-        //     if ($credit == "Err") {
-        //         $cred2 = $this->credit($amount);
-        //         if ($cred2 == "Err") {
-        //             return response()->json('Unable to finish transaction, Please Contact the Admin for further processing.');
-        //         }
-        //     } else {
-        //         return response()->json(json_decode($response, true), 200);
-        //     }
-
-        // }
     }
 
     /** 
@@ -195,7 +179,6 @@ class DiamondApiController extends Controller
             } else {
                 return response()->json($response, 200);
             }
-
         }
     }
 
