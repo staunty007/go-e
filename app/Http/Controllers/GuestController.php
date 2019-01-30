@@ -91,8 +91,14 @@ class GuestController extends Controller
 		return view('guest/support');
 	}
 
+	/**
+	 * POST Method
+	 * Agent Signup
+	 */
 	public function postAgentSignup(Request $request)
 	{
+		// return $request;
+
 		$this->validate($request, [
 			"email" => "required|email|unique:users"
 		]);
@@ -103,6 +109,7 @@ class GuestController extends Controller
 		$names = explode(' ', $request->name);
 		$user->first_name = $names[0];
 		$user->last_name = $names[1];
+
 		$user->email = $request->email;
 		$user->mobile = $request->tel;
 		$user->password = bcrypt($request->password);
@@ -123,9 +130,9 @@ class GuestController extends Controller
 		$agent->own_computer = $request->tools;
 		$agent->save();
 
-		Mail::to($user->email)->send(new AccountActivation($user));
+		// Mail::to($user->email)->send(new AccountActivation($user));
 
-		return back()->with('success', 'Account Registered Successfull, Please check your mail and verify your account');
+		return back()->with('success', 'Account Registered Successfully, Please hold on while we review your account. You\'ll receive an email from us once your account has been approved');
 
 
 	}

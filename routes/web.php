@@ -29,8 +29,8 @@ Route::get("download-reciept/{payment_ref}","PagesController@downloadReciept")->
 
 Route::prefix('guest')->group(function () {
     Route::get('home', 'GuestController@guestServices')->name('guest.services');
-    Route::get('login', 'GuestController@guestLogIn')->name('guest.login');
-    Route::get('signup', 'GuestController@guestSignUp')->name('guest.signup');
+    Route::get('login', 'GuestController@guestLogIn')->middleware('guest')->name('guest.login');
+    Route::get('signup', 'GuestController@guestSignUp')->middleware('guest')->name('guest.signup');
     Route::get('each-service-type', 'GuestController@serviceType')->name('guest.service_type');
     Route::get('each-service-type/{name}', 'GuestController@eachServicesType')->name('guest.each_type');
     Route::get('postpaid-service-type/{service}', 'GuestController@eachTypeServicesSingle')->name('guest.each_type_service');
@@ -39,19 +39,11 @@ Route::prefix('guest')->group(function () {
     Route::get('become_agent', 'GuestController@become_agent')->name('guest.become_agent');
     Route::get('agent_solution', 'GuestController@agent_solution')->name('guest.agent_solution');
     Route::get('agent_signup', 'GuestController@agent_signup')->name('guest.agent_signup');
-    Route::post('agent_signup', 'GuestController@agentSignup')->name('guest.agent_signup-store');
+    Route::post('agent_signup', 'GuestController@postAgentSignup')->name('guest.agent_signup-store');
     Route::get('agent_benefit', 'GuestController@agent_benefit')->name('guest.agent_benefit');
-
-    Route::post('agent_reg', 'GuestController@postAgentSignup');
     Route::get('faq', 'GuestController@faq')->name('guest.faq');
 
 });
-
-// agents signup
-// GET HTTP Method
-Route::get('agents/signup', 'AgentController@agentSignup');
-// POST HTTP Method
-Route::post('agents/signup', 'AgentController@postAgentSignup');
 
 /**
  * Social Logins

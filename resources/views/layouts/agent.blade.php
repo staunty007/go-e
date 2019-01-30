@@ -155,9 +155,9 @@
                                                 </div>
                                             </form>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                onclick="this.innerHTML='Processing...'; diamondPay()"
+                                                onclick="diamondPay(event)"
                                                 id="topUpBtn">
-                                                <strong>Top Up Now</strong>
+                                               Top Up Now
                                             </button>
                                         </div>
                                     </div>
@@ -273,37 +273,27 @@
     </script>
     {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
     <script>
-        function diamondPay() {
+        function diamondPay(event) {
+            const parente = event.target;
+            parente.innerHTML = 'Processing...';
+            parente.disabled = true;
+
             var amount = document.querySelector('#topup-amount').value;
 
             if(amount.length == 0 || amount == "") {
                 alert('Please Enter an Amount');
             }else {
-                // Get Agent's Account Details
-
                 // Connect to diamond API to deduct amount fro agent's Account
                 fetch(`/diamond/debit/${amount}`)
                     .then(res => res.json())
-                    .then(response => console.log(response));
+                    .then(response => {
+                        if(response.successful == true) {
+                            // Add Amount to Agent's Wallet
+                            // fetch('credit')
+                            // Add Amount to Agent's Topup Log
+                        }
+                    });
             }
-            // var handler = PaystackPop.setup({
-            // 	key: 'pk_test_120bd5b0248b45a0865650f70d22abeacf719371',
-            // 	email: "admin@goenergee.com",
-            // 	amount: amount + "00",
-            // 	ref: 'GOENERGEE' + Math.floor((Math.random() * 1000000000) + 1) + "TOPUPADMIN", // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-
-            // 	callback: function (response) {
-            // swal('Yay!', 'Payment Successfull', 'success');
-            // setTimeout(() => {
-            //     window.location.href = '/backend/topup-admin/success/' + amount;
-            // }, 1000);
-            // 	},
-            // 	onClose: function () {
-            // 		alert('Payment Cancelled');
-            // 		document.querySelector('#topUpBtn').innerHTML = "Top up Now";
-            // 	}
-            // });
-            // handler.openIframe();
         }
     </script>
     <script>

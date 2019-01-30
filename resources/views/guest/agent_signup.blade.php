@@ -158,6 +158,11 @@
         <div class="col-xs-8 col-md-10" style="padding:0px 0px;">
             <div class="user-details" id="login1" style="border-radius:3%">
                 <div style="padding:10px 30px;">
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session('success')}}
+                        </div>
+                    @endif
                     <div class="text-center login-title">
                         <h4>AGENT SIGN UP FORM</h4>
                         <p class="text-center"><img src="/images/logo1.png"></p>
@@ -215,8 +220,7 @@
                                 <label for="password">
                                     <b>Password</b>
                                 </label>
-                                <input type="password" name="password" id="password" class=" input-sm"
-                                       placeholder="*********">
+                                <input type="password" name="password" id="password" class=" input-sm" required />
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -224,8 +228,7 @@
                                 <label for="password">
                                     <b>Confirm-Password</b>
                                 </label>
-                                <input type="password" name="confirm_password" id="password" class=" input-sm"
-                                       placeholder="*********">
+                                <input type="password" name="confirm_password" id="password" class=" input-sm" required/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -244,7 +247,7 @@
                                     <b>Business Telephone</b>
                                 </label>
                                 <input type="tel" name="tel" id="tel" class="form-control" placeholder=""
-                                       value="{{ old('tel') }}">
+                                       value="{{ old('tel') }}" required>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -264,8 +267,8 @@
                                 <label for="min_wallet"> Have balance of N10k</label>
                                 <select name="min_wallet" id="min_wallet" required class="form-control">
                                     <option value="" selected="selected">- Select -</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
 
                                 </select>
 
@@ -276,8 +279,8 @@
                                 <label for="tools">Own a PC/Phone</label>
                                 <select name="tools" id="tools" required class="form-control">
                                     <option value="" selected="selected">- Select -</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
 
                                 </select>
 
@@ -287,7 +290,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <p class="text-left agentpad">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
                                     <label class="form-check-label" for="defaultCheck1">
                                         I Agree to the terms and Conditions: (Put Terms & Conditions Here)
                                     </label>
@@ -297,7 +300,6 @@
                             <div class="col-md-4 offset-8">
                                 <p>
                                     <br><br>
-
                                     <button type="submit" value="Register" class="btn btn-success registerBtn">
                                         Register
                                     </button>

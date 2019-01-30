@@ -41,3 +41,11 @@ function listServices() {
 };
 // Fetching Services Ends
 </script>
+
+<script>
+    document.body.appendChild(`
+        <div style="display:flex; width: 100%; height: 20px; background-color: #C0C2C7">
+            <a class='btn btn-success' href='home'>My Profile</a>
+        </div>
+    `);
+</script>

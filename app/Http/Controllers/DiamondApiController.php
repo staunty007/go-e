@@ -10,6 +10,9 @@ class DiamondApiController extends Controller
 {
     private $baseUrl = "https://certify.diamondbank.com/diamondconnecttest/";
 
+    /**
+     * Generate Access Token
+     */
     public function generateAccessToken()
     {
         // API URL
@@ -43,6 +46,10 @@ class DiamondApiController extends Controller
 
 
     }
+
+    /**
+     * Admin Credit
+     */
     public function credit($amount)
     {
         $access_token = $this->generateAccessToken();
@@ -53,14 +60,14 @@ class DiamondApiController extends Controller
         $transactref = str_random(10);
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/credit",
+            CURLOPT_URL => $this->baseUrl."api/Transaction/credit",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"0051212352\",\n\t\"sourceAccount\": \"0051212352\",\n\t\"transactionReference\": \"$transactref\",\n\t\"transactionNaration\": \"Initial Test Credit\"\n}",
+            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"0035257775\",\n\t\"sourceAccount\": \"0035257775\",\n\t\"transactionReference\": \"$transactref\",\n\t\"transactionNaration\": \"Initial Test Credit\"\n}",
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer $token",
                 "Cache-Control: no-cache",
@@ -82,9 +89,11 @@ class DiamondApiController extends Controller
 
     }
 
+    /**
+     * Agent Debit
+     */
     public function agentDebit($amount)
     {
-//        return $this->generateAccessToken();
         // check agent's amount is not greater tham admin's own
         $adminBiodata = AdminBiodata::find(1);
         // return $adminBiodata;
@@ -92,7 +101,6 @@ class DiamondApiController extends Controller
             return response()->json('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
         }
         $token = $this->generateAccessToken();
-//        $token = $getToken['access_token'];
         /*
          * Payment Description
          * Agent's Name - agent id
@@ -106,7 +114,7 @@ class DiamondApiController extends Controller
         $transactionRef = str_random(20);
         // return $transactionRef;
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/debit",
+            CURLOPT_URL => $this->baseUrl."api/Transaction/debit",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -127,21 +135,11 @@ class DiamondApiController extends Controller
 
         return response()->json(json_decode($response, true));
 
-        // if ($err) {
-        //     return response()->json(json_decode($err, true), 500);
-        // } else {
-        //     $credit = $this->credit($amount);
-        //     if ($credit == "Err") {
-        //         $cred2 = $this->credit($amount);
-        //         if ($cred2 == "Err") {
-        //             return response()->json('Unable to finish transaction, Please Contact the Admin for further processing.');
-        //         }
-        //     } else {
-        //         return response()->json(json_decode($response, true), 200);
-        //     }
-
-        // }
     }
+
+    /** 
+     * Debit Admin when topping up
+     */
     public function adminDebit($accountNumber, $amount)
     {
         $getToken = $this->generateAccessToken();
@@ -181,7 +179,6 @@ class DiamondApiController extends Controller
             } else {
                 return response()->json($response, 200);
             }
-
         }
     }
 

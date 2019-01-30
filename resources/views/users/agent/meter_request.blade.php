@@ -2,6 +2,11 @@
 <div class="wrapper wrapper-content">
     <div class="row">
        <div class="col-lg-12">
+           @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session('success')}}
+                </div>
+           @endif
            <div class="panel panel-success">
                <div class="panel-heading">
                    Meter Request Form

@@ -179,7 +179,7 @@
                                         <tr>
                                             <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
                                             <td>{{ $d->payment_ref }}</td>
-                                            <td>Web</td>
+                                            <td>Agency-{{ $d->transaction_type }}</td>
                                             <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                             <td>{{ $d->first_name." ". $d->last_name }}</td>
                                             <td>{{ $d->customer_address }}</td>
