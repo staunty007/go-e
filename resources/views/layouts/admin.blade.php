@@ -169,20 +169,7 @@
                         </a>
                     </li>
 
-                    <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' || Request::is('backend/agent-transactions') ? 'active' :'' }}">
-                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Payment History</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.direct-transactions') }}">Direct
-                                    Transactions</a></li>
-                            <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent
-                                    Transactions</a></li>
-                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment
-                                    Channels
-                                </a></li>
-
-
-                        </ul>
-                    </li>
+                    
                     <li class="{{ Request::is('backend/admin.demographics') ? 'active' :'' || Request::is('backend/admin.demographics') ? 'active' :'' }}">
                  
                         <a href="{{route('admin.demographics')}}">

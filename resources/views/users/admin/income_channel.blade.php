@@ -8,6 +8,46 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
 
+        <div class="col-lg-4 col-md-4">
+
+            <div class="stat">
+
+                <div class="stat__icon-wrapper stat--bg-green">
+                    <i data-feather="shopping-cart" class="stat__icon"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Total Income</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span>705,100</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="stat stat--has-icon-right">
+                <div class="stat__icon-wrapper stat--bg-blue">
+                    <i data-feather="briefcase" class="stat__icon"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Billers</h1>
+                    <p class="stat__subheader">1</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="stat stat--has-icon-right">
+                <div class="stat__icon-wrapper stat--bg-dark-red">
+                    <i data-feather="sun" class="stat__icon stat--color-white"></i>
+                </div>
+                <div class="stat__data">
+                    <h1 class="stat__header">Total Profit</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span>300</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
 
         <div class="col-lg-6 col-md-6" style="width:100%">
             <div class="panel panel-primary">
@@ -73,56 +113,68 @@
                                 </table>
 
                             </div>
+                        
+
+
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading text-center">POSTPAID VS PREPAID</div>
+                                            
+                                            <div class="text-center">
+                                                <div id="meter_type" height="140"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
                     </div>
 
-
-
-
                 </div>
 
+
+
+
             </div>
+            @push('scripts')
 
-
-
-
-        </div>
-        @push('scripts')
-
-        <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
-        <script src="js/plugins/fullcalendar/moment.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ]
+            <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+            <script src="js/plugins/fullcalendar/moment.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#myTable').DataTable({
+                        order: [
+                            [0, 'desc']
+                        ]
+                    });
                 });
-            });
-        </script>
-        <script>
-            $(function () {
-                $('input[name="datetimes"]').daterangepicker({
-                    timePicker: true,
-                    startDate: moment().startOf('hour'),
-                    endDate: moment().startOf('hour').add(32, 'hour'),
-                    locale: {
-                        format: 'M/DD hh:mm A'
-                    }
+            </script>
+            <script>
+                $(function () {
+                    $('input[name="datetimes"]').daterangepicker({
+                        timePicker: true,
+                        startDate: moment().startOf('hour'),
+                        endDate: moment().startOf('hour').add(32, 'hour'),
+                        locale: {
+                            format: 'M/DD hh:mm A'
+                        }
+                    });
                 });
-            });
-        </script>
-<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+            </script>
+            <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
 
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
-</script>
-@endpush
-@endsection
-      
+            <script>
+                $(document).ready(function () {
+                    $('#myTable').DataTable();
+                });
+            </script>
+            @endpush
+            @endsection
