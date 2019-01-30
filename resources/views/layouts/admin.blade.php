@@ -16,14 +16,20 @@
     <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
     <link href="{{asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/table1.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/energy_consumption_by_meter.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/meter_type.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/donut.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/cylinder.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pie.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
-
-    <link href="{{ asset('js/amcharts/examples/javascript/donut-chart/donus.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
+  
+   
 
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
@@ -120,10 +126,9 @@
                     <li class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
                         <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                        <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="{{ Request::is('backend/dashboard') ? 'active' :'' }}"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                             <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
-                            <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income
-                                    Report</a></li>
+                            <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income Report</a></li>
                         </ul>
                     </li>
                     <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' || Request::is('backend/agent-topup-trackers') ? 'active' :'' }}">
@@ -562,36 +567,40 @@
 
     <!-- Mainly scripts -->
 
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <!-- <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-    <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script> -->
 
     <!-- Custom and plugin javascript -->
-    <script src="{{asset('js/inspinia.js')}}"></script>
-    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
+    <!-- <script src="{{asset('js/inspinia.js')}}"></script>
+    <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script> -->
 
     <!-- ChartJS-->
-    <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+    <!-- <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
     <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
-    <script src="{{asset('js/demo/income_channel_chart.js')}}"></script>
+    <script src="{{asset('js/demo/income_channel_chart.js')}}"></script> -->
+    <script src="{{ asset('js/meter_type.js') }}"></script>
+    <script src="{{ asset('js/pie.js') }}"></script>
+    <script src="{{ asset('js/3dpie.js') }}"></script>
+    <script src="{{ asset('js/donut.js') }}"></script>
+    <script src="{{ asset('js/cylinder.js') }}"></script>
+    <script src="{{ asset('js/core.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
+    <script src="{{ asset('js/animated.js') }}"></script>
 
-    <script src="{{ asset('js/amcharts/examples/javascript/donut-chart/donus.js') }}"></script>
-    <script src="{{ asset('js/amcharts/core.js') }}"></script>
-    <script src="{{ asset('js/amcharts/charts.js') }}"></script>
-    <script src="{{ asset('js/amcharts/themes/animated.js') }}"></script>
 
     <!-- Flot -->
-    <script src="{{asset('js/plugins/flot/jquery.flot.js')}}"></script>
+    <!-- <script src="{{asset('js/plugins/flot/jquery.flot.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.spline.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.resize.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.pie.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.symbol.js')}}"></script>
-    <script src="{{asset('js/plugins/flot/jquery.flot.time.js')}}"></script>
+    <script src="{{asset('js/plugins/flot/jquery.flot.time.js')}}"></script> -->
 
     <!-- Peity -->
-    <script src="{{asset('js/plugins/peity/jquery.peity.min.js')}}"></script>
-    <script src="{{asset('js/demo/peity-demo.js')}}"></script>
+    <!-- <script src="{{asset('js/plugins/peity/jquery.peity.min.js')}}"></script>
+    <script src="{{asset('js/demo/peity-demo.js')}}"></script> -->
 
     <!-- Custom and plugin javascript -->
     <script src="{{asset('js/inspinia.js')}}"></script>
@@ -600,19 +609,7 @@
     <!-- jQuery UI -->
     <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
-    <!-- Jvectormap -->
-    <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
-    <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-
-    <!-- EayPIE -->
-    <script src="{{asset('js/plugins/easypiechart/jquery.easypiechart.js')}}"></script>
-
-    <!-- Sparkline -->
-    <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script src="{{asset('js/plugins/footable/footable.all.min.js')}}"></script>
-
-    <!-- Sparkline demo data  -->
-    <script src="{{asset('js/demo/sparkline-demo.js')}}"></script>
+    
 
     <script>
         $(document).ready(function () {

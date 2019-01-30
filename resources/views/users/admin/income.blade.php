@@ -230,7 +230,7 @@
                 </div>
             </div>
         </div> -->
-</div>
+
 
 <div class="row">
     <div class="col-lg-12">
@@ -260,16 +260,17 @@
                             <label class="control-label" for="amount">Filter By District</label>
                             <select id="district" class="form-control">
                                 <option value="">All</option>
-                                <option value="Agbara">Agbara</option>
-                                <option value="Ojo">Ojo</option>
-                                <option value="Festac">Festac</option>
-                                <option value="Ijora">Ijora</option>
-                                <option value="Mushin">Mushin</option>
-                                <option value="Apapa">Apapa</option>
-                                <option value="Lekki">Lekki</option>
-                                <option value="Island">Island</option>
-                                <option value="Ibeju">Ibeju</option>
-                                <option value="Orile">Orile</option>
+                                <option value="">All</option>
+                            <option value="Agbara">Agbara</option>
+                            <option value="Apapa">Apapa</option>
+                            <option value="Festac">Festac</option>
+                            <option value="Ibeju">Ibeju</option>
+                            <option value="Ijora">Ijora</option>
+                            <option value="Island">Island</option>
+                            <option value="Lekki">Lekki</option>
+                            <option value="Mushin">Mushin</option>
+                            <option value="Ojo">Ojo</option>
+                            <option value="Orile">Orile</option>
                             </select>
                         </div>
                     </div>
@@ -339,7 +340,7 @@
 
                     <div class="table-responsive">
                         <table id="table" class="display" style="width:100%">
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <table class="table table-striped table-bordered table-hover" id="myTable">
                                 <thead>
                                     <tr>
                                         <th width="16%" data-hide="phone">Trans Date</th>

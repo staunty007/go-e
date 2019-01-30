@@ -257,6 +257,10 @@ class AdminController extends Controller
     {
         return $this->v('dashboard');
     }
+    public function dashboard1()
+    {
+        return $this->v('dashboard1');
+    }
     public function postpaid_bill()
     {
         return $this->v('postpaid_bill');

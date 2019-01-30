@@ -151,6 +151,7 @@ Route::prefix('backend')->group(function () {
         Route::get('administrator', 'AdminController@home')->name('admin.home');
         Route::get('finance', 'AdminController@finance')->name('admin.finance');
         Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+        Route::get('dashboard1', 'AdminController@dashboard1')->name('admin.dashboard1');
         Route::get('finance/filter-by-date', 'AdminController@financeFilterDate');
         Route::get('profile', 'AdminController@profile')->name('admin.profile');
         Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
