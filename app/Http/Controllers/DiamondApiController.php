@@ -133,53 +133,32 @@ class DiamondApiController extends Controller
 
         curl_close($curl);
 
+        $converted =  json_decode($response, true);
+        if(isset($converted['successful'])) {
+            $this->credit($amount);
+
+            return "Done";
+        }else {
+            return "Error";
+        }
+
         return response()->json(json_decode($response, true));
 
     }
 
-    /** 
-     * Debit Admin when topping up
-     */
-    public function adminDebit($accountNumber, $amount)
-    {
-        $getToken = $this->generateAccessToken();
-        $token = $getToken['access_token'];
-        $curl = curl_init();
-        $transactionRef = str_random(20);
-        // return $transactionRef;
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/debit",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"$accountNumber\",\n\t\"sourceAccount\": \"$accountNumber\",\n\t\"transactionReference\": \"$transactionRef\",\n\t\"transactionNaration\": \"GOENERGEE Topup Debit\"\n}",
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer " . $token,
-                "Content-Type: application/json",
-            ),
-        ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
 
-        curl_close($curl);
 
-        if ($err) {
-            return response()->json($err, 500);
-        } else {
-            $credit = $this->credit($amount);
-            if ($credit == "Err") {
-                $cred2 = $this->credit($amount);
-                if ($cred2 == "Err") {
-                    return response()->json('Unable to finish transaction, Please Contact the Admin for further processing.');
-                }
-            } else {
-                return response()->json($response, 200);
-            }
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
 
 }

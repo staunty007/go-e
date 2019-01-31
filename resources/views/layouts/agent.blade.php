@@ -232,7 +232,6 @@
 
     <!-- jQuery UI -->
     <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-
     <!-- Jvectormap -->
     <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
     <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
@@ -276,7 +275,7 @@
         function diamondPay(event) {
             const parente = event.target;
             parente.innerHTML = 'Processing...';
-            parente.disabled = true;
+            // parente.disabled = true;
 
             var amount = document.querySelector('#topup-amount').value;
 
@@ -289,11 +288,51 @@
                     .then(response => {
                         if(response.successful == true) {
                             // Add Amount to Agent's Wallet
+                            creditAgentWallet(amount);
                             // fetch('credit')
+                            creditAdminWallet(amount);
                             // Add Amount to Agent's Topup Log
+                            addToTopupLog(object);
+
                         }
                     });
             }
+        }
+
+        const creditAgentWallet = (amount) => {
+            if(!amount)
+            return;
+
+            fetch(``)
+                .then(res => res.json())
+                .then(response => {
+
+                })
+                .catch(err => console.log(err));
+        }
+
+        const creditAdminWallet = (amount) => {
+            if(!amount)
+            return;
+
+            fetch(``)
+                .then(res => res.json())
+                .then(response => {
+
+                })
+                .catch(err => console.log(err));
+        }
+
+        const addToTopupLog = (object) => {
+            if(!amount)
+            return;
+            
+            fetch(``)
+                .then(res => res.json())
+                .then(response => {
+
+                })
+                .catch(err => console.log(err));
         }
     </script>
     <script>

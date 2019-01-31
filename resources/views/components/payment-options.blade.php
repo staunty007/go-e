@@ -303,7 +303,7 @@
                 break;
         }
         var handler = PaystackPop.setup({
-            key: "pk_test_120bd5b0248b45a0865650f70d22abeacf719371",
+            key: "{{ env('PS_KEY') }}",
             email: document.querySelector('#emailret').value,
             amount: chargedAmount + "00",
             ref: reff,
