@@ -353,7 +353,7 @@
 
                     <div class="ibox-content">
                         <div class="text-center">
-                            <div id="" height="140"></div>
+                        <div id="funnel"></div>
                         </div>
                     </div>
                 </div>
@@ -400,6 +400,8 @@
 <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
 <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
 
+
+
 <script src="{{ asset('js/core.js') }}"></script>
 <script src="{{ asset('js/charts.js') }}"></script>
 <script src="{{ asset('js/animated.js') }}"></script>
@@ -409,6 +411,8 @@
 <script src="{{ asset('js/pie.js') }}"></script>
 <script src="{{ asset('js/meter_type.js') }}"></script>
 <script src="{{ asset('js/energy_consumption_by_meter.js') }}"></script>
+<script src="{{ asset('js/funnel.js') }}"></script>
+<script src="{{ asset('js/3dfunnel.js') }}"></script>
 <script>
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;

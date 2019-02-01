@@ -16,6 +16,8 @@
     <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
     <link href="{{asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/table1.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/3dfunnel.css') }}" rel="stylesheet">
     <link href="{{ asset('css/energy_consumption_by_meter.css') }}" rel="stylesheet">
     <link href="{{ asset('css/meter_type.css') }}" rel="stylesheet">
     <link href="{{ asset('css/donut.css') }}" rel="stylesheet">
@@ -28,8 +30,8 @@
 
     <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
     <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
-  
-   
+
+
 
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
@@ -126,9 +128,10 @@
                     <li class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
                         <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                        <li class="{{ Request::is('backend/dashboard') ? 'active' :'' }}"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                            <li class="{{ Request::is('backend/dashboard') ? 'active' :'' }}"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                             <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
-                            <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income Report</a></li>
+                            <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income
+                                    Report</a></li>
                         </ul>
                     </li>
                     <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' || Request::is('backend/agent-topup-trackers') ? 'active' :'' }}">
@@ -162,23 +165,29 @@
                             <span class="nav-label">Agent Sales</span>
                         </a>
                     </li>
-                    <li class="{{$current_route_name =="admin.payment_history" ? 'active' : ''}}">
+                    <li class="{{$current_route_name =='admin.payment_history' ? 'active' : ''}}">
                         <a href="{{route('admin.payment_history')}}">
                             <i class="fa fa-cc-visa"></i>
                             <span class="nav-label">Commission Split</span>
                         </a>
                     </li>
 
-                    
-                    <li class="{{ Request::is('backend/admin.demographics') ? 'active' :'' || Request::is('backend/admin.demographics') ? 'active' :'' }}">
-                 
-                        <a href="{{route('admin.demographics')}}">
-                            <i class="fa fa fa-yelp"></i>
-                            <span class="nav-label">Energy Consumption</span>
-                        </a>
+
+                    <li class="{{ Request::is('backend/district-energy') ? 'active' :'' || Request::is('backend/district-energy') ? 'active' :'' }}">
+                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Energy Consumption</span> <span
+                                class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="{{ Request::is('backend/district-energy') ? 'active' :'' }}"><a href="{{ route('admin.district-energy') }}">District</a></li>
+                            <li class="{{ Request::is('backend/customer-energy') ? 'active' :'' }}"><a href="{{ route('admin.customer-energy') }}">Customer</a></li>
+
+
+
+                        </ul>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.meter_admin" ? 'active' : ''}}">
+
+
+                    <li class="{{$current_route_name ='admin.meter_admin' ? 'active' : ''}}">
                         <a href="{{route('admin.meter_admin')}}">
                             <i class="fa fa-table"></i>
                             <span class="nav-label">Meter Management</span>
@@ -214,7 +223,7 @@
                     <li class="{{$current_route_name =="admin.manage_referal" ? 'active' : ''}}">
                         <a href="{{route('admin.manage_referal')}}">
                             <i class="fa fa-plug"></i>
-                            <span class="nav-label">Referal Manager</span>
+                            <span class="nav-label">Referral Manager</span>
                         </a>
                     </li>
 
@@ -278,7 +287,8 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message"> Hello Admin |  Welcome to <strong>GOENERGEE</strong> Utility Platform.</span>
+                            <span class="m-r-sm text-muted welcome-message"> Hello Admin | Welcome to <strong>GOENERGEE</strong>
+                                Utility Platform.</span>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
@@ -297,258 +307,258 @@
             </div>
         </div>
         <style>
-    /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-    @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
-    @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+            /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+            @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+            @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 
-    html,
-    body {
-        min-height: 100%;
-        /* background: #ecf0f1; */
-    }
+            html,
+            body {
+                min-height: 100%;
+                /* background: #ecf0f1; */
+            }
 
-    .header,
-    .closing,
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+            .header,
+            .closing,
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-    .header {
-        margin-top: 2vh;
-        text-align: center;
-    }
+            .header {
+                margin-top: 2vh;
+                text-align: center;
+            }
 
-    .header h1 {
-        color: #333;
-        font-family: Raleway, sans-serif;
-        font-size: 2.5em;
-        text-transform: uppercase;
-    }
+            .header h1 {
+                color: #333;
+                font-family: Raleway, sans-serif;
+                font-size: 2.5em;
+                text-transform: uppercase;
+            }
 
-    @keyframes rotate {
-        from {
-            transform: rotate(0deg);
-        }
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
 
-        to {
-            transform: rotate(360deg);
-        }
-    }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
 
-    .closing {
-        font-family: Raleway, sans-serif;
-        margin: 1em 0;
-        text-align: center;
-        flex-wrap: wrap;
-    }
+            .closing {
+                font-family: Raleway, sans-serif;
+                margin: 1em 0;
+                text-align: center;
+                flex-wrap: wrap;
+            }
 
-    .closing__icon {
-        margin: 0 0.3em;
-        color: #D90429;
-        transition: all 0.3s ease;
-        fill: transparent;
-    }
+            .closing__icon {
+                margin: 0 0.3em;
+                color: #D90429;
+                transition: all 0.3s ease;
+                fill: transparent;
+            }
 
-    .closing__icon:hover {
-        fill: #D90429;
-        cursor: pointer;
-    }
+            .closing__icon:hover {
+                fill: #D90429;
+                cursor: pointer;
+            }
 
-    .closing__icon:active {
-        animation: rotate 2s infinite;
-    }
+            .closing__icon:active {
+                animation: rotate 2s infinite;
+            }
 
-    .closing a {
-        text-decoration: none;
-        color: #EF233C;
-        border-bottom: 1px solid transparent;
-        transition: border 0.3s ease-in;
-    }
+            .closing a {
+                text-decoration: none;
+                color: #EF233C;
+                border-bottom: 1px solid transparent;
+                transition: border 0.3s ease-in;
+            }
 
-    .closing a:hover {
-        border-bottom: 1px solid;
-    }
+            .closing a:hover {
+                border-bottom: 1px solid;
+            }
 
-    .container {
-        flex-wrap: wrap;
-    }
+            .container {
+                flex-wrap: wrap;
+            }
 
-    .container .stat {
-        margin-right: 1em;
-        margin-bottom: 1em;
-    }
+            .container .stat {
+                margin-right: 1em;
+                margin-bottom: 1em;
+            }
 
-    .stat {
-        min-width: 280px;
-        height: 90px;
-        background: #fff;
-        display: flex;
-        font-family: Lato, sans-serif;
-        cursor: pointer;
-        box-shadow: none;
-        transition: box-shadow 0.1s ease-in;
-    }
+            .stat {
+                min-width: 280px;
+                height: 90px;
+                background: #fff;
+                display: flex;
+                font-family: Lato, sans-serif;
+                cursor: pointer;
+                box-shadow: none;
+                transition: box-shadow 0.1s ease-in;
+            }
 
-    .stat:hover {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    }
+            .stat:hover {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+            }
 
-    .stat:active {
-        box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
-    }
+            .stat:active {
+                box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+            }
 
-    .stat--has-icon-right {
-        flex-direction: row-reverse;
-    }
+            .stat--has-icon-right {
+                flex-direction: row-reverse;
+            }
 
-    .stat__icon-wrapper {
-        width: 90px;
-        min-height: 90px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+            .stat__icon-wrapper {
+                width: 90px;
+                min-height: 90px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-    .stat__icon {
-        color: #2A3036;
-        width: 45px;
-        height: 45px;
-    }
+            .stat__icon {
+                color: #2A3036;
+                width: 45px;
+                height: 45px;
+            }
 
-    .stat__data {
-        flex: 1 0 90px;
-        height: 45px;
-        align-self: center;
-        padding: 0 1em;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+            .stat__data {
+                flex: 1 0 90px;
+                height: 45px;
+                align-self: center;
+                padding: 0 1em;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
 
-    .stat__header {
-        margin: 0;
-        color: #2A3036;
-        font-size: 1.2em;
-        font-weight: bold;
-    }
+            .stat__header {
+                margin: 0;
+                color: #2A3036;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
 
-    .stat__subheader {
-        color: #373E45;
-        margin: 0;
-        font-size: 1em;
-    }
+            .stat__subheader {
+                color: #373E45;
+                margin: 0;
+                font-size: 1em;
+            }
 
-    .stat--bg-white {
-        background: #F7FFF7;
-    }
+            .stat--bg-white {
+                background: #F7FFF7;
+            }
 
-    .stat--bg-dark_grey {
-        background: #2F4050;
-    }
+            .stat--bg-dark_grey {
+                background: #2F4050;
+            }
 
-    .stat--bg-dark-white {
-        background: #deffde;
-    }
+            .stat--bg-dark-white {
+                background: #deffde;
+            }
 
-    .stat--color-white {
-        color: #F7FFF7;
-    }
+            .stat--color-white {
+                color: #F7FFF7;
+            }
 
-    .stat--bg-green {
-        background: #9BC53D;
-    }
+            .stat--bg-green {
+                background: #9BC53D;
+            }
 
-    .stat--bg-dark-green {
-        background: #8cb336;
-    }
+            .stat--bg-dark-green {
+                background: #8cb336;
+            }
 
-    .stat--color-green {
-        color: #9BC53D;
-    }
+            .stat--color-green {
+                color: #9BC53D;
+            }
 
-    .stat--bg-yellow {
-        background: #FDE74C;
-    }
+            .stat--bg-yellow {
+                background: #FDE74C;
+            }
 
-    .stat--bg-dark-yellow {
-        background: #fde433;
-    }
+            .stat--bg-dark-yellow {
+                background: #fde433;
+            }
 
-    .stat--color-yellow {
-        color: #FDE74C;
-    }
+            .stat--color-yellow {
+                color: #FDE74C;
+            }
 
-    .stat--bg-orange {
-        background: #FA7921;
-    }
+            .stat--bg-orange {
+                background: #FA7921;
+            }
 
-    .stat--bg-dark-orange {
-        background: #f96a08;
-    }
+            .stat--bg-dark-orange {
+                background: #f96a08;
+            }
 
-    .stat--color-orange {
-        color: #FA7921;
-    }
+            .stat--color-orange {
+                color: #FA7921;
+            }
 
-    .stat--bg-blue {
-        background: #5BC0EB;
-    }
+            .stat--bg-blue {
+                background: #5BC0EB;
+            }
 
-    .stat--bg-dark-blue {
-        background: #44b7e8;
-    }
+            .stat--bg-dark-blue {
+                background: #44b7e8;
+            }
 
-    .stat--bg-dark-grey {
-        background: #2F4050;
-    }
+            .stat--bg-dark-grey {
+                background: #2F4050;
+            }
 
-    .stat--color-blue {
-        color: #5BC0EB;
-    }
+            .stat--color-blue {
+                color: #5BC0EB;
+            }
 
-    .stat--color-light_blue {
-        color: #2F4050;
-    }
+            .stat--color-light_blue {
+                color: #2F4050;
+            }
 
 
 
-    .stat--bg-red {
-        background: #E55934;
-    }
+            .stat--bg-red {
+                background: #E55934;
+            }
 
-    .stat--bg-dark-red {
-        background: #e2471d;
-    }
+            .stat--bg-dark-red {
+                background: #e2471d;
+            }
 
-    .stat--color-red {
-        color: #E55934;
-    }
+            .stat--color-red {
+                color: #E55934;
+            }
 
-    .stat--has-text-right {
-        text-align: right;
-    }
-</style>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+            .stat--has-text-right {
+                text-align: right;
+            }
+        </style>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-<link href="css/animate.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
-</head>
+        </head>
 
-<body>
+        <body>
 
-    <script src="https://unpkg.com/feather-icons"></script>
-        <div class="footer">
+            <script src="https://unpkg.com/feather-icons"></script>
+            <div class="footer">
 
-        <div class="container text-center">
-                Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+                <div class="container text-center">
+                    Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+                </div>
             </div>
-        </div>
     </div>
 
 
@@ -566,6 +576,11 @@
     <!-- <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
     <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
     <script src="{{asset('js/demo/income_channel_chart.js')}}"></script> -->
+    <script src="{{ asset('js/bar.js') }}"></script>
+
+    <script src="{{ asset('js/amcharts.js') }}"></script>
+    <script src="{{ asset('js/3dfunnel.js') }}"></script>
+    <script src="{{ asset('js/funnel.js') }}"></script>
     <script src="{{ asset('js/meter_type.js') }}"></script>
     <script src="{{ asset('js/pie.js') }}"></script>
     <script src="{{ asset('js/3dpie.js') }}"></script>
@@ -596,7 +611,7 @@
     <!-- jQuery UI -->
     <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
-    
+
 
     <script>
         $(document).ready(function () {

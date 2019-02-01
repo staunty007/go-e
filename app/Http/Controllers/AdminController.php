@@ -277,6 +277,14 @@ class AdminController extends Controller
     {
         return $this->v('demographics');
     }
+    public function district_energy()
+    {
+        return $this->v('district-energy');
+    }
+    public function customer_energy()
+    {
+        return $this->v('customer-energy');
+    }
     public function meter_admin()
     {
         $meter_requests = MeterRequest::all();

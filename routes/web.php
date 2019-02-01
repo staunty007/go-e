@@ -151,6 +151,8 @@ Route::prefix('backend')->group(function () {
         Route::get('income_channel', 'AdminController@income_channel')->name('admin.income_channel');
         Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
         Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
+        Route::get('district-energy', 'AdminController@district_energy')->name('admin.district-energy');
+        Route::get('customer-energy', 'AdminController@customer_energy')->name('admin.customer-energy');
         Route::get('meter_admin', 'AdminController@meter_admin')->name('admin.meter_admin');
         Route::get('settings', 'AdminController@settings')->name('admin.settings');
         Route::get('crm', 'AdminController@crm')->name('admin.crm');
