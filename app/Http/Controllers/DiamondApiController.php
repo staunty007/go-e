@@ -37,12 +37,12 @@ class DiamondApiController extends Controller
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
-
+        // return $err;
         curl_close($curl);
         // Decode the response to object / array
         $resp = json_decode($response, true);
         // return access token
-        return $resp['access_token'];
+        return (isset($resp['access_token'])) ? $resp['access_token'] : $err;
 
 
     }
@@ -53,7 +53,7 @@ class DiamondApiController extends Controller
     public function credit($amount)
     {
         $access_token = $this->generateAccessToken();
-        $token = $access_token['access_token'];
+        $token = $access_token;
         // Initialize Curl
         $curl = curl_init();
         // Transation Ref
@@ -96,23 +96,32 @@ class DiamondApiController extends Controller
     {
         // check agent's amount is not greater tham admin's own
         $adminBiodata = AdminBiodata::find(1);
-        // return $adminBiodata;
+        
+        // Check if Admin Has funds in wallet or deposit
         if ($amount > $adminBiodata->wallet_balance) {
             return response()->json('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
         }
+
+        // Get Access Token
         $token = $this->generateAccessToken();
-        /*
-         * Payment Description
-         * Agent's Name - agent id
-         */
-        // Find Agent
+
+        // Find Agent Biodata
         $agentBiodata = AgentBiodata::where('user_id',auth()->id())->firstOrFail();
         $accountNumber = $agentBiodata->account_number;
+
+        // Check if Account Number is Empty
+        if($accountNumber == "") {
+            return response()->json('Please Update Your Account Number Before Proceeding...');
+        }
+
+        // Transaction Description
         $description = "GOENERGEE Agent ".auth()->user()->firstname."_".auth()->user()->lastname."_".$agentBiodata->agent_id." Topup Debit".date('d-m-y');
-        // return $token;
+        
+        // Inititlalize Curl
         $curl = curl_init();
+        // Transaction Token
         $transactionRef = str_random(20);
-        // return $transactionRef;
+        // Set Curl Options
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->baseUrl."api/Transaction/debit",
             CURLOPT_RETURNTRANSFER => true,
@@ -128,58 +137,35 @@ class DiamondApiController extends Controller
             ),
         ));
 
+        // Response From Curl Request
         $response = curl_exec($curl);
+        // Error from Curl Request
         $err = curl_error($curl);
-
+        // Close Curl  Connection
         curl_close($curl);
-
-        return response()->json(json_decode($response, true));
+        // Payload to Frontend
+        $payload = [
+            'results' => $response,
+            'errors' => $err
+        ];
+        // return response
+        return response()->json($payload);
 
     }
 
-    /** 
-     * Debit Admin when topping up
-     */
-    public function adminDebit($accountNumber, $amount)
-    {
-        $getToken = $this->generateAccessToken();
-        $token = $getToken['access_token'];
-        $curl = curl_init();
-        $transactionRef = str_random(20);
-        // return $transactionRef;
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://certify.diamondbank.com/diamondconnecttest/api/Transaction/debit",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n\t\"hash\":\"12345\",\n\t\"amount\": $amount,\n\t\"accountNumber\": \"$accountNumber\",\n\t\"sourceAccount\": \"$accountNumber\",\n\t\"transactionReference\": \"$transactionRef\",\n\t\"transactionNaration\": \"GOENERGEE Topup Debit\"\n}",
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer " . $token,
-                "Content-Type: application/json",
-            ),
-        ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
 
-        curl_close($curl);
 
-        if ($err) {
-            return response()->json($err, 500);
-        } else {
-            $credit = $this->credit($amount);
-            if ($credit == "Err") {
-                $cred2 = $this->credit($amount);
-                if ($cred2 == "Err") {
-                    return response()->json('Unable to finish transaction, Please Contact the Admin for further processing.');
-                }
-            } else {
-                return response()->json($response, 200);
-            }
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
 
 }

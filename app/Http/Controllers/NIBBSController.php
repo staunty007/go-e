@@ -9,7 +9,49 @@ use SimpleXMLElement;
 
 class NIBBSController extends Controller
 {
-    private $host = "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
+    private $host = "http://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
+
+    public function createMandate()
+    {
+        // SOAP 1.2 client
+        $params = array ('encoding' => 'UTF-8', 'verifypeer' => false, 'verifyhost' => false, 'soap_version' => SOAP_1_2, 'trace' => 1, 'exceptions' => 1, "connection_timeout" => 180);
+        
+        try{
+            $client = new SoapClient($this->host,$params );
+        }
+        catch(\SoapFault $fault) {
+            dump($fault);
+            dd($fault);
+        }
+
+        // dd($results);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Get Banks List 
     public function getBanksOnline()
     {
@@ -30,7 +72,6 @@ class NIBBSController extends Controller
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: text/xml",
                 "cache-control: no-cache",
-
             ),
         ));
 
@@ -39,23 +80,29 @@ class NIBBSController extends Controller
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-            // $stringed = simplexml_load_string($response);
-            // return json_encode($stringed);
-        }
-        // try {
+        $parse_response = new SimpleXMLElement("$response");
 
-        //     $client = new SoapClient($this->host);
-        //     // dd($client->listActiveBanks('NIBSS0000000128'));
-        //     dd($client->__getTypes());
-        // } catch (\SoapFault $th) {
-        //     dd($th);
+        dd($parse_response);
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        // } else {
+        //     echo $response;
+        //     // $stringed = simplexml_load_string($response);
+        //     // return json_encode($stringed);
         // }
+        // // try {
+
+        // //     $client = new SoapClient($this->host);
+        // //     // dd($client->listActiveBanks('NIBSS0000000128'));
+        // //     dd($client->__getTypes());
+        // // } catch (\SoapFault $th) {
+        // //     dd($th);
+        // // }
 
     }
+
+    
+
 
     public function getBanks()
     {

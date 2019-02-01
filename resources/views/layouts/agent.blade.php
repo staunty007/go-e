@@ -229,25 +229,21 @@
     <!-- Custom and plugin javascript -->
     <script src="{{asset('js/inspinia.js')}}"></script>
     <script src="{{asset('js/plugins/pace/pace.min.js')}}"></script>
-
     <!-- jQuery UI -->
     <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-
     <!-- Jvectormap -->
     <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
     <script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-
     <!-- EayPIE -->
     <script src="{{asset('js/plugins/easypiechart/jquery.easypiechart.js')}}"></script>
-
     <!-- Sparkline -->
     <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
     <script src="{{asset('js/plugins/footable/footable.all.min.js')}}"></script>
-
     <!-- Sparkline demo data  -->
-    <script src="{{asset('js/demo/sparkline-demo.js')}}"></script>
-    <script src="{{asset('js/plugins/dataTables/datatables.min.js')}}"></script>
+    <script src="{{asset('js/demo/sparkline-demo.js') }}"></script>
+    <script src="{{asset('js/plugins/dataTables/datatables.min.js') }}"></script>
     <script src="/js/dataTables.bootstrap.min.js"></script>
+    <script src="/js/agent.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -274,26 +270,77 @@
     {{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
     <script>
         function diamondPay(event) {
-            const parente = event.target;
-            parente.innerHTML = 'Processing...';
-            parente.disabled = true;
-
             var amount = document.querySelector('#topup-amount').value;
-
             if(amount.length == 0 || amount == "") {
                 alert('Please Enter an Amount');
-            }else {
-                // Connect to diamond API to deduct amount fro agent's Account
-                fetch(`/diamond/debit/${amount}`)
-                    .then(res => res.json())
-                    .then(response => {
-                        if(response.successful == true) {
-                            // Add Amount to Agent's Wallet
-                            // fetch('credit')
-                            // Add Amount to Agent's Topup Log
-                        }
-                    });
+                return;
             }
+
+            const parente = event.target;
+            updateButton();
+            // parente.disabled = true;
+            // Connect to diamond API to deduct amount fro agent's Account
+            fetch(`/diamond/debit/${amount}`)
+                .then(res => res.json())
+                .then(response => {
+                    response = JSON.parse(response.results);
+                    if(response.successful == true) {
+                        // Add Amount to Agent's Wallet
+                        var agentCredit = creditAgentWallet(amount);
+                        console.log(agentCredit);
+                        return;
+                        // fetch('credit')
+                        creditAdminWallet(amount);
+                        // Add Amount to Agent's Topup Log
+                        addToTopupLog(object);
+                    }else {
+                        alert('Something Went Wrong, Please Check your internet connection or refresh the page to try again...');
+                    }
+                });
+            {{-- creditAgentWallet(amount); --}}
+        }
+
+        const creditAgentWallet = (amount) => {
+            console.log('Crediting Agent Wallet...');
+            if(!amount) return;
+            fetch(`/wallets/agent/${amount}/credit`)
+                .then(res => res.json())
+                .then(response => {
+                    updateButton('Updating Your Wallet...');
+                    if(!response.successful) {
+                        return false;
+                    }
+                    return true;
+                })
+                .catch(err => console.log(err));
+        }
+
+        function creditAdminWallet(amount) {
+            if(!amount)
+            return;
+
+            fetch(``)
+                .then(res => res.json())
+                .then(response => {
+
+                })
+                .catch(err => console.log(err));
+        }
+
+        function addToTopupLog(object) {
+            if(!amount)
+            return;
+            
+            fetch(``)
+                .then(res => res.json())
+                .then(response => {
+
+                })
+                .catch(err => console.log(err));
+        }
+
+        function updateButton(string = 'Processing....') {
+            document.querySelector("#topUpBtn").innerHTML = string;
         }
     </script>
     <script>
