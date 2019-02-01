@@ -10,154 +10,202 @@
         min-height: 800px !important;
     }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<div class="wrapper wrapper-content">
-   
-    
-    <div class="col-lg-3 col-md-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              
-                <h5>Energy Balance</h5>
+
+<div class="row">
+
+
+    <div class="col-lg-4 col-md-4">
+
+        <div class="stat">
+
+            <div class="stat__icon-wrapper stat--bg-custom">
+                <i data-feather="activity" class="stat__icon"></i>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins">150<span>KwH</span></h1>
-                <!-- <small>Energy Remaining is 150KwH</small> -->
+            <div class="stat__data">
+                <h1 class="stat__header">Energy Balance</h1>
+                <p class="stat__subheader"> 25<span>KwH</span></p>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
-                <h5>Meter Balance</h5>
+
+    <div class="col-lg-4 col-md-4">
+        <div class="stat stat--has-icon-left">
+            <div class="stat__icon-wrapper stat--bg-blue">
+                <i data-feather="trello" class="stat__icon"></i>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
-                <!-- <small>Money Remaining is 25,800</small> -->
+            <div class="stat__data">
+                <h1 class="stat__header">Meter balance</h1>
+                <p class="stat__subheader"><span>&#8358;</span>600</p>
             </div>
         </div>
     </div>
-    
-    <div class="col-lg-3 col-md-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                {{-- <span class="label label-primary pull-right">Year</span>
-                    <span class="label label-primary pull-right">Month</span>
-                    <span class="label label-primary pull-right">Week</span>
-                    <span class="label label-primary pull-right">Today</span> --}}
-                <h5>Previous Top Up</h5>
+
+    <div class="col-lg-4">
+        <div class="stat stat--has-icon-left">
+            <div class="stat__icon-wrapper stat--bg-dark-red">
+                <i data-feather="thumbs-up" class="stat__icon stat--color-white"></i>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins"><span>&#8358;</span>120</h1>
-                <!-- <small>Average Cost of Electricity Per day</small> -->
+            <div class="stat__data">
+                <h1 class="stat__header">Previous Top Up</h1>
+                <p class="stat__subheader"> <span>&#8358;</span> 10,005</p>
             </div>
         </div>
     </div>
-    
-    <div class="col-lg-3 col-md-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                {{-- <span class="label label-success pull-right">Year</span>
-                <span class="label label-success pull-right">Quater</span>
-                <span class="label label-success pull-right">Month</span> --}}
-                <h5>Days before Last Top Up</h5>
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-lg-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Purchase Prepaid Meter Token
             </div>
+
             <div class="ibox-content">
-                <h1 class="no-margins">60</h1>
-                {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div> --}}
-                <!-- <small>Avg Daily Energy I Consumed</small> -->
-            </div>
-        </div>
-    </div>
-    
+                {{-- @if(isset($before)) --}}
+                <p class="text-center"><img src="/images/ekedc.jpg" width="80" /></p>
+                <br>
 
-    <div class="row">
+                <form class="meter" method="post" action="">
+                    <div class="form-group">
+                        <label for="Meter_number"><b>Prepaid Meter Number</b></label>
 
-        <div class="col-lg-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Purchase Prepaid Meter Token
-                </div>
+                        <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your Prepaid Meter Number"
+                            required autofocus name="meter_no">
 
-                <div class="ibox-content">
-                    {{-- @if(isset($before)) --}}
-                    <p class="text-center"><img src="/images/ekedc.jpg" width="80" /></p>
-                    <br>
-                    
-                    <form class="meter" method="post" action="">
-                        <div class="form-group">
-                            <label for="Meter_number"><b>Prepaid Meter Number</b></label>
-                            
-                            <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PrePaid Meter Number" required autofocus name="meter_no">
-                            
-                        </div>
-                        <div class="form-group">
-                            <label for="convinience_fee"><b>Convenience Fee</b></label>
-                            
-                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00" readonly> </div>
-                        </div>
-                       
-                        <div class="form-group">
-                            <label for="amount"><b>Amount</b></label>
-                            
-                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"></span></div>
-                        </div>
-                        <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Information Portal</h5>
-                </div>
-                <div class="ibox-content ">
-                    <div class="carousel slide" id="carousel2">
-                        <ol class="carousel-indicators">
-                            <li data-slide-to="0" data-target="#carousel2" class="active"></li>
-                            <li data-slide-to="1" data-target="#carousel2"></li>
-                            <li data-slide-to="2" data-target="#carousel2" class=""></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big1.png" style="height: 320px">
-                            </div>
-                            <div class="item">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big2.jpg" style="height: 320px">
-
-                            </div>
-
-                        </div>
-                        <a data-slide="prev" href="#carousel2" class="left carousel-control">
-                            <span class="icon-prev"></span>
-                        </a>
-                        <a data-slide="next" href="#carousel2" class="right carousel-control">
-                            <span class="icon-next"></span>
-                        </a>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 text-center" id="ifAdmin">
-            <div class="alert alert-danger">
-                <h2>Please Contact Admin</h2>
-                <h5>
-                    <b>Phone:</b> 08052313815
-                </h5>
-                <h5>
-                    <b>Email:</b> customersupport@goenergee.com
-                </h5>
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label for="convinience_fee"><b>Convenience Fee</b></label>
 
+                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text"
+                                required name="conv_fee" class="form-control conv_fee" id="conv_fee" value="100.00"
+                                readonly> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount"><b>Amount</b></label>
+
+                        <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text"
+                                required name="amount" class="form-control meter-amount" id="amount"></span></div>
+                    </div>
+                    <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
+                </form>
+            </div>
+        </div>
     </div>
+
+
+    <div class="col-lg-7">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>Customer Energy Utilization Report</h4>
+            </div>
+
+
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <th>Trans ref #</th>
+                            <th>Date </th>
+                            <th>BSSD Token</th>
+                            <th>Amount Paid</th>
+                            <th>Meter Type</th>
+
+
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+                        <tr>
+                            <td>G0-01</td>
+                            <td>2/5/2018</td>
+                            <td>620</td>
+                            <td>500</td>
+                            <td>750</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4 text-center" id="ifAdmin">
+    <div class="alert alert-danger">
+        <h2>Please Contact Admin</h2>
+        <h5>
+            <b>Phone:</b> 08052313815
+        </h5>
+        <h5>
+            <b>Email:</b> customersupport@goenergee.com
+        </h5>
+    </div>
+</div>
+
+</div>
 
 </div>
 
 @endsection
 @push('scripts')
+<script src="{{asset('js/index.js')}}"></script>
+<script src="https://unpkg.com/feather-icons"></script>
 <script>
     $(function () {
         $("#forSelf").hide();

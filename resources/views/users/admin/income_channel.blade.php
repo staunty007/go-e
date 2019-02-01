@@ -103,6 +103,24 @@
 
 
                                     </tbody>
+                                    <table class="table" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th width="16%" data-hide="phone">Total Amount</th>
+                                        
+                                       
+                                        <th width="12%" data-hide="phone"><span>&#8358;</span></th>
+                                        <th width="12%" data-hide="phone"><span>&#8358;</span></th>
+                                        <th width="12%" data-hide="phone"><span>&#8358;</span></th>
+
+
+                                        <th width="12%" data-hide="phone"><span>&#8358;</span></th>
+                                        <th width="12%" data-hide="phone"><span>&#8358;</span></th>
+
+
+                                    </tr>
+                                </thead>
+                            </table>
                                     <tfoot>
                                         <tr>
                                             <td colspan="7">
@@ -113,68 +131,62 @@
                                 </table>
 
                             </div>
-                        
-
-
-
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading text-center">POSTPAID VS PREPAID</div>
-                                            
-                                            <div class="text-center">
-                                                <div id="meter_type" height="140"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-
-
                     </div>
-
                 </div>
 
 
 
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center">INCOME CHANNEL PERFORMANCE </div>
 
+                    <div class="text-center">
+                        <div id="income_bar" height="140"></div>
+                    </div>
+                </div>
             </div>
-            @push('scripts')
-
-            <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
-            <script src="js/plugins/fullcalendar/moment.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('#myTable').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ]
-                    });
-                });
-            </script>
-            <script>
-                $(function () {
-                    $('input[name="datetimes"]').daterangepicker({
-                        timePicker: true,
-                        startDate: moment().startOf('hour'),
-                        endDate: moment().startOf('hour').add(32, 'hour'),
-                        locale: {
-                            format: 'M/DD hh:mm A'
-                        }
-                    });
-                });
-            </script>
-            <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+        </div>
+    </div>
 
 
-            <script>
-                $(document).ready(function () {
-                    $('#myTable').DataTable();
-                });
-            </script>
-            @endpush
-            @endsection
+
+
+
+
+    @push('scripts')
+
+    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="js/plugins/fullcalendar/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                order: [
+                    [0, 'desc']
+                ]
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(32, 'hour'),
+                locale: {
+                    format: 'M/DD hh:mm A'
+                }
+            });
+        });
+    </script>
+    <script src="{{asset('js/index.js')}}"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{ asset('js/bar.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+    @endpush
+    @endsection
