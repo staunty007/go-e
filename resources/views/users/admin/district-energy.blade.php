@@ -23,7 +23,7 @@
             </div>
             <div class="stat__data">
                 <h1 class="stat__header">Energy Paid</h1>
-                <p class="stat__subheader">600<span>KwH</span></p>
+                <div class="stat__subheader">600<span>KwH</span> </div>
             </div>
         </div>
     </div>
