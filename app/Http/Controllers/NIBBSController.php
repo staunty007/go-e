@@ -9,25 +9,87 @@ use SimpleXMLElement;
 
 class NIBBSController extends Controller
 {
-    private $host = "http://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
+    // private $host = "http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl";
+    private $host = "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
 
     public function createMandate()
     {
+        $context = [
+            'ssl' => [
+                // set some SSL/TLS specific options
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+
         // SOAP 1.2 client
-        $params = array ('encoding' => 'UTF-8', 'verifypeer' => false, 'verifyhost' => false, 'soap_version' => SOAP_1_2, 'trace' => 1, 'exceptions' => 1, "connection_timeout" => 180);
-        
+        $params = array(
+            'encoding' => 'UTF-8',
+            'verifypeer' => false,
+            'verifyhost' => false,
+            'soap_version' => SOAP_1_1,
+            'trace' => 1,
+            'exceptions' => 1,
+            'connection_timeout' => 180,
+            'stream_context' => stream_context_create($context)
+        );
         try{
-            $client = new SoapClient($this->host,$params );
+            $client = new SoapClient($this->host, $params);
+
+            $mandateRequest = [
+                'AcctNumber' => '1020021016',
+                'AcctName' => 'Adisa Ologuneru',
+                'TransType' => '1',
+                'BankCode' => '058',
+                'BillerID' => '',
+                'BillerName' => 'GOENERGEE',
+                'BillerTransId' => rand(123456789,987654321),
+                'HashValue' => ''
+            ];
+            $response = $client->createMandateRequest($mandateRequest);
+
+            dd($response);
         }
         catch(\SoapFault $fault) {
             dump($fault);
-            dd($fault);
+            // dd($fault);
         }
 
         // dd($results);
     }
 
+    public function createCurlMandate() {
+        $curl = curl_init();
 
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_SSL_VERIFYHOST => false,
+  CURLOPT_SSL_VERIFYPEER => false,
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<CreateMandateResponse>\n\t<AcctNumber>1020021016</AcctNumber>\n\t<AcctName>John Smith</AcctName>\n\t<TransType>1</TransType>\n\t<BankCode> XXXXXX </BankCode>\n\t<BillerID>123</BillerID>\n\t<BillerName>Konga</BillerName>\n\t<BillerTransId>1045621</BillerTransId>\n\t<MandateCode>0000000001</MandateCode>\n\t<ResponseCode>00</ResponseCode>\n\t<HashValue>XXXXXXXX</HashValue>\n</CreateMandateResponse>",
+  CURLOPT_HTTPHEADER => array(
+    "Content-Type: application/xml",
+    "cache-control: no-cache"
+  ),
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+  echo "cURL Error #:" . $err;
+} else {
+  echo $response;
+}
+    }
 
 
 

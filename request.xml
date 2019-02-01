@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CreateMandateRequest>
+<AcctNumber>1020021016</ AcctNumber >
+<AcctName>John Smith</AcctName>
+<TransType>1</TransType>
+<BankCode>XXXXXX</BankCode>
+<BillerID>123</BillerID >
+<BillerName>Konga</BillerName>
+<BillerTransId>1045621</BillerTransId>
+<HashValue>XXXXXXXX</HashValue>
+</CreateMandateRequest>
