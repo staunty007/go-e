@@ -19,7 +19,7 @@ class AgentController extends Controller
     private $prefix = "users.agent.";
 	
     public function __construct() {
-    	$this->middleware('auth');
+    	$this->middleware('auth')->except('creditAgentWallet');
     }
 
     public function v($file) {
@@ -312,5 +312,27 @@ class AgentController extends Controller
     
     public function otherPostpaid() {
     	return view('users.agent.other-payments');
+    }
+
+    /**
+     * Credit Agent Wallet
+     * This is credit Agent's Wallet After successful topup
+     */
+    public function creditAgentWallet($amount)
+    {
+        if($amount && $amount > 0) {
+            // Get Agent's ID
+            $agent = User::where('id',auth()->id())->with('agent')->first();
+            // Update the Wallet Balance
+            $agent->agent->wallet_balance += $amount;
+            $agent->save();
+
+            return response()->json(
+                [
+                    'successful' => true, 
+                    'message' => 'Account Updated Successfully',
+                ]
+                );
+        }
     }
 }

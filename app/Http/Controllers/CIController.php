@@ -11,7 +11,7 @@ class CIController extends Controller
     public function signon()
     {
         $partner = $this->partnerDetails();
-        // // Instnatiate the SOAPCLient
+        // // Instantiate the SOAPCLient
         $client = new \SoapClient('http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl', array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0)); 
         //makes the soap call and passes the required parameters
         $results = $client->__soapCall(

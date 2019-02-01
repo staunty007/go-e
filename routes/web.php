@@ -217,11 +217,16 @@ Route::prefix('distributor')->group(function () {
 // Diamond APIS
 // Initialize Access Token
 Route::get('diamond/access-token', 'DiamondApiController@generateAccessToken');
-// Credit aPI
-Route::get('diamond/credit/{amount}/{narration}', 'DiamondApiController@credit');
+// Admin Credit API
+Route::get('diamond/credit/{amount}', 'DiamondApiController@credit');
+/**
+ * Diamond Api Agent 
+ */
 // Debit API
 Route::get('diamond/debit/{amount}', 'DiamondApiController@agentDebit');
-Route::get('diamond/debit/admin/{accountnumber}/{amount}', 'DiamondApiController@adminDebit');
+
+Route::get('wallets/agent/{amount}/credit','AgentController@creditAgentWallet');
+// Route::get('diamond/debit/admin/{accountnumber}/{amount}', 'DiamondApiController@adminDebit');
 
 // End to End API
 Route::get('e2e/api/customers', function () {
@@ -355,7 +360,8 @@ Route::prefix('ekedc')->group(function () {
  * NIBBS Web Routes
  */
 Route::prefix('nibbs')->group(function () {
-    Route::get('all-banks', 'NIBBSController@getBanks');
+    Route::get('create-mandate','NIBBSController@createMandate');
+    Route::get('all-banks', 'NIBBSController@getBanksOnline');
     Route::get('callback', function () {
 
     });
