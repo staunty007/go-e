@@ -36,17 +36,22 @@ class NIBBSController extends Controller
         );
         try{
             $client = new SoapClient($this->host, $params);
+            $billerID = "NIBSS0000000128";
+            $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
 
-            $mandateRequest = [
-                'AcctNumber' => '1020021016',
-                'AcctName' => 'Adisa Ologuneru',
-                'TransType' => '1',
-                'BankCode' => '058',
-                'BillerID' => '',
-                'BillerName' => 'GOENERGEE',
-                'BillerTransId' => rand(123456789,987654321),
-                'HashValue' => ''
+            $mandateRequest = ["CreateMandateRequest" =>
+                [
+                    'AcctNumber' => '1020021016',
+                    'AcctName' => 'Adisa Ologuneru',
+                    'TransType' => '1',
+                    'BankCode' => '058',
+                    'BillerID' => '',
+                    'BillerName' => 'GOENERGEE',
+                    'BillerTransId' => rand(123456789,987654321),
+                    'HashValue' => hash('sha256', "$billerID"."057codergab@gmail.comGOENERGEE POSTPAID PAYMENT5000566GNDKGNGKNGNEGhttp://localhost:8000/nibbs/callbackF78BE99289AB52FDF97190CEBFC1D6B8")
+                ]
             ];
+
             $response = $client->createMandateRequest($mandateRequest);
 
             dd($response);
@@ -62,33 +67,33 @@ class NIBBSController extends Controller
     public function createCurlMandate() {
         $curl = curl_init();
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_SSL_VERIFYHOST => false,
-  CURLOPT_SSL_VERIFYPEER => false,
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<CreateMandateResponse>\n\t<AcctNumber>1020021016</AcctNumber>\n\t<AcctName>John Smith</AcctName>\n\t<TransType>1</TransType>\n\t<BankCode> XXXXXX </BankCode>\n\t<BillerID>123</BillerID>\n\t<BillerName>Konga</BillerName>\n\t<BillerTransId>1045621</BillerTransId>\n\t<MandateCode>0000000001</MandateCode>\n\t<ResponseCode>00</ResponseCode>\n\t<HashValue>XXXXXXXX</HashValue>\n</CreateMandateResponse>",
-  CURLOPT_HTTPHEADER => array(
-    "Content-Type: application/xml",
-    "cache-control: no-cache"
-  ),
-));
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<CreateMandateResponse>\n\t<AcctNumber>1020021016</AcctNumber>\n\t<AcctName>John Smith</AcctName>\n\t<TransType>1</TransType>\n\t<BankCode> XXXXXX </BankCode>\n\t<BillerID>123</BillerID>\n\t<BillerName>Konga</BillerName>\n\t<BillerTransId>1045621</BillerTransId>\n\t<MandateCode>0000000001</MandateCode>\n\t<ResponseCode>00</ResponseCode>\n\t<HashValue>XXXXXXXX</HashValue>\n</CreateMandateResponse>",
+        CURLOPT_HTTPHEADER => array(
+            "Content-Type: application/xml",
+            "cache-control: no-cache"
+        ),
+        ));
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
 
-curl_close($curl);
+        curl_close($curl);
 
-if ($err) {
-  echo "cURL Error #:" . $err;
-} else {
-  echo $response;
-}
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        echo $response;
+        }
     }
 
 
