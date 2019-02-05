@@ -41,17 +41,17 @@ class NIBBSController extends Controller
 
             $mandateRequest = ["CreateMandateRequest" =>
                 [
-                    'AcctNumber' => '1020021016',
-                    'AcctName' => 'Adisa Ologuneru',
+                    'AcctNumber' => '5050007512',
+                    'AcctName' => 'OKOLI CHUKWUMA PAUL',
                     'TransType' => '1',
-                    'BankCode' => '058',
-                    'BillerID' => '',
+                    'BankCode' => '070',
+                    'BillerID' => 'NIBSS0000000128',
                     'BillerName' => 'GOENERGEE',
-                    'BillerTransId' => rand(123456789,987654321),
-                    'HashValue' => hash('sha256', "$billerID"."057codergab@gmail.comGOENERGEE POSTPAID PAYMENT5000566GNDKGNGKNGNEGhttp://localhost:8000/nibbs/callbackF78BE99289AB52FDF97190CEBFC1D6B8")
+                    'BillerTransId' => '43553535',
+                    'HashValue' => "a4b6241a86cd6c276980f40b741eace054ef2eb71655e02fa5b24b979530fb9a"
                 ]
             ];
-
+            // $response = $client->__doRequest($mandateRequest,$this->host,'createMandateRequest','');
             $response = $client->createMandateRequest($mandateRequest);
 
             dd($response);
@@ -77,7 +77,15 @@ class NIBBSController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<CreateMandateResponse>\n\t<AcctNumber>1020021016</AcctNumber>\n\t<AcctName>John Smith</AcctName>\n\t<TransType>1</TransType>\n\t<BankCode> XXXXXX </BankCode>\n\t<BillerID>123</BillerID>\n\t<BillerName>Konga</BillerName>\n\t<BillerTransId>1045621</BillerTransId>\n\t<MandateCode>0000000001</MandateCode>\n\t<ResponseCode>00</ResponseCode>\n\t<HashValue>XXXXXXXX</HashValue>\n</CreateMandateResponse>",
+        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest>
+              <arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName>
+                   <TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName>
+                  <BillerTransId>43553535</BillerTransId><HashValue>ae34c5122329a2ba2c9c52e28297ae75e43d59aaed9f1d41593e6749c678456e</HashValue></CreateMandateRequest>
+                       ]]>
+            </arg0>
+           </web:createMandateRequest>
+        </soapenv:Body>
+     </soapenv:Envelope>',
         CURLOPT_HTTPHEADER => array(
             "Content-Type: application/xml",
             "cache-control: no-cache"
@@ -92,7 +100,7 @@ class NIBBSController extends Controller
         if ($err) {
         echo "cURL Error #:" . $err;
         } else {
-        echo $response;
+        return $response;
         }
     }
 
@@ -169,11 +177,31 @@ class NIBBSController extends Controller
     }
 
     
+    public function getHashValue() {
+        $bankcode = "070";
+        $billerID = "NIBSS0000000128";
+        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
 
+        $hashed = strtoupper(hash('sha256', "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret, false));
+
+        return "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret;
+        
+
+        // $count = strlen($hashed);
+        // return [$hashed,$count];
+    }
 
     public function getBanks()
     {
-        return hash('sha256', 'NIBSS0000000128057codergab@gmail.comGOENERGEE POSTPAID PAYMENT5000566GNDKGNGKNGNEGhttp://localhost:8000/nibbs/callbackF78BE99289AB52FDF97190CEBFC1D6B8');
+        return hash('sha256', "<CreateMandateRequest>
+        <AcctNumber>5050007512</AcctNumber>
+       <AcctName>OKOLI CHUKWUMA PAUL</AcctName>
+       <TransType>1</TransType>
+       <BankCode>070</BankCode>
+       <BillerID>NIBSS0000000128</BillerID>
+       <BillerName>Ralmouf</BillerName>
+       <BillerTransId>1045621</BillerTransId>
+   </CreateMandateRequest>".$secret);
         return [
             [
                 "bankCode" => "214",
