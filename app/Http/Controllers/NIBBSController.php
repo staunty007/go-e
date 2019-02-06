@@ -58,10 +58,7 @@ class NIBBSController extends Controller
         }
         catch(\SoapFault $fault) {
             dump($fault);
-            // dd($fault);
         }
-
-        // dd($results);
     }
 
     public function createCurlMandate() {
@@ -80,7 +77,7 @@ class NIBBSController extends Controller
         CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest>
               <arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName>
                    <TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName>
-                  <BillerTransId>43553535</BillerTransId><HashValue>ae34c5122329a2ba2c9c52e28297ae75e43d59aaed9f1d41593e6749c678456e</HashValue></CreateMandateRequest>
+                  <BillerTransId>43553535</BillerTransId><HashValue>AE34C5122329A2BA2C9C52E28297AE75E43D59AAED9F1D41593E6749C678456E</HashValue></CreateMandateRequest>
                        ]]>
             </arg0>
            </web:createMandateRequest>
@@ -178,13 +175,15 @@ class NIBBSController extends Controller
 
     
     public function getHashValue() {
+
+        // return hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
         $bankcode = "070";
         $billerID = "NIBSS0000000128";
         $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
 
         $hashed = strtoupper(hash('sha256', "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret, false));
-
-        return "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret;
+        return $hashed;
+        // return "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret;
         
 
         // $count = strlen($hashed);
