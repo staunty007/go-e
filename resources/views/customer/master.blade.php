@@ -269,6 +269,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
         
 
             <script src="https://unpkg.com/feather-icons"></script>
@@ -377,6 +378,7 @@
                         </button>
                         <button class="btn btn-default mt-10">
                             <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
+                            <input data-toggle="toggle" data-on="Meter ON" data-off="Meter OFF" type="checkbox">
                         @push('popups')
                         <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
@@ -485,6 +487,7 @@
             <!-- Mainly scripts -->
             
             <script src="/customer/js/bootstrap.min.js"></script>
+            <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
             <script src="/customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
             <script src="/customer/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
