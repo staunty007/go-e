@@ -75,6 +75,13 @@
                             <span class="nav-label">&nbsp;Financial</span>
                         </a>
                     </li>
+                    <li class="{{ Request::is('distributor/top-up-tracker') ? 'active' :'' }}{{ Request::is('top-up-tracker') ? 'active' :'' }}">
+                        <a href="{{route('distributor.top-up-tracker')}}">
+                            <span>&#8358;</span>
+                            </i>
+                            <span class="nav-label">&nbsp;Top Up Tracker</span>
+                        </a>
+                    </li>
 
                     {{-- <li class="{{$current_route_name =="distributor.customer_payment" ? 'active' : ''}}">
                         <a href="{{route('distributor.customer_payment')}}">
