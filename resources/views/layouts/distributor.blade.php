@@ -147,10 +147,11 @@
         </div>
 
         <div class="footer">
-            <div>
-                <strong>Powered by</strong> GOENERGEE &copy; 2018
+
+                <div class="container text-center">
+                    Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+                </div>
             </div>
-        </div>
 
 
         </div>
