@@ -75,8 +75,8 @@
                             <span class="nav-label">&nbsp;Financial</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('distributor/top-up-tracker') ? 'active' :'' }}{{ Request::is('top-up-tracker') ? 'active' :'' }}">
-                        <a href="{{route('distributor.top-up-tracker')}}">
+                    <li class="{{ Request::is('distributor/topup-tracker') ? 'active' :'' }}{{ Request::is('top-up-tracker') ? 'active' :'' }}">
+                        <a href="{{route('distributor.topup-tracker')}}">
                             <span>&#8358;</span>
                             </i>
                             <span class="nav-label">&nbsp;Top Up Tracker</span>

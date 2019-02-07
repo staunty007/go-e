@@ -205,6 +205,7 @@ Route::prefix('distributor')->group(function () {
     // Administrator
     Route::get('distributor', 'DistributorController@home')->name('distributor.home');
     Route::get('finance', 'DistributorController@finance')->name('distributor.finance');
+    Route::get('topup-tracker', 'DistributorController@topupTracker')->name('distributor.topup-tracker');
     Route::post('filter-by-date', 'DistributorController@financeFilterDate');
     Route::get('profile', 'DistributorController@profile')->name('distributor.profile');
     Route::get('customer_payment', 'DistributorController@customer_payment')->name('distributor.customer_payment');

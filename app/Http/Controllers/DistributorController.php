@@ -45,6 +45,12 @@ class DistributorController extends Controller
             ->withBalance($wallet_balance->wallet_balance);
     }
 
+    
+    public function topupTracker()
+    {
+        return $this->v('topup-tracker');
+    }
+
     public function financeFilterDate(Request $request)
     {
         $from = Carbon::parse($request->from);
