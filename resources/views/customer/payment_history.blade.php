@@ -8,7 +8,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
               
-                <h5>Tranaction Count</h5>
+                <h5>Transaction Count</h5>
             </div>
             
             <div class="ibox-content">
@@ -192,7 +192,7 @@
                                 <td>N{{ number_format($pay->transaction->total_amount) }}</td>
                                 <td>{{ $pay->token_data }}</td>
                                 <td>{{ round($pay->value_of_kwh,2) }}</td>  
-                                <th><a href="{{ route('receipt',[$pay->order_id,str_replace('OFFLINE_','',$pay->user_type)]) }}" class="btn btn-info">Receipt</a></th>               
+                                <th><a href="{{ route('download-reciept',$pay->payment_ref) }}" class="btn btn-info">Receipt</a></th>               
                             </tr>
                         @endforeach
                     </tbody>
@@ -202,7 +202,7 @@
         </div>
     </div>
     @push('scripts')
-    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
             $('#myTable').DataTable({

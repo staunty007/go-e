@@ -37,8 +37,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>lastname</label>
-                                <input class="form-control" value="" id="lastname" name="last_name" readonly/>
+                                <label>Othername(s)</label>
+                                <input class="form-control" value="" id="othername" name="last_name" readonly/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -322,34 +322,15 @@
                         console.log('Generating Token...');
                         const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
                         const orderId = chargeWalletResult.response.result.orderId;
-                        document.querySelector("#response").innerHTML = `<div class="modal-footer">
-								<h2>Completing Transaction... <div class="loader-css"></div></h2> 
-						</div>`;
-                        fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
-                            .then(res => res.json())
-                            .then(generateTokenResult => {
-                                // console.log(generateTokenResult.response);
-                                // Get the token data and redirect to receipt page
-                                document.querySelector("#response").innerHTML = `<div class="modal-footer">
-										<h2>Transaction Completed</h2>
-										<p>Redirecting... <div class="loader-css"></div></p>
-
-									</div>`;
-                                $.ajax({
-                                    url: '/gtk',
-                                    method: "POST",
-                                    data: generateTokenResult.response,
-                                    success: (result) => {
-                                        if (result == "ok") {
-                                            window.location.href = `/transaction/success/${accountType}/${reff}`;
-                                        }
-                                    },
-                                    error: (err) => {
-                                        alert('Something Bad Went Wrong, Please log a complain');
-                                    }
-                                })
-                            })
-                            .catch(err => console.log(err));
+                            document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                                    <h2>Completing Transaction... <div class="loader-css"></div></h2> 
+                            </div>`;
+                            generateToken(payRef, orderId);
+                        // }else {
+                        //     // Append Retry Action...
+                            
+                        // }
+                        
                     })
                     .catch(err => console.log(err));
                 // generate token
@@ -365,6 +346,93 @@
             }
         });
         handler.openIframe();
+    }
+
+    const retryTokenGenerate = (ref,id) => {
+        document.querySelector("#response").innerHTML = `<div class="modal-footer">
+            <h2 class="text-center">Regenerating Token.....</h2>
+            <p>Redirecting... <div class="loader-css"></div></p>
+        </div>`;
+        console.log(`Your Reference is ${ref} and your id is ${id}`);
+        fetch(`/ekedc/generate-token/${ref}/${id}`)
+            .then(res => res.json())
+            .then(generateTokenResult => {
+                let tokenResponse = generateTokenResult.response;
+                if(tokenResponse.response.orderDetails.status == "CONFIRMED" || tokenResponse.response.orderDetails.status == "EXPIRED") {
+                    
+                    // Get the token data and redirect to receipt page
+                    document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                            <h2>Transaction Completed</h2>
+                            <p>Redirecting... <div class="loader-css"></div></p>
+                        </div>`;
+                    $.ajax({
+                        url: '/gtk',
+                        method: "POST",
+                        data: tokenResponse.response,
+                        success: (result) => {
+                            if (result == "ok") {
+                                window.location.href = `/transaction/success/${accountType}/${ref}`;
+                            }else {
+                                
+                            }
+                        },
+                        error: (err) => {
+                            alert('Something Bad Went Wrong, Please log a complain to support@goenergee.com');
+                        }
+                    });
+                }else {
+                    // Token Generation Failed
+                    document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                        <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
+                        <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
+                    </div>`;
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    // Generate Token
+    const generateToken = (ref,id) => {
+        fetch(`/ekedc/generate-token/${ref}/${id}`)
+            .then(res => res.json())
+            .then(generateTokenResult => {
+                let tokenResponse = generateTokenResult.response;
+                if(tokenResponse.response.orderDetails.status == "CONFIRMED" || tokenResponse.response.orderDetails.status == "EXPIRED") {
+                    // console.log(tokenResponse.response);
+                    // return;
+                    // Get the token data and redirect to receipt page
+                    document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                            <h2>Transaction Completed</h2>
+                            <p>Redirecting... <div class="loader-css"></div></p>
+
+                        </div>`;
+                    $.ajax({
+                        url: '/gtk',
+                        method: "POST",
+                        data: generateTokenResult.response,
+                        success: (result) => {
+                            if (result == "ok") {
+                                console.log(result);
+                                // return;
+                                window.location.href = `/transaction/success/${accountType}/${ref}`;
+                            }else {
+                                
+                            }
+                        },
+                        error: (err) => {
+                            alert('Something Bad Went Wrong, Please log a complain');
+                        }
+                    });
+                }else {
+                    // Token Generation Failed
+                    // retryTokenGenerate(ref, id);
+                    document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                        <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
+                        <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
+                    </div>`;
+                }
+            })
+            .catch(err => console.log(err));
     }
 
     // confirm payment details
@@ -414,19 +482,21 @@
                 } else {
                     // Validate Payment
                     const customerInfo = result.response;
-                    console.log(customerInfo);
+                    // console.log(customerInfo.customerInfo.name);
+                    
                     fetch(`/ekedc/validate-payment/${accountType}/${meter_no}`)
                         .then(res => res.json())
                         .then(result => {
                             // console.log(result.response.desc);
+                            // return;
                             if (result.result.response.desc !== "No record" && result.result.response.retn !== '310') {
                                 let {
                                     name
                                 } = customerInfo.customerInfo;
                                 let names = name.split(' ', 2);
-                                console.log(names[0]);
+                                {{-- console.log(names); --}}
                                 $("#firstname").val(names[0]);
-                                $("#lastname").val(names[1]);
+                                $("#othername").val(names[1]);
                                 
                                 
                                 $("#meter_no").val($("#meterno").val());
@@ -567,18 +637,18 @@
             }
         });
 
-        function loadBanks() {
-            fetch('/nibbs/all-banks')
-                .then(res => res.json())
-                .then(response => {
-                    let innerDom = document.querySelector('#bank_payment');
-                    for (const banks in response) {
-                        const bank = response[banks];
-                        innerDom.innerHTML += `<option value="${bank.bankCode}" valueName="${bank.bankName}">${bank.bankName}</option>`;
-                    }
-                })
-                .catch(err => console.log(err));
-        }
+        // function loadBanks() {
+        //     fetch('/nibbs/all-banks')
+        //         .then(res => res.json())
+        //         .then(response => {
+        //             let innerDom = document.querySelector('#bank_payment');
+        //             for (const banks in response) {
+        //                 const bank = response[banks];
+        //                 innerDom.innerHTML += `<option value="${bank.bankCode}" valueName="${bank.bankName}">${bank.bankName}</option>`;
+        //             }
+        //         })
+        //         .catch(err => console.log(err));
+        // }
     });
 </script>
 <script>

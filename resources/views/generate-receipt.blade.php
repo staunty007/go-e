@@ -94,7 +94,7 @@
                                                         <td>
                                                             <span class="label label-success">
                                                                 <span class="badge badge-success">
-                                                                    @{{ details.payment_status === "CONFIRMED" ? 'Successful': details.payment_status }}</span>
+                                                                    @{{ details.payment_status === "CONFIRMED" ? 'Successful' : details.payment_status }}</span>
 
                                                             </span>
                                                         </td>
@@ -162,7 +162,8 @@
                     bsst: false,
                     tokenError: false,
                     orderDate: '',
-                    user_type: "{{ $user_type }}"
+                    user_type: "{{ $user_type }}",
+                    
                 },
                 mounted: function() {
                     this.fetchOrderDetails()
@@ -188,8 +189,6 @@
 
                                 this.orderDate = new Date(Date.parse(res.data.created_at));
                                 this.orderDate = moment(this.orderDate).format('llll');
-                                // console.log(this.orderDate);
-                                // // od = this.orderDate;
                             })
                             .catch(err => {
                                 this.error = true;

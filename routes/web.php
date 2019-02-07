@@ -358,17 +358,60 @@ Route::prefix('ekedc')->group(function () {
     Route::get('pay-order-id/{customerId}/{orderid}', 'CIController@payOrderId');
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * NIBBS Web Routes
  */
 Route::prefix('nibbs')->group(function () {
-    Route::get('create-mandate','NIBBSController@createMandate');
-    Route::get('all-banks', 'NIBBSController@getBanksOnline');
+    Route::get('create-mandate','NIBBSController@createCurlMandate');
+    Route::get('all-banks', 'NIBBSController@getHashValue');
     Route::get('callback', function () {
-
+        
     });
     Route::get('try-form', 'NIBBSController@tryForm');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Hold Generate Token Data
 Route::post('gtk', 'AccountController@holdToken');
 Route::get('transaction/success/{user_type}/{ref}', 'AccountController@paymentSuccess');

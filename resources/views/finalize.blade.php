@@ -11,6 +11,8 @@
             body {
                 background-color: #FDFDFD;
             }
+
+            
             .alert-success {
                 color: #fafafa;
                 background-color: #46db3c;
