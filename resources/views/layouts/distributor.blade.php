@@ -75,6 +75,13 @@
                             <span class="nav-label">&nbsp;Financial</span>
                         </a>
                     </li>
+                    <li class="{{ Request::is('distributor/topup-tracker') ? 'active' :'' }}{{ Request::is('top-up-tracker') ? 'active' :'' }}">
+                        <a href="{{route('distributor.topup-tracker')}}">
+                            <span>&#8358;</span>
+                            </i>
+                            <span class="nav-label">&nbsp;Top Up Tracker</span>
+                        </a>
+                    </li>
 
                     {{-- <li class="{{$current_route_name =="distributor.customer_payment" ? 'active' : ''}}">
                         <a href="{{route('distributor.customer_payment')}}">
@@ -140,10 +147,11 @@
         </div>
 
         <div class="footer">
-            <div>
-                <strong>Powered by</strong> GOENERGEE &copy; 2018
+
+                <div class="container text-center">
+                    Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+                </div>
             </div>
-        </div>
 
 
         </div>
