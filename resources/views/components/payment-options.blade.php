@@ -493,10 +493,9 @@
                                 let {
                                     name
                                 } = customerInfo.customerInfo;
-                                let names = name.split(' ', 3);
-                                console.log(names);
+                                let names = name.split(' ', 2);
+                                {{-- console.log(names); --}}
                                 $("#firstname").val(names[0]);
-
                                 $("#othername").val(names[1]);
                                 
                                 
