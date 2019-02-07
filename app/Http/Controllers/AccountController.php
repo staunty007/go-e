@@ -211,14 +211,14 @@ class AccountController extends Controller
                 'customer_address' => $tokenDetails['response']['orderDetails']['customerAddress'],
                 'district' => $tokenDetails['response']['orderDetails']['customerBusinessUnit'],
                 'meter_no' => $paymentDetails['meterno'],
-                'token_data' => isset($token_data) ? $token_data : null,
+                'token_data' => isset($token_data) ? $token_data : $tokenDetails['response']['orderDetails']['tokenData']['status']['value'],
                 'bonus_token' => isset($bonus_token) ? $bonus_token : null,
                 'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
                 'transaction_type' => "Web",
                 'transaction_ref' => $reff,
                 'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
-                'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : 0),
+                'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : $tokenDetails['response']['orderDetails']['tokenData']['status']['value']),
                 'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
                 'agent_id' => (isset($paymentDetails['is_agent']) ? $paymentDetails['agent_id'] : 0 ),
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
@@ -471,19 +471,27 @@ class AccountController extends Controller
 
     public function fetchReceiptDetails($orderId, $user_type)
     {
-
+        // Fetch Payment Details from database
         $payment = Payment::where('order_id', $orderId)->firstOrFail();
-        // return $payment;
+        // If Payment was made by an agent
         if ($payment->is_agent == true) {
             $payment = Payment::where('order_id', $orderId)->with('agent_transaction')->firstOrFail();
-            $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
-            return $payment;
+        }else {
+            $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
         }
 
-        $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
-
-        $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
-        return response()->json($payment);
+        try {
+            // Only send mail when the token is generated || the user type is POSTPAID
+            if($payment->payment_status == "CONFIRMED" || $payment->user_type == "OFFLINE_POSTPAID") {
+                $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
+            }
+            // return response to frontend
+            return response()->json($payment);    
+        }catch(\Exception $e) {
+            // Return exceptions
+            return response()->json([$payment,["errors" => $e]]); 
+        }
+        
     }
 
 
