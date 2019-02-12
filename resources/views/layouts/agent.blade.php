@@ -309,6 +309,7 @@
                     updateButton('Updating Your Wallet...');
                     if(!response.successful) {
                         return false;
+                        updateButton('Top up Wallet');
                     }
                     return true;
                 })

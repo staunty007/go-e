@@ -326,18 +326,8 @@
                                     <h2>Completing Transaction... <div class="loader-css"></div></h2> 
                             </div>`;
                             generateToken(payRef, orderId);
-                        // }else {
-                        //     // Append Retry Action...
-                            
-                        // }
-                        
                     })
                     .catch(err => console.log(err));
-                // generate token
-
-                // setTimeout(() => {
-                // 	window.location.href = '/payment/' + response.reference + '/success';
-                // }, 1000);
             },
             onClose: function () {
                 alert('Payment Cancelled');
