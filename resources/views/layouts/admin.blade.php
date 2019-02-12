@@ -858,6 +858,7 @@
 
         }
     </script>
+    <script src="{{asset('js/index.js')}}"></script>
     <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
