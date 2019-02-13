@@ -318,21 +318,41 @@ class AgentController extends Controller
      * Credit Agent Wallet
      * This is credit Agent's Wallet After successful topup
      */
-    public function creditAgentWallet($amount)
+    public function creditWallets(Request $data)
     {
-        if($amount && $amount > 0) {
-            // Get Agent's ID
-            $agent = User::where('id',auth()->id())->with('agent')->first();
+        // $dataa = json_decode($data, true);
+        // return $data['response'][0];
+        if($data && $data !== NULL) {
+            // Deduct Amount from Admin's wallet
+            $admin = AdminBiodata::find(1);
+            $admin->wallet_balance -= $data['response'][1];
+            $admin->save();
+            
+            // Get USer's ID
+            $user = User::find(auth()->id());
+            // return $user->id;
+            // Get Agent Details
+            $agent = AgentBiodata::where('user_id',$user->id)->first();
             // Update the Wallet Balance
-            $agent->agent->wallet_balance += $amount;
+            $agent->wallet_balance += $data['response'][1];
             $agent->save();
 
+            // Add to Agent Topup Log
+            $log = DB::table('agent_topups')->insert([
+                'trans_ref' => $data['response'][0],
+                'agent_id' => $agent->user_id,
+                'agent_name' => $user->first_name." ".$user->last_name,
+                'topup_amount' => $data['response'][1],
+                'wallet_balance' => $agent->wallet_balance,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
             return response()->json(
                 [
                     'successful' => true, 
                     'message' => 'Account Updated Successfully',
                 ]
-                );
+            );
         }
     }
 }
