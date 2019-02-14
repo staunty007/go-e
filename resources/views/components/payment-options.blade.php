@@ -286,6 +286,7 @@
                 }
             },
             error: (err) => {
+                alert('Somethig went wrong.. Please Try Again');
                 $('.pay-meter').html('Continue');
             }
         });
