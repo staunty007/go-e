@@ -25,13 +25,13 @@ class NIBBSController extends Controller
 
         // SOAP 1.2 client
         $params = array(
-            'encoding' => 'UTF-8',
-            'verifypeer' => false,
+            // 'encoding' => 'UTF-8',
+            // 'verifypeer' => false,
             'verifyhost' => false,
-            'soap_version' => SOAP_1_1,
+            // 'soap_version' => SOAP_1_1,
             'trace' => 1,
             'exceptions' => 1,
-            'connection_timeout' => 180,
+            // 'connection_timeout' => 180,
             'stream_context' => stream_context_create($context)
         );
         try{
@@ -52,7 +52,7 @@ class NIBBSController extends Controller
                 ]
             ];
             // $response = $client->__doRequest($mandateRequest,$this->host,'createMandateRequest','');
-            $response = $client->createMandateRequest($mandateRequest);
+            $response = $client->CreateMandateRequest();
 
             dd($response);
         }
@@ -89,8 +89,10 @@ class NIBBSController extends Controller
         if ($err) {
         echo "cURL Error #:" . $err;
         } else {
-            return $this->xml_to_array($response);
-            // $response;
+            $doc = new \DOMDocument();
+            $doc->loadXML($response);
+            return $doc->saveXML();
+            
         }
     }   
 
@@ -183,7 +185,9 @@ class NIBBSController extends Controller
 
         $parse_response = new SimpleXMLElement("$response");
 
-        dd($parse_response);
+        return $response;
+        $xml = (array)simplexml_load_string($response);
+        return $xml['createMandateRequestResponse'];
         // if ($err) {
         //     echo "cURL Error #:" . $err;
         // } else {
