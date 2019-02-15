@@ -47,8 +47,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-primary">
+                
                     <div class="panel-heading">
-                        Financial Performance for GOENERGEE
+                        Financial Performance for {{  auth()->user()->first_name ." ".auth()->user()->last_name }}
                     </div>
                     <div class="ibox-content m-b-sm border-bottom">
                         <div class="row">

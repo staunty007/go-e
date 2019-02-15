@@ -99,11 +99,8 @@ class DiamondApiController extends Controller
         
         // Check if Admin Has funds in wallet or deposit
         if ($amount > $adminBiodata->wallet_balance) {
-            return response()->json('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
+            return response()->json(['errors' =>'Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later']);
         }
-
-        // Get Access Token
-        $token = $this->generateAccessToken();
 
         // Find Agent Biodata
         $agentBiodata = AgentBiodata::where('user_id',auth()->id())->firstOrFail();
@@ -121,6 +118,8 @@ class DiamondApiController extends Controller
         $curl = curl_init();
         // Transaction Token
         $transactionRef = str_random(20);
+        // Get Access Token
+        $token = $this->generateAccessToken();
         // Set Curl Options
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->baseUrl."api/Transaction/debit",

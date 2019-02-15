@@ -203,13 +203,8 @@
     </div>
     @push('scripts')
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable({
-                order: ['0','desc'],
-            });
-        });
-    </script>
+
+
     @endpush
     @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>

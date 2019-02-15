@@ -39,7 +39,7 @@
                                     <span class="block m-t-xs">
                                         {{-- <strong class="font-bold">EKEDC</strong> --}}
                                     </span>
-                                    <span class="text-muted text-xs block">GOENERGEE
+                                    <span class="text-muted text-xs block">EKEDP
                                     | Disco
                                     </span>
                                 </span>
@@ -119,13 +119,12 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility Meter platform.</span>
+                            <span class="m-r-sm text-muted welcome-message">Welcome <strong>EKEDP</strong> | GOENERGEE Utility platform.</span>
                         </li>
 
 
 
                         <li>
-
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';">
                                 <i class="fa fa-sign-out"></i>logout</a>
                             <form class="logout-form" method="POST" action="{{ route('logout') }}">

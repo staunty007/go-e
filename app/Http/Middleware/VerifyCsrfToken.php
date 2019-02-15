@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/ussd/register'
+        '/ussd/register',
+        '/wallets/credit'
     ];
 }

@@ -228,7 +228,7 @@ Route::get('diamond/credit/{amount}', 'DiamondApiController@credit');
 // Debit API
 Route::get('diamond/debit/{amount}', 'DiamondApiController@agentDebit');
 
-Route::get('wallets/agent/{amount}/credit','AgentController@creditAgentWallet');
+Route::post('wallets/credit','AgentController@creditWallets');
 // Route::get('diamond/debit/admin/{accountnumber}/{amount}', 'DiamondApiController@adminDebit');
 
 // End to End API

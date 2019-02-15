@@ -71,9 +71,8 @@
                 <form class="meter" method="post" action="">
                     <div class="form-group">
                         <label for="Meter_number"><b>Prepaid Meter Number</b></label>
-
                         <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your Prepaid Meter Number"
-                            required autofocus name="meter_no">
+                            required value="{{  $bio->customer->meter_no or '' }}" name="meter_no">
 
                     </div>
                     <div class="form-group">
@@ -88,7 +87,7 @@
                         <label for="amount"><b>Amount</b></label>
 
                         <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text"
-                                required name="amount" class="form-control meter-amount" id="amount"></span></div>
+                                required autofocus name="amount" class="form-control meter-amount" id="amount"></span></div>
                     </div>
                     <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                 </form>
