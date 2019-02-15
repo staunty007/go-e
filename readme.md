@@ -4,7 +4,7 @@ How to install
 
 1. Git Pull
 2. cd into goenergee
-3. npm install
+3. type yarn to install the dependencies
 4. To get started you can check below the folder tree
 - resources > assets > js > components > Example.js
 
