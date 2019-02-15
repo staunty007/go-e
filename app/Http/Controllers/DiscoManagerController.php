@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class DiscoManagerController extends Controller
 {
+
+    private $prefix = "users.admin.manage.discos.";
+
     /**
      * Display a listing of the resource.
      *

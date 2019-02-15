@@ -182,7 +182,7 @@
                     <tbody>
                         @foreach ($payments as $pay)
                             <tr>
-                                <td>{{ $pay->id }}</td>
+                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $pay->created_at }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>

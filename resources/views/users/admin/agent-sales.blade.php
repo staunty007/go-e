@@ -99,11 +99,10 @@
                 <label class="control-label" for="amount">Filter By Channel</label>
                 <select id="channel" class="form-control">
                   <option value="">All</option>
-                  <option value="Web">Web</option>
-                  <option value="POS">POS</option>
-                  <option value="Mobile">Ussd</option>
-                  <option value="Mobile">mVisa</option>
-                  <option value="Mobile">Agency</option>
+                  <option value="Web">AGENCY-WEB</option>
+                  <option value="POS">AGENCY-POS</option>
+                  <option value="Mobile">AGENCY-USSD</option>
+                  <option value="Mobile">AGENCY-QR</option>
                 </select>
               </div>
             </div>
@@ -388,15 +387,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($lekki_agents as $l_agent)
+                        @foreach ($ibeju_agents as $ib_agent)
                         <tr>
-                          <th scope="row">{{ $l_agent->user_id}}</th>
-                          <td>{{ $l_agent->agent_id }}</td>
-                          <td>{{ $l_agent->user->first_name }}</td>
+                          <th scope="row">{{ $ib_agent->user_id}}</th>
+                          <td>{{ $ib_agent->agent_id }}</td>
+                          <td>{{ $ib_agent->user->first_name }}</td>
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $l_agent->wallet_balance }}</td>
+                          <td>{{ $ib_agent->wallet_balance }}</td>
                         </tr>
                         @endforeach
                       </tbody>

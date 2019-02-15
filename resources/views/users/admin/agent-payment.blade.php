@@ -205,12 +205,12 @@
                                     <th data-hide="phone">District</th>
                                     <th data-hide="phone">Meter #</th>
                                     <th data-hide="phone">Value Purchased</th>
-                                    <th data-hide="phone">PIN</th>
+                                    {{-- <th data-hide="phone">PIN</th> --}}
                                     <th data-hide="phone">KwH</th>
                                     <th data-hide="phone">Conv. Fee</th>
                                     <th data-hide="phone">Commission</th>
                                     <th data-hide="phone">Amount Chrgd</th>
-
+                                    
                                     <th data-hide="phone">PGP</th>
                                     <th data-hide="phone">Agent #</th>
                                     {{-- <th>BAL</th> --}}
@@ -240,25 +240,25 @@
                                         @endif
                                     </td>
 
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $p->a_fname .' '. $p->a_lname }}</td>
+                                    <td>{{ $p->agent_id }}</td>
                                     <td>Lekki</td>
                                     <td>{{ $p->meter_no }}</td>
-                                    <td>₦{{$p->agent_transaction->initial_amount }}</td>
+                                    <td>₦{{$p->initial_amount }}</td>
 
-                                    <td>{{ $p->recharge_pin }}</td>
+                                    {{-- <td>{{ $p->recharge_pin }}</td> --}}
                                     <td>{{ round($p->value_of_kwh,1) }}</td>
-                                    <td>₦{{ $p->agent_transaction->conv_fee }}</td>
-                                    <td>₦{{ $p->agent_transaction->commission }}</td>
-                                    <td>₦{{ $p->agent_transaction->total_amount }}</td>
-
-                                    <td>₦{{ $p->agent_transaction->pgp }}</td>
-                                    <td>₦{{ $p->agent_transaction->agent }}</td>
-                                    <td>₦{{ $p->agent_transaction->spec }}</td>
-                                    <td>₦{{ $p->agent_transaction->ralmuof }}</td>
-                                    <td>₦{{ $p->agent_transaction->total_split }}</td>
-                                    <td>₦{{ $p->agent_transaction->net_amount }}</td>
-                                    <td>₦{{ $p->agent_transaction->wallet_bal }}</td>
+                                    <td>₦{{ $p->conv_fee }}</td>
+                                    <td>₦{{ $p->commission }}</td>
+                                    <td>₦{{ $p->total_amount }}</td>
+                                    
+                                    <td>₦{{ $p->pgp }}</td>
+                                    <td>₦{{ $p->agent }}</td>
+                                    <td>₦{{ $p->spec }}</td>
+                                    <td>₦{{ $p->ralmuof }}</td>
+                                    <td>₦{{ $p->total_split }}</td>
+                                    <td>₦{{ $p->net_amount }}</td>
+                                    <td>₦{{ $p->wallet_bal }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
