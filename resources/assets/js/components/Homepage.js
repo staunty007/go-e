@@ -26,20 +26,23 @@ export default class Homepage extends Component {
 					</div>
 					<div className="card card-gradient">
 						<div className="card-body text-right">
-							<h4 className="card-title">mVisa</h4>
+							<h4 className="card-title">QR</h4>
 							<h6 className="card-subtitle mb-2 text-muted">Easy Payment via QR Code</h6>
+							<small>Coming Soon</small>
 						</div>
 					</div>
 					<div className="card card-gradient">
 						<div className="card-body text-right">
 							<h4 className="card-title">POS</h4>
 							<h6 className="card-subtitle mb-2 text-muted">Our agents are readily available</h6>
+							<small>Coming Soon</small>
 						</div>
 					</div>
 					<div className="card card-gradient">
 						<div className="card-body text-right">
 							<h4 className="card-title">CASH</h4>
 							<h6 className="card-subtitle mb-2 text-muted">Visit any of our sales outlets</h6>
+							<small>Coming Soon</small>
 						</div>
 					</div>
 				</div>

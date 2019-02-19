@@ -89,9 +89,14 @@ class NIBBSController extends Controller
         if ($err) {
         echo "cURL Error #:" . $err;
         } else {
-            $doc = new \DOMDocument();
-            $doc->loadXML($response);
-            return $doc->saveXML();
+            // $contents = file_get_contents($response);
+            // return $response;
+            $fileContents = str_replace(array("\n", "\r", "\t"), '', $response);
+            $fileContents = trim(str_replace('"', "'", $fileContents));
+            return $fileContents;
+            $simpleXml = simplexml_load_string($fileContents);
+
+            return json_encode($simpleXml);
             
         }
     }   

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import ContentLoader from 'react-content-loader';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as moment from 'moment';
-import * as jsPDF from 'jspdf';
+// import * as jsPDF from 'jspdf';
 
 export default class Receipt extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class Receipt extends Component {
 
     saveAsPdf() {
         if(!this.state.loading) {
-            const pdfView = new jsPDF();
+            // const pdfView = new jsPDF();
             let specialElementHandlers = {
                 '#editor': function(element, renderer){
                     return true;
@@ -146,8 +146,13 @@ export default class Receipt extends Component {
                             </div>
                         </div>
                     </div>
-                    <div style={{ margin: '1em 0em'}}>
-                        <button className="btn btn-success" onClick={window.print}>Download Receipt</button>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <Link to='/mobile' className='btn btn-primary'>Make Another Payment</Link>
+                        </div>
+                        <div className="col-md-6">
+                            <button className="btn btn-success" onClick={window.print}>Download Receipt</button>
+                        </div>
                     </div>
                 </Fragment>
             }

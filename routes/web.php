@@ -8,21 +8,13 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
-// Route::get('/', function () { return view('index'); });
+
+
 Route::get('/', function () {
-    // return view('test');
-    // if (session()->has('TAMSES')) {
-    //     session()->forget('TAMSES');
-    // }
-    // // return url('discos');
-    // // return url()->previous();
     if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
-        // return redirect('discos');
-        // return 'gotha';
         return back();
     }
     return redirect('ekedc');
-    // return view('guest.home');
 });
 
 Route::get("download-reciept/{payment_ref}","PagesController@downloadReciept")->name('download-reciept');

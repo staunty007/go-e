@@ -52,10 +52,11 @@
     </script>
     <script>
         fetch('/nibbs/create-mandate')
-            .then(response => {
-                console.log(JSON.stringify(xmlToJson(response)));
-            })
-            .catch(err => alert('Something Went Wrong'));
+		.then(res => res.json())
+		.then(result => {
+			console.log(result);
+		})
+		.catch(err => console.log(err))
     </script>
 </body>
 
