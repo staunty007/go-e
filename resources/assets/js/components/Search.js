@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import MaterialIcon, { colorPalette } from 'material-icons-react';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 export default class Search extends Component {
@@ -79,21 +80,21 @@ export default class Search extends Component {
 				}
 				{this.state.emptySearch && <p className="text-center" style={{ color: 'white', textAlign: 'center', backgroundColor: 'red', padding: '1em'}}>No Results Found</p>}
 
-				<div className="" style={{ marginTop: '1em' }}>
-					<div className="row">
-						<div className="col-md-12">
-							<div className="card text-white bg-success" onClick={this.showModal}>
-								{/* <Link to="/mobile/services/ekedc" className="text-white"> */}
-									<div className="card-body text-center">
-										Make Payment <i className="fa fa-credit-card"></i>
-									</div>
-								{/* </Link> */}
+				<div className="card card-gradient-red">
+					<div className="card-body" onClick={this.showModal}>
+						<div className="row">
+							<div className="col-8">
+								<h4 className="card-title" style={{ color: '#EE262B' }}>Quick Payment</h4>
+								<h6 className="text-muted">Quickly Recharge your meters</h6>
+							</div>
+							<div className="col-4 text-right">
+								<MaterialIcon icon="credit_card" size={60} color='#EE262B' />
 							</div>
 						</div>
-						<br />
 					</div>
 				</div>
-				<br />
+				
+
 				<Rodal
 					visible={this.state.visible}
 					onClose={this.hide}
@@ -102,7 +103,7 @@ export default class Search extends Component {
 					duation={400}
 					showCloseButton={true}
 				>
-					<h6 style={{ marginBottom: '2rem'}}>Select a Service Type</h6>
+					<h6 style={{ marginBottom: '2rem'}} className="text-muted">Select a Service Type</h6>
 					<hr />
 					<Link to="/mobile/services/ekedc/prepaid" className="btn btn-success btn-block">
 						Prepaid Meter Recharge
