@@ -287,7 +287,9 @@ Route::get('ekedc', 'PagesController@disco');
 Route::post('ekedc', 'PagesController@discoLogin')->name('disco-login');
 Route::post('disco-logout', 'PagesController@discoLogout')->name('disco-logout');
 
-
+Route::get('/nibbs-xml',function() {
+    return view('test-xml-json');
+});
 
 
 
