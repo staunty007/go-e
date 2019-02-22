@@ -5,28 +5,28 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
 
-            <h5>Transaction to EKEDC</h5>
+            <h5>Last Top Up</h5>
         </div>
         <div class="ibox-content">
-            <h1 class="no-margins">₦{{ number_format(5000000) }}</h1>
+            <h1 class="no-margins">₦</h1>
 
-            <small>Total Monies Paid to EKEDC</small>
+            <small>Previos Top Up to EKEDC</small>
         </div>
     </div>
 </div>
 <div class="col-lg-4">
     <div class="ibox float-e-margins">
         <div class="ibox-title text-center">
-            <h5>Growth rate</h5>
+            <h5>Average Top Up</h5>
         </div>
         <div class="ibox-content">
-            <h1 class="no-margins pull-right">15%</h1>
-            <h1 class="no-margins pull left">15%</h1>
+            <!-- <h1 class="no-margins pull-right">15%</h1> -->
+            <h1 class="no-margins pull left">29,098,123</h1>
 
-            <span class="label label-primary pull-right">Actual</span>
+            <!-- <span class="label label-primary pull-right">Actual</span>
             <span class="label label-info pull-left">Target</span><br>
-      
-
+       -->
+      <small>Year-to-Date Average Top Up </small>
 
         </div>
     </div>
@@ -39,7 +39,7 @@
             <h5>Wallet Balance</h5>
         </div>
         <div class="ibox-content">
-            <h1 class="no-margins">₦{{ number_format($balance) }}</h1>
+            <h1 class="no-margins">₦</h1>
             <small>remaining Wallet Deposit</small>
             {{-- <small>5 days before next Top Up</small> --}}
         </div>
@@ -54,7 +54,7 @@
                 Financial Performance for GOENERGEE
             </div>
             <div class="ibox-content m-b-sm border-bottom">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-4">
                         <h4>Filter By Date</h4>
                         <div class="input-group input-daterange">
@@ -68,8 +68,8 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
+                <br> -->
+                <!-- <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By District</label>
@@ -146,10 +146,10 @@
                             <input type="text" class="form-control" id="meter_account">
                         </div>
                     </div>
-                </div> <!-- Row ends -->
-            </div>
+                </div> Row ends -->
+            
 
-        </div>
+     
 
         <div class="ibox">
 
@@ -162,78 +162,65 @@
                                     <th>Date</th>
                                     <th>Ref</th>
                                     <th>Trans ID.</th>
-                                    <th>Channel</th>
+                                    <!-- <th>Channel</th>
                                     <th>Type</th>
                                     <th>Name</th>
                                     <th>Address</th>
-                                    <th>District</th>
+                                    <th>District</th> -->
                                     <th>Bank</th>
                                     <th>Status</th>
-                                    <th>Meter #</th>
-                                    <th>Standard Token</th>
+                                    <!-- <th>Meter #</th> -->
+                                    <!-- <th>Standard Token</th>
                                     <th>BSST Token</th>
-                                    <th>KwH</th>
+                                    <th>KwH</th> -->
                                     <th>Amount Paid</th>
-                                    <th>Commission</th>
+                                    <!-- <th>Commission</th>
                                     <th>Net Total</th>
-                                    <th>Wallet Balance</th>
+                                    <th>Wallet Balance</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($finances as $d)
+                                
                                 <tr>
-                                    <td>{{ date('d/m/y H:i:s A', strtotime($d->created_at) ) }}</td>
-                                    <td>{{ $d->payment_ref }}</td>
-                                    <td>{{ $d->transaction_ref }}</td>
-                                    <td>Web</td>
-                                    <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
-                                    <td>{{ $d->first_name." ". $d->last_name }}</td>
-                                    <td>{{ $d->customer_address }}</td>
-                                    <td>{{ $d->district }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <!-- <td></td>
+                                    <td> </td>
+                                    <td></td>
+                                    <td></td> -->
+                                    <!-- <td></td> -->
                                     <td>
-                                        @if( $d->bank === NULL)
-                                        BANK
-                                        @else
-                                        {{ $d->bank }}
-                                        @endif
+                                       
                                     </td>
                                     <td>
                                         <span class="label label-primary">Successful</span>
                                     </td>
-                                    <td>
-                                        {{ $d->meter_no }}
+                                    <!-- <td>
+                                        
                                     </td>
                                     <td>
-                                        {{ $d->token_data }}
+                                       
                                     </td>
-                                    <td> {{ $d->bonus_token }}</td>
+                                    <td> </td>
                                     <td>
-                                        {{ round($d->value_of_kwh,2)}}
+                                       
+                                    </td> -->
+                                    <td>
+                                       
                                     </td>
-                                    <td>
-                                        {{
-                                        $d->transaction ? number_format($d->transaction->initial_amount) :
-                                        number_format($d->agent_transaction->initial_amount) }}
-                                    </td>
-                                    <td>
-                                        {{
-                                        $d->transaction ? number_format((0.2 * $d->transaction->initial_amount)) :
-                                        number_format((0.2 * $d->agent_transaction->initial_amount))
-                                        }}
+                                    <!-- <td>
+                                        
                                     </td>
                                     <td>
-                                        {{
-                                        $d->transaction ? number_format($d->transaction->net_amount) :
-                                        number_format($d->agent_transaction->net_amount)
-                                        }}
+                                        
                                     </td>
                                     <td>
-                                        {{ number_format($d->transaction ? $d->transaction->wallet_bal :
-                                        $d->agent_transaction->wallet_bal )}}
-                                    </td>
+                                        
+                                    </td> -->
 
                                 </tr>
-                                @endforeach
+                              
                             </tbody>
                             <tfoot>
                                 <tr>

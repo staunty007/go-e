@@ -3,7 +3,12 @@
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 
-    <div class="wrapper wrapper-content">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        {{-- <div class="col-lg-12">
+            <a href="{{ route('users.create') }}" class="btn btn-info"><i class="fa fa-plus"></i> Create New Customer /
+                User</a>
+        </div> --}}
         <div class="row">
             <div class="col-lg-12">
                 {{-- <a href="{{ route('users.create') }}" class="btn btn-info"><i class="fa fa-plus"></i> Create New Customer / User</a> --}}
@@ -164,7 +169,6 @@
                             </tbody>
                         </table>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -172,16 +176,20 @@
         <!-- Modal -->
 
     </div>
-    @push('scripts')
-    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+</div>
 
 
-    <script>
-        $(document).ready( function () {
-            $('.data-table').DataTable();
-        } );
-    </script>
-    @endpush
+
+@push('scripts')
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.data-table').DataTable();
+    });
+</script>
+@endpush
 
 @endsection

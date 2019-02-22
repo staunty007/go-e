@@ -423,10 +423,11 @@ class AdminController extends Controller
         $lekki_agents = AgentBiodata::where('business_district','Lekki')->with('user')->get();
         $island_agents = AgentBiodata::where('business_district','Island')->with('user')->get();
         $ibeju_agents = AgentBiodata::where('business_district','Ibeju')->with('user')->get();
+        $orile_agents = AgentBiodata::where('business_district','Orile')->with('user')->get();
 
         return view($this->prefix.'agent-sales', compact(
             'sales','lekki_agents','agbara_agents','ojo_agents','festac_agents',
-            'mushin_agents','apapa_agents','island_agents','ijora_agents','ibeju_agents'));
+            'mushin_agents','apapa_agents','island_agents','ijora_agents','ibeju_agents','orile_agents'));
 
             // ->withSales($sales)
             // ->withlekkiAgents($lekki_agents)

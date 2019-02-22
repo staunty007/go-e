@@ -74,15 +74,7 @@ class NIBBSController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest>
-              <arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName>
-                   <TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName>
-                  <BillerTransId>43553535</BillerTransId><HashValue>AE34C5122329A2BA2C9C52E28297AE75E43D59AAED9F1D41593E6749C678456E</HashValue></CreateMandateRequest>
-                       ]]>
-            </arg0>
-           </web:createMandateRequest>
-        </soapenv:Body>
-     </soapenv:Envelope>',
+        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId><HashValue>AE34C5122329A2BA2C9C52E28297AE75E43D59AAED9F1D41593E6749C678456E</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>',
         CURLOPT_HTTPHEADER => array(
             "Content-Type: application/xml",
             "cache-control: no-cache"
@@ -97,11 +89,47 @@ class NIBBSController extends Controller
         if ($err) {
         echo "cURL Error #:" . $err;
         } else {
-        return $response;
+            return $this->xml_to_array($response);
+            // $response;
+        }
+    }   
+
+    public function xml_to_array( $file )
+{
+    $parser = xml_parser_create();
+    xml_parser_set_option( $parser, XML_OPTION_CASE_FOLDING, 0 );
+    xml_parser_set_option( $parser, XML_OPTION_SKIP_WHITE, 1 );
+    xml_parse_into_struct( $parser, $file, $tags );
+    xml_parser_free( $parser );
+    
+    $elements = array();
+    $stack = array();
+    foreach ( $tags as $tag )
+    {
+        $index = count( $elements );
+        if ( $tag['type'] == "complete" || $tag['type'] == "open" )
+        {
+            $elements[$index] = array();
+            $elements[$index]['name'] = $tag['tag'];
+            $elements[$index]['attributes'] = $tag['attributes'];
+            $elements[$index]['content'] = $tag['value'];
+            
+            if ( $tag['type'] == "open" )
+            {    # push
+                $elements[$index]['children'] = array();
+                $stack[count($stack)] = &$elements;
+                $elements = &$elements[$index]['children'];
+            }
+        }
+        
+        if ( $tag['type'] == "close" )
+        {    # pop
+            $elements = &$stack[count($stack) - 1];
+            unset($stack[count($stack) - 1]);
         }
     }
-
-// paste here
+    return $elements[0];
+}
 
 
 
