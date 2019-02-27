@@ -856,7 +856,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        $prepaid = Payment::where('email', $userEmail)->with('transaction')->paginate(10);
+        $prepaid = Payment::where('email', $userEmail)->with('transaction')->orderBy('created_at','ASC')->paginate(10);
         // return $prepaid;
         return view('customer.payment_history')->withPayments($prepaid);
     }

@@ -40,7 +40,5 @@ class PagesController extends Controller
         //return view('download-reciept-page', compact('reciept'));
         $pdf = PDF::loadView('download-reciept-page', compact('reciept'));
         return $pdf->download('reciept-download.pdf');
-        // $pdf = PDF::loadView('download-reciept-page');
-		// return $pdf->download('reciept-download.pdf');
     }
 }

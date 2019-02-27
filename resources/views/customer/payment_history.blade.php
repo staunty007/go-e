@@ -152,7 +152,7 @@
                             <select id="type" class="form-control">
                                 <option value="">All</option>
                                 <option value="PREPAID">Prepaid</option>
-                                <option value="Postpaid">Postpaid</option>
+                                <option value="POSTPAID">Postpaid</option>
                             </select>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                 <table class="table table-responsive" id="myTable">
                     <thead>
                     <tr>
-                        <th>ID #</th>
+                        <th>ID</th>
                         <th>Trans Date</th>
                         <th>Trans Ref</th>
                         <th>Trans type</th>
@@ -182,7 +182,7 @@
                     <tbody>
                         @foreach ($payments as $pay)
                             <tr>
-                                <td>{{ $pay->id }}</td>
+                                <td>{{ $loop->index }}</td>
                                 <td>{{ $pay->created_at }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>

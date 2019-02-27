@@ -93,7 +93,9 @@
                         </ul>
                     </li>
 
-                   
+                    <li class="{{ Request::is('agent/tickets') ? 'active' :'' }}"><a href="{{ route('agent.tickets') }}"><i
+                        class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
+                    </li>
                     <li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
                         <a href="{{ route('agent.meter') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter
                                 Request</span></a>

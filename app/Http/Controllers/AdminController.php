@@ -159,7 +159,7 @@ class AdminController extends Controller
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
         $user->mobile = $request->phone;
-
+        
         if($request->has('password') && strlen($request->password) > 1) {
             $user->password = bcrypt($request->password);
         }
@@ -197,7 +197,15 @@ class AdminController extends Controller
 	public function agentTransactions()
     {
         // Direct Payment
-        $payment = Payment::where('is_agent',1)->with('agent_transaction')->get();
+        //$payment = Payment::where('is_agent',1)->with('agent_transaction')->get();
+        $payment = DB::table('payments')
+            ->where('is_agent',1)
+            ->join('agent_transactions','payments.id', '=', 'agent_transactions.payment_id')
+            ->join('users','payments.email', '=', 'users.email')
+            ->select('payments.*','agent_transactions.*','users.first_name as a_fname','users.last_name as a_lname')
+            ->get();
+
+        //return $payment;
 
         // All Customers
         $customers = User::where('role_id',0)->count();
@@ -212,6 +220,8 @@ class AdminController extends Controller
             ->withPrepaids($prepaids)
             ->withPostpaids($postpaids)
             ;
+
+
     }
 	
 	/**
@@ -371,7 +381,7 @@ class AdminController extends Controller
         $agentTotalTopups = DB::table('agent_topups')->sum('topup_amount');
         $totalTops = $adminTotalTopups + $agentTotalTopups;
 
-        $allAdminTopups = DB::table('admin_topups')->get();
+        $allAdminTopups = DB::table('admin_topups')->orderBy('created_at','DESC')->get();
         // return $adminTotalTopups;
         return view($this->prefix.'topup-tracker')
             ->withAdminTotalTops($adminTotalTopups)
@@ -386,7 +396,7 @@ class AdminController extends Controller
         $agentTotalTopups = DB::table('agent_topups')->sum('topup_amount');
         $totalTops = $adminTotalTopups + $agentTotalTopups;
 
-        $allAgentTopups = DB::table('agent_topups')->get();
+        $allAgentTopups = DB::table('agent_topups')->orderBy('created_at','DESC')->get();
         return view($this->prefix.'agent-topup-tracker')
             ->withAdminTotalTops($adminTotalTopups)
             ->withAgentTotalTops($agentTotalTopups)
@@ -412,10 +422,12 @@ class AdminController extends Controller
         $apapa_agents = AgentBiodata::where('business_district','Apapa')->with('user')->get();
         $lekki_agents = AgentBiodata::where('business_district','Lekki')->with('user')->get();
         $island_agents = AgentBiodata::where('business_district','Island')->with('user')->get();
+        $ibeju_agents = AgentBiodata::where('business_district','Ibeju')->with('user')->get();
+        $orile_agents = AgentBiodata::where('business_district','Orile')->with('user')->get();
 
         return view($this->prefix.'agent-sales', compact(
             'sales','lekki_agents','agbara_agents','ojo_agents','festac_agents',
-            'mushin_agents','apapa_agents','island_agents','ijora_agents'));
+            'mushin_agents','apapa_agents','island_agents','ijora_agents','ibeju_agents','orile_agents'));
 
             // ->withSales($sales)
             // ->withlekkiAgents($lekki_agents)
@@ -428,8 +440,14 @@ class AdminController extends Controller
         $totals = [];
 
         // Paystack Income Colllection
-        $transactions = Transaction::all('pgp','ralmuof','spec','created_at');
-        $agenttransactions = AgentTransaction::all('pgp','ralmuof','spec','agent','created_at');
+        //$transactions = Transaction::all('pgp','ralmuof','spec','created_at');
+        //$agenttransactions = AgentTransaction::all('pgp','ralmuof','spec','agent','created_at');
+        $transactions = Transaction::select('pgp','ralmuof','spec','created_at')->orderBy('created_at','DESC')->get();
+        // return $transactions;
+        $agenttransactions = AgentTransaction::select('pgp','ralmuof','spec','created_at')->orderBy('created_at','DESC')->get();
+
+        $combine = collect([$transactions,$agenttransactions]);
+        // return array_collapse($combine);
 
         // return $transactions;
         $pgpAgent = AgentTransaction::all()->pluck('pgp');
@@ -439,6 +457,13 @@ class AdminController extends Controller
 
         $pgpTotal = $pgpDirectTotal + $pgpAgentTotal;
         $pgpCollection = array_flatten(collect([$transactions,$agenttransactions]));
+
+        foreach ($pgpCollection as $key => $part) {
+            $sort[$key] = strtotime($part['created_at']);
+        }
+        array_multisort($sort, SORT_DESC, $pgpCollection);
+
+        //return $pgpCollection;
 
         // return array_flatten($pgpCollection);
         $totals['pgp'] = 0;

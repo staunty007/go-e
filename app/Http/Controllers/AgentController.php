@@ -165,6 +165,11 @@ class AgentController extends Controller
         return back()->withSuccess('Profile Updated Successfully');
     }
 
+    // public function tickets()
+    // {
+    //     return $this->v('tickets');
+    // }
+
     // complete agent topup
     public function completeTopup($amount) {
         //return $amount;

@@ -97,7 +97,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Update District</label>
-                                            <input type="text" class="form-control" name="district" />
+                                            <input type="text" class="form-control" name="district"/>
                                         </div>
                                     </div>
 

@@ -66,8 +66,8 @@ class UserManagerController extends Controller
         ]);
         
         if($updatebio) {
-            $request->session()->flash('Customer Created Successfully');
-            return redirect()->route('users.index');
+            // $request->session()->flash('Customer Created Successfully');
+            return redirect()->route('users.index')->with('status', 'User Created Successfully');
         }
     }
 
@@ -90,7 +90,8 @@ class UserManagerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return $user;
     }
 
     /**
@@ -102,7 +103,29 @@ class UserManagerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'first_name'=>'required|string|max:191',
+            'last_name'=> 'required|string|max:191',
+            'email' => 'required|email|max:191',
+            'mobile' => 'required|numeric',
+            'address' => 'sometimes'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+        $user->is_activated = $request->input('is_activated', '0');
+        $user->save();
+
+        $update_bio = DB::table('customer_biodatas')->where('user_id',$id)
+                                                    ->update(['address' => $request->address]);
+
+        if($update_bio) {
+            return redirect()->route('users.index')->with('status', 'User Updated Successfully');
+        }
+        
     }
 
     /**
@@ -113,7 +136,10 @@ class UserManagerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('users.index')->with('status', 'User Deleted');
+
     }
 
     public function customerPayment($meter_no)

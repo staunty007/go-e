@@ -186,6 +186,13 @@ Route::prefix('agent')->group(function () {
     Route::get('topup-agent/success/{amount}', 'AgentController@completeTopup');
     Route::get('payment-agent/{ref}/success', 'AgentController@agentTokenSuccess');
     Route::get('payment-agent-customer/{ref}/success', 'AgentController@agentCustomerTokenSuccess');
+
+    Route::prefix('tickets')->group(function () {
+        Route::get('/all', 'TicketsController@agentTickets')->name('agent.tickets');
+        Route::get('/view/{ticket}', 'TicketsController@AgentShowTicket')->name('agent.show-ticket');
+        Route::get('new-ticket', 'TicketsController@AgentOpenTicket')->name('agent.open-ticket');
+        Route::post('new-ticket', 'TicketsController@AgentStoreTicket')->name('agent.store-ticket');
+    });
 });
 // Agent APIs
 Route::get('complete/agent-topup/{amount}', 'AgentController@completeTopup');
