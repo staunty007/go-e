@@ -80,7 +80,7 @@ export default class Search extends Component {
 				}
 				{this.state.emptySearch && <p className="text-center" style={{ color: 'white', textAlign: 'center', backgroundColor: 'red', padding: '1em'}}>No Results Found</p>}
 
-				<div className="card card-gradient-red">
+				{/* <div className="card card-gradient-red">
 					<div className="card-body" onClick={this.showModal}>
 						<div className="row">
 							<div className="col-8">
@@ -92,7 +92,19 @@ export default class Search extends Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
+				<div className="row">
+						<div className="col-md-12">
+							<div className="card text-white bg-success" onClick={this.showModal}>
+								{/* <Link to="/mobile/services/ekedc" className="text-white"> */}
+									<div className="card-body text-center">
+										Make Payment
+									</div>
+								{/* </Link> */}
+							</div>
+						</div>
+						<br />
+					</div>
 				
 
 				<Rodal

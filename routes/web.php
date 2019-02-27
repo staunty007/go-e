@@ -11,10 +11,11 @@ use App\Http\Controllers\TestSoapController;
 
 
 Route::get('/', function () {
-    if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
-        return back();
-    }
-    return redirect('ekedc');
+    // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
+    //     return back();
+    // }
+    // return redirect('ekedc');
+    return view('guest.home');
 });
 
 Route::get("download-reciept/{payment_ref}","PagesController@downloadReciept")->name('download-reciept');
@@ -45,6 +46,7 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 // 
 Route::post('account/login', 'AccountController@loginUser');
 Route::post('account/register', 'AccountController@registerUser')->name('signup');
+Route::post('account/email/resend','AccountController@resendEmail');
 // Referral Registration
 Route::get('signup/r/{ref}', 'AccountController@referredSignup'); //http://localhost:8000/signup/r/pQhkLwErUi
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');

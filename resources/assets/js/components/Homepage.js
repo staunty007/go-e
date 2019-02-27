@@ -4,6 +4,21 @@ import Slider from './Slider';
 import Search from './Search';
 
 export default class Homepage extends Component {
+	constructor(props) {
+		super(props);
+
+		this.login = this.login.bind(this);
+		this.register = this.register.bind(this);
+	}
+
+	login() {
+		this.props.history.push('/mobile/login');
+	};
+
+	register() {
+		this.props.history.push('/mobile/register');
+	}
+
 	render() {
 		return (
 			<div>
@@ -11,11 +26,39 @@ export default class Homepage extends Component {
 				<div className="jumbotron-fluid">
 					<Slider />
 				</div>
+				{/* <div className="container">
+					<div className="row justify-content-center">
+						<div className="col-md-12 m-t-md" style={{ marginTop: '1em'}}>
+							<Search />
+						</div>
+					</div>
 
+					<div className="card card-gradient">
+						<div className="card-body text-right">
+							<h4 className="card-title text-white">QR</h4>
+							<h6 className="card-subtitle mb-2 text-white">Easy Payment via QR Code</h6>
+							<h6 className="text-white">Coming Soon	</h6>
+						</div>
+					</div>
+					<div className="card card-gradient">
+						<div className="card-body text-right">
+							<h4 className="card-title text-white">POS</h4>
+							<h6 className="card-subtitle mb-2 text-white">Our agents are readily available</h6>
+							<h6 className="text-white">Coming Soon</h6>
+						</div>
+					</div>
+					<div className="card card-gradient">
+						<div className="card-body text-right">
+							<h4 className="card-title text-white">CASH</h4>
+							<h6 className="card-subtitle mb-2 text-white">Visit any of our sales outlets</h6>
+							<h6 className="text-white">Coming Soon</h6>
+						</div>
+					</div>
+				</div> */}
 				<div className="container">
 					<div className="row">
 						<div className="col-12">
-							<div className="card card-gradient-green">
+							<div className="card card-gradient-green" onClick={this.login}>
 								<div className="card-body" onClick={this.showModal}>
 									<div className="row">
 										
@@ -24,18 +67,18 @@ export default class Homepage extends Component {
 										</div>
 										<div className="col-8 text-right">
 											<h4 className="card-title" style={{ color: '#92CA40' }}>Sign In</h4>
-											<h6 className="text-muted">View your recent transactions</h6>
+											<h6 className="text-muted">Login to your daashboard</h6>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div className="col-12">
-							<div className="card card-gradient-green">
+							<div className="card card-gradient-green" onClick={this.register}>
 								<div className="card-body" onClick={this.showModal}>
 									<div className="row">
 										<div className="col-8">
-											<h4 className="card-title" style={{ color: '#92CA40' }}>Create an Account</h4>
+											<h5 className="card-title" style={{ color: '#92CA40' }}>Create an Account</h5>
 											<h6 className="text-muted">Sign up a new account</h6>
 										</div>
 										<div className="col-4 text-right">
@@ -45,8 +88,7 @@ export default class Homepage extends Component {
 								</div>
 							</div>
 						</div>
-						
-						
+
 						<div className="col-12">
 							<Search />
 						</div>
