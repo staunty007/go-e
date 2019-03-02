@@ -125,6 +125,10 @@ class AccountController extends Controller
             return view('activating')->withDone(1);
         }
         $user->is_activated = 1;
+        $user->save();
+
+        Auth::login($user);
+        
 
         session()->forget('account_info');
         return view('activating');

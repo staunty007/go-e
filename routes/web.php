@@ -386,6 +386,7 @@ Route::prefix('ekedc')->group(function () {
  */
 Route::prefix('nibbs')->group(function () {
     Route::get('create-mandate','NIBBSController@createCurlMandate');
+    Route::get('validate-otp/{otp}/{mandate}','NIBBSController@validateOtp');
     Route::get('all-banks', 'NIBBSController@getHashValue');
     Route::get('callback', function () {
         

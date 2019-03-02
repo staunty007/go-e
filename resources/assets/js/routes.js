@@ -6,6 +6,7 @@ import Receipt from './components/Receipt';
 import NotFound from './components/NotFound';
 import Login from './components/Login';
 import Register from './components/Register';
+import ConfirmEmail from './components/ConfirmEmail';
 
 const Routes = () => {
 	return (
@@ -16,6 +17,7 @@ const Routes = () => {
 				<Route path="/mobile/receipt/:order/:user" component={Receipt} />
 				<Route path="/mobile/login" component={Login} />
 				<Route path="/mobile/register" component={Register} />
+				<Route path="/mobile/email/confirm" component={ConfirmEmail} />
 				<Route component={NotFound} />
 			</Switch>
 		</div>
