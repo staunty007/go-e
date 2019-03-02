@@ -44,7 +44,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link href="css/plugins/cropper/cropper.min.css" rel="stylesheet">
 
-    <link href="css/plugins/switchery/switchery.css" rel="stylesheet">
+<link href="css/plugins/switchery/switchery.css" rel="stylesheet">
 
 
 
@@ -271,8 +271,8 @@
             text-align: right;
         }
     </style>
-    <style>
-        /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+     <style>
+            /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
             @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
             @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 
@@ -506,9 +506,9 @@
             }
         </style>
 
-    <!--Start on or off switch toggle-->
-    <style>
-        .onoffswitch {
+        <!--Start on or off switch toggle-->
+        <style>
+            .onoffswitch {
     position: relative; width: 90px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
@@ -529,7 +529,7 @@
     box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-    content: "ON";
+    content: "Top Up";
     padding-left: 10px;
     background-color: #34A7C1; color: #FFFFFF;
 }
@@ -554,8 +554,8 @@
     right: 0px; 
 }
 </style>
-    <!--End On or off switch toggle -->
-    <script src="https://unpkg.com/feather-icons"></script>
+<!--End On or off switch toggle -->
+<script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
@@ -607,19 +607,14 @@
                     <li class="{{ Request::is('customer/payment-history') ? 'active' :'' }}"><a href="{{ route('payment-history') }}"><i
                                 class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
                     </li>
-
                     <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' || Request::is('customer/postpaid-payment') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            @if(Auth::user()->customer->user_type == 1)
-                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}">
-                                <a href="{{ route('customer.prepaid-payment') }}">Prepaid Payment</a>
-                            </li>
-                            @elseif(Auth::user()->customer->user_type == 2)
-                            <li>
-                                <a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a>
-                            </li>
-                            @endif
+                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
+                                    Payment</a></li>
+                            <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
+
+
                         </ul>
                     </li>
 
@@ -661,31 +656,14 @@
                             </form> --}}
                             <div class="row" style="margin-top: 1em">
 
-                            <button class="btn btn-default mt-10">
-                                    <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
-                                    <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
-                                    Pay Bill
+                                <button class="btn btn-primary">Pay Bill
                                 </button>
-
-      
 
                                 <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
                                     Top up Wallet
                                 </button>
                                 <button class="btn btn-default mt-10">
                                     <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
-                                <!--Switch on or off-->
-                                <span class="label label-warning">Auto Top-up Meter - ></span>
-                                <div class="onoffswitch pull-right">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                                        checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
-                                <!--End Switch on or off-->
-
                                 @push('popups')
                                 <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-sm">
@@ -712,9 +690,28 @@
                                                         <strong>Top Up Now</strong>
                                                     </button>
                                                 </div>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                
 
-                                @endPush
+                                @endpush
+                                <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
+                                Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
+                                <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
+                             -->
+                             <div class="onoffswitch pull-right">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+                            
+                               
+                           
+                            
 
 
 
@@ -730,32 +727,31 @@
                                             <h6 class="modal-title">Choose Meter Option</h6>
                                         </div>
                                         <div class="modal-body">
-                                            @if(Auth::user()->customer->user_type == 1)
-                                             <center><a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a></center>
-                                            @elseif(Auth::user()->customer->user_type == 2)
-                                            <center><a href="{{ route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a><center>
-                                            @endif
+                                            <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
+                                            <a href="{{ route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
                                         </div>
-                                        <ul class="nav navbar-top-links navbar-right">
-                                            <li>
-                                                <span class="m-r-sm welcome-message" style="color: #fff"> Welcome <b>{{
-                                                        Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>|
-                                                    GOENERGEE
-                                                    Utility Platform </span>
-                                            </li>
-                                            <li>
+                                    </div>
 
-                                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
-                                                    onmouseover="style.background = '#1AB394'; style.color = '#fff'; "
-                                                    onmouseout="style.color = '#fff';style.background = 'transparent';"
-                                                    style="background: transparent; color: rgb(255,255,255);><i class="
-                                                    fa fa-sign-out"></i>
-                                                    Logout</a>
-                                                <form class="logout-form" method="POST" action="{{ route('logout') }}">
-                                                    {{ csrf_field()}}
-                                                </form>
-                                            </li>
-                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <span class="m-r-sm welcome-message" style="color: #fff"> Welcome <b>{{
+                                        Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>| GOENERGEE
+                                    Utility Platform </span>
+                            </li>
+                            <li>
+
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
+                                    onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';"
+                                    style="background: transparent; color: rgb(255,255,255);><i class=" fa fa-sign-out"></i>
+                                    Logout</a>
+                                <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                                    {{ csrf_field()}}
+                                </form>
+                            </li>
+                        </ul>
 
                 </nav>
             </div>
@@ -809,428 +805,409 @@
 
             feather.replace()
         </script>
-
+        
         @stack('scripts')
         <script>
-            $(document).ready(function () {
+        $(document).ready(function(){
+
+            
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, { color: '#1AB394' });
+
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+            var elem_4 = document.querySelector('.js-switch_4');
+            var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+                switchery_4.disable();
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+
+           
 
 
-                        var elem = document.querySelector('.js-switch');
-                        var switchery = new Switchery(elem, {
-                            color: '#1AB394'
-                        });
+    </script>
 
-                        var elem_2 = document.querySelector('.js-switch_2');
-                        var switchery_2 = new Switchery(elem_2, {
-                            color: '#ED5565'
-                        });
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-                        var elem_3 = document.querySelector('.js-switch_3');
-                        var switchery_3 = new Switchery(elem_3, {
-                            color: '#1AB394'
-                        });
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-                        var elem_4 = document.querySelector('.js-switch_4');
-                        var switchery_4 = new Switchery(elem_4, {
-                            color: '#f8ac59'
-                        });
-                        switchery_4.disable();
+    <!-- Chosen -->
+    <script src="js/plugins/chosen/chosen.jquery.js"></script>
 
-                        $('.i-checks').iCheck({
-                            checkboxClass: 'icheckbox_square-green',
-                            radioClass: 'iradio_square-green'
-                        });
-        </script>
+   <!-- JSKnob -->
+   <script src="js/plugins/jsKnob/jquery.knob.js"></script>
 
-        <!-- Mainly scripts -->
-        <script src="js/jquery-3.1.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+   <!-- Input Mask-->
+    <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
-        <!-- Custom and plugin javascript -->
-        <script src="js/inspinia.js"></script>
-        <script src="js/plugins/pace/pace.min.js"></script>
-        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+   <!-- Data picker -->
+   <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-        <!-- Chosen -->
-        <script src="js/plugins/chosen/chosen.jquery.js"></script>
+   <!-- NouSlider -->
+   <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
 
-        <!-- JSKnob -->
-        <script src="js/plugins/jsKnob/jquery.knob.js"></script>
+   <!-- Switchery -->
+   <script src="js/plugins/switchery/switchery.js"></script>
 
-        <!-- Input Mask-->
-        <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <!-- IonRangeSlider -->
+    <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
 
-        <!-- Data picker -->
-        <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
 
-        <!-- NouSlider -->
-        <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
+    <!-- MENU -->
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-        <!-- Switchery -->
-        <script src="js/plugins/switchery/switchery.js"></script>
+    <!-- Color picker -->
+    <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 
-        <!-- IonRangeSlider -->
-        <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <!-- Clock picker -->
+    <script src="js/plugins/clockpicker/clockpicker.js"></script>
 
-        <!-- iCheck -->
-        <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Image cropper -->
+    <script src="js/plugins/cropper/cropper.min.js"></script>
 
-        <!-- MENU -->
-        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="js/plugins/fullcalendar/moment.min.js"></script>
 
-        <!-- Color picker -->
-        <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <!-- Date range picker -->
+    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 
-        <!-- Clock picker -->
-        <script src="js/plugins/clockpicker/clockpicker.js"></script>
+    <!-- Select2 -->
+    <script src="js/plugins/select2/select2.full.min.js"></script>
 
-        <!-- Image cropper -->
-        <script src="js/plugins/cropper/cropper.min.js"></script>
+    <!-- TouchSpin -->
+    <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-        <!-- Date range use moment.js same as full calendar plugin -->
-        <script src="js/plugins/fullcalendar/moment.min.js"></script>
+    <!-- Tags Input -->
+    <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
-        <!-- Date range picker -->
-        <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Dual Listbox -->
+    <script src="js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
 
-        <!-- Select2 -->
-        <script src="js/plugins/select2/select2.full.min.js"></script>
+    <script>
+        $(document).ready(function(){
 
-        <!-- TouchSpin -->
-        <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+            $('.tagsinput').tagsinput({
+                tagClass: 'label label-primary'
+            });
 
-        <!-- Tags Input -->
-        <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function(data) {
+                    // Output the result data for cropping image.
+                }
+            });
 
-        <!-- Dual Listbox -->
-        <script src="js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
-
-        <script>
-            $(document).ready(function () {
-
-                $('.tagsinput').tagsinput({
-                    tagClass: 'label label-primary'
-                });
-
-                var $image = $(".image-crop > img")
-                $($image).cropper({
-                    aspectRatio: 1.618,
-                    preview: ".img-preview",
-                    done: function (data) {
-                        // Output the result data for cropping image.
-                    }
-                });
-
-                var $inputImage = $("#inputImage");
-                if (window.FileReader) {
-                    $inputImage.change(function () {
-                        var fileReader = new FileReader(),
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function() {
+                    var fileReader = new FileReader(),
                             files = this.files,
                             file;
 
-                        if (!files.length) {
-                            return;
-                        }
+                    if (!files.length) {
+                        return;
+                    }
 
-                        file = files[0];
+                    file = files[0];
 
-                        if (/^image\/\w+$/.test(file.type)) {
-                            fileReader.readAsDataURL(file);
-                            fileReader.onload = function () {
-                                $inputImage.val("");
-                                $image.cropper("reset", true).cropper("replace", this.result);
-                            };
-                        } else {
-                            showMessage("Please choose an image file.");
-                        }
-                    });
-                } else {
-                    $inputImage.addClass("hide");
-                }
-
-                $("#download").click(function () {
-                    window.open($image.cropper("getDataURL"));
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
                 });
+            } else {
+                $inputImage.addClass("hide");
+            }
 
-                $("#zoomIn").click(function () {
-                    $image.cropper("zoom", 0.1);
-                });
+            $("#download").click(function() {
+                window.open($image.cropper("getDataURL"));
+            });
 
-                $("#zoomOut").click(function () {
-                    $image.cropper("zoom", -0.1);
-                });
+            $("#zoomIn").click(function() {
+                $image.cropper("zoom", 0.1);
+            });
 
-                $("#rotateLeft").click(function () {
-                    $image.cropper("rotate", 45);
-                });
+            $("#zoomOut").click(function() {
+                $image.cropper("zoom", -0.1);
+            });
 
-                $("#rotateRight").click(function () {
-                    $image.cropper("rotate", -45);
-                });
+            $("#rotateLeft").click(function() {
+                $image.cropper("rotate", 45);
+            });
 
-                $("#setDrag").click(function () {
-                    $image.cropper("setDragMode", "crop");
-                });
+            $("#rotateRight").click(function() {
+                $image.cropper("rotate", -45);
+            });
 
-                $('#data_1 .input-group.date').datepicker({
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    calendarWeeks: true,
-                    autoclose: true
-                });
+            $("#setDrag").click(function() {
+                $image.cropper("setDragMode", "crop");
+            });
 
-                $('#data_2 .input-group.date').datepicker({
-                    startView: 1,
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    autoclose: true,
-                    format: "dd/mm/yyyy"
-                });
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
 
-                $('#data_3 .input-group.date').datepicker({
-                    startView: 2,
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    autoclose: true
-                });
+            $('#data_2 .input-group.date').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
 
-                $('#data_4 .input-group.date').datepicker({
-                    minViewMode: 1,
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    forceParse: false,
-                    autoclose: true,
-                    todayHighlight: true
-                });
+            $('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
 
-                $('#data_5 .input-daterange').datepicker({
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    autoclose: true
-                });
+            $('#data_4 .input-group.date').datepicker({
+                minViewMode: 1,
+                keyboardNavigation: false,
+                forceParse: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
 
-                var elem = document.querySelector('.js-switch');
-                var switchery = new Switchery(elem, {
-                    color: '#1AB394'
-                });
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
 
-                var elem_2 = document.querySelector('.js-switch_2');
-                var switchery_2 = new Switchery(elem_2, {
-                    color: '#ED5565'
-                });
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, { color: '#1AB394' });
 
-                var elem_3 = document.querySelector('.js-switch_3');
-                var switchery_3 = new Switchery(elem_3, {
-                    color: '#1AB394'
-                });
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
 
-                var elem_4 = document.querySelector('.js-switch_4');
-                var switchery_4 = new Switchery(elem_4, {
-                    color: '#f8ac59'
-                });
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+            var elem_4 = document.querySelector('.js-switch_4');
+            var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
                 switchery_4.disable();
 
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green'
-                });
-
-                $('.demo1').colorpicker();
-
-                var divStyle = $('.back-change')[0].style;
-                $('#demo_apidemo').colorpicker({
-                    color: divStyle.backgroundColor
-                }).on('changeColor', function (ev) {
-                    divStyle.backgroundColor = ev.color.toHex();
-                });
-
-                $('.clockpicker').clockpicker();
-
-                $('input[name="daterange"]').daterangepicker();
-
-                $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' +
-                    moment().format('MMMM D, YYYY'));
-
-                $('#reportrange').daterangepicker({
-                    format: 'MM/DD/YYYY',
-                    startDate: moment().subtract(29, 'days'),
-                    endDate: moment(),
-                    minDate: '01/01/2012',
-                    maxDate: '12/31/2015',
-                    dateLimit: {
-                        days: 60
-                    },
-                    showDropdowns: true,
-                    showWeekNumbers: true,
-                    timePicker: false,
-                    timePickerIncrement: 1,
-                    timePicker12Hour: true,
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(
-                            1, 'month').endOf('month')]
-                    },
-                    opens: 'right',
-                    drops: 'down',
-                    buttonClasses: ['btn', 'btn-sm'],
-                    applyClass: 'btn-primary',
-                    cancelClass: 'btn-default',
-                    separator: ' to ',
-                    locale: {
-                        applyLabel: 'Submit',
-                        cancelLabel: 'Cancel',
-                        fromLabel: 'From',
-                        toLabel: 'To',
-                        customRangeLabel: 'Custom',
-                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                            'August', 'September', 'October', 'November', 'December'
-                        ],
-                        firstDay: 1
-                    }
-                }, function (start, end, label) {
-                    console.log(start.toISOString(), end.toISOString(), label);
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                        'MMMM D, YYYY'));
-                });
-
-                $(".select2_demo_1").select2();
-                $(".select2_demo_2").select2();
-                $(".select2_demo_3").select2({
-                    placeholder: "Select a state",
-                    allowClear: true
-                });
-
-
-                $(".touchspin1").TouchSpin({
-                    buttondown_class: 'btn btn-white',
-                    buttonup_class: 'btn btn-white'
-                });
-
-                $(".touchspin2").TouchSpin({
-                    min: 0,
-                    max: 100,
-                    step: 0.1,
-                    decimals: 2,
-                    boostat: 5,
-                    maxboostedstep: 10,
-                    postfix: '%',
-                    buttondown_class: 'btn btn-white',
-                    buttonup_class: 'btn btn-white'
-                });
-
-                $(".touchspin3").TouchSpin({
-                    verticalbuttons: true,
-                    buttondown_class: 'btn btn-white',
-                    buttonup_class: 'btn btn-white'
-                });
-
-                $('.dual_select').bootstrapDualListbox({
-                    selectorMinimalHeight: 160
-                });
-
-
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
             });
 
-            $('.chosen-select').chosen({
-                width: "100%"
+            $('.demo1').colorpicker();
+
+            var divStyle = $('.back-change')[0].style;
+            $('#demo_apidemo').colorpicker({
+                color: divStyle.backgroundColor
+            }).on('changeColor', function(ev) {
+                        divStyle.backgroundColor = ev.color.toHex();
+                    });
+
+            $('.clockpicker').clockpicker();
+
+            $('input[name="daterange"]').daterangepicker();
+
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: { days: 60 },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            }, function(start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             });
 
-            $("#ionrange_1").ionRangeSlider({
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+
+
+            $(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin2").TouchSpin({
                 min: 0,
-                max: 5000,
-                type: 'double',
-                prefix: "$",
-                maxPostfix: "+",
-                prettify: false,
-                hasGrid: true
-            });
-
-            $("#ionrange_2").ionRangeSlider({
-                min: 0,
-                max: 10,
-                type: 'single',
+                max: 100,
                 step: 0.1,
-                postfix: " carats",
-                prettify: false,
-                hasGrid: true
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
             });
 
-            $("#ionrange_3").ionRangeSlider({
-                min: -50,
-                max: 50,
-                from: 0,
-                postfix: "°",
-                prettify: false,
-                hasGrid: true
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
             });
 
-            $("#ionrange_4").ionRangeSlider({
-                values: [
-                    "January", "February", "March",
-                    "April", "May", "June",
-                    "July", "August", "September",
-                    "October", "November", "December"
-                ],
-                type: 'single',
-                hasGrid: true
+            $('.dual_select').bootstrapDualListbox({
+                selectorMinimalHeight: 160
             });
 
-            $("#ionrange_5").ionRangeSlider({
-                min: 10000,
-                max: 100000,
-                step: 100,
-                postfix: " km",
-                from: 55000,
-                hideMinMax: true,
-                hideFromTo: false
-            });
 
-            $(".dial").knob();
+        });
 
-            var basic_slider = document.getElementById('basic_slider');
+        $('.chosen-select').chosen({width: "100%"});
 
-            noUiSlider.create(basic_slider, {
-                start: 40,
-                behaviour: 'tap',
-                connect: 'upper',
-                range: {
-                    'min': 20,
-                    'max': 80
-                }
-            });
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
 
-            var range_slider = document.getElementById('range_slider');
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
 
-            noUiSlider.create(range_slider, {
-                start: [40, 60],
-                behaviour: 'drag',
-                connect: true,
-                range: {
-                    'min': 20,
-                    'max': 80
-                }
-            });
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
 
-            var drag_fixed = document.getElementById('drag-fixed');
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
 
-            noUiSlider.create(drag_fixed, {
-                start: [40, 60],
-                behaviour: 'drag-fixed',
-                connect: true,
-                range: {
-                    'min': 20,
-                    'max': 80
-                }
-            });
-        </script>
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+
+        $(".dial").knob();
+
+        var basic_slider = document.getElementById('basic_slider');
+
+        noUiSlider.create(basic_slider, {
+            start: 40,
+            behaviour: 'tap',
+            connect: 'upper',
+            range: {
+                'min':  20,
+                'max':  80
+            }
+        });
+
+        var range_slider = document.getElementById('range_slider');
+
+        noUiSlider.create(range_slider, {
+            start: [ 40, 60 ],
+            behaviour: 'drag',
+            connect: true,
+            range: {
+                'min':  20,
+                'max':  80
+            }
+        });
+
+        var drag_fixed = document.getElementById('drag-fixed');
+
+        noUiSlider.create(drag_fixed, {
+            start: [ 40, 60 ],
+            behaviour: 'drag-fixed',
+            connect: true,
+            range: {
+                'min':  20,
+                'max':  80
+            }
+        });
+
+
+    </script>
 </body>
 
 </html>
