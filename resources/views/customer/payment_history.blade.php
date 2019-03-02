@@ -152,7 +152,7 @@
                             <select id="type" class="form-control">
                                 <option value="">All</option>
                                 <option value="PREPAID">Prepaid</option>
-                                <option value="Postpaid">Postpaid</option>
+                                <option value="POSTPAID">Postpaid</option>
                             </select>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                 <table class="table table-responsive" id="myTable">
                     <thead>
                     <tr>
-                        <th>ID #</th>
+                        <th>ID</th>
                         <th>Trans Date</th>
                         <th>Trans Ref</th>
                         <th>Trans type</th>
@@ -182,7 +182,7 @@
                     <tbody>
                         @foreach ($payments as $pay)
                             <tr>
-                                <td>{{ $pay->id }}</td>
+                                <td>{{ $loop->index }}</td>
                                 <td>{{ $pay->created_at }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
@@ -203,13 +203,8 @@
     </div>
     @push('scripts')
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable({
-                order: ['0','desc'],
-            });
-        });
-    </script>
+
+
     @endpush
     @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>

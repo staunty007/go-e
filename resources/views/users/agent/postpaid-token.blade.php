@@ -14,7 +14,7 @@
                 Pay for PostPaid Services
             </div>
 
-            <div class="ibox-content">
+            <div class="ibox-content" id="post001">
                 {{-- @if(isset($before)) --}}
                 <form class="meter" method="post" action="">
                     <div class="form-group">
@@ -49,6 +49,7 @@
                     <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                 </form>
             </div>
+
         </div>
     </div>
         <div class="col-md-6">
@@ -89,10 +90,13 @@
     @endsection
     @push('scripts')
         <script>
+            $("#post002").hide();
             $("#payOption").change(function () {
                 var vall = $(this).val();
                 if (vall !== "POSTPAID") {
-                    window.location = `{{ route('agent.other-postpaid') }}`;
+                     window.location = `{{ route('agent.other-postpaid') }}`;
+                    // $("#post001").hide();
+                    // $("#post002").show();
                 }
             })
         </script>

@@ -26,6 +26,7 @@ class AccountController extends Controller
 {
     public function loginUser(Request $request)
     {
+        // return $request;
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_activated' => 1])) {
             return response()->json(['sus' => 1]);
         } else {
@@ -34,6 +35,7 @@ class AccountController extends Controller
     }
     public function registerUser(Request $request)
     {
+        // return $request;
         $checkMail = User::where('email', $request->email)->get();
 
         if (count($checkMail) == 1) {
@@ -73,10 +75,28 @@ class AccountController extends Controller
         $bio->save();
 
         $user = User::where('id', $userID)->firstOrFail();
-        Mail::to($user->email)->send(new AccountActivation($user));
+        try {
+            Mail::to($user->email)->send(new AccountActivation($user));
+            return response()->json(['sus' => '1']);
+        } catch (\Throwable $th) {
+            return response()->json(['err' => 'We are unable to send you an email to complete your Account Registration, Please Retry Below', 'user' => $user,'is_email_error' => true]);
+        }
+        
+    }
 
+    /**
+     * Resend Email Activation
+     */
 
-        return response()->json(['sus' => '1']);
+    public function resendEmail(Request $request)
+    {
+        $request = $request->user;
+        try {
+            Mail::to($request->email)->send(new AccountActivation($request));
+            return response()->json(['sus' => '1']);
+        } catch (\Throwable $th) {
+            return response()->json(['is_email_error' => true,'err' => 'We are unable to send you an email to complete your Account Registration, Please Retry Below', 'user' => $request]);
+        }
     }
 
     /**
@@ -107,7 +127,6 @@ class AccountController extends Controller
         $user->is_activated = 1;
 
         session()->forget('account_info');
-
         return view('activating');
     }
 
@@ -837,7 +856,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        $prepaid = Payment::where('email', $userEmail)->with('transaction')->paginate(10);
+        $prepaid = Payment::where('email', $userEmail)->with('transaction')->orderBy('created_at','ASC')->paginate(10);
         // return $prepaid;
         return view('customer.payment_history')->withPayments($prepaid);
     }

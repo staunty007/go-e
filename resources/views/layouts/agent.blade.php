@@ -93,7 +93,9 @@
                         </ul>
                     </li>
 
-                   
+                    <li class="{{ Request::is('agent/tickets') ? 'active' :'' }}"><a href="{{ route('agent.tickets') }}"><i
+                        class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
+                    </li>
                     <li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
                         <a href="{{ route('agent.meter') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter
                                 Request</span></a>
@@ -278,65 +280,53 @@
 
             const parente = event.target;
             updateButton();
-            // parente.disabled = true;
+            {{-- parente.disabled = true; --}}
             // Connect to diamond API to deduct amount fro agent's Account
             fetch(`/diamond/debit/${amount}`)
                 .then(res => res.json())
                 .then(response => {
-                    response = JSON.parse(response.results);
-                    if(response.successful == true) {
+                    let responseResults = response.results ? JSON.parse(response.results) : response.errors;
+                    {{-- let responsed = response.errors ? JSON.parse(response.errors): response.errors; --}}
+                    if(!response.errors !== "" && responseResults.successful == true) {
                         // Add Amount to Agent's Wallet
-                        var agentCredit = creditAgentWallet(amount);
-                        console.log(agentCredit);
-                        return;
-                        // fetch('credit')
-                        creditAdminWallet(amount);
-                        // Add Amount to Agent's Topup Log
-                        addToTopupLog(object);
+                        {{-- console.log(responseResults); return; --}}
+                        const walletData = [responseResults.result.transactionReference,amount];
+                        let agentCredit = creditWallets(walletData);
+                        if(agentCredit == true) {
+                            alert('Transaction Completed');
+                            location.href="{{ route('home') }}";
+                        }
                     }else {
-                        alert('Something Went Wrong, Please Check your internet connection or refresh the page to try again...');
+                        updateButton('Topup Wallet');
+                        alert(response.errors);
+                        console.log(response.errors);
                     }
                 });
-            {{-- creditAgentWallet(amount); --}}
         }
 
-        const creditAgentWallet = (amount) => {
-            console.log('Crediting Agent Wallet...');
-            if(!amount) return;
-            fetch(`/wallets/agent/${amount}/credit`)
-                .then(res => res.json())
-                .then(response => {
-                    updateButton('Updating Your Wallet...');
-                    if(!response.successful) {
-                        return false;
-                    }
-                    return true;
-                })
-                .catch(err => console.log(err));
-        }
-
-        function creditAdminWallet(amount) {
-            if(!amount)
-            return;
-
-            fetch(``)
-                .then(res => res.json())
-                .then(response => {
-
-                })
-                .catch(err => console.log(err));
-        }
-
-        function addToTopupLog(object) {
-            if(!amount)
-            return;
+        const creditWallets = (response) => {
             
-            fetch(``)
-                .then(res => res.json())
-                .then(response => {
+            console.log('Crediting Agent Wallet...');
+            updateButton('Updating Your Wallet ...');
+            if(!response) return;
+ 
+            $.ajax({
+                url: '/wallets/credit',
+                type: 'POST',
+                data: { response },
+                success: (result) => {
+                    if(!result.successful || !result.successful == true) {
+                        return false;
+                        updateButton('Top up Wallet');
+                    }
+                },
+                error: (err) => {
+                    console.log(err);
+                    return false;
+                }
+            });
 
-                })
-                .catch(err => console.log(err));
+            return true;
         }
 
         function updateButton(string = 'Processing....') {

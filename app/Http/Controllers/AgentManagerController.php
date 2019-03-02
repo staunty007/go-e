@@ -52,8 +52,8 @@ class AgentManagerController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'mobile' => $request->mobile,
+            'is_activated' => $request->input('is_activated', '0'),
             'password' => bcrypt('password'),
-            'is_activated' => 1,
             'created_at' => new Carbon('now'),
             'updated_at' => new Carbon('now')
         ]);
@@ -66,8 +66,8 @@ class AgentManagerController extends Controller
         ]);
 
         if ($updatebio) {
-            $response()->session('flash', 'Agent Created Successfully');
-            return redirect()->route('agents.index');
+           // $request->session()->flash('Agent Created Successfully');
+            return redirect()->route('agents.index')->with('status', 'Agent Created Successfully');
         }
         return back();
     }
@@ -104,7 +104,30 @@ class AgentManagerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'first_name'=>'required|string|max:191',
+            'last_name'=> 'required|string|max:191',
+            'email' => 'required|email|max:191',
+            'mobile' => 'required|numeric',
+            'address' => 'sometimes'
+        ]);
+
+         DB::table('users')->where('id',$id)->update([
+            'first_name' => $request->first_name,
+            'last_name' =>$request->last_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'is_activated' => $request->input('is_activated', '0'),
+            'updated_at' => new Carbon('now')
+        ]);
+
+        $update_bio = DB::table('agent_biodatas')->where('user_id',$id)->update([
+        'address' => $request->address
+        ]);
+
+        if ($update_bio) {
+            return redirect()->route('agents.index')->with('status', 'Agent Updated Successfully');
+        }
     }
 
     /**
@@ -115,6 +138,8 @@ class AgentManagerController extends Controller
      */
     public function destroy($id)
     {
-        return User::findorFail($id);
+        $user = User::findorFail($id);
+        $user->delete();
+        return redirect()->route('agents.index')->with('status', 'Agent Deleted');
     }
 }

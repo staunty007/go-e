@@ -16,7 +16,7 @@
                 </h2>
                 <small>GOENERGEE </small>
             </div>
-            <img src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset('storage/'.Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif"
+            <img src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset(Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif"
                 class="img-circle circle-border m-b-md" alt="profile" width="120px">
             <ul class="list-unstyled m-t-md">
                 <div class="text-left">
@@ -32,10 +32,6 @@
                     <li>
                         <span class="fa fa-envelope m-r-xs"></span>
                         <label>Email: {{Auth::user()->email}}</label>
-                    </li><br>
-                    <li>
-                        <span class="fa fa-map-marker m-r-xs"></span>
-                        <label>Address: {{Auth::user()->business_address}}</label>
                     </li><br>
 
                     <li>
@@ -88,7 +84,7 @@
                             <div class="col-lg-6">
                                 <div class="text-center">
 
-                                    <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
+                                    <img alt="image" class="img-responsive" src="{{asset('images/15.png')}}">
 
                                 </div>
                             </div>
@@ -118,7 +114,7 @@
                             <div class="col-lg-6">
                                     <div class="text-center">
     
-                                        <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
+                                        <img alt="image" class="img-responsive" src="{{asset('images/15.png')}}">
     
                                     </div>
                                 
@@ -137,17 +133,24 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <label>Phyical Address</label>
-                                        <input id="business_address" name="business_address" value="{{$data->last_name}}" type="text"
-                                            class="form-control required"> @if ($errors->has('business_address'))
-                                        <div class="error">{{ $errors->first('business_address') }}</div>
+                                        <label>Phone No</label>
+                                        <input id="phone" name="phone" value="{{$data->mobile}}" type="text"
+                                            class="form-control required"> @if ($errors->has('phone'))
+                                        <div class="error">{{ $errors->first('phone') }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Photo</label>
+                                        <input id="avatar" name="avatar" value="{{$data->avatar}}" type="file"
+                                            class="form-control required"> @if ($errors->has('avatar'))
+                                        <div class="error">{{ $errors->first('avatar') }}</div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                         <div class="text-center">
         
-                                            <img alt="image" class="img-responsive" src="{{asset('images/12.png')}}">
+                                            <img alt="image" class="img-responsive"  src="{{asset('images/15.png')}}">
         
                                         </div>
                                     
@@ -159,6 +162,9 @@
                         <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I
                             agree with the Terms and Conditions.</label>
                     </fieldset>
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-primary btn-block"><b>UPDATE PROFILE</b></button>
+                    </div>
                 </form>
 
                 {{-- <form id="form" action="{{route('admin.updateprofile')}}" class="wizard-big" method="POST" enctype="multipart/form-data">

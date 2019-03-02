@@ -117,4 +117,49 @@ class TicketsController extends Controller
         Mail::to($ticketOwner->email)->send(new TicketClosedMail($ticket, $ticketOwner));
         return redirect()->back()->with("status", "The ticket has been closed.");
     }
+
+
+    public function AgentTickets()
+    {
+        $id = auth()->id();       
+        $tickets = Ticket::where('user_id',$id)->with('category')->get();
+        return view('users.agent.tickets',compact('tickets'));
+    }
+
+    public function AgentOpenTicket()
+    {
+        $categories = TicketCategory::all();
+        return view('users.agent.open-ticket', compact('categories'));
+    }
+
+    public function AgentStoreTicket(Request $request)
+    {
+        $request->validate([
+            'title'     => 'required',
+            'category'  => 'required',
+            'priority'  => 'required',
+            'message'   => 'required'
+        ]);
+
+        $ticket = new Ticket;
+        $ticket->title = $request->title;
+        $ticket->user_id = auth()->id();
+        $ticket->ticket_id = strtoupper(str_random(10));
+        $ticket->category_id = $request->category;
+        $ticket->priority = $request->priority;
+        $ticket->message = $request->message;
+        $ticket->status = 'Open';
+        $ticket->save();
+        
+        Mail::to(auth()->user()->email)->send(new TicketMailer($ticket));
+        return redirect()->back()->with("status", "A ticket with ID: #$ticket->ticket_id has been opened.");
+    }
+
+    public function AgentShowTicket($ticket)
+    {
+        $ticket = Ticket::where('ticket_id',$ticket)->with('category')->firstOrFail();
+        $comments = $ticket->comments;
+        // return $comments;
+        return view('users.agent.view-ticket', compact('ticket','comments'));
+    }
 }

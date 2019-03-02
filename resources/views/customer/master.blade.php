@@ -607,14 +607,19 @@
                     <li class="{{ Request::is('customer/payment-history') ? 'active' :'' }}"><a href="{{ route('payment-history') }}"><i
                                 class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
                     </li>
+
                     <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' || Request::is('customer/postpaid-payment') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
-                                    Payment</a></li>
-                            <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
-
-
+                            @if(Auth::user()->customer->user_type == 1)
+                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}">
+                                <a href="{{ route('customer.prepaid-payment') }}">Prepaid Payment</a>
+                            </li>
+                            @elseif(Auth::user()->customer->user_type == 2)
+                            <li>
+                                <a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a>
+                            </li>
+                            @endif
                         </ul>
                     </li>
 
@@ -656,8 +661,13 @@
                             </form> --}}
                             <div class="row" style="margin-top: 1em">
 
-                                <button class="btn btn-primary">Pay Bill
+                            <button class="btn btn-default mt-10">
+                                    <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
+                                    <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                                    Pay Bill
                                 </button>
+
+      
 
                                 <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
                                     Top up Wallet
@@ -704,44 +714,27 @@
                                                 </div>
 
 
+                                @endPush
 
 
 
-
-                                                @endpush
-                                                <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
-                                Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
-                                                <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
-                             -->
-
-
-
-
-
-
-
-
-                                            </div>
-                                            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-sm">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                <span class="sr-only">Close</span>
-                                                            </button>
-                                                            <h6 class="modal-title">Choose Meter Option</h6>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                            <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
-                                                                class="btn btn-success">Postpaid</a>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
+                            </div>
+                            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                            <h6 class="modal-title">Choose Meter Option</h6>
+                                        </div>
+                                        <div class="modal-body">
+                                            @if(Auth::user()->customer->user_type == 1)
+                                             <center><a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a></center>
+                                            @elseif(Auth::user()->customer->user_type == 2)
+                                            <center><a href="{{ route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a><center>
+                                            @endif
                                         </div>
                                         <ul class="nav navbar-top-links navbar-right">
                                             <li>

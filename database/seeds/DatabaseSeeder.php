@@ -82,5 +82,20 @@ class DatabaseSeeder extends Seeder
                 "updated_at" => Carbon::now()
             ],
         ]);
+
+        DB::table('ticket_categories')->insert([
+            [
+                "name" => "Electricity Bills",
+            ],
+            [
+                "name" => "Technical Supports",
+            ],
+            [
+                "name" => "Customer Support",
+            ],
+            [
+                "name" => "Billing",
+            ]
+        ]);
     }
 }

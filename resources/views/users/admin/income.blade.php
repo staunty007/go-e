@@ -360,7 +360,7 @@
                                 <tbody>
                                     @foreach ($incomes as $income)
                                     <tr>
-                                        <td width="16%">{{ $income->created_at }}</td>
+                                        <td width="16%">{{ date('d-m-Y, h:i:s A', strtotime($income->created_at)) }}</td>
                                         <td width="12%"></td>
                                         <td width="12%"></td>
                                         <td width="12%"></td>
@@ -433,9 +433,7 @@
 <script>
     $(document).ready(function () {
         $('#table').DataTable({
-            order: [
-                [0, 'desc']
-            ]
+            "order": [[ 0, "desc" ]]
         });
     });
 </script>

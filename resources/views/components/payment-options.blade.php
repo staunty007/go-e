@@ -98,15 +98,7 @@
                                             <h4 class="fa fa-money"></h4><br/>My Wallet
                                         </a>
                                     @endauth
-                                    {{-- <a href="#" class="list-group-item text-center">
-                                        <h4 class="glyphicon glyphicon-road"></h4><br />Train
-                                    </a>
-                                    <a href="#" class="list-group-item text-center">
-                                        <h4 class="glyphicon glyphicon-home"></h4><br />Hotel
-                                    </a>
-                                    <a href="#" class="list-group-item text-center">
-                                        <h4 class="glyphicon glyphicon-cutlery"></h4><br />Restaurant
-                                    </a> --}}
+
                                 </div>
                             </div>
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
@@ -286,6 +278,7 @@
                 }
             },
             error: (err) => {
+                alert('Somethig went wrong.. Please Try Again');
                 $('.pay-meter').html('Continue');
             }
         });
@@ -326,18 +319,8 @@
                                     <h2>Completing Transaction... <div class="loader-css"></div></h2> 
                             </div>`;
                             generateToken(payRef, orderId);
-                        // }else {
-                        //     // Append Retry Action...
-                            
-                        // }
-                        
                     })
                     .catch(err => console.log(err));
-                // generate token
-
-                // setTimeout(() => {
-                // 	window.location.href = '/payment/' + response.reference + '/success';
-                // }, 1000);
             },
             onClose: function () {
                 alert('Payment Cancelled');

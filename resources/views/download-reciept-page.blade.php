@@ -1,201 +1,189 @@
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+
+<head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Reciept for {{ $reciept->first_name .' '. $reciept->last_name }}</title>
-    <style>
-    .clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Trebuchet MS';
+    }
 
-a {
-  color: #5D6975;
-  text-decoration: underline;
-}
+    body {
+        margin-top: 20px;
+        font-size: 15px;
+    }
 
-body {
-  position: relative;
-  width: 20cm;  
-  height: 29.7cm; 
-  margin: 0 auto; 
-  color: #001028;
-  background: #FFFFFF; 
-  font-family: Arial, sans-serif; 
-  font-size: 12px; 
-  font-family: Arial;
-}
+    .container {
+        width: 60%;
+        /* border: 2px solid black; */
+        margin: auto;
+    }
 
-header {
-  padding: 10px 0;
-  margin-bottom: 30px;
-}
+    .container h4 {
+        text-align: center;
+        width: 100%;
+        margin: auto;
+        font-weight: normal;
+    }
 
-#logo {
-  text-align: center;
-  margin-bottom: 10px;
-}
+    .name {
+        margin-top: 15px;
+        font-size: 14px;
+    }
 
-#logo img {
-  width: 90px;
-}
+    .name .left {
+        font-weight: bold;
+        font-size: 14px;
+        float: left;
+    }
 
-h1 {
-  border-top: 1px solid  #5D6975;
-  border-bottom: 1px solid  #5D6975;
-  color: #5D6975;
-  font-size: 2.4em;
-  line-height: 1.4em;
-  font-weight: normal;
-  text-align: center;
-  margin: 0 0 20px 0;
-  background: url(dimension.png);
-}
+    .name .right {
+        font-weight: bolder;
+        float: right;
+    }
 
-#project {
-  float: left;
-}
+    .name .right span {
+        font-weight: normal;
+    }
 
-#project span {
-  color: #5D6975;
-  text-align: right;
-  width: 52px;
-  margin-right: 10px;
-  display: inline-block;
-  font-size: 0.8em;
-}
+    .clearfix {
+        clear: both;
+    }
 
-#company {
-  float: right;
-  text-align: right;
-}
+    .address {
+        margin-top: 15px;
+    }
 
-#project div,
-#company div {
-  white-space: nowrap;        
-}
+    .address .left {
+        font-size: 13px;
+        float: left;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 20px;
-}
+    .address .right {
+        font-size: 13px;
+        float: right;
+    }
 
-table tr:nth-child(2n-1) td {
-  background: #F5F5F5;
-}
+    .table {
+        margin-top: 15px;
+        width: 100%;
+    }
+    .table table{
+        width: 100%;
+        font-size: 13px;
+    }
+    .table table tr:nth-child(odd) {
+    background-color:whitesmoke;;
+    }
+    .boxes {
+        margin-top: 20px;
+        width: 100%;
+    }
+    .boxes li {
+        width: 25%;
+        height: 70px;
+        background-color: silver;
+        list-style: none;
+        display: inline-block;
+        margin-right: 7.5%;
+        text-align: left;
 
-table th,
-table td {
-  text-align: center;
-}
+    }
+    .boxes li p{
+        padding: 5px;
+        font-weight: bolder;
+    }
+    .bold {
+      font-weight: bold;
+    }
+</style>
 
-table th {
-  padding: 5px 20px;
-  color: #5D6975;
-  border-bottom: 1px solid #C1CED9;
-  white-space: nowrap;        
-  font-weight: normal;
-}
+<body>
+    <div class="container">
+        <h4>EKO ELECTRICITY DISTRIBUTION COMPANY HEADQUARTERS OFFICE 24/25 MARINA LAGOS</h4>
+        <div class="name">
+            <p class="left">{{ $reciept->first_name .' '. $reciept->last_name }}</p>
+            <p class="right">Account Number: <span>09778528755</span></p>
+        </div>
+        <div class="clearfix"></div>
+        <div class="address">
+            <p class="left">{{ $reciept->customer_address }}</p>
+            <p class="right"><b>BILL FOR</b>: {{ $reciept->created_at->format('F Y ') }}
+        </div>
+        <div class="clearfix"></div>
+        <div class="table">
+            <table >
+                <tr>
+                    <td class="bold">Email Address: </td>
+                    <td>{{ $reciept->email }}</td>
+                    <td class="bold">Meter No:</td>
+                    <td>{{ $reciept->meter_no }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">Mobile No:</td>
+                    <td> {{ $reciept->phone_number }}</td>
+                    <td class="bold">Payment Type:</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td class="bold">Transaction Ref:</td>
+                    <td>{{ $reciept->transaction_ref }}</td>
+                    <td class="bold">Payment Purpose</td>
+                    <td>{{ $reciept->purpose }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">Order ID:</td>
+                    <td>{{ $reciept->order_id }}</td>
+                    <td class="bold">Value of Kwh:</td>
+                    <td>{{ $reciept->value_of_kwh }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">Bill No: </td>
+                    <td>22661078</td>
+                    <td class="bold">ADC:</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td class="bold">Bill Date:</td>
+                    <td>Not Available</td>
+                    <td class="bold">Old Account No:</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td class="bold">Cycle No:</td>
+                    <td></td>
+                    <td class="bold">Present Kwh:</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td class="bold">Tariff Code:</td>
+                    <td>R2T</td>
+                    <td class="bold">Previous Kwh:</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+        <ul class="boxes">
+            <li>
+                <p>Initial Amount</p>
+                <p>NGN{{ number_format($reciept->transaction->initial_amount,2) }}</p>
+            </li>
+            <li>
+                <p>Convinience Fee</p>
+                <p>NGN{{ number_format($reciept->transaction->conv_fee,2) }}</p>
+            </li>
+            <li>
+                <p>Total Amount</p>
+                <p>NGN{{ number_format($reciept->transaction->total_amount,2) }}</p>
+            </li>
+        </ul>
+    </div>
+</body>
 
-table .service,
-table .desc {
-  text-align: left;
-}
-
-table td {
-  padding: 20px;
-  text-align: right;
-}
-
-table td.service,
-table td.desc {
-  vertical-align: top;
-}
-
-table td.unit,
-table td.qty,
-table td.total {
-  font-size: 1.2em;
-}
-
-table td.grand {
-  border-top: 1px solid #5D6975;;
-}
-
-#notices .notice {
-  color: #5D6975;
-  font-size: 1.2em;
-}
-
-footer {
-  color: #5D6975;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #C1CED9;
-  padding: 8px 0;
-  text-align: center;
-}
-    </style>
-  </head>
-  <body>
-    <header class="clearfix">
-      <div id="logo">
-        <img src="logo.png">
-      </div>
-      <h1>INVOICE-{{ $reciept->order_id }}</h1>
-      <div id="company" class="clearfix">
-        <div>Eko Electricity Distribution Company</div>
-        <div> Headquaters Office 24/25 Marina Lagos</div>
-        <div>(602) 519-0450</div>
-        <div><a href="mailto:company@example.com">company@example.com</a></div>
-      </div>
-      <div id="project">
-      <div><span>FUll-NAME</span> {{ $reciept->first_name .' '. $reciept->last_name }}</div>
-      <div><span>ADDRESS</span> {{ $reciept->customer_address }}</div>
-      <div><span>MOBILE-NO</span> {{ $reciept->phone_number }}</div>
-        <div><span>EMAIL</span> <a href="">{{ $reciept->email }}</a></div>
-        <div><span>DATE</span> {{ $reciept->created_at->format('jS \\of F Y ') }}</div>
-        <div><span>METER-NO</span> {{ $reciept->meter_no }}</div>
-      </div>
-    </header>
-    <main>
-      <table>
-        <thead>
-          <tr>
-            <th class="service">PURPOSE</th>
-            <th class="desc">TANSACTTION REF.</th>
-            <th>KWH-VALUE</th>
-            <th>AMOUNT-PAID</th>
-            <th>CONV - FEE</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-          <td class="service">{{ $reciept->purpose }}</td>
-            <td class="desc">{{ $reciept->transaction_ref }}</td>
-            <td class="desc">{{ $reciept->value_of_kwh }}</td>
-            <td class="desc">NGN{{ number_format($reciept->transaction->initial_amount,2) }}</td>
-            <td class="desc">NGN{{ number_format($reciept->transaction->conv_fee,2) }}</td>
-          </tr>
-          <tr>
-            <td colspan="4" class="grand total">TOTAL AMOUNT</td>
-            <td class="grand total">NGN{{ number_format($reciept->transaction->total_amount,2) }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-      </div>
-    </main>
-    <footer>
-      Invoice was created on a computer and is valid without the signature and seal.
-    </footer>
-  </body>
 </html>

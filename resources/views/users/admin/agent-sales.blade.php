@@ -99,11 +99,10 @@
                 <label class="control-label" for="amount">Filter By Channel</label>
                 <select id="channel" class="form-control">
                   <option value="">All</option>
-                  <option value="Web">Web</option>
-                  <option value="POS">POS</option>
-                  <option value="Mobile">Ussd</option>
-                  <option value="Mobile">mVisa</option>
-                  <option value="Mobile">Agency</option>
+                  <option value="Web">AGENCY-WEB</option>
+                  <option value="POS">AGENCY-POS</option>
+                  <option value="Mobile">AGENCY-USSD</option>
+                  <option value="Mobile">AGENCY-QR</option>
                 </select>
               </div>
             </div>
@@ -389,15 +388,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($lekki_agents as $l_agent)
+                        @foreach ($ibeju_agents as $ib_agent)
                         <tr>
-                          <th scope="row">{{ $l_agent->user_id}}</th>
-                          <td>{{ $l_agent->agent_id }}</td>
-                          <td>{{ $l_agent->user->first_name }}</td>
+                          <th scope="row">{{ $ib_agent->user_id}}</th>
+                          <td>{{ $ib_agent->agent_id }}</td>
+                          <td>{{ $ib_agent->user->first_name }}</td>
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $l_agent->wallet_balance }}</td>
+                          <td>{{ $ib_agent->wallet_balance }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -511,6 +510,41 @@
                     </table>
                   </div>
 
+                  <div id="Orile" class="tabcontent">
+                      <div class="form-group pull-right">
+                        <input type="text" class="search form-control" placeholder="What you looking for?">
+                      </div>
+                      <span class="counter pull-right"></span>
+                      <table class="table table-hover table-bordered results">
+                        <thead>
+                          <tr>
+                            <th class="col-md-2 col-xs-2">Date</th>
+                            <th class="col-md-2 col-xs-2">ID</th>
+                            <th class="col-md-2 col-xs-2">Name</th>
+                            <th class="col-md-2 col-xs-2">Sales</th>
+                            <th class="col-md-2 col-xs-2">Channel</th>
+                            <th class="col-md-2 col-xs-2">Security Deposit</th>
+                            <th class="col-md-2 col-xs-2">Wallet balance</th>
+                          </tr>
+                          <tr class="warning no-result">
+                            <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($orile_agents as $or_agent)
+                          <tr>
+                            <th scope="row">{{ $or_agent->user_id}}</th>
+                            <td>{{ $or_agent->agent_id }}</td>
+                            <td>{{ $or_agent->user->first_name }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ $or_agent->wallet_balance }}</td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
 
 
 

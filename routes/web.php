@@ -8,21 +8,14 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
-// Route::get('/', function () { return view('index'); });
+
+
 Route::get('/', function () {
-    // return view('test');
-    // if (session()->has('TAMSES')) {
-    //     session()->forget('TAMSES');
+    // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
+    //     return back();
     // }
-    // // return url('discos');
-    // // return url()->previous();
-    if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
-        // return redirect('discos');
-        // return 'gotha';
-        return back();
-    }
-    return redirect('ekedc');
-    // return view('guest.home');
+    // return redirect('ekedc');
+    return view('guest.home');
 });
 
 Route::get("download-reciept/{payment_ref}","PagesController@downloadReciept")->name('download-reciept');
@@ -53,6 +46,7 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 // 
 Route::post('account/login', 'AccountController@loginUser');
 Route::post('account/register', 'AccountController@registerUser')->name('signup');
+Route::post('account/email/resend','AccountController@resendEmail');
 // Referral Registration
 Route::get('signup/r/{ref}', 'AccountController@referredSignup'); //http://localhost:8000/signup/r/pQhkLwErUi
 Route::get('registration/verify', 'AccountController@sendAccountMail')->name('semd.mail');
@@ -192,6 +186,13 @@ Route::prefix('agent')->group(function () {
     Route::get('topup-agent/success/{amount}', 'AgentController@completeTopup');
     Route::get('payment-agent/{ref}/success', 'AgentController@agentTokenSuccess');
     Route::get('payment-agent-customer/{ref}/success', 'AgentController@agentCustomerTokenSuccess');
+
+    Route::prefix('tickets')->group(function () {
+        Route::get('/all', 'TicketsController@agentTickets')->name('agent.tickets');
+        Route::get('/view/{ticket}', 'TicketsController@AgentShowTicket')->name('agent.show-ticket');
+        Route::get('new-ticket', 'TicketsController@AgentOpenTicket')->name('agent.open-ticket');
+        Route::post('new-ticket', 'TicketsController@AgentStoreTicket')->name('agent.store-ticket');
+    });
 });
 // Agent APIs
 Route::get('complete/agent-topup/{amount}', 'AgentController@completeTopup');
@@ -228,7 +229,7 @@ Route::get('diamond/credit/{amount}', 'DiamondApiController@credit');
 // Debit API
 Route::get('diamond/debit/{amount}', 'DiamondApiController@agentDebit');
 
-Route::get('wallets/agent/{amount}/credit','AgentController@creditAgentWallet');
+Route::post('wallets/credit','AgentController@creditWallets');
 // Route::get('diamond/debit/admin/{accountnumber}/{amount}', 'DiamondApiController@adminDebit');
 
 // End to End API
@@ -280,7 +281,9 @@ Route::get('ekedc', 'PagesController@disco');
 Route::post('ekedc', 'PagesController@discoLogin')->name('disco-login');
 Route::post('disco-logout', 'PagesController@discoLogout')->name('disco-logout');
 
-
+Route::get('/nibbs-xml',function() {
+    return view('test-xml-json');
+});
 
 
 
