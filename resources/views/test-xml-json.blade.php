@@ -4,58 +4,40 @@
 </head>
 
 <body>
-
-
-
-
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/3.10.0/parser.min.js"></script>
     <script>
-        function xmlToJson(xml) {
-            'use strict';
-            // Create the return object
-            var obj = {},
-                i, j, attribute, item, nodeName, old;
-
-            if (xml.nodeType === 1) { // element
-                // do attributes
-                if (xml.attributes.length > 0) {
-                    obj["@attributes"] = {};
-                    for (j = 0; j < xml.attributes.length; j = j + 1) {
-                        attribute = xml.attributes.item(j);
-                        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-                    }
-                }
-            } else if (xml.nodeType === 3) { // text
-                obj = xml.nodeValue;
-            }
-
-            // do children
-            if (xml.hasChildNodes()) {
-                for (i = 0; i < xml.childNodes.length; i = i + 1) {
-                    item = xml.childNodes.item(i);
-                    nodeName = item.nodeName;
-                    if ((obj[nodeName]) === undefined) {
-                        obj[nodeName] = xmlToJson(item);
-                    } else {
-                        if ((obj[nodeName].push) === undefined) {
-                            old = obj[nodeName];
-                            obj[nodeName] = [];
-                            obj[nodeName].push(old);
-                        }
-                        obj[nodeName].push(xmlToJson(item));
-                    }
-                }
-            }
-            return obj;
+        var options = {
+            attributeNamePrefix : "@_",
+            attrNodeName: "attr", //default is 'false'
+            textNodeName : "#text",
+            ignoreAttributes : true,
+            ignoreNameSpace : false,
+            allowBooleanAttributes : false,
+            parseNodeValue : true,
+            parseAttributeValue : false,
+            trimValues: true,
+            cdataTagName: "__cdata", //default is 'false'
+            cdataPositionChar: "\\c",
+            localeRange: "", //To support non english character in tag/attribute values.
+            parseTrueNumberOnly: false,
         };
-
-    
-    </script>
-    <script>
-        fetch('/nibbs/create-mandate')
-            .then(response => {
-                console.log(JSON.stringify(xmlToJson(response)));
-            })
-            .catch(err => alert('Something Went Wrong'));
+        $.get('/nibbs/create-mandate', (data) => {
+            if( parser.validate(data) === true) { //optional (it'll return an object in case it's not valid)
+                var jsonObj = parser.parse(data);
+                
+                const { ResponseCode, MandateCode } = jsonObj.CreateMandateResponse;
+                console.log(`Your Mandate Code is ${MandateCode} and your Response Code is ${ResponseCode}`);
+            }
+            
+        });
+        {{-- fetch('/nibbs/create-mandate')
+		.then(res => res.json())
+		.then(result => {
+		    console.log(xmlToJson(result));
+		})
+		.catch(err => console.log(err)) --}}
     </script>
 </body>
 

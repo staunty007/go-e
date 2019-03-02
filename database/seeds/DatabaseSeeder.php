@@ -83,9 +83,6 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-<<<<<<< HEAD
-        //DB::table('')
-=======
         DB::table('ticket_categories')->insert([
             [
                 "name" => "Electricity Bills",
@@ -100,6 +97,5 @@ class DatabaseSeeder extends Seeder
                 "name" => "Billing",
             ]
         ]);
->>>>>>> 5f3d4fbfd2394e5424a5b9f940bc4f2a0e53e123
     }
 }

@@ -6,7 +6,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
  const Navbar = () => {
 	 return (
 		<div>
-			<nav className="navbar navbar-expand-lg navbar-light bg-light">
+			<nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ backgroundImage: 'none' }}>
 				<Link className="navbar-brand align-items-center" to="/mobile">
 					<img src="/images/logo.png" width="150" alt="logo" />
 				</Link>
