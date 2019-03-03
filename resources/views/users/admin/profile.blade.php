@@ -16,7 +16,7 @@
                 </h2>
                 <small>GOENERGEE </small>
             </div>
-            <img src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset(Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif"
+            <img src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset('storage/'.Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif"
                 class="img-circle circle-border m-b-md" alt="profile" width="120px">
             <ul class="list-unstyled m-t-md">
                 <div class="text-left">
@@ -38,12 +38,7 @@
                         <span class="fa fa-mobile m-r-xs"></span>
                         <label>Mobile Tel: {{Auth::user()->mobile}}</label>
                     </li>
-                   
-
-
-
-
-
+                </div>
             </ul>
         </div>
     </div>
@@ -61,12 +56,12 @@
 
                 <form id="form" action="{{route('admin.updateprofile')}}" class="wizard-big" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
-                    <h1>Account</h1>
                     <fieldset>
                         <h2>Account Information</h2>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label>Email Address</label>
                                     <input id="email" name="email" value="{{$data->email}}" type="text" class="form-control required">
                                     @if ($errors->has('email'))
                                     <div class="error">{{ $errors->first('email') }}</div>
@@ -82,20 +77,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="text-center">
-
-                                    <img alt="image" class="img-responsive" src="{{asset('images/15.png')}}">
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                    <h1>Profile</h1>
-                    <fieldset>
-                        <h2>Name Update</h2>
-                        <div class="row">
-                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <input id="first_name" name="first_name" value="{{$data->first_name}}" type="text"
@@ -110,41 +91,33 @@
                                     <div class="error">{{ $errors->first('last_name') }}</div>
                                     @endif
                                 </div>
+                                <div class="form-group">
+                                    <label>Phone No</label>
+                                    <input id="phone" name="phone" value="{{$data->mobile}}" type="text"
+                                        class="form-control required"> @if ($errors->has('phone'))
+                                    <div class="error">{{ $errors->first('phone') }}</div>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                    <div class="text-center">
-    
-                                        <img alt="image" class="img-responsive" src="{{asset('images/15.png')}}">
-    
-                                    </div>
-                                
+                        </div>
+
                     </fieldset>
 
-                    <h1>Warning</h1>
                     <fieldset>
-                            <h2>Profile Information</h2>
+                            <h2>Bio Data</h2>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Email Address</label>
-                                        <input id="email" name="email" value="{{$data->email}}" type="text"
-                                            class="form-control required"> @if ($errors->has('email'))
-                                        <div class="error">{{ $errors->first('email') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone No</label>
-                                        <input id="phone" name="phone" value="{{$data->mobile}}" type="text"
-                                            class="form-control required"> @if ($errors->has('phone'))
-                                        <div class="error">{{ $errors->first('phone') }}</div>
-                                        @endif
-                                    </div>
                                     <div class="form-group">
                                         <label>Photo</label>
                                         <input id="avatar" name="avatar" value="{{$data->avatar}}" type="file"
                                             class="form-control required"> @if ($errors->has('avatar'))
                                         <div class="error">{{ $errors->first('avatar') }}</div>
                                         @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I
+                                            agree with the Terms and Conditions.</label>
+                                            <button type="submit" class="btn btn-primary btn-block"><b>UPDATE PROFILE</b></button>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -153,18 +126,10 @@
                                             <img alt="image" class="img-responsive"  src="{{asset('images/15.png')}}">
         
                                         </div>
+                                </div>
+                            </div>
                                     
                         </fieldset>
-
-                    <h1>Finish</h1>
-                    <fieldset>
-                        <h2>Terms and Conditions</h2>
-                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I
-                            agree with the Terms and Conditions.</label>
-                    </fieldset>
-                    <div class="col-lg-6">
-                        <button type="submit" class="btn btn-primary btn-block"><b>UPDATE PROFILE</b></button>
-                    </div>
                 </form>
 
                 {{-- <form id="form" action="{{route('admin.updateprofile')}}" class="wizard-big" method="POST" enctype="multipart/form-data">

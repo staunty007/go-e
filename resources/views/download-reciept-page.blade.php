@@ -107,6 +107,9 @@
 <body>
     <div class="container">
         <h4>EKO ELECTRICITY DISTRIBUTION COMPANY HEADQUARTERS OFFICE 24/25 MARINA LAGOS</h4>
+        <br><br>
+        <h5 style="float:right; clear:both;">GoEnergee</h5>
+        <br>
         <div class="name">
             <p class="left">{{ $reciept->first_name .' '. $reciept->last_name }}</p>
             <p class="right">Account Number: <span>09778528755</span></p>
@@ -169,18 +172,19 @@
                 </tr>
             </table>
         </div>
+        <br><br><br>
         <ul class="boxes">
             <li>
                 <p>Initial Amount</p>
-                <p>NGN{{ number_format($reciept->transaction->initial_amount,2) }}</p>
+                <p>NGN {{ number_format($reciept->transaction->initial_amount,2) }}</p>
             </li>
             <li>
                 <p>Convinience Fee</p>
-                <p>NGN{{ number_format($reciept->transaction->conv_fee,2) }}</p>
+                <p>NGN {{ number_format($reciept->transaction->conv_fee,2) }}</p>
             </li>
             <li>
                 <p>Total Amount</p>
-                <p>NGN{{ number_format($reciept->transaction->total_amount,2) }}</p>
+                <p>NGN {{ number_format($reciept->transaction->total_amount,2) }}</p>
             </li>
         </ul>
     </div>
