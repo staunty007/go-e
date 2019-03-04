@@ -58,7 +58,6 @@ class NIBBSController extends Controller
             // Catch Throwable Error
             $err = curl_error($curl);
             return response()->json(['success' => false, 'error' => $th->getMessage(), 'curl_error' => $err]);
-
             // close curl connection
             curl_close($curl);
         }
@@ -246,7 +245,7 @@ class NIBBSController extends Controller
     }
 
     /**
-     * return $string
+     * @param $string
      */
     public function hashValue($string)
     {

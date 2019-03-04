@@ -149,8 +149,8 @@
                                         </a>
                                     </center>
                                 </div>
-                                @auth
-                                    {{-- Charge Customer Wallet --}}
+                                {{-- @auth
+                                    {{-- Charge Customer Wallet --}
                                     <div class="bhoechie-tab-content">
                                         <center>
                                             <button class="btn btn-primary btn-lg" id="chargeMyWallet">Charge my
@@ -158,7 +158,7 @@
                                             </button>
                                         </center>
                                     </div>
-                                @endauth
+                                @endauth --}}
                             </div>
                         </div>
                     </div>
@@ -189,49 +189,21 @@
         if (navigator.onLine) {
             amount = $("#amount").val();
             if (accountType === "PREPAID" && parseFloat(amount) < 1000) {
-                $.alert({
-                    title: 'Invalid Amount!',
-                    content: `Amount Cannot be lesser than N1000`,
-                    type: 'red',
-                    buttons: {
-                        gotit: {
-                            text: 'Got It!',
-                            btnClass: 'btn-red'
-                        }
-                    }
-                });
+                alert('Amount Cannot be lesser than 1000NGN')
                 $(".pay-meter").prop('disabled', false).html('Continue');
+                return;
             } else {
                 // alert('nooo');
                 if (amount < 100) {
-                    $.alert({
-                        title: 'Invalid Amount!',
-                        content: `Amount Cannot be lesser than N100`,
-                        type: 'red',
-                        buttons: {
-                            gotit: {
-                                text: 'Got It!',
-                                btnClass: 'btn-red'
-                            }
-                        }
-                    });
+                    alert('Amount cannot be lesser than 100NGN')
                     $(".pay-meter").prop('disabled', false).html('Continue');
+                    return;
                 } else {
                     continuePayment();
                 }
             }
         } else {
-            $.alert({
-                title: 'Ooops!',
-                content: 'Seems you"re disconnected',
-                type: 'red',
-                buttons: {
-                    ok: {
-                        text: 'Got It',
-                        btnClass: 'btn-red'
-                    }
-                }
-            });
+            alert('Please Check your internet connection');
             $(".pay-meter").prop('disabled', false).html('Continue');
         }
     })
@@ -449,17 +421,7 @@
             .then(res => res.json())
             .then(result => {
                 if (result.response.retn !== 0) {
-                    $.alert({
-                        title: 'Ooops!',
-                        content: `${result.response.error} <br> Please Ensure your enter the correct <b>Meter Number</b>`,
-                        type: 'red',
-                        buttons: {
-                            ok: {
-                                text: 'Try Again',
-                                btnClass: 'btn-red'
-                            }
-                        }
-                    });
+                    alert('Cannot Validate Customer, Please Try Again');
                     $('.pay-meter').html('Continue');
                     $(".pay-meter").prop('disabled', false);
                 } else {
@@ -526,54 +488,6 @@
             .then(res => res.json())
             .then(result => {
                 console.log(result);
-                // if(result.success == 'OK') {
-                // 	// Sufficient funds
-                // document.querySelector("#response").innerHTML =`<div class="modal-footer">
-                // 				<h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
-                // 			</div>`;
-                // console.log('charging Wallet...');
-                // let amountCommission = amount - amount * 0.02;
-                // fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
-                // 	.then(res => res.json())
-                // 	.then(chargeWalletResult => {
-                // 		console.log('Generating Token...');
-                // 		const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
-                // 		const orderId = chargeWalletResult.response.result.orderId;
-                // 		document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                // 				<h2>Completing Transaction... <div class="loader-css"></div></h2>
-                // 		</div>`;
-                // 		fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
-                // 			.then(res => res.json())
-                // 			.then(generateTokenResult => {
-                // 				// console.log(generateTokenResult.response);
-                // 				// Get the token data and redirect to receipt page
-                // 				document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                // 						<h2>Transaction Completed</h2>
-                // 						<p>Redirecting... <div class="loader-css"></div></p>
-
-                // 					</div>`;
-                // 				$.ajax({
-                // 					url: '/gtk',
-                // 					method: "POST",
-                // 					data: generateTokenResult.response,
-                // 					success: (result) => {
-                // 						if(result == "ok") {
-                // 							window.location.href = '/transaction/success';
-                // 						}
-                // 					},
-                // 					error: (err) => {
-                // 						alert('Something Bad Went Wrong, Please log a complain');
-                // 					}
-                // 				})
-                // 			})
-                // 			.catch(err => console.log(err));
-                // 	})
-                // 	.catch(err => console.log(err));
-                // }else {
-                // 	// Insufficiient Funds
-                // 	$("#chargeMyWallet").html('Charge My Wallet');
-                // 	$("#error-wallet").html('Insufficient funds, Please Top up and try again');
-                // }
             })
     })
 
