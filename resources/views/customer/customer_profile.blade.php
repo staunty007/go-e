@@ -79,17 +79,17 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <h1><span>&#8358;</span>{{ number_format($profile->customer->wallet_balance) }} </h1>
+                            <h2><span>&#8358;</span>{{ number_format($profile->customer->wallet_balance) }} </h2>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Referral Bonus Earned</h5>
+                            <h5>Referral Bonus</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1><span>&#8358;</span>{{ number_format($profile->customer->refer_bonus) }} </h1>
+                            <h2><span>&#8358;</span>{{ number_format($profile->customer->refer_bonus) }} </h2>
                         </div>
                     </div>
                 </div>
