@@ -31,23 +31,27 @@
     </div>
 
     <div class="col-lg-3 col-md-3">
-        <div class="stat stat">
-            <div class="stat__icon-wrapper stat--bg-dark-red">
-                <i data-feather="trending-up" class="stat__icon stat--color-white"></i>
-            </div>
-            <div class="stat__data">
-                <h1 class="stat__header">Average Daily Charge</h1>
-                <p class="stat__subheader"> <span>&#8358;</span>300</p>
-            </div>
+    <div class="stat stat">
+        <div class="stat__icon-wrapper stat--bg-dark_grey">
+            <i data-feather="server" class="stat__icon stat--color-white"></i>
+        </div>
+        <div class="stat__data">
+            <h1 class="stat__header">My Transactions </h1><br>
+            <p class="stat__subheader">
+
+                <h4 class="no-margins">2 <span class="pull-right">2</span></h4>
+                <small>Month<span class="pull-right">Year</span></small>
+                </p>
         </div>
     </div>
+</div>
     <div class="col-lg-3 col-md-3">
-        <div class="stat stat">
+        <div class="stat stat ">
             <div class="stat__icon-wrapper stat--bg-dark-yellow">
                 <i data-feather="zap-off" class="stat__icon stat--color-white"></i>
             </div>
             <div class="stat__data">
-                <h1 class="stat__header">Avg. Energy Consumption</h1>
+                <h1 class="stat__header">Avg. Energy Consumption</h1><br>
                 <p class="stat__subheader"> 10<span>KwH</span></p>
             </div>
         </div>

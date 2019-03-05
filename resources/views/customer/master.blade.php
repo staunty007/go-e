@@ -525,12 +525,12 @@
 }
 .onoffswitch-inner:before, .onoffswitch-inner:after {
     display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    font-size: 10px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
     box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-    content: "Top Up";
-    padding-left: 10px;
+    content: "Meter Top Up";
+    padding-left: 2px;
     background-color: #34A7C1; color: #FFFFFF;
 }
 .onoffswitch-inner:after {
