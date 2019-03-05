@@ -169,6 +169,54 @@
         </div>
     </div>
 </div><!-- /.modal-content -->
+
+    <div id="others" class="modal fade" tabindex="-1" role="dialog" style="margin-top: 35px;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <span class="text-center">
+                            <img src="/images/ekedc.jpg" width="80" class="text-center" />
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="pull-right">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Enter your Account Number</label>
+                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='post_meterno'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Enter your Order ID</label>
+                                <input type="text" name="order_id" class="meterno form-control" placeholder="E.g 1234567" id='order_id'>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-block btn-success" id="confirm-order">Confirm my Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      
+
 <script>
     $.ajaxSetup({
         headers: {
@@ -638,7 +686,11 @@
     $("#payOption").change(function () {
         var vall = $(this).val();
         if (vall !== "POSTPAID") {
-            window.location = `/guest/postpaid-service-type/${vall}`;
+            // let postpaid_no = $('#meter_no').val();
+            // $('#post_meterno').val(postpaid_no);
+            console.log(vall);
+            // window.location = `/guest/postpaid-service-type/${vall}`;
+            $(`#${vall}`).modal('show');
         }
     })
 

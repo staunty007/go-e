@@ -183,7 +183,7 @@
                         @foreach ($payments as $pay)
                             <tr>
                                 <td>{{ $loop->index }}</td>
-                                <td>{{ $pay->created_at }}</td>
+                                <td>{{ date('d/m/Y',strtotime($pay->created_at)) }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
                                 <td>Successful</td>
@@ -203,22 +203,23 @@
     </div>
     @push('scripts')
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-
+    <script>
+        const tabili = $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+                order: [['1','desc']],
+                // searching: false
+        });
+    </script>
     @endpush
     @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script>
     $(document).ready(function () {
-        const tabili = $('#myTable').DataTable({
-            dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-            order: [['0','desc']],
-            // searching: false
-        });
+        //const tabili = $('#myTable').DataTable();
 
         $('.dataTables_filter').hide();
  
@@ -244,9 +245,9 @@
                 .search($('#bank').val(), false, true)
                 .draw();
         });
-        $('#type').on('change', function() {
+        $('#type').change( function() {
             tabili
-                .columns(4)
+                .columns(5)
                 .search($('#type').val(), false, true)
                 .draw();
         });
@@ -262,7 +263,7 @@
             function(settings, data, dataIndex) {
                 var min = $('#min-date').val();
                 var max = $('#max-date').val();
-                var createdAt = data[0] || 0; // Our date column in the table
+                var createdAt = data[1] || 1; // Our date column in the table
             //createdAt=createdAt.split(" ");
                 var startDate   = moment(min, "DD/MM/YY");
                 var endDate     = moment(max, "DD/MM/YY");
@@ -276,7 +277,7 @@
         );
 
         // Re-draw the table when the a date range filter changes
-        $('.date-range-filter').change(function() {
+        $('.date-range-filter').on('change',function() {
             tabili.draw();
         });
 

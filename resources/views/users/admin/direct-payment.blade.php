@@ -272,10 +272,6 @@
 
 
             </div>
-
-
-
-
         </div>
     </div>
 
@@ -288,20 +284,47 @@
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
+    const tabili =  $(document).ready(function () {
+        $('.dataTables-example').DataTable();
     });
 </script>
- <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-dd-MMM-yyyy.js"></script>
 
     <script>
         $(document).ready(function () {
-            $('#table').DataTable({
-                order: [
-                    [0, 'desc']
-                ]
+            // const tabili = $('.dataTables-example').DataTable({
+            //     order: [
+            //         [0, 'desc']
+            //     ]
+            // });
+
+            $('#meter_account').on('keyup', function() {
+            tabili
+                .search($('#meter_account').val(), false, true)
+                .draw();
+            });
+            $('#district').on('change', function() {
+                tabili
+                    .search($('#district').val(), false, true)
+                    .draw();
+            });
+            $('#channel').on('change', function() {
+                tabili
+                    .columns(3)
+                    .search($('#channel').val(), false, true)
+                    .draw();
+            });
+            $('#bank').on('change', function() {
+                tabili
+                    .columns(8)
+                    .search($('#bank').val(), false, true)
+                    .draw();
+            });
+            $('#type').change( function() {
+                tabili
+                    .columns(5)
+                    .search($('#type').val(), false, true)
+                    .draw();
             });
         });
     </script>
