@@ -26,7 +26,7 @@ export default class Homepage extends Component {
 				<div className="jumbotron-fluid">
 					<Slider />
 				</div>
-				{/* <div className="container">
+				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-md-12 m-t-md" style={{ marginTop: '1em'}}>
 							<Search />
@@ -54,8 +54,8 @@ export default class Homepage extends Component {
 							<h6 className="text-white">Coming Soon</h6>
 						</div>
 					</div>
-				</div> */}
-				<div className="container">
+				</div>
+				{/* <div className="container">
 					<div className="row">
 						<div className="col-12">
 							<div className="card card-gradient-green" onClick={this.login}>
@@ -93,7 +93,7 @@ export default class Homepage extends Component {
 							<Search />
 						</div>
 					</div>
-					{/* Services Coming Soon */}
+					{/* Services Coming Soon *
 					<div className="row">
 						<div className="col-12 mt-3 mb-2">
 							<h4 className="text-muted">Coming Soon...</h4>
@@ -115,7 +115,7 @@ export default class Homepage extends Component {
 							</button>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		);
 	}

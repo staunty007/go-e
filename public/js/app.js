@@ -84379,118 +84379,79 @@ var Homepage = function (_Component) {
 					{ className: 'container' },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'row justify-content-center' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col-12' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'div',
-								{ className: 'card card-gradient-green', onClick: this.login },
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'div',
-									{ className: 'card-body', onClick: this.showModal },
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'div',
-										{ className: 'row' },
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'col-4 text-left' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_material_icons_react___default.a, { icon: 'account_circle', size: 60, color: '#92CA40' })
-										),
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'col-8 text-right' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'h4',
-												{ className: 'card-title', style: { color: '#92CA40' } },
-												'Sign In'
-											),
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'h6',
-												{ className: 'text-muted' },
-												'Login to your daashboard'
-											)
-										)
-									)
-								)
-							)
-						),
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							'div',
-							{ className: 'col-12' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'div',
-								{ className: 'card card-gradient-green', onClick: this.register },
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'div',
-									{ className: 'card-body', onClick: this.showModal },
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'div',
-										{ className: 'row' },
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'col-8' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'h5',
-												{ className: 'card-title', style: { color: '#92CA40' } },
-												'Create an Account'
-											),
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'h6',
-												{ className: 'text-muted' },
-												'Sign up a new account'
-											)
-										),
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'col-4 text-right' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_material_icons_react___default.a, { icon: 'supervisor_account', size: 60, color: '#92CA40' })
-										)
-									)
-								)
-							)
-						),
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							'div',
-							{ className: 'col-12' },
+							{ className: 'col-md-12 m-t-md', style: { marginTop: '1em' } },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Search__["a" /* default */], null)
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'card card-gradient' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col-12 mt-3 mb-2' },
+							{ className: 'card-body text-right' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'h4',
-								{ className: 'text-muted' },
-								'Coming Soon...'
+								{ className: 'card-title text-white' },
+								'QR'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'h6',
+								{ className: 'card-subtitle mb-2 text-white' },
+								'Easy Payment via QR Code'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'h6',
+								{ className: 'text-white' },
+								'Coming Soon '
 							)
-						),
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'card card-gradient' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col-12' },
+							{ className: 'card-body text-right' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'button',
-								{ className: 'btn btn-primary btn-block', disabled: true },
-								'QR',
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-								'Easy Payment Via QR Code'
+								'h4',
+								{ className: 'card-title text-white' },
+								'POS'
 							),
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'button',
-								{ className: 'btn btn-primary btn-block', disabled: true },
-								'POS',
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-								'Our Agents are Readily Available'
+								'h6',
+								{ className: 'card-subtitle mb-2 text-white' },
+								'Our agents are readily available'
 							),
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'button',
-								{ className: 'btn btn-primary btn-block', disabled: true },
-								'CASH',
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-								'Visit Any of Our Sales Outlet'
+								'h6',
+								{ className: 'text-white' },
+								'Coming Soon'
+							)
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'card card-gradient' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'card-body text-right' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'h4',
+								{ className: 'card-title text-white' },
+								'CASH'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'h6',
+								{ className: 'card-subtitle mb-2 text-white' },
+								'Visit any of our sales outlets'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'h6',
+								{ className: 'text-white' },
+								'Coming Soon'
 							)
 						)
 					)
@@ -95191,7 +95152,7 @@ var ConfirmEmail = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/images/accept.svg", className: "img-fluid" }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h3",
-          { className: "m-2 text-muted" },
+          { className: "m-2a text-muted" },
           "Yay!, You are now signed up!"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

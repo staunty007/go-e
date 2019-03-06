@@ -445,7 +445,7 @@
                         <ul class="nav navbar-top-links navbar-right">
                             <li>
                                 <span class="m-r-sm welcome-message" style="color: #fff"> Welcome <b>{{
-                                        Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>| GOENERGEE
+                                        ucwords(Auth::user()->first_name." ". Auth::user()->last_name) }} </b>| GOENERGEE
                                     Utility Platform </span>
                             </li>
                             <li>
