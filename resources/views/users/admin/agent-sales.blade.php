@@ -18,7 +18,7 @@
         <p class="stat__subheader">
 
           <h4 class="no-margins">10 <span class="pull-right">15</span></h4>
-          <small>Registrered<span class="pull-right">Unregistered</span></small>
+          <small>Registered<span class="pull-right">Unregistered</span></small>
         </p>
       </div>
     </div>
@@ -440,6 +440,41 @@
                   </div>
                   <!-- Tab content -->
                   <div id="Island" class="tabcontent">
+                    <div class="form-group pull-right">
+                      <input type="text" class="search form-control" placeholder="What you looking for?">
+                    </div>
+                    <span class="counter pull-right"></span>
+                    <table class="table table-hover table-bordered results">
+                      <thead>
+                        <tr>
+                          <th class="col-md-2 col-xs-2">Date</th>
+                          <th class="col-md-2 col-xs-2">ID</th>
+                          <th class="col-md-2 col-xs-2">Name</th>
+                          <th class="col-md-2 col-xs-2">Sales</th>
+                          <th class="col-md-2 col-xs-2">Channel</th>
+                          <th class="col-md-2 col-xs-2">Security Deposit</th>
+                          <th class="col-md-2 col-xs-2">Wallet balance</th>
+                        </tr>
+                        <tr class="warning no-result">
+                          <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($island_agents as $l_agent)
+                        <tr>
+                          <th scope="row">{{ $isl_agent->user_id}}</th>
+                          <td>{{ $isl_agent->agent_id }}</td>
+                          <td>{{ $isl_agent->user->first_name }}</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>{{ $isl_agent->wallet_balance }}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  <div id="Orile" class="tabcontent">
                     <div class="form-group pull-right">
                       <input type="text" class="search form-control" placeholder="What you looking for?">
                     </div>

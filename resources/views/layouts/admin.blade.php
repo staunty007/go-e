@@ -125,10 +125,10 @@
                         </div>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('home') ? 'active' :'' }}">
+                    <li class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('finance') ? 'active' :'' }}">
                         <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('backend/dashboard') ? 'active' :'' }}"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+     
                             <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
                             <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income
                                     Report</a></li>
@@ -187,7 +187,14 @@
 
 
 
-                    <li class="{{$current_route_name ='admin.meter_admin' ? 'active' : ''}}">
+                    <!-- <li class="{{$current_route_name ='admin.meter_admin' ? 'active' : ''}}">
+                        <a href="{{route('admin.meter_admin')}}">
+                            <i class="fa fa-table"></i>
+                            <span class="nav-label">Meter Management</span>
+                        </a>
+                    </li> -->
+
+                    <li class="{{$current_route_name =="admin.meter_admin" ? 'active' : ''}}">
                         <a href="{{route('admin.meter_admin')}}">
                             <i class="fa fa-table"></i>
                             <span class="nav-label">Meter Management</span>
@@ -287,8 +294,8 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message"> Hello Admin | Welcome to <strong>GOENERGEE</strong>
-                                Utility Platform.</span>
+                            <span class="m-r-sm text-muted welcome-message">  Welcome to <strong>GOENERGEE</strong>
+                                Admin  | GOENERGEE Utility Platform.</span>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
