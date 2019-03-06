@@ -193,7 +193,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Enter your Account Number</label>
-                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='post_meterno'>
+                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='post_meterno' value="">
                             </div>
                         </div>
                         <br>

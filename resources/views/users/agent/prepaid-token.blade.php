@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label for="amount"><b>Amount</b></label>
                             
-                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount" placeholder="0.00"></div>
+                            <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" step="any" required name="amount" class="form-control two-decimals meter-amount" id="amount" placeholder="0.00"></div>
                         </div>
                         <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                     </form>
@@ -83,5 +83,11 @@
     </div>
     @endsection
     @push('scripts')
-    @pay(['accountType' => 'PREPAID'])@endpay
+    @pay(['accountType' => 'PREPAID'])@
+    <script>
+        $(".two-decimals").change(function(){
+        this.value = parseFloat(this.value).toFixed(2);
+        });
+    </script>
+    
     @endpush

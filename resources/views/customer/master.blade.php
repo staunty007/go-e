@@ -610,11 +610,12 @@
                     <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' || Request::is('customer/postpaid-payment') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
-                                    Payment</a></li>
-                            <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
-
-
+                        @if(Auth::user()->customer->user_type == 1)
+                        <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
+                            Payment</a></li>
+                        @else
+                        <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
+                        @endif
                         </ul>
                     </li>
 
@@ -727,8 +728,15 @@
                                             <h6 class="modal-title">Choose Meter Option</h6>
                                         </div>
                                         <div class="modal-body">
-                                            <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                            <a href="{{ route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                                            @if(Auth::user()->customer->user_type == 1)
+                                            <center>
+                                                <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
+                                            </center>
+                                            @else
+                                            <center>
+                                                <a href="{{route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                                            </center>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -803,7 +811,7 @@
                 }
             });
 
-            feather.replace()
+            // feather.replace()
         </script>
         
         @stack('scripts')
@@ -830,7 +838,7 @@
             });
 
            
-
+        });
 
     </script>
 
@@ -1206,7 +1214,7 @@
             }
         });
 
-
+        });
     </script>
 </body>
 

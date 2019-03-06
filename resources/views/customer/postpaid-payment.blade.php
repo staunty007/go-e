@@ -66,7 +66,7 @@
 </div>
 
     
-<div class="row">
+<div class="row" style="margin-top : 20px;">
     <div class="col-md-5">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -80,7 +80,7 @@
                         <label for="Meter_number"><b>PostPaid Account or Meter Number</b></label>
 
                         <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PostPaid Account or Meter Number"
-                            required autofocus name="meter_no">
+                            required autofocus name="meter_no" value="{{ Auth::user()->customer->meter_no }}">
 
                     </div>
                     <div class="form-group">

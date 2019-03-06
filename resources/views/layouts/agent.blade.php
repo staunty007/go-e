@@ -19,9 +19,9 @@
 
     <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
 
-       <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet"> --}}
 
-    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
     <link rel="icon" href="{{asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
    
@@ -89,7 +89,7 @@
 
 
                             <li class="{{ Request::is('agent/postpaid-token') ? 'active' :'' }}"><a href="{{ route('agent.postpaid-token') }}"
-                                    target="_blank">Postpaid Token</a></li>
+                                    >Postpaid Token</a></li>
                         </ul>
                     </li>
 
