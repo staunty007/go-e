@@ -84388,70 +84388,86 @@ var Homepage = function (_Component) {
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ className: 'card card-gradient' },
+						{ className: 'row' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'card-body text-right' },
+							{ className: 'col no-padding p-0' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h4',
-								{ className: 'card-title text-white' },
-								'QR'
-							),
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h6',
-								{ className: 'card-subtitle mb-2 text-white' },
-								'Easy Payment via QR Code'
-							),
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h6',
-								{ className: 'text-white' },
-								'Coming Soon '
+								'div',
+								{ className: 'card card-gradient' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'div',
+									{ className: 'card-body text-right' },
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h4',
+										{ className: 'card-title text-white' },
+										'QR'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h6',
+										{ className: 'card-subtitle mb-2 text-white' },
+										'Easy Payment via QR Code'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h6',
+										{ className: 'text-white' },
+										'Coming Soon '
+									)
+								)
 							)
-						)
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'div',
-						{ className: 'card card-gradient' },
+						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'card-body text-right' },
+							{ className: 'col no-padding p-0' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h4',
-								{ className: 'card-title text-white' },
-								'POS'
-							),
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h6',
-								{ className: 'card-subtitle mb-2 text-white' },
-								'Our agents are readily available'
-							),
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h6',
-								{ className: 'text-white' },
-								'Coming Soon'
+								'div',
+								{ className: 'card card-gradient' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'div',
+									{ className: 'card-body text-right' },
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h4',
+										{ className: 'card-title text-white' },
+										'POS'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h6',
+										{ className: 'card-subtitle mb-2 text-white' },
+										'Our agents are readily available'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h6',
+										{ className: 'text-white' },
+										'Coming Soon'
+									)
+								)
 							)
-						)
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'div',
-						{ className: 'card card-gradient' },
+						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'card-body text-right' },
+							{ className: 'col no-padding p-0' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h4',
-								{ className: 'card-title text-white' },
-								'CASH'
-							),
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h6',
-								{ className: 'card-subtitle mb-2 text-white' },
-								'Visit any of our sales outlets'
-							),
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'h6',
-								{ className: 'text-white' },
-								'Coming Soon'
+								'div',
+								{ className: 'card card-gradient' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'div',
+									{ className: 'card-body text-right' },
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h4',
+										{ className: 'card-title text-white' },
+										'CASH'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h6',
+										{ className: 'card-subtitle mb-2 text-white' },
+										'Visit any of our sales outlets'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'h6',
+										{ className: 'text-white' },
+										'Coming Soon'
+									)
+								)
 							)
 						)
 					)

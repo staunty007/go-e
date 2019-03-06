@@ -14,6 +14,7 @@
                 <h3 class="modal-title text-center ">Confirm Details</h3>
                 <br>
                 <form id="payForm" method="POST" action="">
+                {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -236,7 +237,9 @@
         $(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
         if (navigator.onLine) {
             amount = $("#amount").val();
-            if (accountType === "PREPAID" && parseFloat(amount) < 1000) {
+            console.log(amount);
+
+            if (accountType === "PREPAID" && parseFloat(amount) < parseFloat(1000)) {
                 alert('Amount Cannot be lesser than 1000NGN')
                 $(".pay-meter").prop('disabled', false).html('Continue');
                 return;
@@ -267,20 +270,20 @@
                 payload = {
                     'meterno': '' + $("#meterno").val() + '',
                     'firstname': '' + $('#firstname').val() + '',
-                    'lastname': '' + $('#lastname').val() + '',
+                    'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + $('.meter-amount').val() + '',
+                    'amount': '' + parseFloat($('.meter-amount').val()).toFixed(2) + '',
                     'is_agent': '1',
                 };
             } else {
                 payload = {
                     'meterno': '' + $("#meterno").val() + '',
                     'firstname': '' + $('#firstname').val() + '',
-                    'lastname': '' + $('#lastname').val() + '',
+                    'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + $('.meter-amount').val() + '',
+                    'amount': '' + parseFloat($('.meter-amount').val()) + '',
                 };
             }
             continuePay(payload);
@@ -288,10 +291,12 @@
     });
 
     function continuePay(payload) {
+        {{-- console.log(payload); --}}
+        {{-- return; --}}
         $.ajax({
             url: '/payment/hold',
             method: 'POST',
-            data: payload,
+            data: { payload, _token: "{{ csrf_token() }}" },
             success: (response) => {
                 if (response.code == "ok") {
                     openOptions();
@@ -305,8 +310,9 @@
     }
 
     function payWithPaystack() {
-        var chargedAmount = parseInt(amount) + 100;
-        let reff;
+        var chargedAmount = (parseFloat(amount) + parseFloat(100)).toFixed(2);
+        {{-- console.log(chargedAmount); return; --}}
+        let reff = null;
         switch (accountType) {
             case 'POSTPAID':
                 reff = "GOEPOS" + Math.floor((Math.random() * 1000000000) + 1)
@@ -318,7 +324,7 @@
         var handler = PaystackPop.setup({
             key: "{{ env('PS_KEY') }}",
             email: document.querySelector('#emailret').value,
-            amount: chargedAmount + "00",
+            amount: (parseFloat(chargedAmount + "00")).toFixed(2),
             ref: reff,
             callback: function (response) {
                 console.log(response);
@@ -493,10 +499,10 @@
                                 
                                 
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val(parseInt($(".meter-amount").val()) + 100);
+                                $("#total").val((parseFloat($(".meter-amount").val()) + parseFloat(100)).toFixed(2));
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
-                                    $("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
+                                    $("#mvisa").html(parseFloat($(".meter-amount").val()) + parseFloat(100));
                                     confirmDetails();
                                 }, 2000);
                             } else {

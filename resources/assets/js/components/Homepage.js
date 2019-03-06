@@ -13,7 +13,7 @@ export default class Homepage extends Component {
 
 	login() {
 		this.props.history.push('/mobile/login');
-	};
+	}
 
 	register() {
 		this.props.history.push('/mobile/register');
@@ -22,37 +22,45 @@ export default class Homepage extends Component {
 	render() {
 		return (
 			<div>
-				
 				<div className="jumbotron-fluid">
 					<Slider />
 				</div>
 				<div className="container">
 					<div className="row justify-content-center">
-						<div className="col-md-12 m-t-md" style={{ marginTop: '1em'}}>
+						<div className="col-md-12 m-t-md" style={{ marginTop: '1em' }}>
 							<Search />
 						</div>
 					</div>
-
-					<div className="card card-gradient">
-						<div className="card-body text-right">
-							<h4 className="card-title text-white">QR</h4>
-							<h6 className="card-subtitle mb-2 text-white">Easy Payment via QR Code</h6>
-							<h6 className="text-white">Coming Soon	</h6>
+					<div className="row">
+						<div className="col no-padding p-0">
+							<div className="card card-gradient">
+								<div className="card-body text-right">
+									<h4 className="card-title text-white">QR</h4>
+									<h6 className="card-subtitle mb-2 text-white">Easy Payment via QR Code</h6>
+									<h6 className="text-white">Coming Soon </h6>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div className="card card-gradient">
-						<div className="card-body text-right">
-							<h4 className="card-title text-white">POS</h4>
-							<h6 className="card-subtitle mb-2 text-white">Our agents are readily available</h6>
-							<h6 className="text-white">Coming Soon</h6>
+						<div className="col no-padding p-0">
+							<div className="card card-gradient">
+								<div className="card-body text-right">
+									<h4 className="card-title text-white">POS</h4>
+									<h6 className="card-subtitle mb-2 text-white">Our agents are readily available</h6>
+									<h6 className="text-white">Coming Soon</h6>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div className="card card-gradient">
-						<div className="card-body text-right">
-							<h4 className="card-title text-white">CASH</h4>
-							<h6 className="card-subtitle mb-2 text-white">Visit any of our sales outlets</h6>
-							<h6 className="text-white">Coming Soon</h6>
+						
+						<div className="col no-padding p-0">
+							<div className="card card-gradient">
+								<div className="card-body text-right">
+									<h4 className="card-title text-white">CASH</h4>
+									<h6 className="card-subtitle mb-2 text-white">Visit any of our sales outlets</h6>
+									<h6 className="text-white">Coming Soon</h6>
+								</div>
+							</div>
 						</div>
+						
 					</div>
 				</div>
 				{/* <div className="container">
