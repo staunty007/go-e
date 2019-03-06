@@ -191,7 +191,7 @@
             <div style="overflow-x:auto;">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" id="tablo">
                             <thead>
                                 <tr>
                                     <th data-hide="phone">Trans Date</th>
@@ -497,25 +497,73 @@
     });
 </script>
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
-
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
-</script>
-<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-dd-MMM-yyyy.js"></script>
 
     <script>
         $(document).ready(function () {
-            $('#table').DataTable({
+        let tabili =  $('#tablo').DataTable({
                 order: [
                     [0, 'desc']
                 ]
             });
+            
+        $('#meter_account').on('keyup change', function() {
+        tabili
+            .search($('#meter_account').val(), false, true)
+            .draw();
+        });
+        $('#district').on('change', function() {
+            tabili
+                .search($('#district').val(), false, true)
+                .draw();
+        });
+        $('#channel').on('change', function() {
+            tabili
+                .columns(3)
+                .search($('#channel').val(), false, true)
+                .draw();
+        });
+        $('#bank').on('change', function() {
+            tabili
+                .columns(8)
+                .search($('#bank').val(), false, true)
+                .draw();
+        });
+        $('#type').change( function() {
+            tabili
+                .columns(2)
+                .search($('#type').val(), false, true)
+                .draw();
+        });
+
+        $('.input-daterange input').each(function() {
+            $(this).datepicker('clearDates');
+        });
+
+
+        // Extend dataTables search
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var min = $('#min-date').val();
+                var max = $('#max-date').val();
+                var createdAt = data[0] || 0; // Our date column in the table
+            //createdAt=createdAt.split(" ");
+                var startDate   = moment(min, "DD/MM/YY");
+                var endDate     = moment(max, "DD/MM/YY");
+                var diffDate = moment(createdAt, "DD/MM/YY");
+
+                if ( (min == "" || max == "") || diffDate.isBetween(startDate, endDate, 'days'))
+                {  return true;  }
+                
+                return false;
+            }
+        );
+
+        // Re-draw the table when the a date range filter changes
+        $('.date-range-filter').change(function() {
+            tabili.draw();
+        });
         });
     </script>
     <script src="{{asset('js/index.js')}}"></script>

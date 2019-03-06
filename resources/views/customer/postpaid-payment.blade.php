@@ -66,7 +66,7 @@
 </div>
 
     
-<div class="row">
+<div class="row" style="margin-top : 20px;">
     <div class="col-md-5">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -80,15 +80,14 @@
                         <label for="Meter_number"><b>PostPaid Account or Meter Number</b></label>
 
                         <input id="meterno" type="text" class="form-control meterno" placeholder="Enter Your PostPaid Account or Meter Number"
-                            required autofocus name="meter_no">
+                            required autofocus name="meter_no" value="{{ Auth::user()->customer->meter_no }}">
 
                     </div>
                     <div class="form-group">
                         <label for="postpaid_category"><b>Select POSTPAID Service Category</b></label>
                         <select class="form-control m-b" name="postpaid_category" id="payOption">
                             <option value="POSTPAID">Postpaid Payment</option>
-                            <option value="others">Other Postpaid Payments</option>
-
+                            <option data-target="#others" value="others">Other Postpaid Payments</option>
                         </select>
 
                     </div>
@@ -111,103 +110,8 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-7">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4>Customer Energy Utilization Report</h4>
-            </div>
+    
 
-
-
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example">
-                    <thead>
-                        <tr>
-                            <th>Trans ref #</th>
-                            <th>Date </th>
-                            <th>BSSD Token</th>
-                            <th>Amount Paid</th>
-                            <th>Meter Type</th>
-                            <th>Meter No</th>
-
-
-
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                            <td>750</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
 
 
 

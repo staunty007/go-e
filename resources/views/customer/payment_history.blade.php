@@ -3,6 +3,7 @@
 @section('customer-section')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
 <div class="row">
     <!--stats card-->
     <div class="col-lg-4 col-md-4">
@@ -92,7 +93,7 @@
     </div>
 </div> -->
 
-<div class="row">
+<div class="row" style="margin-top : 20px;">
 <div class="col-lg-12">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -104,11 +105,11 @@
                     <h4>Filter By Date</h4>
                     <div class="input-group input-daterange">
 
-                        <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="dd/mm/yy"
+                        <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="dd/mm/yyyy"
                             placeholder="From:">
 
                         <div class="input-group-addon">to</div>
-                        <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="dd/mm/yy"
+                        <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="dd/mm/yyyy"
                             placeholder="To:">
                     </div>
                 </div>
@@ -211,8 +212,8 @@
                         <tbody>
                             @foreach ($payments as $pay)
                             <tr>
-                                <td>{{ $loop->index }}</td>
-                                <td>{{ $pay->created_at }}</td>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ date('d/m/Y',strtotime($pay->created_at)) }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
                                 <td>Successful</td>
@@ -230,89 +231,88 @@
                 </div>
             </div>
         </div>
-        @push('scripts')
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    </div>
+    @push('scripts')
+    <script src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script>
+        const tabili = $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+                order: [['1','asc']],
+                // searching: false
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            //const tabili = $('#myTable').DataTable();
 
-
-        @endpush
-        @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                const tabili = $('#myTable').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
-                    ],
-                    order: [
-                        ['0', 'desc']
-                    ],
-                    // searching: false
-                });
-
-                $('.dataTables_filter').hide();
-
-                $('#meter_account').on('keyup', function () {
-                    tabili
-                        .search($('#meter_account').val(), false, true)
-                        .draw();
-                });
-                $('#district').on('change', function () {
-                    tabili
-                        .search($('#district').val(), false, true)
-                        .draw();
-                });
-                $('#channel').on('change', function () {
-                    tabili
-                        .columns(3)
-                        .search($('#channel').val(), false, true)
-                        .draw();
-                });
-                $('#bank').on('change', function () {
-                    tabili
-                        .columns(8)
-                        .search($('#bank').val(), false, true)
-                        .draw();
-                });
-                $('#type').on('change', function () {
-                    tabili
-                        .columns(4)
-                        .search($('#type').val(), false, true)
-                        .draw();
-                });
-
-                // $(".pickadate").pickadate();
-                $('.input-daterange input').each(function () {
-                    $(this).datepicker('clearDates');
-                });
-
-
-                // Extend dataTables search
-                $.fn.dataTable.ext.search.push(
-                    function (settings, data, dataIndex) {
-                        var min = $('#min-date').val();
-                        var max = $('#max-date').val();
-                        var createdAt = data[0] || 0; // Our date column in the table
-                        //createdAt=createdAt.split(" ");
-                        var startDate = moment(min, "DD/MM/YY");
-                        var endDate = moment(max, "DD/MM/YY");
-                        var diffDate = moment(createdAt, "DD/MM/YY");
-
-                        if ((min == "" || max == "") || diffDate.isBetween(startDate, endDate, 'days')) {
-                            return true;
-                        }
-
-                        return false;
-                    }
-                );
-
-                // Re-draw the table when the a date range filter changes
-                $('.date-range-filter').change(function () {
-                    tabili.draw();
-                });
-
+            $('.input-daterange input').each(function() {
+                $(this).datepicker('clearDates');
             });
-        </script>
-        @endpush
-        @endsection
+
+            $('.dataTables_filter').hide();
+    
+            $('#meter_account').on('keyup', function() {
+            tabili
+                    .search($('#meter_account').val(), false, true)
+                    .draw();
+            });
+            $('#district').on('change', function() {
+                tabili
+                    .search($('#district').val(), false, true)
+                    .draw();
+            });
+            $('#channel').on('change', function() {
+                tabili
+                    .columns(3)
+                    .search($('#channel').val(), false, true)
+                    .draw();
+            });
+            $('#bank').on('change', function() {
+                tabili
+                    .columns(8)
+                    .search($('#bank').val(), false, true)
+                    .draw();
+            });
+            $('#type').change( function() {
+                tabili
+                    .columns(5)
+                    .search($('#type').val(), false, true)
+                    .draw();
+            });
+
+
+
+            // Extend dataTables search
+            $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var min = $('#min-date').val();
+                var max = $('#max-date').val();
+                var createdAt = data[1] || 0; // Our date column in the table
+
+                //createdAt=createdAt.split(" ");
+                var startDate   = moment(min, "DD/MM/YYYY");
+                var endDate     = moment(max, "DD/MM/YYYY");
+                var diffDate = moment(createdAt, "DD/MM/YYYY");
+
+                if ( (min == "" || max == "") || diffDate.isBetween(startDate, endDate, 'days'))
+                {  return true;  }
+                
+                return false;
+            }
+            );
+
+            // Re-draw the table when the a date range filter changes
+            $('.date-range-filter').change(function() {
+            tabili.draw();
+            alert("Hello");
+            });
+
+        });
+    </script>
+    @endpush
+    @endsection

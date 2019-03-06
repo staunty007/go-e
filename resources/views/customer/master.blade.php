@@ -388,11 +388,12 @@
                     <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' || Request::is('customer/postpaid-payment') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
-                                    Payment</a></li>
-                            <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
-
-
+                        @if(Auth::user()->customer->user_type == 1)
+                        <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
+                            Payment</a></li>
+                        @else
+                        <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
+                        @endif
                         </ul>
                     </li>
 
@@ -490,26 +491,27 @@
 
 
 
-
-
-
-
-                                </div>
-                                <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    <span class="sr-only">Close</span>
-                                                </button>
-                                                <h6 class="modal-title">Choose Meter Option</h6>
-                                            </div>
-                                            <div class="modal-body">
+                            </div>
+                            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                            <h6 class="modal-title">Choose Meter Option</h6>
+                                        </div>
+                                        <div class="modal-body">
+                                            @if(Auth::user()->customer->user_type == 1)
+                                            <center>
                                                 <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
-                                                    class="btn btn-success">Postpaid</a>
-                                            </div>
+                                            </center>
+                                            @else
+                                            <center>
+                                                <a href="{{route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                                            </center>
+                                            @endif
                                         </div>
 
                                     </div>
@@ -584,42 +586,45 @@
                 }
             });
 
-            feather.replace()
+            // feather.replace()
         </script>
 
         @stack('scripts')
         <script>
-            $(document).ready(function () {
+        $(document).ready(function(){
 
+            
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, { color: '#1AB394' });
 
-                        var elem = document.querySelector('.js-switch');
-                        var switchery = new Switchery(elem, {
-                            color: '#1AB394'
-                        });
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
 
-                        var elem_2 = document.querySelector('.js-switch_2');
-                        var switchery_2 = new Switchery(elem_2, {
-                            color: '#ED5565'
-                        });
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
-                        var elem_3 = document.querySelector('.js-switch_3');
-                        var switchery_3 = new Switchery(elem_3, {
-                            color: '#1AB394'
-                        });
+            var elem_4 = document.querySelector('.js-switch_4');
+            var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+                switchery_4.disable();
 
-                        var elem_4 = document.querySelector('.js-switch_4');
-                        var switchery_4 = new Switchery(elem_4, {
-                            color: '#f8ac59'
-                        });
-                        switchery_4.disable();
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
 
-                        $('.i-checks').iCheck({
-                            checkboxClass: 'icheckbox_square-green',
-                            radioClass: 'iradio_square-green'
-                        });
-        </script>
-        <!-- Date range picker -->
-        <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+           
+        });
+
+    </script>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
         <!-- Select2 -->
         <script src="js/plugins/select2/select2.full.min.js"></script>
@@ -887,8 +892,101 @@
                 
             });
 
-            
-        </script>
+
+        });
+
+        $('.chosen-select').chosen({width: "100%"});
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+
+        $(".dial").knob();
+
+        var basic_slider = document.getElementById('basic_slider');
+
+        noUiSlider.create(basic_slider, {
+            start: 40,
+            behaviour: 'tap',
+            connect: 'upper',
+            range: {
+                'min':  20,
+                'max':  80
+            }
+        });
+
+        var range_slider = document.getElementById('range_slider');
+
+        noUiSlider.create(range_slider, {
+            start: [ 40, 60 ],
+            behaviour: 'drag',
+            connect: true,
+            range: {
+                'min':  20,
+                'max':  80
+            }
+        });
+
+        var drag_fixed = document.getElementById('drag-fixed');
+
+        noUiSlider.create(drag_fixed, {
+            start: [ 40, 60 ],
+            behaviour: 'drag-fixed',
+            connect: true,
+            range: {
+                'min':  20,
+                'max':  80
+            }
+        });
+
+        });
+    </script>
 </body>
 
 </html>
