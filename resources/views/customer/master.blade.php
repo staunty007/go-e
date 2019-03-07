@@ -13,6 +13,7 @@
     <link href="/customer/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" href="/customer/img/favicon.png" type='image/x-icon'>
+    <link href="{{ asset('css/barchart.css') }}" rel="stylesheet">
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {},
@@ -27,6 +28,12 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
+   <style>
+        #chartdiv {
+          width: 100%;
+          height: 400px;
+        }
+        </style>
     <!--End of Tawk.to Script-->
     {{-- <style>
         #myModal6:active {
@@ -35,6 +42,7 @@
         </style> --}}
 
     @stack('style')
+    <link href="css/column.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
@@ -489,29 +497,22 @@
                                         </label>
                                     </div>
 
-
-
-                            </div>
-                            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">
-                                                <span aria-hidden="true">&times;</span>
-                                                <span class="sr-only">Close</span>
-                                            </button>
-                                            <h6 class="modal-title">Choose Meter Option</h6>
-                                        </div>
-                                        <div class="modal-body">
-                                            @if(Auth::user()->customer->user_type == 1)
-                                            <center>
+                                </div>
+                                <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    <span class="sr-only">Close</span>
+                                                </button>
+                                                <h6 class="modal-title">Choose Meter Option</h6>
+                                            </div>
+                                            <div class="modal-body">
                                                 <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                            </center>
-                                            @else
-                                            <center>
-                                                <a href="{{route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
-                                            </center>
-                                            @endif
+                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
+                                                    class="btn btn-success">Postpaid</a>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -568,6 +569,11 @@
 
         <!-- Mainly scripts -->
 
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
         <script src="/customer/js/bootstrap.min.js"></script>
         <script src="/customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="/customer/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -590,16 +596,39 @@
         </script>
 
         @stack('scripts')
-       
+        <script>
+            $(document).ready(function () {
 
-    <!-- Mainly scripts -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+                        var elem = document.querySelector('.js-switch');
+                        var switchery = new Switchery(elem, {
+                            color: '#1AB394'
+                        });
+
+                        var elem_2 = document.querySelector('.js-switch_2');
+                        var switchery_2 = new Switchery(elem_2, {
+                            color: '#ED5565'
+                        });
+
+                        var elem_3 = document.querySelector('.js-switch_3');
+                        var switchery_3 = new Switchery(elem_3, {
+                            color: '#1AB394'
+                        });
+
+                        var elem_4 = document.querySelector('.js-switch_4');
+                        var switchery_4 = new Switchery(elem_4, {
+                            color: '#f8ac59'
+                        });
+                        switchery_4.disable();
+
+                        $('.i-checks').iCheck({
+                            checkboxClass: 'icheckbox_square-green',
+                            radioClass: 'iradio_square-green'
+                        });
+            });
+        </script>
+        <!-- Date range picker -->
+        <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 
  
 
@@ -635,218 +664,322 @@
         <script src="js/plugins/fullcalendar/moment.min.js"></script>
 
         
-
+        <script>
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+                
+                var chart = am4core.create("chartdiv", am4charts.XYChart);
+                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+                
+                chart.data = [
+                  {
+                    energy: "Jan",
+                    visits: 23725
+                  },
+                  {
+                    energy: "Feb",
+                    visits: 1882
+                  },
+                  {
+                    energy: "Mar",
+                    visits: 1809
+                  },
+                  {
+                    energy: "Apr",
+                    visits: 1322
+                  },
+                  {
+                    energy: "May",
+                    visits: 1122
+                  },
+                  {
+                    energy: "Jun",
+                    visits: 1114
+                  },
+                  {
+                    energy: "Jul",
+                    visits: 984
+                  },
+                  {
+                    energy: "Aug",
+                    visits: 711
+                  },
+                  {
+                    energy: "Sep",
+                    visits: 665
+                  },
+                  {
+                    energy: "Oct",
+                    visits: 580
+                  },
+                  {
+                    energy: "Nov",
+                    visits: 443
+                  },
+                  {
+                    energy: "Dec",
+                    visits: 441
+                  }
+                ];
+                
+                var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                categoryAxis.renderer.grid.template.location = 0;
+                categoryAxis.dataFields.category = "energy";
+                
+                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                valueAxis.min = 0;
+                valueAxis.max = 24000;
+                valueAxis.strictMinMax = true;
+                valueAxis.renderer.minGridDistance = 30;
+                // axis break
+                var axisBreak = valueAxis.axisBreaks.create();
+                axisBreak.startValue = 2100;
+                axisBreak.endValue = 22900;
+                axisBreak.breakSize = 0.005;
+                
+                // make break expand on hover
+                var hoverState = axisBreak.states.create("hover");
+                hoverState.properties.breakSize = 1;
+                hoverState.properties.opacity = 0.1;
+                hoverState.transitionDuration = 1500;
+                
+                axisBreak.defaultState.transitionDuration = 1000;
+                /*
+                // this is exactly the same, but with events
+                axisBreak.events.on("over", function() {
+                  axisBreak.animate(
+                    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+                    1500,
+                    am4core.ease.sinOut
+                  );
+                });
+                axisBreak.events.on("out", function() {
+                  axisBreak.animate(
+                    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+                    1000,
+                    am4core.ease.quadOut
+                  );
+                });*/
+                
+                var series = chart.series.push(new am4charts.ColumnSeries());
+                series.dataFields.categoryX = "energy";
+                series.dataFields.valueY = "visits";
+                series.columns.template.tooltipText = "{valueY.value}";
+                series.columns.template.tooltipY = 0;
+                series.columns.template.strokeOpacity = 0;
+                
+                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+                series.columns.template.adapter.add("fill", function(fill, target) {
+                  return chart.colors.getIndex(target.dataItem.index);
+                });
+                </script>
+                
         
 
         <script>
-            $(document).ready(function () {
+        $(document).ready(function () {
 
-                $('.tagsinput').tagsinput({
-                    tagClass: 'label label-primary'
-                });
-
-                var $image = $(".image-crop > img")
-                $($image).cropper({
-                    aspectRatio: 1.618,
-                    preview: ".img-preview",
-                    done: function (data) {
-                        // Output the result data for cropping image.
-                    }
-                });
-
-                var $inputImage = $("#inputImage");
-                if (window.FileReader) {
-                    $inputImage.change(function () {
-                        var fileReader = new FileReader(),
-                            files = this.files,
-                            file;
-
-                        if (!files.length) {
-                            return;
-                        }
-
-                        file = files[0];
-
-                        if (/^image\/\w+$/.test(file.type)) {
-                            fileReader.readAsDataURL(file);
-                            fileReader.onload = function () {
-                                $inputImage.val("");
-                                $image.cropper("reset", true).cropper("replace", this.result);
-                            };
-                        } else {
-                            showMessage("Please choose an image file.");
-                        }
-                    });
-                } else {
-                    $inputImage.addClass("hide");
-                }
-
-                $("#download").click(function () {
-                    window.open($image.cropper("getDataURL"));
-                });
-
-                $("#zoomIn").click(function () {
-                    $image.cropper("zoom", 0.1);
-                });
-
-                $("#zoomOut").click(function () {
-                    $image.cropper("zoom", -0.1);
-                });
-
-                $("#rotateLeft").click(function () {
-                    $image.cropper("rotate", 45);
-                });
-
-                $("#rotateRight").click(function () {
-                    $image.cropper("rotate", -45);
-                });
-
-                $("#setDrag").click(function () {
-                    $image.cropper("setDragMode", "crop");
-                });
-
-                $('#data_1 .input-group.date').datepicker({
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    calendarWeeks: true,
-                    autoclose: true
-                });
-
-                $('#data_2 .input-group.date').datepicker({
-                    startView: 1,
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    autoclose: true,
-                    format: "dd/mm/yyyy"
-                });
-
-                $('#data_3 .input-group.date').datepicker({
-                    startView: 2,
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    autoclose: true
-                });
-
-                $('#data_4 .input-group.date').datepicker({
-                    minViewMode: 1,
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    forceParse: false,
-                    autoclose: true,
-                    todayHighlight: true
-                });
-
-                $('#data_5 .input-daterange').datepicker({
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    autoclose: true
-                });
-
-                var elem = document.querySelector('.js-switch');
-                var switchery = new Switchery(elem, {
-                    color: '#1AB394'
-                });
-
-                var elem_2 = document.querySelector('.js-switch_2');
-                var switchery_2 = new Switchery(elem_2, {
-                    color: '#ED5565'
-                });
-
-                var elem_3 = document.querySelector('.js-switch_3');
-                var switchery_3 = new Switchery(elem_3, {
-                    color: '#1AB394'
-                });
-
-                var elem_4 = document.querySelector('.js-switch_4');
-                var switchery_4 = new Switchery(elem_4, {
-                    color: '#f8ac59'
-                });
-                switchery_4.disable();
-
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green'
-                });
-
-                $('.demo1').colorpicker();
-
-                var divStyle = $('.back-change')[0].style;
-                $('#demo_apidemo').colorpicker({
-                    color: divStyle.backgroundColor
-                }).on('changeColor', function (ev) {
-                    divStyle.backgroundColor = ev.color.toHex();
-                });
-
-                $('.clockpicker').clockpicker();
-
-                $('input[name="daterange"]').daterangepicker();
-
-                $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' +
-                    moment().format('MMMM D, YYYY'));
-
-                $('#reportrange').daterangepicker({
-                    format: 'MM/DD/YYYY',
-                    startDate: moment().subtract(29, 'days'),
-                    endDate: moment(),
-                    minDate: '01/01/2012',
-                    maxDate: '12/31/2015',
-                    dateLimit: {
-                        days: 60
-                    },
-                    showDropdowns: true,
-                    showWeekNumbers: true,
-                    timePicker: false,
-                    timePickerIncrement: 1,
-                    timePicker12Hour: true,
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(
-                            1, 'month').endOf('month')]
-                    },
-                    opens: 'right',
-                    drops: 'down',
-                    buttonClasses: ['btn', 'btn-sm'],
-                    applyClass: 'btn-primary',
-                    cancelClass: 'btn-default',
-                    separator: ' to ',
-                    locale: {
-                        applyLabel: 'Submit',
-                        cancelLabel: 'Cancel',
-                        fromLabel: 'From',
-                        toLabel: 'To',
-                        customRangeLabel: 'Custom',
-                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                            'August', 'September', 'October', 'November', 'December'
-                        ],
-                        firstDay: 1
-                    }
-                }, function (start, end, label) {
-                    console.log(start.toISOString(), end.toISOString(), label);
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                        'MMMM D, YYYY'));
-                });
-
-                $(".select2_demo_1").select2();
-                $(".select2_demo_2").select2();
-                $(".select2_demo_3").select2({
-                    placeholder: "Select a state",
-                    allowClear: true
-                });
-
-
-                
+            $('.tagsinput').tagsinput({
+                tagClass: 'label label-primary'
             });
 
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
 
-        });
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+            $("#download").click(function () {
+                window.open($image.cropper("getDataURL"));
+            });
+
+            $("#zoomIn").click(function () {
+                $image.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut").click(function () {
+                $image.cropper("zoom", -0.1);
+            });
+
+            $("#rotateLeft").click(function () {
+                $image.cropper("rotate", 45);
+            });
+
+            $("#rotateRight").click(function () {
+                $image.cropper("rotate", -45);
+            });
+
+            $("#setDrag").click(function () {
+                $image.cropper("setDragMode", "crop");
+            });
+
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $('#data_2 .input-group.date').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+
+            $('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            $('#data_4 .input-group.date').datepicker({
+                minViewMode: 1,
+                keyboardNavigation: false,
+                forceParse: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, {
+                color: '#1AB394'
+            });
+
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, {
+                color: '#ED5565'
+            });
+
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, {
+                color: '#1AB394'
+            });
+
+            var elem_4 = document.querySelector('.js-switch_4');
+            var switchery_4 = new Switchery(elem_4, {
+                color: '#f8ac59'
+            });
+            switchery_4.disable();
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+
+            $('.demo1').colorpicker();
+
+            var divStyle = $('.back-change')[0].style;
+            $('#demo_apidemo').colorpicker({
+                color: divStyle.backgroundColor
+            }).on('changeColor', function (ev) {
+                divStyle.backgroundColor = ev.color.toHex();
+            });
+
+            $('.clockpicker').clockpicker();
+
+            $('input[name="daterange"]').daterangepicker();
+
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' +
+                moment().format('MMMM D, YYYY'));
+
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(
+                        1, 'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                        'August', 'September', 'October', 'November', 'December'
+                    ],
+                    firstDay: 1
+                }
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                    'MMMM D, YYYY'));
+            });
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+       
 
         $('.chosen-select').chosen({width: "100%"});
 
@@ -937,8 +1070,9 @@
                 'max':  80
             }
         });
+    
+    });
 
-        });
     </script>
 </body>
 

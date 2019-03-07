@@ -95,7 +95,7 @@
 
 
 
-    <div class="row">
+    <div class="row" style="margin-top: 20px;">
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="panel panel-primary">
