@@ -13,6 +13,7 @@
     <link href="/customer/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" href="/customer/img/favicon.png" type='image/x-icon'>
+    <link href="{{ asset('css/barchart.css') }}" rel="stylesheet">
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {},
@@ -27,6 +28,12 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
+   <style>
+        #chartdiv {
+          width: 100%;
+          height: 400px;
+        }
+        </style>
     <!--End of Tawk.to Script-->
     {{-- <style>
         #myModal6:active {
@@ -35,6 +42,7 @@
         </style> --}}
 
     @stack('style')
+    <link href="css/column.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
@@ -559,6 +567,11 @@
 
         <!-- Mainly scripts -->
 
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
         <script src="/customer/js/bootstrap.min.js"></script>
         <script src="/customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="/customer/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -615,22 +628,14 @@
         <!-- Date range picker -->
         <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 
-        <!-- Select2 -->
-        <script src="js/plugins/select2/select2.full.min.js"></script>
-        <!-- Mainly scripts -->
-        <script src="js/jquery-3.1.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+ 
 
         <!-- Custom and plugin javascript -->
         <script src="js/inspinia.js"></script>
         <script src="js/plugins/pace/pace.min.js"></script>
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-        <!-- Chosen -->
-        <script src="js/plugins/chosen/chosen.jquery.js"></script>
-
-        <!-- JSKnob -->
-        <script src="js/plugins/jsKnob/jquery.knob.js"></script>
+        
 
         <!-- Input Mask-->
         <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
@@ -638,15 +643,8 @@
         <!-- Data picker -->
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-        <!-- NouSlider -->
-        <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-        
-        <!-- IonRangeSlider -->
-        <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-        <!-- iCheck -->
-        <script src="js/plugins/iCheck/icheck.min.js"></script>
+       
+       
 
         <!-- MENU -->
         <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -664,15 +662,118 @@
         <script src="js/plugins/fullcalendar/moment.min.js"></script>
 
         
-
-        <!-- TouchSpin -->
-        <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
-        <!-- Tags Input -->
-        <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-
-        <!-- Dual Listbox -->
-        <script src="js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+        <script>
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+                
+                var chart = am4core.create("chartdiv", am4charts.XYChart);
+                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+                
+                chart.data = [
+                  {
+                    energy: "Jan",
+                    visits: 23725
+                  },
+                  {
+                    energy: "Feb",
+                    visits: 1882
+                  },
+                  {
+                    energy: "Mar",
+                    visits: 1809
+                  },
+                  {
+                    energy: "Apr",
+                    visits: 1322
+                  },
+                  {
+                    energy: "May",
+                    visits: 1122
+                  },
+                  {
+                    energy: "Jun",
+                    visits: 1114
+                  },
+                  {
+                    energy: "Jul",
+                    visits: 984
+                  },
+                  {
+                    energy: "Aug",
+                    visits: 711
+                  },
+                  {
+                    energy: "Sep",
+                    visits: 665
+                  },
+                  {
+                    energy: "Oct",
+                    visits: 580
+                  },
+                  {
+                    energy: "Nov",
+                    visits: 443
+                  },
+                  {
+                    energy: "Dec",
+                    visits: 441
+                  }
+                ];
+                
+                var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                categoryAxis.renderer.grid.template.location = 0;
+                categoryAxis.dataFields.category = "energy";
+                
+                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                valueAxis.min = 0;
+                valueAxis.max = 24000;
+                valueAxis.strictMinMax = true;
+                valueAxis.renderer.minGridDistance = 30;
+                // axis break
+                var axisBreak = valueAxis.axisBreaks.create();
+                axisBreak.startValue = 2100;
+                axisBreak.endValue = 22900;
+                axisBreak.breakSize = 0.005;
+                
+                // make break expand on hover
+                var hoverState = axisBreak.states.create("hover");
+                hoverState.properties.breakSize = 1;
+                hoverState.properties.opacity = 0.1;
+                hoverState.transitionDuration = 1500;
+                
+                axisBreak.defaultState.transitionDuration = 1000;
+                /*
+                // this is exactly the same, but with events
+                axisBreak.events.on("over", function() {
+                  axisBreak.animate(
+                    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+                    1500,
+                    am4core.ease.sinOut
+                  );
+                });
+                axisBreak.events.on("out", function() {
+                  axisBreak.animate(
+                    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+                    1000,
+                    am4core.ease.quadOut
+                  );
+                });*/
+                
+                var series = chart.series.push(new am4charts.ColumnSeries());
+                series.dataFields.categoryX = "energy";
+                series.dataFields.valueY = "visits";
+                series.columns.template.tooltipText = "{valueY.value}";
+                series.columns.template.tooltipY = 0;
+                series.columns.template.strokeOpacity = 0;
+                
+                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+                series.columns.template.adapter.add("fill", function(fill, target) {
+                  return chart.colors.getIndex(target.dataItem.index);
+                });
+                </script>
+                
+        
 
         <script>
         $(document).ready(function () {
