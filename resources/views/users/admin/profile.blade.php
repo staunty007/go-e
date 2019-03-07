@@ -120,13 +120,13 @@
                                             <button type="submit" class="btn btn-primary btn-block"><b>UPDATE PROFILE</b></button>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                         <div class="text-center">
         
                                             <img alt="image" class="img-responsive"  src="{{asset('images/15.png')}}">
         
                                         </div>
-                                </div>
+                                </div> --}}
                             </div>
                                     
                         </fieldset>
