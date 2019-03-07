@@ -491,28 +491,6 @@
 
 
 
-<<<<<<< HEAD
-
-
-
-
-                                </div>
-                                <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    <span class="sr-only">Close</span>
-                                                </button>
-                                                <h6 class="modal-title">Choose Meter Option</h6>
-                                            </div>
-                                            <div class="modal-body">
-                                                <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
-                                                    class="btn btn-success">Postpaid</a>
-                                            </div>
-=======
                             </div>
                             <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
@@ -534,7 +512,6 @@
                                                 <a href="{{route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
                                             </center>
                                             @endif
->>>>>>> fec856daf5738c1ba5686260015dbb3292838ec5
                                         </div>
 
                                     </div>
@@ -613,65 +590,7 @@
         </script>
 
         @stack('scripts')
-        <script>
-<<<<<<< HEAD
-            $(document).ready(function () {
-
-
-                        var elem = document.querySelector('.js-switch');
-                        var switchery = new Switchery(elem, {
-                            color: '#1AB394'
-                        });
-
-                        var elem_2 = document.querySelector('.js-switch_2');
-                        var switchery_2 = new Switchery(elem_2, {
-                            color: '#ED5565'
-                        });
-
-                        var elem_3 = document.querySelector('.js-switch_3');
-                        var switchery_3 = new Switchery(elem_3, {
-                            color: '#1AB394'
-                        });
-
-                        var elem_4 = document.querySelector('.js-switch_4');
-                        var switchery_4 = new Switchery(elem_4, {
-                            color: '#f8ac59'
-                        });
-                        switchery_4.disable();
-
-                        $('.i-checks').iCheck({
-                            checkboxClass: 'icheckbox_square-green',
-                            radioClass: 'iradio_square-green'
-                        });
-        </script>
-        <!-- Date range picker -->
-        <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
-=======
-        $(document).ready(function(){
-
-            
-            var elem = document.querySelector('.js-switch');
-            var switchery = new Switchery(elem, { color: '#1AB394' });
-
-            var elem_2 = document.querySelector('.js-switch_2');
-            var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
-
-            var elem_3 = document.querySelector('.js-switch_3');
-            var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-            var elem_4 = document.querySelector('.js-switch_4');
-            var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
-                switchery_4.disable();
-
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green'
-            });
-
-           
-        });
-
-    </script>
+       
 
     <!-- Mainly scripts -->
     <script src="js/jquery-3.1.1.min.js"></script>
@@ -681,24 +600,15 @@
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
->>>>>>> fec856daf5738c1ba5686260015dbb3292838ec5
 
-        <!-- Select2 -->
-        <script src="js/plugins/select2/select2.full.min.js"></script>
-        <!-- Mainly scripts -->
-        <script src="js/jquery-3.1.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+ 
 
         <!-- Custom and plugin javascript -->
         <script src="js/inspinia.js"></script>
         <script src="js/plugins/pace/pace.min.js"></script>
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-        <!-- Chosen -->
-        <script src="js/plugins/chosen/chosen.jquery.js"></script>
-
-        <!-- JSKnob -->
-        <script src="js/plugins/jsKnob/jquery.knob.js"></script>
+        
 
         <!-- Input Mask-->
         <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
@@ -706,15 +616,8 @@
         <!-- Data picker -->
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-        <!-- NouSlider -->
-        <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-        
-        <!-- IonRangeSlider -->
-        <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-        <!-- iCheck -->
-        <script src="js/plugins/iCheck/icheck.min.js"></script>
+       
+       
 
         <!-- MENU -->
         <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -733,14 +636,7 @@
 
         
 
-        <!-- TouchSpin -->
-        <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
-        <!-- Tags Input -->
-        <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-
-        <!-- Dual Listbox -->
-        <script src="js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+        
 
         <script>
             $(document).ready(function () {
@@ -949,10 +845,6 @@
                 
             });
 
-<<<<<<< HEAD
-            
-        </script>
-=======
 
         });
 
@@ -1048,7 +940,6 @@
 
         });
     </script>
->>>>>>> fec856daf5738c1ba5686260015dbb3292838ec5
 </body>
 
 </html>
