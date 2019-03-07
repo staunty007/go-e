@@ -133,7 +133,7 @@
     })
 </script>
 <script>
-    $(".two-decimals").change(function(){
+    $("#two-decimals").change(function(){
     this.value = parseFloat(this.value).toFixed(2);
     });
 </script>

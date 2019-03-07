@@ -42,6 +42,10 @@ class AccountController extends Controller
             return response()->json(['err' => 'Email Already Exists']);
         }
 
+        if($request->password !== $request->password_confirmation) {
+            return response()->json(['err' => 'Password Does not Match']);
+        }
+
         if ($request->has('referred')) {
             // Activate the bonus upon registration
             $fetchCustomer = User::where('refer_id', $request->referred)->firstOrFail();

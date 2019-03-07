@@ -435,10 +435,10 @@
                             </form> --}}
                             <div class="row" style="margin-top: 1em">
 
-                                <button class="btn btn-primary">Pay Bill
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Pay Bill
                                 </button>
 
-                                <button type="button" class="btn btn-primary mt-10" data-toggle="modal" data-target="#myModal6">
+                                <button type="button" class="btn btn-primary mt-10">
                                     Top up Wallet
                                 </button>
                                 <button class="btn btn-default mt-10">
@@ -494,16 +494,14 @@
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    <span class="sr-only">Close</span>
-                                                </button>
-                                                <h6 class="modal-title">Choose Meter Option</h6>
+                                                <h3>Choose Payment Option</h3>
                                             </div>
                                             <div class="modal-body">
-                                                <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
+                                                <center>    
+                                                    <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
+                                                    <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
                                                     class="btn btn-success">Postpaid</a>
+                                                </center>
                                             </div>
                                         </div>
 

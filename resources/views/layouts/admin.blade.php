@@ -201,7 +201,7 @@
                         </a>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.profile" ? 'active' : ''}}">
+                    <li class="{{ Request::is('backend/profile') ? 'active' :'' }}">
                         <a href="{{route('admin.profile')}}">
                             <i class="fa fa-podcast"></i>
                             <span class="nav-label">Admin Profile</span>
