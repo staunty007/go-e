@@ -24,6 +24,228 @@
     {{-- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
     <link rel="icon" href="{{asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+<style>
+    /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+        
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+        @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+       
+        
+        
+        .header,
+        .closing,
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header {
+            margin-top: 2vh;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-family: Raleway, sans-serif;
+            font-size: 2.5em;
+            text-transform: uppercase;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .closing {
+            font-family: Raleway, sans-serif;
+            margin: 1em 0;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+        
+        .closing__icon {
+            margin: 0 0.3em;
+            color: #D90429;
+            transition: all 0.3s ease;
+            fill: transparent;
+        }
+        
+        .closing__icon:hover {
+            fill: #D90429;
+            cursor: pointer;
+        }
+        
+        .closing__icon:active {
+            animation: rotate 2s infinite;
+        }
+        
+        .closing a {
+            text-decoration: none;
+            color: #EF233C;
+            border-bottom: 1px solid transparent;
+            transition: border 0.3s ease-in;
+        }
+        
+        .closing a:hover {
+            border-bottom: 1px solid;
+        }
+        
+        .container {
+            flex-wrap: wrap;
+        }
+        
+        .container .stat {
+            margin-right: 1em;
+            margin-bottom: 1em;
+        }
+        
+        .stat {
+            min-width: 280px;
+            height: 90px;
+            background: #fff;
+            display: flex;
+            font-family: Lato, sans-serif;
+            cursor: pointer;
+            box-shadow: none;
+            transition: box-shadow 0.1s ease-in;
+        }
+        
+        .stat:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat:active {
+            box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat--has-icon-right {
+            flex-direction: row-reverse;
+        }
+        
+        .stat__icon-wrapper {
+            width: 90px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .stat__icon {
+            color: #2A3036;
+            width: 45px;
+            height: 45px;
+        }
+        
+        .stat__data {
+            flex: 1 0 90px;
+            height: 45px;
+            align-self: center;
+            padding: 0 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .stat__header {
+            margin: 0;
+            color: #2A3036;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        .stat__subheader {
+            color: #373E45;
+            margin: 0;
+            font-size: 1em;
+        }
+        
+        .stat--bg-white {
+            background: #F7FFF7;
+        }
+        
+        .stat--bg-dark-white {
+            background: #deffde;
+        }
+        
+        .stat--color-white {
+            color: #F7FFF7;
+        }
+        
+        .stat--bg-green {
+            background: #9BC53D;
+        }
+        
+        .stat--bg-dark-green {
+            background: #8cb336;
+        }
+        
+        .stat--color-green {
+            color: #9BC53D;
+        }
+        
+        .stat--bg-yellow {
+            background: #FDE74C;
+        }
+        
+        .stat--bg-dark-yellow {
+            background: #fde433;
+        }
+        
+        .stat--color-yellow {
+            color: #FDE74C;
+        }
+        
+        .stat--bg-orange {
+            background: #FA7921;
+        }
+        
+        .stat--bg-dark-orange {
+            background: #f96a08;
+        }
+        
+        .stat--color-orange {
+            color: #FA7921;
+        }
+        
+        .stat--bg-blue {
+            background: #5BC0EB;
+        }
+        
+        .stat--bg-dark-blue {
+            background: #44b7e8;
+        }
+        
+        .stat--color-blue {
+            color: #5BC0EB;
+        }
+        
+        .stat--bg-red {
+            background: #E55934;
+        }
+        
+        .stat--bg-dark-red {
+            background: #e2471d;
+        }
+        
+        .stat--color-red {
+            color: #E55934;
+        }
+        
+        .stat--has-text-right {
+            text-align: right;
+        }
+    </style>
+<script src="https://unpkg.com/feather-icons"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
    
 </head>
 
@@ -172,7 +394,8 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to GOENERGEE Utility 
+                            <span class="m-r-sm text-muted welcome-message">Welcome <strong class="font-bold"> {{Auth::user()->first_name}}
+                                            {{Auth::user()->last_name}}</strong> to GOENERGEE Utility 
                                 platform.</span>
                         </li>
                         <li>
@@ -194,10 +417,11 @@
 
     </div>
     <div class="footer">
-        <div>
-            Powered by <strong>GOENERGEE </strong> &copy; 2019
-        </div>
-    </div>
+
+                    <div class="container text-center">
+                        Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+                    </div>
+                </div>
     </div>
     <!-- Mainly scripts -->
 
