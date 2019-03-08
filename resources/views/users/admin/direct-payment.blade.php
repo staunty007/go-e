@@ -1,5 +1,8 @@
 @extends('layouts.admin') @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css"> --}}
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
+
 <div class="row">
     <div class="col-lg-4 col-md-4">
 
@@ -94,7 +97,7 @@
             </div>
             <div class="ibox-content m-b-sm border-bottom">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <h4>Filter By Date</h4>
                         <div class="input-group input-daterange">
                     
@@ -107,6 +110,12 @@
                 </div>
                 <br>
                 <div class="row"> 
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="amount">Filter By Date</label>
+                            <input type="text" style="width: 100px; font-size: 10px;" name="reportrange" id="reportrange" class="form-control" value="">
+                        </div>
+                    </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label class="control-label" for="amount">Filter By District</label>
@@ -226,7 +235,8 @@
                             <tbody>
                                 @foreach($payment as $p)
                                 <tr>
-                                    <td>{{ date('d/m/Y h:i:s A', strtotime($p->created_at)) }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
+                                    {{-- <td>{{ date('d/m/Y h:i:s A', strtotime($p->created_at)) }}</td> --}}
                                     <td>{{ $p->transaction_ref }}</td>
                                     <td>{{ $p->first_name }} {{ $p->last_name }}</td>
                                     <td>{{ $p->transaction_type }}</td>
@@ -282,55 +292,160 @@
 
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-dd-MMM-yyyy.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+{{-- <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script> --}}
+{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> --}}
 
 <script>
-    const tabili =  $(document).ready(function () {
-        $('.dataTables-example').DataTable();
-    });
-</script>
-    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-dd-MMM-yyyy.js"></script>
+    $(document).ready(function () {
+         const tabili = $('.dataTables-example').DataTable();
 
-    <script>
-        $(document).ready(function () {
-            // const tabili = $('.dataTables-example').DataTable({
-            //     order: [
-            //         [0, 'desc']
-            //     ]
+        $('#meter_account').on('keyup change', function() {
+        tabili
+            .search($('#meter_account').val(), false, true)
+            .draw();
+        });
+        $('#district').on('change', function() {
+            tabili
+                .search($('#district').val(), false, true)
+                .draw();
+        });
+        $('#channel').on('change', function() {
+            tabili
+                .columns(3)
+                .search($('#channel').val(), false, true)
+                .draw();
+        });
+        $('#bank').on('change', function() {
+            tabili
+                .columns(8)
+                .search($('#bank').val(), false, true)
+                .draw();
+        });
+        $('#type').change( function() {
+            tabili
+                .columns(5)
+                .search($('#type').val(), false, true)
+                .draw();
+        });
+
+        $('.input-daterange input').each(function() {
+            $(this).datepicker('clearDates');
+        });
+
+
+        // Extend dataTables search
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var min = $('#min-date').val();
+                var max = $('#max-date').val();
+                var createdAt = data[0] || 0; // Our date column in the table
+            //createdAt=createdAt.split(" ");
+                var startDate   = moment(min, "DD/MM/YY");
+                var endDate     = moment(max, "DD/MM/YY");
+                var diffDate = moment(createdAt, "DD/MM/YY");
+
+                if ( (min == "" || max == "") || diffDate.isBetween(startDate, endDate, 'days'))
+                {  return true;  }
+                
+                return false;
+            }
+        );
+
+        // Re-draw the table when the a date range filter changes
+        $('.date-range-filter').change(function() {
+            tabili.draw();
+        });
+
+            // //DATE RANGE
+            // //set global vars that are set by daterange picker, to be used by datatable
+            // var startdate;
+            // var enddate;
+            // //instantiate datepicker and choose your format of the dates
+            // $('#reportrange').daterangepicker({
+            //     ranges: {
+            //     'All dates' : [moment().subtract(10, 'year'), moment().add(10, 'year')],
+            //     "Today": [moment(), moment()],
+            //     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            //     '7 last days': [moment().subtract(6, 'days'), moment()],
+            //     '30 last days': [moment().subtract(29, 'days'), moment()],
+            //     'This month': [moment().startOf('month'), moment().endOf('month')],
+            //     'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            //     }
+            // ,
+            //     "opens": "right",
+            //     format: 'DD/MM/YYYY'
+
+            // },
+
+            // function(start, end,label) {
+            // // Parse it to a moment
+            // var s = moment(start.toISOString());
+            // var e = moment(end.toISOString());
+            // startdate = s.format("YYYY-MM-DD");
+            // enddate = e.format("YYYY-MM-DD");
             // });
 
-            $('#meter_account').on('keyup', function() {
-            tabili
-                .search($('#meter_account').val(), false, true)
-                .draw();
-            });
-            $('#district').on('change', function() {
-                tabili
-                    .search($('#district').val(), false, true)
-                    .draw();
-            });
-            $('#channel').on('change', function() {
-                tabili
-                    .columns(3)
-                    .search($('#channel').val(), false, true)
-                    .draw();
-            });
-            $('#bank').on('change', function() {
-                tabili
-                    .columns(8)
-                    .search($('#bank').val(), false, true)
-                    .draw();
-            });
-            $('#type').change( function() {
-                tabili
-                    .columns(5)
-                    .search($('#type').val(), false, true)
-                    .draw();
-            });
-        });
-    </script>
+            // //Filter the datatable on the datepicker apply event with reportage 1
+            // $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+            // startdate=picker.startDate.format('YYYY-MM-DD');
+            // enddate=picker.endDate.format('YYYY-MM-DD');
+            // $.fn.dataTableExt.afnFiltering.push(
+            // function( oSettings, aData, iDataIndex ) {
+            // if(startdate!=undefined){
+            // // 1 here is the column where my dates are.
+            // //Convert to YYYY-MM-DD format from DD/MM/YYYY
+            // var coldate = aData[0].split("/");
+            // var d = new Date(coldate[2], coldate[1]-1 , coldate[0]);
+            // var date = moment(d.toISOString());
+            // date =    date.format("YYYY-MM-DD");
+
+            // //Remove hyphens from dates
+            // dateMin=startdate.replace(/-/g, "");
+            // dateMax=enddate.replace(/-/g, "");
+            // date=date.replace(/-/g, "");
+
+            // //console.log(dateMin, dateMax, date);
+
+            // // run through cases to filter results
+            // if ( dateMin == "" && date <= dateMax){
+            // return true;
+            // }
+            // else if ( dateMin =="" && date <= dateMax ){
+            // return true;
+            // }
+            // else if ( dateMin <= date && "" == dateMax ){
+            // return true;
+            // }
+            // else if ( dateMin <= date && date <= dateMax ){
+            // return true;
+            // }
+
+            // // all failed
+            // return false;
+            // }
+            // }
+            // );
+            // tabili.draw();
+            // });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // const tabili = $('.dataTables-example').DataTable({
+        //     order: [
+        //         [0, 'desc']
+        //     ]
+        // });
+
+
+    });
+</script>
     <script src="{{asset('js/index.js')}}"></script>
     <!-- Mainly scripts -->
-    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>

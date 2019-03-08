@@ -26,9 +26,9 @@
     <link href="{{ asset('css/pie.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet"> --}}
 
-    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
     <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
 
 
@@ -201,7 +201,7 @@
                         </a>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.profile" ? 'active' : ''}}">
+                    <li class="{{ Request::is('backend/profile') ? 'active' :'' }}">
                         <a href="{{route('admin.profile')}}">
                             <i class="fa fa-podcast"></i>
                             <span class="nav-label">Admin Profile</span>
@@ -799,7 +799,7 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-            $('.dataTables-example').DataTable({
+             $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [{
                         extend: 'copy'
@@ -831,39 +831,39 @@
 
             });
 
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
+            // /* Init DataTables */
+            // var oTable = $('#editable').DataTable();
 
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable('../example_ajax.php', {
-                "callback": function (sValue, y) {
-                    var aPos = oTable.fnGetPosition(this);
-                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-                },
-                "submitdata": function (value, settings) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition(this)[2]
-                    };
-                },
+            // /* Apply the jEditable handlers to the table */
+            // oTable.$('td').editable('../example_ajax.php', {
+            //     "callback": function (sValue, y) {
+            //         var aPos = oTable.fnGetPosition(this);
+            //         oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+            //     },
+            //     "submitdata": function (value, settings) {
+            //         return {
+            //             "row_id": this.parentNode.getAttribute('id'),
+            //             "column": oTable.fnGetPosition(this)[2]
+            //         };
+            //     },
 
-                "width": "90%",
-                "height": "100%"
-            });
+            //     "width": "90%",
+            //     "height": "100%"
+            // });
 
 
         });
 
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData([
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row"
-            ]);
+        // function fnClickAddRow() {
+        //     $('#editable').dataTable().fnAddData([
+        //         "Custom row",
+        //         "New row",
+        //         "New row",
+        //         "New row",
+        //         "New row"
+        //     ]);
 
-        }
+        // }
     </script>
     <script src="{{asset('js/index.js')}}"></script>
     <!-- Mainly scripts -->
@@ -934,7 +934,7 @@
                     // Output the result data for cropping image.
                 }
             });
-
+            
             var $inputImage = $("#inputImage");
             if (window.FileReader) {
                 $inputImage.change(function () {

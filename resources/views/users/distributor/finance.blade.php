@@ -95,9 +95,9 @@
                                 <option value="">All</option>
                                 <option value="Web">Web</option>
                                 <option value="POS">POS</option>
-                                <option value="Mobile">Ussd</option>
-                                <option value="Mobile">mVisa</option>
-                                <option value="Mobile">Agency</option>
+                                <option value="Ussd">Ussd</option>
+                                <option value="mVisa">mVisa</option>
+                                <option value="Agency">Agency</option>
                             </select>
                         </div>
                     </div>

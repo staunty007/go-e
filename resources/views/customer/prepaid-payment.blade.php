@@ -55,7 +55,7 @@
 
 
 
-<div class="row">
+<div class="row" style="margin-top : 20px;">
 
     <div class="col-lg-5">
         <div class="panel panel-primary">
@@ -87,7 +87,7 @@
                         <label for="amount"><b>Amount</b></label>
 
                         <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text"
-                                required autofocus name="amount" class="form-control meter-amount" id="amount"></span></div>
+                                required autofocus name="amount" step="any" class="form-control two-decimals meter-amount" id="amount"></span></div>
                     </div>
                     <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
                 </form>
@@ -95,95 +95,6 @@
         </div>
     </div>
 
-
-    <div class="col-lg-7">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4>Customer Energy Utilization Report</h4>
-            </div>
-
-
-
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example">
-                    <thead>
-                        <tr>
-                            <th>Trans ref #</th>
-                            <th>Date </th>
-                            <th>BSSD Token</th>
-                            <th>Amount Paid</th>
-                            <th>Meter Type</th>
-
-
-
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>G0-01</td>
-                            <td>2/5/2018</td>
-                            <td>620</td>
-                            <td>500</td>
-                            <td>750</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
 </div>
 <div class="col-lg-4 text-center" id="ifAdmin">
     <div class="alert alert-danger">
@@ -220,6 +131,11 @@
             $("#group-pay").hide();
         });
     })
+</script>
+<script>
+    $("#two-decimals").change(function(){
+    this.value = parseFloat(this.value).toFixed(2);
+    });
 </script>
 @pay(['accountType' => "PREPAID"])
 @endpay

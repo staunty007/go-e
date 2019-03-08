@@ -21,7 +21,7 @@
                         <label for="payOption"><b>Select POSTPAID Service Category</b></label>
                         <select class="form-control m-b" name="postpaid_category" id="payOption">
                             <option value="POSTPAID">Postpaid Payment</option>
-                            <option value="others">Other Postpaid Payments</option>
+                            <option data-toggle="modal" data-target="#otherPostpaid" value="others">Other Postpaid Payments</option>
 
                         </select>
 
@@ -47,6 +47,7 @@
                         <div class="input-group m-b"><span class="input-group-addon">₦</span> <input type="text" required name="amount" class="form-control meter-amount" id="amount"></div>
                     </div>
                     <p class="text-center"><button class="btn btn-success pay-meter" type="submit">Continue</button></p>
+                    
                 </form>
             </div>
 
@@ -86,18 +87,65 @@
 
 
 
+    
+        <div id="otherPostpaid" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="text-center">
+                                <img src="/images/ekedc.jpg" width="80" class="text-center" />&nbsp;<span><b>OTHER POSTPAID PAYMENTS</b></span>
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="pull-right">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Enter your Account Number</label>
+                                    <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='post_meterno'>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Enter your Order ID</label>
+                                    <input type="text" name="order_id" class="meterno form-control" placeholder="E.g 1234567" id='order_id'>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-success" id="confirm-order">Confirm my Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
     </div>
+      
     @endsection
     @push('scripts')
         <script>
             $("#post002").hide();
             $("#payOption").change(function () {
-                var vall = $(this).val();
-                if (vall !== "POSTPAID") {
-                     window.location = `{{ route('agent.other-postpaid') }}`;
-                    // $("#post001").hide();
-                    // $("#post002").show();
-                }
+                // var vall = $(this).val();
+                // if (vall !== "POSTPAID") {
+                //      window.location = `{{ route('agent.other-postpaid') }}`;
+                //     // $("#post001").hide();
+                //     // $("#post002").show();
+                // }
             })
         </script>
     {{--@pay(['accountType' => "POSTPAID"])@endpay--}}

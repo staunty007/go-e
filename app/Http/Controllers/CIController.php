@@ -239,6 +239,7 @@ class CIController extends Controller
             ]
         ]));
         if ($result->response->retn !== 0) {
+            dd($result);
             return response()->json(["response" => $result->response->desc]);
         } else {
             return response()->json(["response" => ["success" => true, "result" => $result->response]], 200);
@@ -247,7 +248,7 @@ class CIController extends Controller
 
     public function generateToken($paymentRef, $orderId)
     {
-        
+        return $paymentRef;
         // dd($validate);
         $partner = $this->partnerDetails();
 

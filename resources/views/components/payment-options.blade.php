@@ -317,7 +317,7 @@
     }
 
     function payWithPaystack() {
-        var chargedAmount = parseAmount(amount) + 100;
+        var chargedAmount = parseInt(amount) + parseInt(100);
         
         let reff = null;
         switch (accountType) {
@@ -347,14 +347,17 @@
                     .then(chargeWalletResult => {
                         console.log('Generating Token...');
                         if(chargeWalletResult.response.result.orderDetails) {
-
                             const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
                             const orderId = chargeWalletResult.response.result.orderId;
                             document.querySelector("#response").innerHTML = `<div class="modal-footer">
                                     <h2>Completing Transaction... <div class="loader-css"></div></h2> 
                             </div>`;
                             generateToken(payRef, orderId);
-
+                        }else {
+ document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                        <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
+                        <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
+                    </div>`;
                         }
                         
                     })
@@ -372,7 +375,6 @@
     const retryTokenGenerate = (ref,id) => {
         document.querySelector("#response").innerHTML = `<div class="modal-footer">
             <h2 class="text-center">Regenerating Token.....</h2>
-            <p>Redirecting... <div class="loader-css"></div></p>
         </div>`;
         console.log(`Your Reference is ${ref} and your id is ${id}`);
         fetch(`/ekedc/generate-token/${ref}/${id}`)
@@ -505,16 +507,14 @@
                                     name
                                 } = customerInfo.customerInfo;
                                 let names = name.split(' ', 2);
-                                {{-- console.log(names); --}}
                                 $("#firstname").val(names[0]);
                                 $("#othername").val(names[1]);
-                                
-                                
+
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val(parseAmount($(".meter-amount").val()) + parseAmount(100));
+                                $("#total").val(parseInt($(".meter-amount").val()) + parseInt(100));
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
-                                    $("#mvisa").html(parseAmount($(".meter-amount").val()) + parseAmount(100));
+                                    $("#mvisa").html(parseInt($(".meter-amount").val() + 100));
                                     confirmDetails();
                                 }, 2000);
                             } else {
@@ -528,9 +528,8 @@
             .catch(err => {
                 $('.pay-meter').html('Continue');
                 $(".pay-meter").prop('disabled', false);
-                
+
                 alert('Ooops!, Server Caught Up in Traffic.. Its Us not you, Kindly give it another Try');
-               
             });
     }
 
