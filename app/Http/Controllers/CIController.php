@@ -9,6 +9,23 @@ use SoapHeader;
 class CIController extends Controller
 {
     private $host = "http://dev1.convergenceondemand.net:28080/TMP/Partners?wsdl";
+
+    
+    /**
+    * This will return the partner details, hardcoded
+    * @return $details
+    */
+    public function partnerDetails()
+    {
+        return [
+            "partner_id" => "TP27136431",
+            "access_key" => "nCRzGYxi1wdfqyBA2nQvAKq8SqUxP3",
+            "email" => "test@ralmuof.com",
+            "tenant_id" => "EKEDP"
+        ];
+    }
+
+
     
     public function signon()
     {
@@ -256,18 +273,19 @@ class CIController extends Controller
         // check for how many times the sleep is sleeping
         $i = 0;
         $status = $result->response->orderDetails->status;
+
         if ($status !== "CONFIRMED") {
-            // sleep(5);
-            $result = $this->requeryToken($result->response->orderDetails->paymentReference, $result->response->orderDetails->orderId);
+            $paymentRef = $result->response->orderDetails->paymentReference;
+            $orderId = $result->response->orderDetails->orderId;
+            $result = $this->requeryToken($paymentRef, $orderId);
         }
 
         return response()->json(["response" => $result], 200);
-
     }
 
     public function requeryToken($paymentRef, $orderId)
     {
-        sleep(10);
+        sleep(5);
         $partner = $this->partnerDetails();
 
         $client = new SoapClient($this->host, array('soap_version' => SOAP_1_1, "trace" => 1, "exceptions" => 0));
@@ -289,7 +307,6 @@ class CIController extends Controller
         );
 
         return $result;
-
     }
 
     /**
@@ -329,45 +346,7 @@ class CIController extends Controller
     }
 
 
-    /**
-     * This will return the partner details, hardcoded
-     * @return $details
-     */
-    public function partnerDetails()
-    {
-        return [
-            "partner_id" => "TP27136431",
-            "access_key" => "nCRzGYxi1wdfqyBA2nQvAKq8SqUxP3",
-            "email" => "test@ralmuof.com",
-            "tenant_id" => "EKEDP"
-        ];
-    }
 
 
-    public function dfnf()
-    {
-            
-        $client = new SoapClient("https://path.svc?wsdl");
 
-        $res = $client->SendRequest(
-            [
-                'CompanyCode'=>'CIB001484',
-                'UserID'=>'test_user',
-                'Password'=>'pass*145%83078',
-                'UseSingleDebitMultiplecredit'=>false,
-                'Amount'=>'2000',
-                'BeneficiaryAccount'=>'1020047624',
-                'BeneficiaryBankCode'=>'057',
-                'BeneficiaryName'=>'JOHN UBAH',
-                'DebitAccount'=>'2020076821',
-                'TransactionRef'=>'CIB/TEST/BD/15265',
-                'Payment_Due_date'=>'17/1/2019'
-            ]
-        );
-    // $response = strtr($xml_string, ['</soap:' => '</', '<soap:' => '<']);
-    // $output = json_decode(json_encode(simplexml_load_string($response)));
-    // var_dump($output->body->SendRequest->ResponseCode);
-        var_dump(json_encode($res->SendRequestResult));
-
-    }
 }

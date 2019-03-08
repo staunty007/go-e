@@ -194,7 +194,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Enter your Account Number</label>
-                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='post_meterno'>
+                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='order_account_number'>
                             </div>
                         </div>
                         <br>
@@ -232,14 +232,21 @@
     let accountType = "{{ $accountType }}";
     let amount;
 
+    const parseAmount = (amount) => {
+        if(parseInt(amount) == false) {
+            return amount * 100;
+        }
+
+        return amount;
+    }
     $(".pay-meter").click((e) => {
         e.preventDefault();
         $(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
         if (navigator.onLine) {
-            amount = $("#amount").val();
+            amount = parseAmount($("#amount").val());
             console.log(amount);
 
-            if (accountType === "PREPAID" && parseFloat(amount) < parseFloat(1000)) {
+            if (accountType === "PREPAID" && amount < 1000) {
                 alert('Amount Cannot be lesser than 1000NGN')
                 $(".pay-meter").prop('disabled', false).html('Continue');
                 return;
@@ -273,7 +280,7 @@
                     'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + parseFloat($('.meter-amount').val()).toFixed(2) + '',
+                    'amount': '' + parseAmount($('.meter-amount').val()) +'',
                     'is_agent': '1',
                 };
             } else {
@@ -283,7 +290,7 @@
                     'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + parseFloat($('.meter-amount').val()) + '',
+                    'amount': '' + parseAmount($('.meter-amount').val()) + '',
                 };
             }
             continuePay(payload);
@@ -310,8 +317,8 @@
     }
 
     function payWithPaystack() {
-        var chargedAmount = (parseFloat(amount) + parseFloat(100)).toFixed(2);
-        {{-- console.log(chargedAmount); return; --}}
+        var chargedAmount = parseAmount(amount) + 100;
+        
         let reff = null;
         switch (accountType) {
             case 'POSTPAID':
@@ -321,13 +328,13 @@
                 reff = "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1)
                 break;
         }
+
         var handler = PaystackPop.setup({
             key: "{{ env('PS_KEY') }}",
             email: document.querySelector('#emailret').value,
-            amount: (parseFloat(chargedAmount + "00")).toFixed(2),
+            amount: ((chargedAmount + "00")),
             ref: reff,
             callback: function (response) {
-                console.log(response);
                 // charge wallet
                 let dataBack;
                 document.querySelector("#response").innerHTML = `<div class="modal-footer">
@@ -339,12 +346,17 @@
                     .then(res => res.json())
                     .then(chargeWalletResult => {
                         console.log('Generating Token...');
-                        const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
-                        const orderId = chargeWalletResult.response.result.orderId;
+                        if(chargeWalletResult.response.result.orderDetails) {
+
+                            const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
+                            const orderId = chargeWalletResult.response.result.orderId;
                             document.querySelector("#response").innerHTML = `<div class="modal-footer">
                                     <h2>Completing Transaction... <div class="loader-css"></div></h2> 
                             </div>`;
                             generateToken(payRef, orderId);
+
+                        }
+                        
                     })
                     .catch(err => console.log(err));
             },
@@ -499,10 +511,10 @@
                                 
                                 
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val((parseFloat($(".meter-amount").val()) + parseFloat(100)).toFixed(2));
+                                $("#total").val(parseAmount($(".meter-amount").val()) + parseAmount(100));
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
-                                    $("#mvisa").html(parseFloat($(".meter-amount").val()) + parseFloat(100));
+                                    $("#mvisa").html(parseAmount($(".meter-amount").val()) + parseAmount(100));
                                     confirmDetails();
                                 }, 2000);
                             } else {
@@ -517,17 +529,7 @@
                 $('.pay-meter').html('Continue');
                 $(".pay-meter").prop('disabled', false);
                 
-                $.alert({
-                    title: 'Ooops!',
-                    content: 'Something Bad Went Wrong',
-                    type: 'red',
-                    buttons: {
-                        ok: {
-                            text: 'Got It',
-                            btnClass: 'btn-red'
-                        }
-                    }
-                });
+                alert('Ooops!, Server Caught Up in Traffic.. Its Us not you, Kindly give it another Try');
                
             });
     }
@@ -606,23 +608,23 @@
     $("#payOption").change(function () {
         var vall = $(this).val();
         if (vall !== "POSTPAID") {
-            // let postpaid_no = $('#meter_no').val();
-            // $('#post_meterno').val(postpaid_no);
-            console.log(vall);
-            // window.location = `/guest/postpaid-service-type/${vall}`;
             $(`#${vall}`).modal('show');
+            $("#payOption").val('');
         }
     })
-
-    // $("#qrd").click(function() {
-    //     $("#qr").html(`
-            
-    //     `);
-    // })
 </script>
 
 <script>
     function customCallback(response) {
         console.log(response);
     }
+</script>
+
+
+<script>
+    // Process Postpaid Other Paymenr
+    const processOtherPayment = () => {
+
+    }
+
 </script>
