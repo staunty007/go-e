@@ -23,6 +23,8 @@ class NIBBSController extends Controller
 
         $curl = curl_init();
 
+        $hash = $this->hashValue('<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>');
+
         curl_setopt_array($curl, array(
         CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
         CURLOPT_RETURNTRANSFER => true,
@@ -33,7 +35,7 @@ class NIBBSController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId><HashValue>AE34C5122329A2BA2C9C52E28297AE75E43D59AAED9F1D41593E6749C678456E</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>',
+        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId><HashValue>'.$hash.'</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>',
         CURLOPT_HTTPHEADER => array(
             "Content-Type: application/xml",
             "cache-control: no-cache"
@@ -79,8 +81,9 @@ class NIBBSController extends Controller
         // Initialize curl
         $curl = curl_init();
 
+        $rand = rand(1234567890098765432,987654321123456789);
         // Calculate Hash Value using sha256 algorithm
-        $hashvalue = $this->hashValue("<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode ><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>".rand(1234567890098765432,987654321123456789)."</BillerTransId></ValidateOTPRequest>");
+        $hashvalue = $this->hashValue("<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>$rand</BillerTransId></ValidateOTPRequest>");
 
         // return "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:validateOTPRequest><arg0><![CDATA[<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>".rand(1234567890098765432,987654321123456789)."</BillerTransId><HashValue>".$hashvalue."</HashValue></ValidateOTPRequest>]]></arg0></web:validateOTPRequest></soapenv:Body></soapenv:Envelope>";
 
@@ -97,7 +100,7 @@ class NIBBSController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:validateOTPRequest><arg0><![CDATA[<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>".rand(1234567890098765432,987654321123456789)."</BillerTransId><HashValue>".$hashvalue."</HashValue></ValidateOTPRequest>]]></arg0></web:validateOTPRequest></soapenv:Body></soapenv:Envelope>",
+        CURLOPT_POSTFIELDS => "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:validateOTPRequest><arg0><![CDATA[<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>$rand</BillerTransId><HashValue>$hashvalue</HashValue></ValidateOTPRequest>]]></arg0></web:validateOTPRequest></soapenv:Body></soapenv:Envelope>",
         
         // Set curl headers
         CURLOPT_HTTPHEADER => array(
@@ -118,7 +121,7 @@ class NIBBSController extends Controller
             // close curl connection
             // curl_close($curl);
             // return xml parsed
-            return $vals[3]['value'];
+            return ['response' => $vals[3]['value'], 'hashvalue' => $hashvalue];
 
         } catch (\Throwable $th) {
             // Catch Throwable Error
@@ -249,7 +252,7 @@ class NIBBSController extends Controller
      */
     public function hashValue($string)
     {
-        return strtoupper(hash('sha256',$string));
+        return strtoupper(hash('sha256',trim($string)));
     }
 
 

@@ -200,8 +200,17 @@ class AccountController extends Controller
     public function postpaidPayment()
     {
         $bio = $this->customerData();
-        return view('customer.postpaid-payment')->withBio($bio);
-        //return "We are working on this <a href='/home'>Back</a>";
+        // return $bio;
+        $topups = Payment::where('email','agent@goenergee.com')->get();
+        // return $topups;
+        $previous_topup = array_flatten(last($topups));
+        $prev_tops = 0;
+        if($previous_topup) {
+            $prev_top = Transaction::where('payment_id',$previous_topup[0]['id'])->first();
+            $prev_tops = $prev_top ? $prev_top->initial_amount : 0;
+        }
+        // return $previous_topups;
+        return view('customer.postpaid-payment',compact('prev_tops'))->withBio($bio);
     }
 
     public function paymentSuccess($user_type, $reff)
