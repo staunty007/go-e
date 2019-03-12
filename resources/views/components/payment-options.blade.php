@@ -228,31 +228,29 @@
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="/js/jquery-confirm.js"></script>
 <script>
+
     let meter_no = '';
-    let accountType = "{{ $accountType }}";
-    let amount;
+    let accountType = "{{ $accountType }}"; // Account Type Passed as a component
+    let amount, total; //
+    const addedFee = 10000;
+    
+    const convertToKobo = (amount) => amount * 100;
 
-    const parseAmount = (amount) => {
-        if(parseInt(amount) == false) {
-            return amount * 100;
-        }
-
-        return amount;
-    }
     $(".pay-meter").click((e) => {
         e.preventDefault();
+        payWithPaystack();
+        return;
         $(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
         if (navigator.onLine) {
-            amount = parseAmount($("#amount").val());
-            console.log(amount);
-
-            if (accountType === "PREPAID" && amount < 1000) {
+            amount = convertToKobo($("#amount").val());
+            
+            if (accountType === "PREPAID" && amount < 100000) {
                 alert('Amount Cannot be lesser than 1000NGN')
                 $(".pay-meter").prop('disabled', false).html('Continue');
                 return;
             } else {
                 // alert('nooo');
-                if (amount < 100) {
+                if (amount < 10000) {
                     alert('Amount cannot be lesser than 100NGN')
                     $(".pay-meter").prop('disabled', false).html('Continue');
                     return;
@@ -266,6 +264,7 @@
         }
     })
     $("#ctnPay").click((e) => {
+
         $("#ctnPay").html('Connecting to Gateway..').prop('disabled', true);
         e.preventDefault();
         if ($("#emailret").val() == "") {
@@ -280,7 +279,7 @@
                     'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + parseAmount($('.meter-amount').val()) +'',
+                    'amount': '' + (convertToKobo($('.meter-amount').val()) + addedFee) +'',
                     'is_agent': '1',
                 };
             } else {
@@ -290,7 +289,7 @@
                     'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + parseAmount($('.meter-amount').val()) + '',
+                    'amount': '' + (convertToKobo($('.meter-amount').val()) + addedFee) + '',
                 };
             }
             continuePay(payload);
@@ -298,8 +297,7 @@
     });
 
     function continuePay(payload) {
-        {{-- console.log(payload); --}}
-        {{-- return; --}}
+        // Hold the payment information in a session
         $.ajax({
             url: '/payment/hold',
             method: 'POST',
@@ -317,7 +315,9 @@
     }
 
     function payWithPaystack() {
-        var chargedAmount = parseInt(amount) + parseInt(100);
+
+        var chargedAmount = convertToKobo(amount) + addedFee;
+        console.log(chargedAmount); return;
         
         let reff = null;
         switch (accountType) {
@@ -332,7 +332,7 @@
         var handler = PaystackPop.setup({
             key: "{{ env('PS_KEY') }}",
             email: document.querySelector('#emailret').value,
-            amount: ((chargedAmount + "00")),
+            amount: chargedAmount,
             ref: reff,
             callback: function (response) {
                 // charge wallet
@@ -359,7 +359,6 @@
                         <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
                     </div>`;
                         }
-                        
                     })
                     .catch(err => console.log(err));
             },
@@ -511,10 +510,10 @@
                                 $("#othername").val(names[1]);
 
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val(parseInt($(".meter-amount").val()) + parseInt(100));
+                                $("#total").val(convertToKobo($(".meter-amount").val()) + addedFee);
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
-                                    $("#mvisa").html(parseInt($(".meter-amount").val() + 100));
+                                    $("#mvisa").html(convertToKobo($(".meter-amount").val() + addedFee));
                                     confirmDetails();
                                 }, 2000);
                             } else {

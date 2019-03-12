@@ -9,6 +9,9 @@ use App\User;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
 
+Route::get('banks-to-banks', function() {
+    return view('nibbs-interface');
+});
 
 Route::get('/', function () {
     // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
@@ -385,13 +388,15 @@ Route::prefix('ekedc')->group(function () {
  * NIBBS Web Routes
  */
 Route::prefix('nibbs')->group(function () {
-    Route::get('create-mandate','NIBBSController@createCurlMandate');
+    Route::post('create-mandate','NIBBSController@createCurlMandate');
     Route::get('validate-otp/{otp}/{mandate}','NIBBSController@validateOtp');
-    Route::get('all-banks', 'NIBBSController@getHashValue');
+    // Route::get('all-banks', 'NIBBSController@getHashValue');
+    Route::get('all-banks', 'NIBBSController@getBanks');
     Route::get('callback', function () {
         
     });
     Route::get('try-form', 'NIBBSController@tryForm');
+    Route::post('create-mandate','NIBBSController@createCurlMandate');
 });
 
 

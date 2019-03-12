@@ -11,40 +11,51 @@ use SimpleXMLElement;
 class NIBBSController extends Controller
 {
 
-    public function __construct()
-    {
-        return $this->nibbsDetails()['biller_id'];
-    }
-
     // private $host = "http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl";
     private $host = "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
 
-    public function createCurlMandate() {
+
+
+    public function createCurlMandate(Request $request) {
+
+        $accountNumber = $request->account_no;
+        $accountName = $request->account_name;
+        $bank = $request->bank;
+        $transactID = str_random();
+
+        $billerID = "NIBSS0000000128";
+        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
+
+        $mandate = "<CreateMandateRequest><AcctNumber>$accountNumber</AcctNumber><AcctName>$accountName</AcctName><TransType>1</TransType><BankCode>$bank</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>$transactID</BillerTransId></CreateMandateRequest>".$secret;
 
         $curl = curl_init();
 
-        $hash = $this->hashValue('<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>');
+        $hash = $this->hashValue($mandate);
 
+        // return [$hash,$mandate];
+        $curl_postfields = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>$accountNumber</AcctNumber><AcctName>$accountName</AcctName><TransType>1</TransType><BankCode>$bank</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>$transactID</BillerTransId><HashValue>$hash</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>";
         curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId><HashValue>'.$hash.'</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>',
-        CURLOPT_HTTPHEADER => array(
-            "Content-Type: application/xml",
-            "cache-control: no-cache"
-        ),
+            CURLOPT_URL => $this->host,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $curl_postfields,
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: application/xml",
+                "cache-control: no-cache"
+            ),
         ));
 
         try {
             // Get response coming back from Nibbs
             $response = curl_exec($curl);
+
+            // return $response;
 
             // Parse Xml and return Original Xml Tag
             $parse = xml_parser_create();
@@ -52,17 +63,25 @@ class NIBBSController extends Controller
             xml_parser_free($parse);    
 
             // close curl connection
-            curl_close($curl);
+            // curl_close($curl);
             // return xml parsed
-            return $vals[3]['value'];
+
+            $xml_returned = @$vals[3]['value'];
+            return response()->json([
+                'payload' => $curl_postfields,
+                'response' => $xml_returned,
+                'mandate' => $mandate
+            ]);
+
+            // return $vals[3]['value'];
 
         } catch (\Throwable $th) {
             // Catch Throwable Error
             $err = curl_error($curl);
             return response()->json(['success' => false, 'error' => $th->getMessage(), 'curl_error' => $err]);
-            // close curl connection
-            curl_close($curl);
         }
+        // close curl connection
+        curl_close($curl);
     }
 
 
@@ -77,6 +96,7 @@ class NIBBSController extends Controller
     }
 
     public function validateOtp($otp, $mandateCode) {
+
 
         // Initialize curl
         $curl = curl_init();
@@ -169,36 +189,11 @@ class NIBBSController extends Controller
 
     }
 
-    
-    public function getHashValue() {
 
-        // return hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
-        $bankcode = "070";
-        $billerID = "NIBSS0000000128";
-        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
-
-        $hashed = strtoupper(hash('sha256', "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret, false));
-        return $hashed;
-        // return "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret;
-        
-
-        // $count = strlen($hashed);
-        // return [$hashed,$count];
-    }
 
     public function getBanks()
     {
-//         return hash('sha256', "<CreateMandateRequest>
-//         <AcctNumber>5050007512</AcctNumber>
-//        <AcctName>OKOLI CHUKWUMA PAUL</AcctName>
-//        <TransType>1</TransType>
-//        <BankCode>070</BankCode>
-//        <BillerID>NIBSS0000000128</BillerID>
-//        <BillerName>Ralmouf</BillerName>
-//        <BillerTransId>1045621</BillerTransId>
-//    </CreateMandateRequest>".$secret);
-
-        return [
+        return response()->json([
             [
                 "bankCode" => "214",
                 "bankName" => "First City Monument Bank Plc",
@@ -239,7 +234,7 @@ class NIBBSController extends Controller
                 "bankCode" => "221",
                 "bankName" => "Stanbic IBTC Bank Plc",
             ]
-        ];
+            ], 200);
     }
 
     public function tryForm()
@@ -252,6 +247,10 @@ class NIBBSController extends Controller
      */
     public function hashValue($string)
     {
+        $billerID = "NIBSS0000000128";
+        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
+
+        $string = $string;
         return strtoupper(hash('sha256',trim($string)));
     }
 
