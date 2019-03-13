@@ -817,3 +817,17 @@ body {
 .loginBtn--twitter:focus {
   background: #63aee7;
 }
+
+.grid {
+  display:flex;
+  justify-content: space-between;
+}
+
+.grid-child {
+  background: green;
+  font-size: 12px;
+  width: 100px;
+  margin: 0.5em;
+  height: 100px;
+  padding: 1em;
+}

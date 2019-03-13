@@ -31,33 +31,29 @@ export default class Homepage extends Component {
 							<Search />
 						</div>
 					</div>
-					<div className="row">
-						<div className="col no-padding p-0">
-							<div className="card card-gradient">
-								<div className="card-body text-right">
-									<h4 className="card-title text-white">QR</h4>
-									<h6 className="card-subtitle mb-2 text-white">Easy Payment via QR Code</h6>
-									<h6 className="text-white">Coming Soon </h6>
-								</div>
-							</div>
-						</div>
-						<div className="col no-padding p-0">
-							<div className="card card-gradient">
-								<div className="card-body text-right">
-									<h4 className="card-title text-white">POS</h4>
-									<h6 className="card-subtitle mb-2 text-white">Our agents are readily available</h6>
-									<h6 className="text-white">Coming Soon</h6>
-								</div>
+					<div className="grid">
+						
+						<div className="grid-child">
+							<div className="text-right">
+								<h4 className="card-title text-white" style={{ fontSize: '18px' }}>QR</h4>
+								<h6 className="card-subtitle mb-2 text-white" style={{ fontSize: '10px'}}>Easy Payment via QR Code</h6>
+								<h6 className="text-white" style={{ fontSize: '10px'}}>Coming Soon </h6>
 							</div>
 						</div>
 						
-						<div className="col no-padding p-0">
-							<div className="card card-gradient">
-								<div className="card-body text-right">
-									<h4 className="card-title text-white">CASH</h4>
-									<h6 className="card-subtitle mb-2 text-white">Visit any of our sales outlets</h6>
-									<h6 className="text-white">Coming Soon</h6>
-								</div>
+						<div className="grid-child">
+							<div className="text-right">
+								<h4 className="card-title text-white" style={{ fontSize: '18px' }}>POS</h4>
+								<h6 className="card-subtitle mb-2 text-white" style={{ fontSize: '10px'}}>Our agents are readily available</h6>
+								<h6 className="text-white" style={{ fontSize: '10px'}}>Coming Soon</h6>
+							</div>
+						</div>
+						
+						<div className="grid-child">
+							<div className="text-right">
+								<h4 className="card-title text-white" style={{ fontSize: '18px' }}>CASH</h4>
+								<h6 className="card-subtitle mb-2 text-white" style={{ fontSize: '10px'}}>Visit any of our sales outlets</h6>
+								<h6 className="text-white" style={{ fontSize: '10px'}}>Coming Soon</h6>
 							</div>
 						</div>
 						

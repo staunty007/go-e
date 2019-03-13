@@ -11151,3 +11151,21 @@ body {
   background: #63aee7;
 }
 
+.grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.grid-child {
+  background: green;
+  font-size: 12px;
+  width: 100px;
+  margin: 0.5em;
+  height: 100px;
+  padding: 1em;
+}
+

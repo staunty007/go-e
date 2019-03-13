@@ -8,6 +8,7 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
+use Illuminate\Http\Request;
 
 Route::get('banks-to-banks', function() {
     return view('nibbs-interface');
@@ -242,10 +243,6 @@ Route::get('e2e/api/customers', function () {
     return User::where('role_id', 0)->get(['id', 'first_name']);
 });
 
-Route::get('/lists/services/{keyword}', function ($keyword) {;
-    // return $keyword;
-    return response()->json(DB::table('services_list')->where('title', 'LIKE', "%$keyword%")->get());
-});
 
 // Services 
 Route::prefix('services')->group(function () {
@@ -265,6 +262,7 @@ Route::get('register', function () {
     return redirect('/');
 })->name('register');
 
+
 // Mobile Routes
 
 Route::prefix('mobile')->group(function () {
@@ -275,6 +273,11 @@ Route::prefix('mobile')->group(function () {
     // Route::get('login', 'MobileController@login')->name('mobile.login');
     // Route::get('sign-up', 'MobileController@signUp')->name('mobile.sign-up');
     // Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
+});
+
+Route::post('/lists/services/', function (Request $request) {
+    // return $request['keyword';
+    return response()->json(DB::table('services_list')->where('title', 'LIKE', "$request->keyword"."%")->get());
 });
 Route::get('/mobile-transaction/success/{user_type}/{ref}', 'AccountController@mobilePaymentSuccess');
 
@@ -398,25 +401,6 @@ Route::prefix('nibbs')->group(function () {
     Route::get('try-form', 'NIBBSController@tryForm');
     Route::post('create-mandate','NIBBSController@createCurlMandate');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
