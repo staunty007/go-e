@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { FormValidation } from 'calidation';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 export default class Login extends Component {
 	constructor() {
@@ -124,6 +125,9 @@ export default class Login extends Component {
 								<button className="loginBtn loginBtn--twitter" onClick={this.loginTwitter}>
 									Login with Twitter
 								</button>
+
+								<hr />
+								<Link to="/mobile/register" className="btn btn-block btn-success btn-sm">Create a New Account</Link>
 
 								<div className="m-5" />
 							</div>

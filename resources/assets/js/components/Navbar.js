@@ -52,12 +52,13 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 					<span className="navbar-toggler-icon"></span>
 				</button> */}
 
-				{/* <div className="collapse navbar-collapse" id="navbarColor01">
-					<ul className="navbar-nav mr-auto">
-						<li className="nav-item active">
-							<a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-						</li>
-						<li className="nav-item">
+				<div className="form-inline my-2 my-lg-0">
+					{/* <ul className="navbar-nav mr">
+						<li className="nav-item active"> */}
+						<Link className="nav-link btn btn-success" to="/mobile/login">Login</Link>
+						{/* <Link className="nav-link btn btn-danger" to="#">Home <span className="sr-only">(current)</span></Link> */}
+						{/* </li> */}
+						{/* <li className="nav-item">
 							<a className="nav-link" href="#">Features</a>
 						</li>
 						<li className="nav-item">
@@ -65,9 +66,9 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 						</li>
 						<li className="nav-item">
 							<a className="nav-link" href="#">About</a>
-						</li>
-					</ul>
-				</div> */}
+						</li> */}
+					{/* </ul> */}
+				</div>
 			</nav>
 		</div>
 	 );

@@ -33,7 +33,7 @@ export default class Homepage extends Component {
 					</div>
 					<div className="grid">
 						
-						<div className="grid-child">
+						<div className="grid-child" style={{ backgroundColor: '#f03237'}}>
 							<div className="text-right">
 								<h4 className="card-title text-white" style={{ fontSize: '18px' }}>QR</h4>
 								<h6 className="card-subtitle mb-2 text-white" style={{ fontSize: '10px'}}>Easy Payment via QR Code</h6>
@@ -41,7 +41,7 @@ export default class Homepage extends Component {
 							</div>
 						</div>
 						
-						<div className="grid-child">
+						<div className="grid-child" style={{ backgroundColor: '#f03237'}}>
 							<div className="text-right">
 								<h4 className="card-title text-white" style={{ fontSize: '18px' }}>POS</h4>
 								<h6 className="card-subtitle mb-2 text-white" style={{ fontSize: '10px'}}>Our agents are readily available</h6>
@@ -49,7 +49,7 @@ export default class Homepage extends Component {
 							</div>
 						</div>
 						
-						<div className="grid-child">
+						<div className="grid-child" style={{ backgroundColor: '#f03237'}}>
 							<div className="text-right">
 								<h4 className="card-title text-white" style={{ fontSize: '18px' }}>CASH</h4>
 								<h6 className="card-subtitle mb-2 text-white" style={{ fontSize: '10px'}}>Visit any of our sales outlets</h6>
