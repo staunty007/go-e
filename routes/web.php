@@ -365,7 +365,7 @@ Route::prefix('ekedc')->group(function () {
     Route::get('validate-payment/{accountType}/{customerId}', 'CIController@validatePayment');
     Route::get('charge-wallet/{amount}/{accountType}/{customerId}', 'CIController@chargeWallet');
     Route::get('generate-token/{paymentRef}/{orderId}', 'CIController@generateToken');
-    Route::get('pay-order-id/{customerId}/{orderid}', 'CIController@payOrderId');
+    Route::post('pay-order', 'CIController@payOrderId');
 });
 
 

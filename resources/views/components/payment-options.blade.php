@@ -194,20 +194,20 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Enter your Account Number</label>
-                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='order_account_number'>
+                                <input type="text" name="meter_no" class="form-control" placeholder="Account Number" id='order_account_number'>
                             </div>
                         </div>
                         <br>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Enter your Order ID</label>
-                                <input type="text" name="order_id" class="meterno form-control" placeholder="E.g 1234567" id='order_id'>
+                                <input type="text" name="order_id" class="form-control" placeholder="E.g 1234567" id='order_id'>
                             </div>
                         </div>
                         <br>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button class="btn btn-block btn-success" id="confirm-order">Confirm my Order</button>
+                                <button class="btn btn-block btn-success" id="confirm-other-order">Confirm my Order</button>
                             </div>
                         </div>
                     </div>
@@ -227,6 +227,38 @@
 </script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="/js/jquery-confirm.js"></script>
+<script>
+
+    $("#confirm-other-order").click((e) => {
+        e.preventDefault();
+        alert('Yeee'); return;
+        let accountNo = $("$order_account_number").val();
+        let otherOrder = $("#order_id").val();
+
+        payOtherOrders(accountNo, otherOrder);
+    });
+
+    
+    const payOtherOrders = (accountNo, orderId) => {
+
+        $.ajax({
+            url: '/pay-order',
+            method: 'POST',
+            data: {
+                account: accountNo,
+                order: orderId
+            },
+            success = (response) => {
+                console.log(response);
+            },
+            error = (err) => console.error(err);
+        });
+
+    };
+
+</script>
+
+
 <script>
 
     let meter_no = '';
