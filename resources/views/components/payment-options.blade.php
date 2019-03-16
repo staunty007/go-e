@@ -232,19 +232,18 @@
     let meter_no = '';
     let accountType = "{{ $accountType }}"; // Account Type Passed as a component
     let amount, total; //
-    const addedFee = 10000;
+    const addedFee = 100;
     
-    const convertToKobo = (amount) => amount * 100;
+    const convertToKobo = (amount = 1000) => parseInt(amount);
 
     $(".pay-meter").click((e) => {
         e.preventDefault();
-        payWithPaystack();
-        return;
+      
         $(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
         if (navigator.onLine) {
             amount = convertToKobo($("#amount").val());
             
-            if (accountType === "PREPAID" && amount < 100000) {
+            if (accountType === "PREPAID" && amount < 1000) {
                 alert('Amount Cannot be lesser than 1000NGN')
                 $(".pay-meter").prop('disabled', false).html('Continue');
                 return;
@@ -263,6 +262,8 @@
             $(".pay-meter").prop('disabled', false).html('Continue');
         }
     })
+
+
     $("#ctnPay").click((e) => {
 
         $("#ctnPay").html('Connecting to Gateway..').prop('disabled', true);
@@ -279,7 +280,7 @@
                     'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + (convertToKobo($('.meter-amount').val()) + addedFee) +'',
+                    'amount': total,
                     'is_agent': '1',
                 };
             } else {
@@ -289,12 +290,13 @@
                     'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + (convertToKobo($('.meter-amount').val()) + addedFee) + '',
+                    'amount': total,
                 };
             }
             continuePay(payload);
         }
     });
+
 
     function continuePay(payload) {
         // Hold the payment information in a session
@@ -314,10 +316,10 @@
         });
     }
 
+
     function payWithPaystack() {
 
-        var chargedAmount = convertToKobo(amount) + addedFee;
-        console.log(chargedAmount); return;
+        var chargedAmount = total;
         
         let reff = null;
         switch (accountType) {
@@ -509,11 +511,13 @@
                                 $("#firstname").val(names[0]);
                                 $("#othername").val(names[1]);
 
+                                total = convertToKobo($(".meter-amount").val()) + addedFee;
+
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val(convertToKobo($(".meter-amount").val()) + addedFee);
+                                $("#total").val(parseFloat(total).toFixed(2));
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
-                                    $("#mvisa").html(convertToKobo($(".meter-amount").val() + addedFee));
+                                    $("#mvisa").html(total);
                                     confirmDetails();
                                 }, 2000);
                             } else {

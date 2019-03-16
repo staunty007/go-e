@@ -217,7 +217,7 @@ class AccountController extends Controller
     {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
-            // return $paymentDetails;
+            $paymentDetails = $paymentDetails['payload'] ? $paymentDetails['payload'] : $paymentDetails;
             $tokenDetails = session()->get('token_data');
             // Insert into prepaid_payment
             $prepaid = new Payment;

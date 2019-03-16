@@ -248,7 +248,7 @@ class CIController extends Controller
 
     public function generateToken($paymentRef, $orderId)
     {
-        return $paymentRef;
+        // return $paymentRef;
         // dd($validate);
         $partner = $this->partnerDetails();
 
