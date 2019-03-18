@@ -116,10 +116,7 @@
                                     <center>
                                         <div class="form-group">
                                             <label>Please Select Your Bank</label>
-                                            <select class="form-control" name="bank_payment" id="bank_payment">
-                                                <option value="">Select your bank</option>
-
-                                            </select>
+                                            <select class="form-control" name="bank_payment" id="bank-i"></select>
                                         </div>
                                         <div class="other">
                                             <div class="form-group">
@@ -127,8 +124,8 @@
                                                 <input type="text" class="form-control" id="nuban" name="account">
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-block btn-primary" id="make-btn" disabled>Make
-                                                    Payment
+                                                <button class="btn btn-block btn-primary" id="payWithBank" disabled>
+                                                    Pay With Bank
                                                 </button>
                                             </div>
                                         </div>
@@ -226,7 +223,9 @@
     });
 </script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="/js/jquery-confirm.js"></script>
+<script src="/js/nibbs.js"></script>
 <script>
 
     $("#confirm-other-order").click((e) => {
@@ -251,7 +250,7 @@
             success = (response) => {
                 console.log(response);
             },
-            error = (err) => console.error(err);
+            error = (err) => console.error(err)
         });
 
     };
@@ -273,7 +272,8 @@
       
         $(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
         if (navigator.onLine) {
-            amount = convertToKobo($("#amount").val());
+            {{-- amount = convertToKobo($("#amount").val()); --}}
+            amount = $("#amount").val();
             
             if (accountType === "PREPAID" && amount < 1000) {
                 alert('Amount Cannot be lesser than 1000NGN')
@@ -281,7 +281,7 @@
                 return;
             } else {
                 // alert('nooo');
-                if (amount < 10000) {
+                if (amount < 100) {
                     alert('Amount cannot be lesser than 100NGN')
                     $(".pay-meter").prop('disabled', false).html('Continue');
                     return;
@@ -388,10 +388,10 @@
                             </div>`;
                             generateToken(payRef, orderId);
                         }else {
- document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                        <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
-                        <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
-                    </div>`;
+                        document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                            <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
+                            <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
+                        </div>`;
                         }
                     })
                     .catch(err => console.log(err));
@@ -656,9 +656,68 @@
 
 
 <script>
-    // Process Postpaid Other Paymenr
-    const processOtherPayment = () => {
+const baseUrl = "{{ url('/') }}";
 
+const loadBanks = () => {
+    
+    axios.get(`${baseUrl}/nibbs/all-banks`)
+        .then(response => {
+            let banks = response.data;
+            setBanks(banks);
+        })
+        .catch(err => console.table(err))
+
+};
+
+const setBanks = (banks) => {
+
+    let selectOption = document.getElementById('bank-i');
+
+    let options = "<option value=''>Choose Bank</option>";
+    for(bank of banks) {
+        options += `<option value="${bank.bankCode}">${bank.bankName}</option>`;
     }
+    selectOption.innerHTML = options;
+
+};
+
+
+// Process Bank Payment
+const paymentButton = document.getElementById('payWithBank');
+
+paymentButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    let selectedBank = document.querySelector('#bank').value;
+    let accName = document.querySelector('#acc_name').value;
+    let accNo = document.querySelector('#acc_no').value;
+    let amount = document.querySelector('#amount').value;
+
+    const payload = {
+        account_no: accNo,
+        account_name: accName,
+        bank: selectedBank
+    };
+
+    if(amount) {
+        axios.post(`${baseUrl}/nibbs/create-mandate`, payload)
+            .then(response => console.log(response.data))
+            .catch(err => console.table(err))
+    }else {
+        alert('Please Enter an Amount');
+        document.querySelector('#amount').classList.add('is-invalid');
+    }
+
+});
+
+
+
+(function() {
+    loadBanks();
+    // setBanks();// Show Account Number Field
+$("#bank-i").change(function() {
+    console.log('Change');
+});
+})();
+
 
 </script>
