@@ -114,21 +114,32 @@
                                 <!-- bank section -->
                                 <div class="bhoechie-tab-content">
                                     <center>
-                                        <div class="form-group">
-                                            <label>Please Select Your Bank</label>
-                                            <select class="form-control" name="bank_payment" id="bank-i"></select>
-                                        </div>
-                                        <div class="other">
+                                        <div id="bank_details">
                                             <div class="form-group">
-                                                <label>Please Enter Your Account Number</label>
-                                                <input type="text" class="form-control" id="nuban" name="account">
+                                                <label>Please Select Your Bank</label>
+                                                <select class="form-control" name="bank_payment" id="bank-i"></select>
                                             </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-block btn-primary" id="payWithBank" disabled>
-                                                    Pay With Bank
-                                                </button>
+                                            <div class="other">
+                                                <div class="form-group">
+                                                    <label>Please Enter Your Account Number</label>
+                                                    <input type="text" class="form-control" id="nuban" name="account_number">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Please Enter Your Account Name</label>
+                                                    <input type="text" class="form-control" id="acc_name" name="account_name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Enter Amount</label>
+                                                    <input type="text" class="form-control" id="payWithBank_amount" name="payWithBank_amount" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btn btn-block btn-primary" id="payWithBank" disabled>
+                                                        Pay With Bank
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
+                                        
                                     </center>
                                 </div>
                                 <div class="bhoechie-tab-content">
@@ -223,6 +234,7 @@
     });
 </script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/3.10.0/parser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="/js/jquery-confirm.js"></script>
 <script src="/js/nibbs.js"></script>
@@ -546,7 +558,7 @@
                                 total = convertToKobo($(".meter-amount").val()) + addedFee;
 
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val(parseFloat(total).toFixed(2));
+                                $("#total, #payWithBank_amount").val(total);
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
                                     $("#mvisa").html(total);
@@ -588,6 +600,8 @@
             "transition": "all .2s cubic-bezier(0, 0.01, 0.35, 0.91)",
             "display": "none"
         });
+
+
         $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
             e.preventDefault();
             $(this).siblings('a.active').removeClass("active");
@@ -596,128 +610,15 @@
             $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
             $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
         });
-        loadBanks();
-        $("#bank_payment").change(function () {
-            let fetchUrl = "/bp/";
-            const bankVal = $(this).val();
-            switch (bankVal) {
-                case 'diamond':
-                    fetchUrl = fetchUrl + "diamond/c-mandate"
-                    break;
-                case 'zenith':
-                    break;
-                default:
-                    break;
-            }
-            if ($(this).val() !== "") {
-                $(".other").css({
-                    "display": "block"
-                });
-            }
-        });
 
-        let nuban = document.querySelector("#nuban");
-        nuban.addEventListener('keyup', () => {
-
-            if (nuban.value.length !== 0) {
-                document.querySelector('#make-btn').disabled = false;
-            }
-        });
-
-        // function loadBanks() {
-        //     fetch('/nibbs/all-banks')
-        //         .then(res => res.json())
-        //         .then(response => {
-        //             let innerDom = document.querySelector('#bank_payment');
-        //             for (const banks in response) {
-        //                 const bank = response[banks];
-        //                 innerDom.innerHTML += `<option value="${bank.bankCode}" valueName="${bank.bankName}">${bank.bankName}</option>`;
-        //             }
-        //         })
-        //         .catch(err => console.log(err));
-        // }
-    });
-</script>
-<script>
-    $("#payOption").change(function () {
+        $("#payOption").change(function () {
         var vall = $(this).val();
-        if (vall !== "POSTPAID") {
-            $(`#${vall}`).modal('show');
-            $("#payOption").val('');
-        }
-    })
-</script>
-
-<script>
-    function customCallback(response) {
-        console.log(response);
-    }
-</script>
+            if (vall !== "POSTPAID") {
+                $(`#${vall}`).modal('show');
+                $("#payOption").val('');
+            }
+        });
 
 
-<script>
-const baseUrl = "{{ url('/') }}";
-
-const loadBanks = () => {
-    
-    axios.get(`${baseUrl}/nibbs/all-banks`)
-        .then(response => {
-            let banks = response.data;
-            setBanks(banks);
-        })
-        .catch(err => console.table(err))
-
-};
-
-const setBanks = (banks) => {
-
-    let selectOption = document.getElementById('bank-i');
-
-    let options = "<option value=''>Choose Bank</option>";
-    for(bank of banks) {
-        options += `<option value="${bank.bankCode}">${bank.bankName}</option>`;
-    }
-    selectOption.innerHTML = options;
-
-};
-
-
-// Process Bank Payment
-const paymentButton = document.getElementById('payWithBank');
-
-paymentButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    let selectedBank = document.querySelector('#bank').value;
-    let accName = document.querySelector('#acc_name').value;
-    let accNo = document.querySelector('#acc_no').value;
-    let amount = document.querySelector('#amount').value;
-
-    const payload = {
-        account_no: accNo,
-        account_name: accName,
-        bank: selectedBank
-    };
-
-    if(amount) {
-        axios.post(`${baseUrl}/nibbs/create-mandate`, payload)
-            .then(response => console.log(response.data))
-            .catch(err => console.table(err))
-    }else {
-        alert('Please Enter an Amount');
-        document.querySelector('#amount').classList.add('is-invalid');
-    }
-
-});
-
-
-
-(function() {
-    loadBanks();
-    // setBanks();// Show Account Number Field
-$("#bank-i").change(function() {
-    console.log('Change');
-});
-})();
-
-
+    });
 </script>

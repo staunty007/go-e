@@ -74,7 +74,7 @@
                 .catch((err) => {
                     console.error('Unable to Validate OTP, Please try Again');
                 });
-        })
+        });
 
 
 
@@ -87,7 +87,7 @@
             }else {
                 return false;
             }
-        }
+        };
         
     </script>
 </body>
