@@ -182,42 +182,7 @@
                             <tbody>
                                 
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <!-- <td></td>
-                                    <td> </td>
-                                    <td></td>
-                                    <td></td> -->
-                                    <!-- <td></td> -->
-                                    <td>
-                                       
-                                    </td>
-                                    <td>
-                                        <span class="label label-primary">Successful</span>
-                                    </td>
-                                    <!-- <td>
-                                        
-                                    </td>
-                                    <td>
-                                       
-                                    </td>
-                                    <td> </td>
-                                    <td>
-                                       
-                                    </td> -->
-                                    <td>
-                                       
-                                    </td>
-                                    <!-- <td>
-                                        
-                                    </td>
-                                    <td>
-                                        
-                                    </td>
-                                    <td>
-                                        
-                                    </td> -->
+                                    
 
                                 </tr>
                               

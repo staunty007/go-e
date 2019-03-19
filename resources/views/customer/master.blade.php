@@ -518,12 +518,12 @@
                             </div>
                             <ul class="nav navbar-top-links navbar-right">
                                 <li>
-                                    <span class="m-r-sm welcome-message" style="color: #fff"> Welcome <b>{{
-                                            Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>| GOENERGEE
-                                        Utility Platform </span>
+                                    <span class="m-r-sm welcome-message" style="color: #fff">
+                                     Welcome 
+                                     <b>{{ ucwords(Auth::user()->first_name .' '.Auth::user()->last_name )}} </b>
+                                     | GOENERGEE Utility Platform </span>
                                 </li>
                                 <li>
-
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
                                         onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';"
                                         style="background: transparent; color: rgb(255,255,255);><i class=" fa

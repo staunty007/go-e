@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import MaterialIcon, { colorPalette } from 'material-icons-react';
 import Rodal from 'rodal';
+// import { APPCONFIG } from '../config';
+import axios from 'axios';
+// Import Styles
 import 'rodal/lib/rodal.css';
 export default class Search extends Component {
 
@@ -34,19 +37,31 @@ export default class Search extends Component {
 		if (input !== "" && input.length >= 3) {
 			// console.log(this.state.services);
 			this.setState({ searching: true, emptySearch: false, loaded: false });
-			fetch(`lists/services/${input}`)
-				.then(res => res.json())
-				.then(result => {
-					if(result && result.length > 0) {
-						console.log(result);
-						this.setState({ services: result, searching: false, loaded: true});
-						this.setState({  });
+			axios.post('/lists/services',JSON.stringify({ keyword: input}))
+				.then(response =>{
+					if(response.data && response.data.length > 0) {
+						this.setState({ services: response.data, searching: false, loaded: true});
 					}else {
 						this.setState({ searching: false, emptySearch: true, loaded: false});
 					}
-					// this.setState({ services: result });
-					// console.log(result);
+				})
+				.catch(error => {
+					this.setState({ searching: false, emptySearch: true, loaded: false});
 				});
+
+			// fetch(`lists/services/${input}`)
+			// 	.then(res => res.json())
+			// 	.then(result => {
+			// 		if(result && result.length > 0) {
+			// 			console.log(result);
+			// 			this.setState({ services: result, searching: false, loaded: true});
+			// 			// this.setState({  });
+			// 		}else {
+			// 			this.setState({ searching: false, emptySearch: true, loaded: false});
+			// 		}
+			// 		// this.setState({ services: result });
+			// 		// console.log(result);
+			// 	});
 			 
 			
 		}else {
@@ -58,9 +73,9 @@ export default class Search extends Component {
 		return (
 			<div>
 				{/* <h4 className="text-center">Quick Search</h4> */}
-				{/* <div className="form-group">
+				<div className="form-group">
 					<input type="text" className="form-control .form-control-lg" placeholder="Search For a Biller. E.g EKEDC" onChange={this.filterInput} />
-				</div> */}
+				</div>
 				{this.state.searching &&
 					<div>
 						<p className="text-center">Loading</p>
@@ -71,9 +86,7 @@ export default class Search extends Component {
 					<div style={{ border: '1px solid #f00'}}>
 						{this.state.services.map((service, i) => {
 							return (
-								
-								<p key={i}>{service.title}</p>
-							
+								<Link key={i} to={service.mobile_link}>{service.title}</Link>
 							);
 						})}
 					</div>

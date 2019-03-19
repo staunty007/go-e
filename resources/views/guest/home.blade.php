@@ -123,7 +123,6 @@
 								"
 							 onkeyup="listServices()" id="searchForm">
 							<button class="btn btn-danger" style="
-									padding: .7em;
 									border-radius: 0;
 								"><i class="fas fa-search"></i></button>
 
