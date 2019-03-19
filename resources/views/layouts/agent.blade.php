@@ -504,13 +504,8 @@
                 .then(res => res.json())
                 .then(response => {
                     if (response.successful) {
-                        let responseResults = response.results ? JSON.parse(response.results) : response.errors; {
-                            {
-                                --
-                                let responsed = response.errors ? JSON.parse(response.errors) : response.errors;
-                                --
-                            }
-                        }
+                        let responseResults = response.results ? JSON.parse(response.results) : response.errors;
+
                         if (!response.errors !== "" && responseResults.successful == true) {
                             // Add Amount to Agent's Wallet
                             const walletData = [responseResults.result.transactionReference, amount];
