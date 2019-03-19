@@ -1,52 +1,13 @@
 @extends('layouts.admin') @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" type="text/css">
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-
-        <div class="col-lg-4 col-md-4">
-
-            <div class="stat">
-
-                <div class="stat__icon-wrapper stat--bg-green">
-                    <i data-feather="shopping-cart" class="stat__icon"></i>
-                </div>
-                <div class="stat__data">
-                    <h1 class="stat__header">Total Income</h1>
-                    <p class="stat__subheader"> <span>&#8358;</span>705,100</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-4">
-            <div class="stat stat--has-icon-right">
-                <div class="stat__icon-wrapper stat--bg-blue">
-                    <i data-feather="briefcase" class="stat__icon"></i>
-                </div>
-                <div class="stat__data">
-                    <h1 class="stat__header">Billers</h1>
-                    <p class="stat__subheader">1</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="stat stat--has-icon-right">
-                <div class="stat__icon-wrapper stat--bg-dark-red">
-                    <i data-feather="sun" class="stat__icon stat--color-white"></i>
-                </div>
-                <div class="stat__data">
-                    <h1 class="stat__header">Total Profit</h1>
-                    <p class="stat__subheader"> <span>&#8358;</span>300</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
+    @include('includes.totals')
+    <div class="row" style="margin-top: 20px;">
 
 
         <div class="col-lg-6 col-md-6" style="width:100%">
@@ -60,13 +21,18 @@
 
                 <div class="ibox-content m-b-sm border-bottom">
                     <div class="row">
-                        <div class="col.md-6">
-                            <label>Advanced Date range Search</label>
-                            <input type="text" name="datetimes" />
-
+                        <div class="col-md-4">
+                            <h4>Filter By Date</h4>
+                            <div class="input-group input-daterange">
+        
+                                <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="dd/mm/yyyy"
+                                    placeholder="From:">
+        
+                                <div class="input-group-addon">to</div>
+                                <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="dd/mm/yyyy"
+                                    placeholder="To:">
+                            </div>
                         </div>
-                        <div class="col.md-6"></div>
-
                     </div>
                     <div style="overflow-x:auto;">
                         <div class="ibox-content">
@@ -155,7 +121,11 @@
 
     @push('scripts')
 
-    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="{{asset('js/index.js')}}"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{ asset('js/bar.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
     <script src="js/plugins/fullcalendar/moment.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -163,6 +133,9 @@
                 order: [
                     [0, 'desc']
                 ]
+            });
+            $('.input-daterange input').each(function() {
+                $(this).datepicker('clearDates');
             });
         });
     </script>
@@ -176,16 +149,6 @@
                     format: 'M/DD hh:mm A'
                 }
             });
-        });
-    </script>
-    <script src="{{asset('js/index.js')}}"></script>
-    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <script src="{{ asset('js/bar.js') }}"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
         });
     </script>
     @endpush
