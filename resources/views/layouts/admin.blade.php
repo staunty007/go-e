@@ -13,7 +13,7 @@
     <link href="{{asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet"> --}}
     <link href="{{asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/table1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bar.css') }}" rel="stylesheet">
@@ -38,6 +38,7 @@
     <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <script>
         $(document).ready(function () {
+        $.fn.dataTable.ext.errMode = 'none';
             $('#example').DataTable({
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api(),
@@ -569,7 +570,7 @@
     </div>
 
 
-    <!-- Mainly scripts -->
+    {{-- <!-- Mainly scripts -->
 
     <!-- <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
@@ -583,7 +584,7 @@
     <!-- <script src="{{asset('js/plugins/chartJs/Chart.min.js')}}"></script>
     <script src="{{asset('js/demo/chartjs-demo.js')}}"></script>
     <script src="{{asset('js/demo/income_channel_chart.js')}}"></script> -->
-    <script src="{{ asset('js/bar.js') }}"></script>
+    <script src="{{ asset('js/bar.js') }}"></script> --}}
 
     <script src="{{ asset('js/amcharts.js') }}"></script>
     <script src="{{ asset('js/3dfunnel.js') }}"></script>
@@ -598,7 +599,7 @@
     <script src="{{ asset('js/animated.js') }}"></script>
 
 
-    <!-- Flot -->
+    {{-- <!-- Flot -->
     <!-- <script src="{{asset('js/plugins/flot/jquery.flot.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
     <script src="{{asset('js/plugins/flot/jquery.flot.spline.js')}}"></script>
@@ -609,7 +610,7 @@
 
     <!-- Peity -->
     <!-- <script src="{{asset('js/plugins/peity/jquery.peity.min.js')}}"></script>
-    <script src="{{asset('js/demo/peity-demo.js')}}"></script> -->
+    <script src="{{asset('js/demo/peity-demo.js')}}"></script> --> --}}
 
     <!-- Custom and plugin javascript -->
     <script src="{{asset('js/inspinia.js')}}"></script>
@@ -784,12 +785,12 @@
     @stack('popups') @stack('scripts')
 
     <!-- Mainly scripts -->
-    <script src="{{asset('js/jquery-2.1.1.js')}}"></script>
+    {{-- <script src="{{asset('js/jquery-2.1.1.js')}}"></script> --}}
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
     <script src="{{asset('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script src="{{asset('js/plugins/daterangepicker/daterangepicker.js')}}"></script>
+    {{-- <script src="{{asset('js/plugins/daterangepicker/daterangepicker.js')}}"></script> --}}
     <script src="{{asset('js/plugins/dataTables/datatables.min.js')}}"></script>
 
     <!-- Custom and plugin javascript -->
@@ -867,7 +868,7 @@
     </script>
     <script src="{{asset('js/index.js')}}"></script>
     <!-- Mainly scripts -->
-    <script src="js/jquery-2.1.1.js"></script>
+    {{-- <script src="js/jquery-2.1.1.js"></script> --}}
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Custom and plugin javascript -->
@@ -885,40 +886,40 @@
     <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
     <!-- Data picker -->
-    <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    {{-- <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script> --}}
 
     <!-- NouSlider -->
-    <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
+    <script src="customer/js/plugins/nouslider/jquery.nouislider.min.js"></script>
 
     <!-- Switchery -->
-    <script src="js/plugins/switchery/switchery.js"></script>
+    <script src="customer/js/plugins/switchery/switchery.js"></script>
 
     <!-- IonRangeSlider -->
-    <script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <script src="customer/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
 
     <!-- iCheck -->
-    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script src="customer/js/plugins/iCheck/icheck.min.js"></script>
 
     <!-- MENU -->
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
     <!-- Color picker -->
-    <script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="customer/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 
     <!-- Clock picker -->
-    <script src="js/plugins/clockpicker/clockpicker.js"></script>
+    <script src="customer/js/plugins/clockpicker/clockpicker.js"></script>
 
     <!-- Image cropper -->
-    <script src="js/plugins/cropper/cropper.min.js"></script>
+    <script src="customer/js/plugins/cropper/cropper.min.js"></script>
 
     <!-- Date range use moment.js same as full calendar plugin -->
-    <script src="js/plugins/fullcalendar/moment.min.js"></script>
+    <script src="customer/js/plugins/fullcalendar/moment.min.js"></script>
 
     <!-- Date range picker -->
-    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+    {{-- <script src="js/plugins/daterangepicker/daterangepicker.js"></script> --}}
 
     <!-- Select2 -->
-    <script src="js/plugins/select2/select2.full.min.js"></script>
+    <script src="customer/js/plugins/select2/select2.full.min.js"></script>
 
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>

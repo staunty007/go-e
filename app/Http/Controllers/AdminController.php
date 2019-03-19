@@ -177,6 +177,10 @@ class AdminController extends Controller
         $payment = Payment::where('is_agent',0)->with('transaction')->orderBy('created_at','desc')->get();
         // All Customers
         $customers = User::where('role_id',0)->count();
+        
+        $prepaidCustomers = CustomerBiodata::where('user_type',1)->count();
+        $postpaidCustomers = CustomerBiodata::where('user_type',2)->count();
+        
         // All Prepaid Payments
         $prepaids = Payment::where('user_type','OFFLINE_PREPAID')->count();
         // All Postpaid Payments
@@ -185,6 +189,8 @@ class AdminController extends Controller
         return view($this->prefix.'direct-payment')
             ->withPayment($payment)
             ->withCustomers($customers)
+            ->withPrepaidCustomers($prepaidCustomers)
+            ->withPostpaidCustomers($postpaidCustomers)
             ->withPrepaids($prepaids)
             ->withPostpaids($postpaids)
             ;
@@ -277,6 +283,11 @@ class AdminController extends Controller
     }
     public function income_channel()
     {
+        $income = \DB::table('payments')
+                    ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as channel'))
+                    ->groupBy('date')
+                    ->get();
+        //return $income;
         return $this->v('income_channel');
     }
     public function manage_referal()

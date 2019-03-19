@@ -228,13 +228,15 @@
                         </tbody>
                     </table>
                     <center>{{ $payments->links()}}</center>
+                    
                 </div>
             </div>
         </div>
     </div>
     @push('scripts')
     <script src="{{asset('js/index.js')}}"></script>
-    <script src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/datatables.min.js"></script>
+    {{-- <script src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/datatables.min.js"></script> --}}
+    <script src="https://www.bubt.edu.bd/assets/back/backend/DataTables-1.10.13/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script>
@@ -310,7 +312,6 @@
             // Re-draw the table when the a date range filter changes
             $('.date-range-filter').change(function() {
             tabili.draw();
-            alert("Hello");
             });
 
         });

@@ -16,9 +16,6 @@
       <div class="stat__data">
         <h1 class="stat__header">Total Agent Sales<span class="pull-right">{{ $sales['totalSales'] }}</span></h1>
         <p class="stat__subheader">
-
-          <h4 class="no-margins">10 <span class="pull-right">15</span></h4>
-          <small>Registered<span class="pull-right">Unregistered</span></small>
         </p>
       </div>
     </div>
@@ -31,7 +28,7 @@
       </div>
       <div class="stat__data">
         <h1 class="stat__header">Active Wallet Deposit </h1>
-        <p class="stat__subheader"> <span>&#8358;</span>{{ $sales['totalDeposit'] }}</p>
+        <p class="stat__subheader"> <span>&#8358;</span>{{ number_format($sales['totalDeposit'],2) }}</p>
       </div>
     </div>
   </div>
@@ -43,9 +40,9 @@
       <div class="stat__data">
         <h1 class="stat__header">Highest Sales Agent </h1>
 
-        <h1 class="no-margins"><span>&#8358;{{ $sales['totalDeposit'] }}</span></h1>
+        <h1 class="no-margins"><span>&#8358;{{ number_format($sales['totalDeposit'],2) }}</span></h1>
 
-        <small>Lekki: Agent-GB001</small>
+        {{-- <small>Lekki: Agent-GB001</small> --}}
       </div>
     </div>
   </div>
@@ -174,7 +171,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $agb_agent->wallet_balance }}</td>
+                          <td>{{ number_format($agb_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -213,7 +210,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $oj_agent->wallet_balance }}</td>
+                          <td>{{ number_format($oj_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -250,7 +247,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $fst_agent->wallet_balance }}</td>
+                          <td>{{ number_format($fst_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -287,7 +284,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $ij_agent->wallet_balance }}</td>
+                          <td>{{ number_format($ij_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -324,7 +321,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $m_agent->wallet_balance }}</td>
+                          <td>{{ number_format($m_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -360,7 +357,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $app_agent->wallet_balance }}</td>
+                          <td>{{ number_format($app_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -396,7 +393,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $ib_agent->wallet_balance }}</td>
+                          <td>{{ number_format($ib_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -432,7 +429,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $l_agent->wallet_balance }}</td>
+                          <td>{{ number_format($l_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -468,7 +465,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td>{{ $isl_agent->wallet_balance }}</td>
+                          <td>{{ number_format($isl_agent->wallet_balance,2) }}</td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -539,7 +536,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>{{ $or_agent->wallet_balance }}</td>
+                            <td>{{ number_format($or_agent->wallet_balance,2) }}</td>
                           </tr>
                           @endforeach
                         </tbody>
