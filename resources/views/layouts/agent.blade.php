@@ -18,7 +18,7 @@
     <link href="{{asset('css/table1.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
-
+    
     {{-- <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet"> --}}
 
     {{-- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}

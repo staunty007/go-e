@@ -5,30 +5,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOENERGEE </title>
-    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
+    <link href="{{asset('css/3dfunnel.css')}}" rel="stylesheet">
+    <link href="{{asset('css/energy_consumption_by_meter.css')}}" rel="stylesheet">
+    <link href="{{asset('css/meter_type.css')}}" rel="stylesheet">
+    <link href="{{asset('css/donut.css')}}" rel="stylesheet">
+    <link href="{{asset('css/3dpie.css')}}" rel="stylesheet">
+    <link href="{{asset('css/cylinder.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pie.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
-    <link href="{{asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
-    <link href="{{asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/table1.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/3dfunnel.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/energy_consumption_by_meter.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/meter_type.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/donut.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cylinder.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/pie.css') }}" rel="stylesheet">
+    <link href="{{asset('css/plugins/steps/jquery.steps.css')}}" rel="stylesheet">
+    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    <link href="{{asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/table1.css') }}" rel="stylesheet">
+    <link href="{{asset('css/bar.css')}}" rel="stylesheet">
+ 
     <link href="{{ asset('css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 
-    {{-- <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet"> --}}
+ <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet"> 
 
-    {{-- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
+ <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
     <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
 
 

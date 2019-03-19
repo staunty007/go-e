@@ -58,29 +58,29 @@
                 
                 <div class="ibox-content ">
                     <div class="carousel slide" id="carousel2">
-                        <ol class="carousel-indicators">
+                        {{-- <ol class="carousel-indicators">
                             <li data-slide-to="0" data-target="#carousel2" class="active"></li>
                             <li data-slide-to="1" data-target="#carousel2"></li>
                             <li data-slide-to="2" data-target="#carousel2" class=""></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big1.png" >
+                        </ol> --}}
+                        {{-- <div class="carousel-inner">
+                            <div class="item active"> --}}
+                                <img alt="image" class="img-responsive" src="/customer/img/41.png" >
 
-                            </div>
-                            <div class="item ">
+                            {{-- </div> --}}
+                            {{-- <div class="item ">
                                 <img alt="image" class="img-responsive" src="/customer/img/p_big2.jpg">
 
-                            </div>
-
-                        </div>
-                        <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                            </div> --}}
+{{-- 
+                        </div> --}}
+                        {{-- <a data-slide="prev" href="#carousel2" class="left carousel-control">
                             <span class="icon-prev"></span>
                         </a>
                         <a data-slide="next" href="#carousel2" class="right carousel-control">
                             <span class="icon-next"></span>
-                        </a>
-                    </div>
+                        </a> --}}
+                    {{-- </div> --}}
                 </div>
             </div>
         </div>

@@ -47,10 +47,10 @@
         </div>
     </div>
         <div class="col-md-6">
-            <div class="ibox float-e-margins">
+  
                 
                 <div class="ibox-content ">
-                    <div class="carousel slide" id="carousel2">
+                    <div class="carousel slide" id="carousel2" >
                         <ol class="carousel-indicators">
                             <li data-slide-to="0" data-target="#carousel2" class="active"></li>
                             <li data-slide-to="1" data-target="#carousel2"></li>
@@ -58,11 +58,11 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big1.png" >
+                                <img alt="image"  src="/customer/img/150.png">
 
                             </div>
                             <div class="item ">
-                                <img alt="image" class="img-responsive" src="/customer/img/p_big2.jpg">
+                                <img alt="image" src="/customer/img/p_big2.jpg" >
 
                             </div>
 

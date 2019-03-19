@@ -246,10 +246,10 @@
 					<div class="col-md-7 col-sm-12 col-xs-12" style="padding:2px;">
 						<!--Default div -->
 						<div id="news">
-							<div class="text-insert" style="margin-bottom:2px; padding:6px 19px;">
+							<div class="text-insert" style="margin-bottom:2px; padding:6px 8px;">
 								<h4 style="margin-bottom:3px; color:#80c636; text-align:center">More Power Options to Recharge!</h4>
 								<h5 style="">
-									<b>GOENERGEE</b> is available on these alternative channels.</h5>
+									<b>GOENERGEE</b> is also available on these channels.</h5>
 								<h5 style="">
 									<b>Mobile App: </b>Download & use our Andriod & IOs App
 									</b>.</h5>
@@ -264,14 +264,14 @@
 								</h5>
 							</div>
 
-							<div class="col-md-6 col-xs-6" style="padding:0px 2px; min-height:18px;">
-									<a href="#"><button type="button" class="grad-boxa" id="support_btn" style="background-color: #fff !important; color: #8CC74E; padding:23px 32px">
+							<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+									<a href="#"><button type="button" class="grad-boxa" id="support_btn" style="background-color: #fff !important; color: #8CC74E; padding:31px 10px">
 											<i class="fas fa-mobile-alt fa-2x"></i><br>
 											Mobile App Coming Soon
 										</button></a>
 								</div>
-								<div class="col-md-6 col-xs-6" style="padding:0px 2px;  min-height:18px;">
-										<a href="{{ route('guest.become_agent') }}"><button type="button" class="hrad-box" id="support_btn" style="padding:10px 32px">
+								<div class="col-md-6 col-xs-6" style="padding:0px 2px;">
+										<a href="{{ route('guest.become_agent') }}"><button type="button" class="hrad-box" id="agent_btn">
 												<i class="fas fa-user-plus fa-2x"></i><br>
 												Agent SignUp
 											</button></a>
@@ -286,7 +286,7 @@
 					{{-- <div class="slider"> --}}
 						{{-- <ul class="slider-main"> --}}
 							{{-- <li class="slider-list"> --}}
-								<img src="/images/12.png" class='img-responsive side-img'>
+								<img src="/images/15.png" class='img-responsive side-img'>
 								{{-- </li> --}}
 							{{-- <a href="{{ route('guest.services') }}">
 								<li>
