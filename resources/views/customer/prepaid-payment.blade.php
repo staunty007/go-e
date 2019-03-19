@@ -18,7 +18,7 @@
 
         <div class="stat">
 
-            <div class="stat__icon-wrapper stat--bg-custom">
+            <div class="stat__icon-wrapper stat--bg-yellow">
                 <i data-feather="activity" class="stat__icon"></i>
             </div>
             <div class="stat__data">

@@ -34,8 +34,8 @@
                     <i data-feather="home" class="stat__icon stat--color-white"></i>
                 </div>
                 <div class="stat__data">
-                    <h1 class="stat__header">Total Admin Top Up</h1>
-                    <p class="stat__subheader"> <span>&#8358;</span>{{ $adminTotalTops }}</p>
+                    <h1 class="stat__header">Current Top Up</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span></p>
                 </div>
             </div>
         </div>
@@ -45,8 +45,8 @@
                     <i data-feather="grid" class="stat__icon stat--color-white"></i>
                 </div>
                 <div class="stat__data">
-                    <h1 class="stat__header">Total Agent Top Up</h1>
-                    <p class="stat__subheader"> <span>&#8358;</span>{{ $agentTotalTops }}</p>
+                    <h1 class="stat__header">CummulativeTop Up</h1>
+                    <p class="stat__subheader"> <span>&#8358;</span>{{ $adminTotalTops }}</p>
                 </div>
             </div>
         </div>

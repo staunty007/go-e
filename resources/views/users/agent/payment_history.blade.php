@@ -209,6 +209,7 @@
                                                     <th>Amount Paid</th>
                                                     <th>Commission</th>
                                                     <th>Net Total</th>
+                                                    <th>Wallet Balance</th>
 
                                                 </tr>
                                             </thead>
@@ -246,6 +247,10 @@
                                                         {{ number_format($d->agent_transaction->initial_amount -
                                                         $d->agent_transaction->commission)}}
                                                     </td>
+                                                    <td>
+                                                            {{ number_format($d->agent_transaction->balance)}}
+                                                           
+                                                        </td>
 
 
                                                 </tr>

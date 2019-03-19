@@ -58,7 +58,7 @@
                                         <option value="Apapa">Apapa</option>
                                         <option value="Festac">Festac</option>
                                         <option value="Ibeju">Ibeju</option>
-                                        <option value="Ojora">Ojora  </option>
+                                        <option value="Ijora">Ijora  </option>
                                         <option value="Island">Island</option>
                                         <option value="Lekki">Lekki</option>
                                         <option value="Mushin">Mushin</option>

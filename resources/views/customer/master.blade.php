@@ -7,11 +7,16 @@
     <title>GOENERGEE | Customer Dashboard</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="/customer/js/jquery-3.1.1.min.js"></script>
+
+
+
     <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
     <link href="/customer/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="/customer/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="/customer/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+
+
     <link rel="icon" href="/customer/img/favicon.png" type='image/x-icon'>
     <link href="{{ asset('css/barchart.css') }}" rel="stylesheet">
     <!--Start of Tawk.to Script-->
@@ -28,10 +33,10 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
-   <style>
+    <style>
         #chartdiv {
           width: 100%;
-          height: 400px;
+          height: 280px;
         }
         </style>
     <!--End of Tawk.to Script-->
@@ -396,12 +401,12 @@
                     <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' || Request::is('customer/postpaid-payment') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                        @if(Auth::user()->customer->user_type == 1)
-                        <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
-                            Payment</a></li>
-                        @else
-                        <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
-                        @endif
+                            @if(Auth::user()->customer->user_type == 1)
+                            <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
+                                    Payment</a></li>
+                            @else
+                            <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
+                            @endif
                         </ul>
                     </li>
 
@@ -426,6 +431,8 @@
                         </form> --}}
                     </li>
                     </li>
+                </ul>
+            </div>
 
         </nav>
         <div id="page-wrapper" class="gray-bg">
@@ -433,15 +440,23 @@
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #1e3344;">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            {{-- <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
                             </a>
-                            <form role="search" class="navbar-form-custom" action="search_results.html">
+                            {{-- <form role="search" class="navbar-form-custom" action="search_results.html">
                                 <div class="form-group">
                                     <input type="text" placeholder="Search for something..." class="form-control" name="top-search"
                                         id="top-search">
                                 </div>
                             </form> --}}
                             <div class="row" style="margin-top: 1em">
+                                <div class="onoffswitch pull-right">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+                                        checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
 
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Pay Bill
                                 </button>
@@ -481,41 +496,54 @@
                                         </div>
 
                                     </div>
-
-
-                                    @endpush
-                                    <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
-                                Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
-                                    <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
-                             -->
-                                    <div class="onoffswitch pull-right">
-                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                                            checked>
-                                        <label class="onoffswitch-label" for="myonoffswitch">
-                                            <span class="onoffswitch-inner"></span>
-                                            <span class="onoffswitch-switch"></span>
-                                        </label>
-                                    </div>
-
                                 </div>
-                                <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3>Choose Payment Option</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <center>    
-                                                    <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                    <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
-                                                    class="btn btn-success">Postpaid</a>
-                                                </center>
-                                            </div>
-                                        </div>
 
+
+                                @endpush
+                                <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
+                                Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
+                                <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
+                             -->
+                               
+
+                            </div>
+                            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3>Choose Payment Option</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <center>
+                                                <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
+                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
+                                                    class="btn btn-success">Postpaid</a>
+                                            </center>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
+<<<<<<< HEAD
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <span class="m-r-sm welcome-message" style="color: #fff"> Welcome <b>{{
+                                        Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>| GOENERGEE
+                                    Utility Platform </span>
+                            </li>
+                            <li>
+
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
+                                    onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';"
+                                    style="background: transparent; color: rgb(255,255,255);><i class=" fa fa-sign-out"></i>
+                                    Logout</a>
+                                <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                                    {{ csrf_field()}}
+                                </form>
+                            </li>
+                        </ul>
+=======
                             <ul class="nav navbar-top-links navbar-right">
                                 <li>
                                     <span class="m-r-sm welcome-message" style="color: #fff">
@@ -534,6 +562,7 @@
                                     </form>
                                 </li>
                             </ul>
+>>>>>>> d0735af612d2e930b7bdeea3cdb39adca12fb40b
 
                 </nav>
             </div>
@@ -567,15 +596,16 @@
 
         <!-- Mainly scripts -->
 
-<!-- Resources -->
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-
-        <script src="/customer/js/bootstrap.min.js"></script>
-        <script src="/customer/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="/customer/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+        <!-- Resources -->
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+        <!-- Mainly scripts -->
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
         <!-- Custom and plugin javascript -->
         <script src="/customer/js/inspinia.js"></script>
         <script src="/customer/js/plugins/pace/pace.min.js"></script>
@@ -598,44 +628,44 @@
             $(document).ready(function () {
 
 
-                        var elem = document.querySelector('.js-switch');
-                        var switchery = new Switchery(elem, {
-                            color: '#1AB394'
-                        });
+                var elem = document.querySelector('.js-switch');
+                var switchery = new Switchery(elem, {
+                    color: '#1AB394'
+                });
 
-                        var elem_2 = document.querySelector('.js-switch_2');
-                        var switchery_2 = new Switchery(elem_2, {
-                            color: '#ED5565'
-                        });
+                var elem_2 = document.querySelector('.js-switch_2');
+                var switchery_2 = new Switchery(elem_2, {
+                    color: '#ED5565'
+                });
 
-                        var elem_3 = document.querySelector('.js-switch_3');
-                        var switchery_3 = new Switchery(elem_3, {
-                            color: '#1AB394'
-                        });
+                var elem_3 = document.querySelector('.js-switch_3');
+                var switchery_3 = new Switchery(elem_3, {
+                    color: '#1AB394'
+                });
 
-                        var elem_4 = document.querySelector('.js-switch_4');
-                        var switchery_4 = new Switchery(elem_4, {
-                            color: '#f8ac59'
-                        });
-                        switchery_4.disable();
+                var elem_4 = document.querySelector('.js-switch_4');
+                var switchery_4 = new Switchery(elem_4, {
+                    color: '#f8ac59'
+                });
+                switchery_4.disable();
 
-                        $('.i-checks').iCheck({
-                            checkboxClass: 'icheckbox_square-green',
-                            radioClass: 'iradio_square-green'
-                        });
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green'
+                });
             });
         </script>
         <!-- Date range picker -->
         <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 
- 
+
 
         <!-- Custom and plugin javascript -->
         <script src="js/inspinia.js"></script>
         <script src="js/plugins/pace/pace.min.js"></script>
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-        
+
 
         <!-- Input Mask-->
         <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
@@ -643,8 +673,8 @@
         <!-- Data picker -->
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-       
-       
+
+
 
         <!-- MENU -->
         <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -661,417 +691,417 @@
         <!-- Date range use moment.js same as full calendar plugin -->
         <script src="js/plugins/fullcalendar/moment.min.js"></script>
 
-        
+
         <script>
-                // Themes begin
-                am4core.useTheme(am4themes_animated);
-                // Themes end
-                
-                var chart = am4core.create("chartdiv", am4charts.XYChart);
-                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                
-                chart.data = [
-                  {
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            var chart = am4core.create("chartdiv", am4charts.XYChart);
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+            chart.data = [{
                     energy: "Jan",
                     visits: 23725
-                  },
-                  {
+                },
+                {
                     energy: "Feb",
                     visits: 1882
-                  },
-                  {
+                },
+                {
                     energy: "Mar",
                     visits: 1809
-                  },
-                  {
+                },
+                {
                     energy: "Apr",
                     visits: 1322
-                  },
-                  {
+                },
+                {
                     energy: "May",
                     visits: 1122
-                  },
-                  {
+                },
+                {
                     energy: "Jun",
                     visits: 1114
-                  },
-                  {
+                },
+                {
                     energy: "Jul",
                     visits: 984
-                  },
-                  {
+                },
+                {
                     energy: "Aug",
                     visits: 711
-                  },
-                  {
+                },
+                {
                     energy: "Sep",
                     visits: 665
-                  },
-                  {
+                },
+                {
                     energy: "Oct",
                     visits: 580
-                  },
-                  {
+                },
+                {
                     energy: "Nov",
                     visits: 443
-                  },
-                  {
+                },
+                {
                     energy: "Dec",
                     visits: 441
-                  }
-                ];
-                
-                var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-                categoryAxis.renderer.grid.template.location = 0;
-                categoryAxis.dataFields.category = "energy";
-                
-                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                valueAxis.min = 0;
-                valueAxis.max = 24000;
-                valueAxis.strictMinMax = true;
-                valueAxis.renderer.minGridDistance = 30;
-                // axis break
-                var axisBreak = valueAxis.axisBreaks.create();
-                axisBreak.startValue = 2100;
-                axisBreak.endValue = 22900;
-                axisBreak.breakSize = 0.005;
-                
-                // make break expand on hover
-                var hoverState = axisBreak.states.create("hover");
-                hoverState.properties.breakSize = 1;
-                hoverState.properties.opacity = 0.1;
-                hoverState.transitionDuration = 1500;
-                
-                axisBreak.defaultState.transitionDuration = 1000;
-                /*
-                // this is exactly the same, but with events
-                axisBreak.events.on("over", function() {
-                  axisBreak.animate(
-                    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
-                    1500,
-                    am4core.ease.sinOut
-                  );
-                });
-                axisBreak.events.on("out", function() {
-                  axisBreak.animate(
-                    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
-                    1000,
-                    am4core.ease.quadOut
-                  );
-                });*/
-                
-                var series = chart.series.push(new am4charts.ColumnSeries());
-                series.dataFields.categoryX = "energy";
-                series.dataFields.valueY = "visits";
-                series.columns.template.tooltipText = "{valueY.value}";
-                series.columns.template.tooltipY = 0;
-                series.columns.template.strokeOpacity = 0;
-                
-                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-                series.columns.template.adapter.add("fill", function(fill, target) {
-                  return chart.colors.getIndex(target.dataItem.index);
-                });
-                </script>
-                
-        
+                }
+            ];
+
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.dataFields.category = "energy";
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.min = 0;
+            valueAxis.max = 24000;
+            valueAxis.strictMinMax = true;
+            valueAxis.renderer.minGridDistance = 30;
+            // axis break
+            var axisBreak = valueAxis.axisBreaks.create();
+            axisBreak.startValue = 2100;
+            axisBreak.endValue = 22900;
+            axisBreak.breakSize = 0.005;
+
+            // make break expand on hover
+            var hoverState = axisBreak.states.create("hover");
+            hoverState.properties.breakSize = 1;
+            hoverState.properties.opacity = 0.1;
+            hoverState.transitionDuration = 1500;
+
+            axisBreak.defaultState.transitionDuration = 1000;
+            /*
+            // this is exactly the same, but with events
+            axisBreak.events.on("over", function() {
+              axisBreak.animate(
+                [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+                1500,
+                am4core.ease.sinOut
+              );
+            });
+            axisBreak.events.on("out", function() {
+              axisBreak.animate(
+                [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+                1000,
+                am4core.ease.quadOut
+              );
+            });*/
+
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.categoryX = "energy";
+            series.dataFields.valueY = "visits";
+            series.columns.template.tooltipText = "{valueY.value}";
+            series.columns.template.tooltipY = 0;
+            series.columns.template.strokeOpacity = 0;
+
+            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function (fill, target) {
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+        </script>
+
+
 
         <script>
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('.tagsinput').tagsinput({
-                tagClass: 'label label-primary'
-            });
+                $('.tagsinput').tagsinput({
+                    tagClass: 'label label-primary'
+                });
 
-            var $image = $(".image-crop > img")
-            $($image).cropper({
-                aspectRatio: 1.618,
-                preview: ".img-preview",
-                done: function (data) {
-                    // Output the result data for cropping image.
-                }
-            });
-
-            var $inputImage = $("#inputImage");
-            if (window.FileReader) {
-                $inputImage.change(function () {
-                    var fileReader = new FileReader(),
-                        files = this.files,
-                        file;
-
-                    if (!files.length) {
-                        return;
-                    }
-
-                    file = files[0];
-
-                    if (/^image\/\w+$/.test(file.type)) {
-                        fileReader.readAsDataURL(file);
-                        fileReader.onload = function () {
-                            $inputImage.val("");
-                            $image.cropper("reset", true).cropper("replace", this.result);
-                        };
-                    } else {
-                        showMessage("Please choose an image file.");
+                var $image = $(".image-crop > img")
+                $($image).cropper({
+                    aspectRatio: 1.618,
+                    preview: ".img-preview",
+                    done: function (data) {
+                        // Output the result data for cropping image.
                     }
                 });
-            } else {
-                $inputImage.addClass("hide");
-            }
 
-            $("#download").click(function () {
-                window.open($image.cropper("getDataURL"));
-            });
+                var $inputImage = $("#inputImage");
+                if (window.FileReader) {
+                    $inputImage.change(function () {
+                        var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
 
-            $("#zoomIn").click(function () {
-                $image.cropper("zoom", 0.1);
-            });
+                        if (!files.length) {
+                            return;
+                        }
 
-            $("#zoomOut").click(function () {
-                $image.cropper("zoom", -0.1);
-            });
+                        file = files[0];
 
-            $("#rotateLeft").click(function () {
-                $image.cropper("rotate", 45);
-            });
-
-            $("#rotateRight").click(function () {
-                $image.cropper("rotate", -45);
-            });
-
-            $("#setDrag").click(function () {
-                $image.cropper("setDragMode", "crop");
-            });
-
-            $('#data_1 .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
-            });
-
-            $('#data_2 .input-group.date').datepicker({
-                startView: 1,
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true,
-                format: "dd/mm/yyyy"
-            });
-
-            $('#data_3 .input-group.date').datepicker({
-                startView: 2,
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true
-            });
-
-            $('#data_4 .input-group.date').datepicker({
-                minViewMode: 1,
-                keyboardNavigation: false,
-                forceParse: false,
-                forceParse: false,
-                autoclose: true,
-                todayHighlight: true
-            });
-
-            $('#data_5 .input-daterange').datepicker({
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true
-            });
-
-            var elem = document.querySelector('.js-switch');
-            var switchery = new Switchery(elem, {
-                color: '#1AB394'
-            });
-
-            var elem_2 = document.querySelector('.js-switch_2');
-            var switchery_2 = new Switchery(elem_2, {
-                color: '#ED5565'
-            });
-
-            var elem_3 = document.querySelector('.js-switch_3');
-            var switchery_3 = new Switchery(elem_3, {
-                color: '#1AB394'
-            });
-
-            var elem_4 = document.querySelector('.js-switch_4');
-            var switchery_4 = new Switchery(elem_4, {
-                color: '#f8ac59'
-            });
-            switchery_4.disable();
-
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green'
-            });
-
-            $('.demo1').colorpicker();
-
-            var divStyle = $('.back-change')[0].style;
-            $('#demo_apidemo').colorpicker({
-                color: divStyle.backgroundColor
-            }).on('changeColor', function (ev) {
-                divStyle.backgroundColor = ev.color.toHex();
-            });
-
-            $('.clockpicker').clockpicker();
-
-            $('input[name="daterange"]').daterangepicker();
-
-            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' +
-                moment().format('MMMM D, YYYY'));
-
-            $('#reportrange').daterangepicker({
-                format: 'MM/DD/YYYY',
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2015',
-                dateLimit: {
-                    days: 60
-                },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(
-                        1, 'month').endOf('month')]
-                },
-                opens: 'right',
-                drops: 'down',
-                buttonClasses: ['btn', 'btn-sm'],
-                applyClass: 'btn-primary',
-                cancelClass: 'btn-default',
-                separator: ' to ',
-                locale: {
-                    applyLabel: 'Submit',
-                    cancelLabel: 'Cancel',
-                    fromLabel: 'From',
-                    toLabel: 'To',
-                    customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                        'August', 'September', 'October', 'November', 'December'
-                    ],
-                    firstDay: 1
+                        if (/^image\/\w+$/.test(file.type)) {
+                            fileReader.readAsDataURL(file);
+                            fileReader.onload = function () {
+                                $inputImage.val("");
+                                $image.cropper("reset", true).cropper("replace", this.result);
+                            };
+                        } else {
+                            showMessage("Please choose an image file.");
+                        }
+                    });
+                } else {
+                    $inputImage.addClass("hide");
                 }
-            }, function (start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                    'MMMM D, YYYY'));
+
+                $("#download").click(function () {
+                    window.open($image.cropper("getDataURL"));
+                });
+
+                $("#zoomIn").click(function () {
+                    $image.cropper("zoom", 0.1);
+                });
+
+                $("#zoomOut").click(function () {
+                    $image.cropper("zoom", -0.1);
+                });
+
+                $("#rotateLeft").click(function () {
+                    $image.cropper("rotate", 45);
+                });
+
+                $("#rotateRight").click(function () {
+                    $image.cropper("rotate", -45);
+                });
+
+                $("#setDrag").click(function () {
+                    $image.cropper("setDragMode", "crop");
+                });
+
+                $('#data_1 .input-group.date').datepicker({
+                    todayBtn: "linked",
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    calendarWeeks: true,
+                    autoclose: true
+                });
+
+                $('#data_2 .input-group.date').datepicker({
+                    startView: 1,
+                    todayBtn: "linked",
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    autoclose: true,
+                    format: "dd/mm/yyyy"
+                });
+
+                $('#data_3 .input-group.date').datepicker({
+                    startView: 2,
+                    todayBtn: "linked",
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    autoclose: true
+                });
+
+                $('#data_4 .input-group.date').datepicker({
+                    minViewMode: 1,
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    forceParse: false,
+                    autoclose: true,
+                    todayHighlight: true
+                });
+
+                $('#data_5 .input-daterange').datepicker({
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    autoclose: true
+                });
+
+                var elem = document.querySelector('.js-switch');
+                var switchery = new Switchery(elem, {
+                    color: '#1AB394'
+                });
+
+                var elem_2 = document.querySelector('.js-switch_2');
+                var switchery_2 = new Switchery(elem_2, {
+                    color: '#ED5565'
+                });
+
+                var elem_3 = document.querySelector('.js-switch_3');
+                var switchery_3 = new Switchery(elem_3, {
+                    color: '#1AB394'
+                });
+
+                var elem_4 = document.querySelector('.js-switch_4');
+                var switchery_4 = new Switchery(elem_4, {
+                    color: '#f8ac59'
+                });
+                switchery_4.disable();
+
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green'
+                });
+
+                $('.demo1').colorpicker();
+
+                var divStyle = $('.back-change')[0].style;
+                $('#demo_apidemo').colorpicker({
+                    color: divStyle.backgroundColor
+                }).on('changeColor', function (ev) {
+                    divStyle.backgroundColor = ev.color.toHex();
+                });
+
+                $('.clockpicker').clockpicker();
+
+                $('input[name="daterange"]').daterangepicker();
+
+                $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' +
+                    moment().format('MMMM D, YYYY'));
+
+                $('#reportrange').daterangepicker({
+                    format: 'MM/DD/YYYY',
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment(),
+                    minDate: '01/01/2012',
+                    maxDate: '12/31/2015',
+                    dateLimit: {
+                        days: 60
+                    },
+                    showDropdowns: true,
+                    showWeekNumbers: true,
+                    timePicker: false,
+                    timePickerIncrement: 1,
+                    timePicker12Hour: true,
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(
+                            1, 'month').endOf('month')]
+                    },
+                    opens: 'right',
+                    drops: 'down',
+                    buttonClasses: ['btn', 'btn-sm'],
+                    applyClass: 'btn-primary',
+                    cancelClass: 'btn-default',
+                    separator: ' to ',
+                    locale: {
+                        applyLabel: 'Submit',
+                        cancelLabel: 'Cancel',
+                        fromLabel: 'From',
+                        toLabel: 'To',
+                        customRangeLabel: 'Custom',
+                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                            'August', 'September', 'October', 'November', 'December'
+                        ],
+                        firstDay: 1
+                    }
+                }, function (start, end, label) {
+                    console.log(start.toISOString(), end.toISOString(), label);
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                        'MMMM D, YYYY'));
+                });
+
+                $(".select2_demo_1").select2();
+                $(".select2_demo_2").select2();
+                $(".select2_demo_3").select2({
+                    placeholder: "Select a state",
+                    allowClear: true
+                });
+
+
+                $('.chosen-select').chosen({
+                    width: "100%"
+                });
+
+                $("#ionrange_1").ionRangeSlider({
+                    min: 0,
+                    max: 5000,
+                    type: 'double',
+                    prefix: "$",
+                    maxPostfix: "+",
+                    prettify: false,
+                    hasGrid: true
+                });
+
+                $("#ionrange_2").ionRangeSlider({
+                    min: 0,
+                    max: 10,
+                    type: 'single',
+                    step: 0.1,
+                    postfix: " carats",
+                    prettify: false,
+                    hasGrid: true
+                });
+
+                $("#ionrange_3").ionRangeSlider({
+                    min: -50,
+                    max: 50,
+                    from: 0,
+                    postfix: "°",
+                    prettify: false,
+                    hasGrid: true
+                });
+
+                $("#ionrange_4").ionRangeSlider({
+                    values: [
+                        "January", "February", "March",
+                        "April", "May", "June",
+                        "July", "August", "September",
+                        "October", "November", "December"
+                    ],
+                    type: 'single',
+                    hasGrid: true
+                });
+
+                $("#ionrange_5").ionRangeSlider({
+                    min: 10000,
+                    max: 100000,
+                    step: 100,
+                    postfix: " km",
+                    from: 55000,
+                    hideMinMax: true,
+                    hideFromTo: false
+                });
+
+                $(".dial").knob();
+
+                var basic_slider = document.getElementById('basic_slider');
+
+                noUiSlider.create(basic_slider, {
+                    start: 40,
+                    behaviour: 'tap',
+                    connect: 'upper',
+                    range: {
+                        'min': 20,
+                        'max': 80
+                    }
+                });
+
+                var range_slider = document.getElementById('range_slider');
+
+                noUiSlider.create(range_slider, {
+                    start: [40, 60],
+                    behaviour: 'drag',
+                    connect: true,
+                    range: {
+                        'min': 20,
+                        'max': 80
+                    }
+                });
+
+                var drag_fixed = document.getElementById('drag-fixed');
+
+                noUiSlider.create(drag_fixed, {
+                    start: [40, 60],
+                    behaviour: 'drag-fixed',
+                    connect: true,
+                    range: {
+                        'min': 20,
+                        'max': 80
+                    }
+                });
+
             });
-
-            $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
-       
-
-        $('.chosen-select').chosen({width: "100%"});
-
-        $("#ionrange_1").ionRangeSlider({
-            min: 0,
-            max: 5000,
-            type: 'double',
-            prefix: "$",
-            maxPostfix: "+",
-            prettify: false,
-            hasGrid: true
-        });
-
-        $("#ionrange_2").ionRangeSlider({
-            min: 0,
-            max: 10,
-            type: 'single',
-            step: 0.1,
-            postfix: " carats",
-            prettify: false,
-            hasGrid: true
-        });
-
-        $("#ionrange_3").ionRangeSlider({
-            min: -50,
-            max: 50,
-            from: 0,
-            postfix: "°",
-            prettify: false,
-            hasGrid: true
-        });
-
-        $("#ionrange_4").ionRangeSlider({
-            values: [
-                "January", "February", "March",
-                "April", "May", "June",
-                "July", "August", "September",
-                "October", "November", "December"
-            ],
-            type: 'single',
-            hasGrid: true
-        });
-
-        $("#ionrange_5").ionRangeSlider({
-            min: 10000,
-            max: 100000,
-            step: 100,
-            postfix: " km",
-            from: 55000,
-            hideMinMax: true,
-            hideFromTo: false
-        });
-
-        $(".dial").knob();
-
-        var basic_slider = document.getElementById('basic_slider');
-
-        noUiSlider.create(basic_slider, {
-            start: 40,
-            behaviour: 'tap',
-            connect: 'upper',
-            range: {
-                'min':  20,
-                'max':  80
-            }
-        });
-
-        var range_slider = document.getElementById('range_slider');
-
-        noUiSlider.create(range_slider, {
-            start: [ 40, 60 ],
-            behaviour: 'drag',
-            connect: true,
-            range: {
-                'min':  20,
-                'max':  80
-            }
-        });
-
-        var drag_fixed = document.getElementById('drag-fixed');
-
-        noUiSlider.create(drag_fixed, {
-            start: [ 40, 60 ],
-            behaviour: 'drag-fixed',
-            connect: true,
-            range: {
-                'min':  20,
-                'max':  80
-            }
-        });
-    
-    });
-
-    </script>
+        </script>
 </body>
 
 </html>
