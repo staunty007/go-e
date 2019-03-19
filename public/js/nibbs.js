@@ -1,6 +1,6 @@
 // import Axios from "axios";
 // 
-const baseUrl = "http://localhost:8000";
+const baseUrl = "http://45.76.58.66";
 const nibbsUrl = "http://18.224.187.121:8888/cpay/client/action";
 var xmlJsonOptions = {
     attributeNamePrefix : "@_",
