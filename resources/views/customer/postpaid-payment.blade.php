@@ -59,7 +59,7 @@
         </div>
         <div class="stat__data">
             <h1 class="stat__header">Previous Top Up</h1>
-            <p class="stat__subheader"> <span>&#8358;</span> 10,005</p>
+            <p class="stat__subheader"> <span>&#8358;</span> {{ $prev_tops != '' ? number_format($prev_tops) : 0 }}</p>
         </div>
     </div>
 </div>

@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/ussd/register',
-        '/wallets/credit'
+        '/wallets/credit',
+        'nibbs/create-mandate'
     ];
 }

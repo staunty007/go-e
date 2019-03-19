@@ -1,49 +1,49 @@
 <div class="row">
-            <div class="col-lg-4">
-                <div class="ibox float-e-margins" style="height: 100%;">
-                    <div class="ibox-title">
-                        {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
-                        <h5>Meter Balance</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
-                        <small>Your Current Meter Balance is 25,800</small>
-                    </div>
-                </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins" style="height: 100%;">
+            <div class="ibox-title">
+                {{-- <span class="label label-info pull-right">Instant Top Up</span> --}}
+                <h5>Meter Balance</h5>
             </div>
-            
-            <div class="col-lg-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        {{-- <span class="label label-primary pull-right">Year</span>
-                            <span class="label label-primary pull-right">Month</span>
-                            <span class="label label-primary pull-right">Week</span>
-                            <span class="label label-primary pull-right">Today</span> --}}
-                        <h5>Average Daily Charge</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins"><span>&#8358;</span>120</h1>
-                        <small>Average Cost of Electricity Per day</small>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        {{-- <span class="label label-success pull-right">Year</span>
-                        <span class="label label-success pull-right">Quater</span>
-                        <span class="label label-success pull-right">Month</span> --}}
-                        <h5>Average Electrical Consumption</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <h1 class="no-margins">4.2KwH</h1>
-                        {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div> --}}
-                        <small>Avg Daily Electrical Power Consumed</small>
-                    </div>
-                </div>
+            <div class="ibox-content">
+                <h1 class="no-margins"><span>&#8358;</span>25,800</h1>
+                <small>Your Current Meter Balance is 25,800</small>
             </div>
         </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{-- <span class="label label-primary pull-right">Year</span>
+                    <span class="label label-primary pull-right">Month</span>
+                    <span class="label label-primary pull-right">Week</span>
+                    <span class="label label-primary pull-right">Today</span> --}}
+                <h5>Average Daily Charge</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins"><span>&#8358;</span>120</h1>
+                <small>Average Cost of Electricity Per day</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{-- <span class="label label-success pull-right">Year</span>
+                <span class="label label-success pull-right">Quater</span>
+                <span class="label label-success pull-right">Month</span> --}}
+                <h5>Average Electrical Consumption</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">4.2KwH</h1>
+                {{-- <div class="stat-percent font-bold text-success">5%<i class="fa fa-level-down"></i></div> --}}
+                <small>Avg Daily Electrical Power Consumed</small>
+            </div>
+        </div>
+    </div>
+</div>
         
             
         
@@ -82,7 +82,6 @@
                                     </div>
                                     <div class="item ">
                                         <img alt="image"  class="img-responsive" src="/customer/img/p_big2.jpg">
-                                        
                                     </div>
                                     
                                 </div>
@@ -93,7 +92,7 @@
                                     <span class="icon-next"></span>
                                 </a>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

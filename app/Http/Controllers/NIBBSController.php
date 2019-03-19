@@ -10,13 +10,106 @@ use SimpleXMLElement;
 
 class NIBBSController extends Controller
 {
+
     // private $host = "http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl";
     private $host = "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl";
 
-    public function createCurlMandate() {
+
+
+    public function createCurlMandate(Request $request) {
+
+        $accountNumber = $request->account_no;
+        $accountName = $request->account_name;
+        $bank = $request->bank;
+        $transactID = str_random();
+
+        $billerID = "NIBSS0000000128";
+        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
+
+        $mandate = "<CreateMandateRequest><AcctNumber>$accountNumber</AcctNumber><AcctName>$accountName</AcctName><TransType>1</TransType><BankCode>$bank</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>$transactID</BillerTransId></CreateMandateRequest>".$secret;
 
         $curl = curl_init();
 
+        $hash = $this->hashValue($mandate);
+
+        // return [$hash,$mandate];
+        $curl_postfields = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>$accountNumber</AcctNumber><AcctName>$accountName</AcctName><TransType>1</TransType><BankCode>$bank</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>$transactID</BillerTransId><HashValue>$hash</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>";
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $this->host,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $curl_postfields,
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: application/xml",
+                "cache-control: no-cache"
+            ),
+        ));
+
+        try {
+            // Get response coming back from Nibbs
+            $response = curl_exec($curl);
+
+            // return $response;
+
+            // Parse Xml and return Original Xml Tag
+            $parse = xml_parser_create();
+            xml_parse_into_struct($parse, $response, $vals, $index);
+            xml_parser_free($parse);    
+
+            // close curl connection
+            // curl_close($curl);
+            // return xml parsed
+
+            $xml_returned = @$vals[3]['value'];
+            return response()->json([
+                'payload' => $curl_postfields,
+                'response' => $xml_returned,
+                'mandate' => $mandate
+            ]);
+
+            // return $vals[3]['value'];
+
+        } catch (\Throwable $th) {
+            // Catch Throwable Error
+            $err = curl_error($curl);
+            return response()->json(['success' => false, 'error' => $th->getMessage(), 'curl_error' => $err]);
+        }
+        // close curl connection
+        curl_close($curl);
+    }
+
+
+    // NIBBS Details for GOENERGEE
+    private function nibbsDetails() {
+        return 
+        [
+            'biller_id' => 'NIBSS0000000128',
+            'biller_name' => 'Ralmuof',
+            'secret' => 'F78BE99289AB52FDF97190CEBFC1D6B8'
+        ];
+    }
+
+    public function validateOtp($otp, $mandateCode) {
+
+
+        // Initialize curl
+        $curl = curl_init();
+
+        $rand = rand(1234567890098765432,987654321123456789);
+        // Calculate Hash Value using sha256 algorithm
+        $hashvalue = $this->hashValue("<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>$rand</BillerTransId></ValidateOTPRequest>");
+
+        // return "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:validateOTPRequest><arg0><![CDATA[<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>".rand(1234567890098765432,987654321123456789)."</BillerTransId><HashValue>".$hashvalue."</HashValue></ValidateOTPRequest>]]></arg0></web:validateOTPRequest></soapenv:Body></soapenv:Envelope>";
+
+        // return $hashvalue;
+
+        // Set curl Options
         curl_setopt_array($curl, array(
         CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
         CURLOPT_RETURNTRANSFER => true,
@@ -27,69 +120,38 @@ class NIBBSController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId><HashValue>AE34C5122329A2BA2C9C52E28297AE75E43D59AAED9F1D41593E6749C678456E</HashValue></CreateMandateRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>',
+        CURLOPT_POSTFIELDS => "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://web.nibss.com/'><soapenv:Header/><soapenv:Body><web:validateOTPRequest><arg0><![CDATA[<ValidateOTPRequest><MandateCode>$mandateCode</MandateCode><TransType>2</TransType><BankCode>070</BankCode><OTP>$otp</OTP><BillerID>".$this->nibbsDetails()['biller_id']."</BillerID><BillerName>".$this->nibbsDetails()['biller_name']."</BillerName><Amount>100</Amount><BillerTransId>$rand</BillerTransId><HashValue>$hashvalue</HashValue></ValidateOTPRequest>]]></arg0></web:validateOTPRequest></soapenv:Body></soapenv:Envelope>",
+        
+        // Set curl headers
         CURLOPT_HTTPHEADER => array(
             "Content-Type: application/xml",
             "cache-control: no-cache"
         ),
         ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-        echo "cURL Error #:" . $err;
-        } else {
-            
+        try {
+            // Get response coming back from Nibbs
+            $response = curl_exec($curl);
+            // return $response;
+            // Parse Xml and return Original Xml Tag
             $parse = xml_parser_create();
             xml_parse_into_struct($parse, $response, $vals, $index);
             xml_parser_free($parse);    
 
-            return $vals[3]['value'];
+            // close curl connection
+            // curl_close($curl);
+            // return xml parsed
+            return ['response' => $vals[3]['value'], 'hashvalue' => $hashvalue];
+
+        } catch (\Throwable $th) {
+            // Catch Throwable Error
+            $err = curl_error($curl);
+            return response()->json(['success' => false, 'error' => $th->getMessage(), 'curl_error' => $err]);
+
+            // close curl connection
+            curl_close($curl);
         }
-    }   
 
-
-    public function validateOtp($otp) {
-
-        $curl = curl_init();
-
-        $hashvalue = "<ValidateOTPRequest><MandateCode>0000000001</MandateCode ><TransType>1</TransType><BankCode> XXXXXX </BankCode><OTP>123321</OTP><BillerID>123</BillerID><BillerName>Konga</BillerName><Amount></Amount><BillerTransId>1045621</ BillerTransId ><HashValue>XXXXXXXX</HashValue></ValidateOTPRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>";
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://staging.nibss-plc.com.ng/CentralPayWebservice/CentralPayOperations?wsdl=",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://web.nibss.com/"><soapenv:Header/><soapenv:Body><web:createMandateRequest><arg0><![CDATA[<ValidateOTPRequest><MandateCode>0000000001</MandateCode ><TransType>1</TransType><BankCode> XXXXXX </BankCode><OTP>123321</OTP><BillerID>123</BillerID><BillerName>Konga</BillerName><Amount></Amount><BillerTransId>1045621</ BillerTransId ><HashValue>XXXXXXXX</HashValue></ValidateOTPRequest>]]></arg0></web:createMandateRequest></soapenv:Body></soapenv:Envelope>',
-
-        CURLOPT_HTTPHEADER => array(
-            "Content-Type: application/xml",
-            "cache-control: no-cache"
-        ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-        echo "cURL Error #:" . $err;
-        } else {
-            
-            $parse = xml_parser_create();
-            xml_parse_into_struct($parse, $response, $vals, $index);
-            xml_parser_free($parse);    
-
-            return $vals[3]['value'];
-        }
     }   
 
     
@@ -124,55 +186,14 @@ class NIBBSController extends Controller
         $parse_response = new SimpleXMLElement("$response");
 
         return $response;
-        $xml = (array)simplexml_load_string($response);
-        return $xml['createMandateRequestResponse'];
-        // if ($err) {
-        //     echo "cURL Error #:" . $err;
-        // } else {
-        //     echo $response;
-        //     // $stringed = simplexml_load_string($response);
-        //     // return json_encode($stringed);
-        // }
-        // // try {
-
-        // //     $client = new SoapClient($this->host);
-        // //     // dd($client->listActiveBanks('NIBSS0000000128'));
-        // //     dd($client->__getTypes());
-        // // } catch (\SoapFault $th) {
-        // //     dd($th);
-        // // }
 
     }
 
-    
-    public function getHashValue() {
 
-        // return hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
-        $bankcode = "070";
-        $billerID = "NIBSS0000000128";
-        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
-
-        $hashed = strtoupper(hash('sha256', "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret, false));
-        return $hashed;
-        // return "<CreateMandateRequest><AcctNumber>5050007512</AcctNumber><AcctName>OKOLI CHUKWUMA PAUL</AcctName><TransType>1</TransType><BankCode>070</BankCode><BillerID>NIBSS0000000128</BillerID><BillerName>Ralmouf</BillerName><BillerTransId>43553535</BillerTransId></CreateMandateRequest>".$secret;
-        
-
-        // $count = strlen($hashed);
-        // return [$hashed,$count];
-    }
 
     public function getBanks()
     {
-        return hash('sha256', "<CreateMandateRequest>
-        <AcctNumber>5050007512</AcctNumber>
-       <AcctName>OKOLI CHUKWUMA PAUL</AcctName>
-       <TransType>1</TransType>
-       <BankCode>070</BankCode>
-       <BillerID>NIBSS0000000128</BillerID>
-       <BillerName>Ralmouf</BillerName>
-       <BillerTransId>1045621</BillerTransId>
-   </CreateMandateRequest>".$secret);
-        return [
+        return response()->json([
             [
                 "bankCode" => "214",
                 "bankName" => "First City Monument Bank Plc",
@@ -213,11 +234,51 @@ class NIBBSController extends Controller
                 "bankCode" => "221",
                 "bankName" => "Stanbic IBTC Bank Plc",
             ]
-        ];
+            ], 200);
     }
 
     public function tryForm()
     {
         return view('try-nibbs-form');
     }
+
+    /**
+     * @param $string
+     */
+    public function hashValue($string)
+    {
+        $billerID = "NIBSS0000000128";
+        $secret = "F78BE99289AB52FDF97190CEBFC1D6B8";
+
+        $string = $string;
+        return strtoupper(hash('sha256',trim($string)));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -64,8 +64,38 @@ class GuestController extends Controller
 	public function eachServicesType(Request $request, $name, CIController $soap)
 	{
 		if (!session()->has('TAMSES')) {
-			$soap->signon();
+
+			try {
+				$soap->signon();
+				switch ($name) {
+					case $name === "prepaid-meters":
+						return view('guest/prepaid');
+					case $name === "postpaid-meters":
+						// return session()->get('TAMSES');
+						return view('guest/postpaid');
+						break;
+					default:
+						return back();
+						break;
+				}
+			} catch (\Throwable $th) {
+				$soap->signon();
+				switch ($name) {
+					case $name === "prepaid-meters":
+						return view('guest/prepaid');
+					case $name === "postpaid-meters":
+						// return session()->get('TAMSES');
+						return view('guest/postpaid');
+						break;
+					default:
+						return back();
+						break;
+				}
+
+			}
+		
 		}
+
 		switch ($name) {
 			case $name === "prepaid-meters":
 				return view('guest/prepaid');
@@ -77,6 +107,7 @@ class GuestController extends Controller
 				return back();
 				break;
 		}
+		
 
 	}
 

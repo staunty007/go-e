@@ -91,7 +91,6 @@
                         <div class="col-md-4">
                             <h4>Filter By Date</h4>
                             <div class="input-group input-daterange">
-
                                 <input type="text" id="min-date" class="form-control date-range-filter"
                                     data-date-format="dd/mm/yy" placeholder="From:">
 

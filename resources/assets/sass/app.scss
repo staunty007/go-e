@@ -126,34 +126,34 @@ body {
   border-radius: 0 !important;
 }
 
-// .card {
-//   margin-top: 0.5rem;
-// }
-
-// .card.card-gradient {
-//   background: linear-gradient(60deg, #EE262B, #C71C22);
-//   color: #fff;
-// }
-
-
 .card {
   margin-top: 0.5rem;
-  border-radius: 0px !important;
-  border: none !important;
 }
 
-.card.card-gradient-red {
-  // border-left: 10px solid #EE262B;
-  background-color:rgba(226, 82, 84, 0.09);
-  // box-shadow: 0px 0px 1px 2px #EE262B;
-  color: #EE262B;
+.card.card-gradient {
+  background: linear-gradient(60deg, #EE262B, #C71C22);
+  color: #fff;
 }
-.card.card-gradient-green {
-  // border-left: 10px solid #92CA40;
-  background: rgba(176, 220, 110, 0.081);
-  // box-shadow: 0px 0px 1px 2px #EE262B;
-  color: #92CA40;
-}
+
+
+// .card {
+//   margin-top: 0.5rem;
+//   border-radius: 0px !important;
+//   border: none !important;
+// }
+
+// .card.card-gradient-red {
+//   // border-left: 10px solid #EE262B;
+//   background-color:rgba(226, 82, 84, 0.09);
+//   // box-shadow: 0px 0px 1px 2px #EE262B;
+//   color: #EE262B;
+// }
+// .card.card-gradient-green {
+//   // border-left: 10px solid #92CA40;
+//   background: rgba(176, 220, 110, 0.081);
+//   // box-shadow: 0px 0px 1px 2px #EE262B;
+//   color: #92CA40;
+// }
 
 .animation {
   animation: spinner 3s linear infinite;
@@ -816,4 +816,18 @@ body {
 .loginBtn--twitter:hover,
 .loginBtn--twitter:focus {
   background: #63aee7;
+}
+
+.grid {
+  display:flex;
+  justify-content: space-between;
+}
+
+.grid-child {
+  background: green;
+  font-size: 12px;
+  width: 100px;
+  margin: 0.5em;
+  height: 100px;
+  padding: 1em;
 }

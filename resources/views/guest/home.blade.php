@@ -34,6 +34,8 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 	
 	<link href="/css/main.css" rel='stylesheet' media="screen, projection" type='text/css'>
 	<!-- jQuery library -->
@@ -83,6 +85,12 @@
 			padding: 0;
 			
 		}
+		.text-insert {
+			height: 216px;
+		}
+		.text-insert h5 {
+			font-size: 13px;
+		}
 	</style>
 	<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -115,7 +123,6 @@
 								"
 							 onkeyup="listServices()" id="searchForm">
 							<button class="btn btn-danger" style="
-									padding: .7em;
 									border-radius: 0;
 								"><i class="fas fa-search"></i></button>
 

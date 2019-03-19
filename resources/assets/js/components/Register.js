@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { FormValidation } from 'calidation';
+import { FormValidation } from 'calidation'; 
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default class Register extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			error: null,
 			success: null,
@@ -42,7 +43,8 @@ export default class Register extends Component {
 						this.setState({ error: 'Something Went Wrong, Please Try Again' });
 					} else {
 						this.setState({ success: 'Please Confirm your email address to complete the registration' });
-						alert('Please Confirm your email address to complete the registration');
+						
+
 					}
 				})
 				.catch((error) => {
@@ -114,7 +116,9 @@ export default class Register extends Component {
 			}
 		};
 		return (
+			
 			<Fragment>
+				{this.state.success && <Redirect to='/mobile/email/confirm' />}
 				<div className="row justify-content-center mt-3">
 					<div className="col-md-8">
 						{this.state.error && <div className="alert alert-danger">{this.state.error}</div>}

@@ -129,6 +129,10 @@ class AccountController extends Controller
             return view('activating')->withDone(1);
         }
         $user->is_activated = 1;
+        $user->save();
+
+        Auth::login($user);
+        
 
         session()->forget('account_info');
         return view('activating');
@@ -196,15 +200,24 @@ class AccountController extends Controller
     public function postpaidPayment()
     {
         $bio = $this->customerData();
-        return view('customer.postpaid-payment')->withBio($bio);
-        //return "We are working on this <a href='/home'>Back</a>";
+        // return $bio;
+        $topups = Payment::where('email','agent@goenergee.com')->get();
+        // return $topups;
+        $previous_topup = array_flatten(last($topups));
+        $prev_tops = 0;
+        if($previous_topup) {
+            $prev_top = Transaction::where('payment_id',$previous_topup[0]['id'])->first();
+            $prev_tops = $prev_top ? $prev_top->initial_amount : 0;
+        }
+        // return $previous_topups;
+        return view('customer.postpaid-payment',compact('prev_tops'))->withBio($bio);
     }
 
     public function paymentSuccess($user_type, $reff)
     {
         if (session()->exists('payment_details')) {
             $paymentDetails = session('payment_details');
-            // return $paymentDetails;
+            $paymentDetails = $paymentDetails['payload'] ? $paymentDetails['payload'] : $paymentDetails;
             $tokenDetails = session()->get('token_data');
             // Insert into prepaid_payment
             $prepaid = new Payment;

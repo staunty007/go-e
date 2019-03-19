@@ -14,6 +14,7 @@
                 <h3 class="modal-title text-center ">Confirm Details</h3>
                 <br>
                 <form id="payForm" method="POST" action="">
+                {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -113,24 +114,32 @@
                                 <!-- bank section -->
                                 <div class="bhoechie-tab-content">
                                     <center>
-                                        <div class="form-group">
-                                            <label>Please Select Your Bank</label>
-                                            <select class="form-control" name="bank_payment" id="bank_payment">
-                                                <option value="">Select your bank</option>
-
-                                            </select>
-                                        </div>
-                                        <div class="other">
+                                        <div id="bank_details">
                                             <div class="form-group">
-                                                <label>Please Enter Your Account Number</label>
-                                                <input type="text" class="form-control" id="nuban" name="account">
+                                                <label>Please Select Your Bank</label>
+                                                <select class="form-control" name="bank_payment" id="bank-i"></select>
                                             </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-block btn-primary" id="make-btn" disabled>Make
-                                                    Payment
-                                                </button>
+                                            <div class="other">
+                                                <div class="form-group">
+                                                    <label>Please Enter Your Account Number</label>
+                                                    <input type="text" class="form-control" id="nuban" name="account_number">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Please Enter Your Account Name</label>
+                                                    <input type="text" class="form-control" id="acc_name" name="account_name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Enter Amount</label>
+                                                    <input type="text" class="form-control" id="payWithBank_amount" name="payWithBank_amount" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btn btn-block btn-primary" id="payWithBank" disabled>
+                                                        Pay With Bank
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
+                                        
                                     </center>
                                 </div>
                                 <div class="bhoechie-tab-content">
@@ -149,8 +158,8 @@
                                         </a>
                                     </center>
                                 </div>
-                                @auth
-                                    {{-- Charge Customer Wallet --}}
+                                {{-- @auth
+                                    {{-- Charge Customer Wallet --}
                                     <div class="bhoechie-tab-content">
                                         <center>
                                             <button class="btn btn-primary btn-lg" id="chargeMyWallet">Charge my
@@ -158,7 +167,7 @@
                                             </button>
                                         </center>
                                     </div>
-                                @endauth
+                                @endauth --}}
                             </div>
                         </div>
                     </div>
@@ -193,20 +202,20 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Enter your Account Number</label>
-                                <input type="text" name="meter_no" class="meterno form-control" placeholder="Account Number" id='post_meterno' value="">
+                                <input type="text" name="meter_no" class="form-control" placeholder="Account Number" id='order_account_number'>
                             </div>
                         </div>
                         <br>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Enter your Order ID</label>
-                                <input type="text" name="order_id" class="meterno form-control" placeholder="E.g 1234567" id='order_id'>
+                                <input type="text" name="order_id" class="form-control" placeholder="E.g 1234567" id='order_id'>
                             </div>
                         </div>
                         <br>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button class="btn btn-block btn-success" id="confirm-order">Confirm my Order</button>
+                                <button class="btn btn-block btn-success" id="confirm-other-order">Confirm my Order</button>
                             </div>
                         </div>
                     </div>
@@ -225,65 +234,82 @@
     });
 </script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/3.10.0/parser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="/js/jquery-confirm.js"></script>
+<script src="/js/nibbs.js"></script>
 <script>
+
+    $("#confirm-other-order").click((e) => {
+        e.preventDefault();
+        alert('Yeee'); return;
+        let accountNo = $("$order_account_number").val();
+        let otherOrder = $("#order_id").val();
+
+        payOtherOrders(accountNo, otherOrder);
+    });
+
+    
+    const payOtherOrders = (accountNo, orderId) => {
+
+        $.ajax({
+            url: '/pay-order',
+            method: 'POST',
+            data: {
+                account: accountNo,
+                order: orderId
+            },
+            success = (response) => {
+                console.log(response);
+            },
+            error = (err) => console.error(err)
+        });
+
+    };
+
+</script>
+
+
+<script>
+
     let meter_no = '';
-    let accountType = "{{ $accountType }}";
-    let amount;
+    let accountType = "{{ $accountType }}"; // Account Type Passed as a component
+    let amount, total; //
+    const addedFee = 100;
+    
+    const convertToKobo = (amount = 1000) => parseInt(amount);
 
     $(".pay-meter").click((e) => {
         e.preventDefault();
+      
         $(".pay-meter").prop('disabled', true).html('<div class="loader-css"></div>');
         if (navigator.onLine) {
+            {{-- amount = convertToKobo($("#amount").val()); --}}
             amount = $("#amount").val();
-            if (accountType === "PREPAID" && parseFloat(amount) < 1000) {
-                $.alert({
-                    title: 'Invalid Amount!',
-                    content: `Amount Cannot be lesser than N1000`,
-                    type: 'red',
-                    buttons: {
-                        gotit: {
-                            text: 'Got It!',
-                            btnClass: 'btn-red'
-                        }
-                    }
-                });
+            
+            if (accountType === "PREPAID" && amount < 1000) {
+                alert('Amount Cannot be lesser than 1000NGN')
                 $(".pay-meter").prop('disabled', false).html('Continue');
+                return;
             } else {
                 // alert('nooo');
                 if (amount < 100) {
-                    $.alert({
-                        title: 'Invalid Amount!',
-                        content: `Amount Cannot be lesser than N100`,
-                        type: 'red',
-                        buttons: {
-                            gotit: {
-                                text: 'Got It!',
-                                btnClass: 'btn-red'
-                            }
-                        }
-                    });
+                    alert('Amount cannot be lesser than 100NGN')
                     $(".pay-meter").prop('disabled', false).html('Continue');
+                    return;
                 } else {
                     continuePayment();
                 }
             }
         } else {
-            $.alert({
-                title: 'Ooops!',
-                content: 'Seems you"re disconnected',
-                type: 'red',
-                buttons: {
-                    ok: {
-                        text: 'Got It',
-                        btnClass: 'btn-red'
-                    }
-                }
-            });
+            alert('Please Check your internet connection');
             $(".pay-meter").prop('disabled', false).html('Continue');
         }
     })
+
+
     $("#ctnPay").click((e) => {
+
         $("#ctnPay").html('Connecting to Gateway..').prop('disabled', true);
         e.preventDefault();
         if ($("#emailret").val() == "") {
@@ -295,31 +321,33 @@
                 payload = {
                     'meterno': '' + $("#meterno").val() + '',
                     'firstname': '' + $('#firstname').val() + '',
-                    'lastname': '' + $('#lastname').val() + '',
+                    'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + $('.meter-amount').val() + '',
+                    'amount': total,
                     'is_agent': '1',
                 };
             } else {
                 payload = {
                     'meterno': '' + $("#meterno").val() + '',
                     'firstname': '' + $('#firstname').val() + '',
-                    'lastname': '' + $('#lastname').val() + '',
+                    'lastname': '' + $('#othername').val() + '',
                     'email': '' + $('#emailret').val() + '',
                     'mobile': '' + $('#phoneret').val() + '',
-                    'amount': '' + $('.meter-amount').val() + '',
+                    'amount': total,
                 };
             }
             continuePay(payload);
         }
     });
 
+
     function continuePay(payload) {
+        // Hold the payment information in a session
         $.ajax({
             url: '/payment/hold',
             method: 'POST',
-            data: payload,
+            data: { payload, _token: "{{ csrf_token() }}" },
             success: (response) => {
                 if (response.code == "ok") {
                     openOptions();
@@ -332,9 +360,12 @@
         });
     }
 
+
     function payWithPaystack() {
-        var chargedAmount = parseInt(amount) + 100;
-        let reff;
+
+        var chargedAmount = total;
+        
+        let reff = null;
         switch (accountType) {
             case 'POSTPAID':
                 reff = "GOEPOS" + Math.floor((Math.random() * 1000000000) + 1)
@@ -343,13 +374,13 @@
                 reff = "GOEPRE" + Math.floor((Math.random() * 1000000000) + 1)
                 break;
         }
+
         var handler = PaystackPop.setup({
             key: "{{ env('PS_KEY') }}",
             email: document.querySelector('#emailret').value,
-            amount: chargedAmount + "00",
+            amount: chargedAmount,
             ref: reff,
             callback: function (response) {
-                console.log(response);
                 // charge wallet
                 let dataBack;
                 document.querySelector("#response").innerHTML = `<div class="modal-footer">
@@ -361,12 +392,19 @@
                     .then(res => res.json())
                     .then(chargeWalletResult => {
                         console.log('Generating Token...');
-                        const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
-                        const orderId = chargeWalletResult.response.result.orderId;
+                        if(chargeWalletResult.response.result.orderDetails) {
+                            const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
+                            const orderId = chargeWalletResult.response.result.orderId;
                             document.querySelector("#response").innerHTML = `<div class="modal-footer">
                                     <h2>Completing Transaction... <div class="loader-css"></div></h2> 
                             </div>`;
                             generateToken(payRef, orderId);
+                        }else {
+                        document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                            <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
+                            <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
+                        </div>`;
+                        }
                     })
                     .catch(err => console.log(err));
             },
@@ -382,7 +420,6 @@
     const retryTokenGenerate = (ref,id) => {
         document.querySelector("#response").innerHTML = `<div class="modal-footer">
             <h2 class="text-center">Regenerating Token.....</h2>
-            <p>Redirecting... <div class="loader-css"></div></p>
         </div>`;
         console.log(`Your Reference is ${ref} and your id is ${id}`);
         fetch(`/ekedc/generate-token/${ref}/${id}`)
@@ -497,17 +534,7 @@
             .then(res => res.json())
             .then(result => {
                 if (result.response.retn !== 0) {
-                    $.alert({
-                        title: 'Ooops!',
-                        content: `${result.response.error} <br> Please Ensure your enter the correct <b>Meter Number</b>`,
-                        type: 'red',
-                        buttons: {
-                            ok: {
-                                text: 'Try Again',
-                                btnClass: 'btn-red'
-                            }
-                        }
-                    });
+                    alert('Cannot Validate Customer, Please Try Again');
                     $('.pay-meter').html('Continue');
                     $(".pay-meter").prop('disabled', false);
                 } else {
@@ -525,16 +552,16 @@
                                     name
                                 } = customerInfo.customerInfo;
                                 let names = name.split(' ', 2);
-                                {{-- console.log(names); --}}
                                 $("#firstname").val(names[0]);
                                 $("#othername").val(names[1]);
-                                
-                                
+
+                                total = convertToKobo($(".meter-amount").val()) + addedFee;
+
                                 $("#meter_no").val($("#meterno").val());
-                                $("#total").val(parseInt($(".meter-amount").val()) + 100);
+                                $("#total, #payWithBank_amount").val(total);
                                 setTimeout(() => {
                                     $('.pay-meter').html('Validated');
-                                    $("#mvisa").html(parseInt($(".meter-amount").val()) + 100);
+                                    $("#mvisa").html(total);
                                     confirmDetails();
                                 }, 2000);
                             } else {
@@ -548,19 +575,8 @@
             .catch(err => {
                 $('.pay-meter').html('Continue');
                 $(".pay-meter").prop('disabled', false);
-                
-                $.alert({
-                    title: 'Ooops!',
-                    content: 'Something Bad Went Wrong',
-                    type: 'red',
-                    buttons: {
-                        ok: {
-                            text: 'Got It',
-                            btnClass: 'btn-red'
-                        }
-                    }
-                });
-               
+
+                alert('Ooops!, Server Caught Up in Traffic.. Its Us not you, Kindly give it another Try');
             });
     }
 
@@ -574,54 +590,6 @@
             .then(res => res.json())
             .then(result => {
                 console.log(result);
-                // if(result.success == 'OK') {
-                // 	// Sufficient funds
-                // document.querySelector("#response").innerHTML =`<div class="modal-footer">
-                // 				<h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
-                // 			</div>`;
-                // console.log('charging Wallet...');
-                // let amountCommission = amount - amount * 0.02;
-                // fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
-                // 	.then(res => res.json())
-                // 	.then(chargeWalletResult => {
-                // 		console.log('Generating Token...');
-                // 		const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
-                // 		const orderId = chargeWalletResult.response.result.orderId;
-                // 		document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                // 				<h2>Completing Transaction... <div class="loader-css"></div></h2>
-                // 		</div>`;
-                // 		fetch(`/ekedc/generate-token/${payRef}/${orderId}`)
-                // 			.then(res => res.json())
-                // 			.then(generateTokenResult => {
-                // 				// console.log(generateTokenResult.response);
-                // 				// Get the token data and redirect to receipt page
-                // 				document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                // 						<h2>Transaction Completed</h2>
-                // 						<p>Redirecting... <div class="loader-css"></div></p>
-
-                // 					</div>`;
-                // 				$.ajax({
-                // 					url: '/gtk',
-                // 					method: "POST",
-                // 					data: generateTokenResult.response,
-                // 					success: (result) => {
-                // 						if(result == "ok") {
-                // 							window.location.href = '/transaction/success';
-                // 						}
-                // 					},
-                // 					error: (err) => {
-                // 						alert('Something Bad Went Wrong, Please log a complain');
-                // 					}
-                // 				})
-                // 			})
-                // 			.catch(err => console.log(err));
-                // 	})
-                // 	.catch(err => console.log(err));
-                // }else {
-                // 	// Insufficiient Funds
-                // 	$("#chargeMyWallet").html('Charge My Wallet');
-                // 	$("#error-wallet").html('Insufficient funds, Please Top up and try again');
-                // }
             })
     })
 
@@ -632,6 +600,8 @@
             "transition": "all .2s cubic-bezier(0, 0.01, 0.35, 0.91)",
             "display": "none"
         });
+
+
         $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
             e.preventDefault();
             $(this).siblings('a.active').removeClass("active");
@@ -640,69 +610,15 @@
             $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
             $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
         });
-        loadBanks();
-        $("#bank_payment").change(function () {
-            let fetchUrl = "/bp/";
-            const bankVal = $(this).val();
-            switch (bankVal) {
-                case 'diamond':
-                    fetchUrl = fetchUrl + "diamond/c-mandate"
-                    break;
-                case 'zenith':
-                    break;
-                default:
-                    break;
-            }
-            if ($(this).val() !== "") {
-                $(".other").css({
-                    "display": "block"
-                });
-            }
-        });
 
-        let nuban = document.querySelector("#nuban");
-        nuban.addEventListener('keyup', () => {
-
-            if (nuban.value.length !== 0) {
-                document.querySelector('#make-btn').disabled = false;
-            }
-        });
-
-        // function loadBanks() {
-        //     fetch('/nibbs/all-banks')
-        //         .then(res => res.json())
-        //         .then(response => {
-        //             let innerDom = document.querySelector('#bank_payment');
-        //             for (const banks in response) {
-        //                 const bank = response[banks];
-        //                 innerDom.innerHTML += `<option value="${bank.bankCode}" valueName="${bank.bankName}">${bank.bankName}</option>`;
-        //             }
-        //         })
-        //         .catch(err => console.log(err));
-        // }
-    });
-</script>
-<script>
-    $("#payOption").change(function () {
+        $("#payOption").change(function () {
         var vall = $(this).val();
-        if (vall !== "POSTPAID") {
-            // let postpaid_no = $('#meter_no').val();
-            // $('#post_meterno').val(postpaid_no);
-            console.log(vall);
-            // window.location = `/guest/postpaid-service-type/${vall}`;
-            $(`#${vall}`).modal('show');
-        }
-    })
+            if (vall !== "POSTPAID") {
+                $(`#${vall}`).modal('show');
+                $("#payOption").val('');
+            }
+        });
 
-    // $("#qrd").click(function() {
-    //     $("#qr").html(`
-            
-    //     `);
-    // })
-</script>
 
-<script>
-    function customCallback(response) {
-        console.log(response);
-    }
+    });
 </script>

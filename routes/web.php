@@ -8,7 +8,11 @@ use App\AdminBiodata;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\TestSoapController;
+use Illuminate\Http\Request;
 
+Route::get('banks-to-banks', function() {
+    return view('nibbs-interface');
+});
 
 Route::get('/', function () {
     // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
@@ -239,10 +243,6 @@ Route::get('e2e/api/customers', function () {
     return User::where('role_id', 0)->get(['id', 'first_name']);
 });
 
-Route::get('/lists/services/{keyword}', function ($keyword) {;
-    // return $keyword;
-    return response()->json(DB::table('services_list')->where('title', 'LIKE', "%$keyword%")->get());
-});
 
 // Services 
 Route::prefix('services')->group(function () {
@@ -262,6 +262,7 @@ Route::get('register', function () {
     return redirect('/');
 })->name('register');
 
+
 // Mobile Routes
 
 Route::prefix('mobile')->group(function () {
@@ -272,6 +273,11 @@ Route::prefix('mobile')->group(function () {
     // Route::get('login', 'MobileController@login')->name('mobile.login');
     // Route::get('sign-up', 'MobileController@signUp')->name('mobile.sign-up');
     // Route::get('make-payment', 'MobileController@makePayment')->name('mobile.make-payment');
+});
+
+Route::post('/lists/services/', function (Request $request) {
+    // return $request['keyword';
+    return response()->json(DB::table('services_list')->where('title', 'LIKE', "$request->keyword"."%")->get());
 });
 Route::get('/mobile-transaction/success/{user_type}/{ref}', 'AccountController@mobilePaymentSuccess');
 
@@ -359,7 +365,7 @@ Route::prefix('ekedc')->group(function () {
     Route::get('validate-payment/{accountType}/{customerId}', 'CIController@validatePayment');
     Route::get('charge-wallet/{amount}/{accountType}/{customerId}', 'CIController@chargeWallet');
     Route::get('generate-token/{paymentRef}/{orderId}', 'CIController@generateToken');
-    Route::get('pay-order-id/{customerId}/{orderid}', 'CIController@payOrderId');
+    Route::post('pay-order', 'CIController@payOrderId');
 });
 
 
@@ -385,32 +391,16 @@ Route::prefix('ekedc')->group(function () {
  * NIBBS Web Routes
  */
 Route::prefix('nibbs')->group(function () {
-    Route::get('create-mandate','NIBBSController@createCurlMandate');
-    Route::get('all-banks', 'NIBBSController@getHashValue');
+    Route::post('create-mandate','NIBBSController@createCurlMandate');
+    Route::get('validate-otp/{otp}/{mandate}','NIBBSController@validateOtp');
+    // Route::get('all-banks', 'NIBBSController@getHashValue');
+    Route::get('all-banks', 'NIBBSController@getBanks');
     Route::get('callback', function () {
         
     });
     Route::get('try-form', 'NIBBSController@tryForm');
+    Route::post('create-mandate','NIBBSController@createCurlMandate');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -18,17 +18,24 @@
     <link href="{{asset('css/table1.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
+<<<<<<< HEAD
     
     {{-- <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet"> --}}
+=======
 
-    {{-- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
+    {{--
+    <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet"> --}}
+>>>>>>> d0735af612d2e930b7bdeea3cdb39adca12fb40b
+
+    {{--
+    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
     <link rel="icon" href="{{asset('images/favicon.png') }}" type='image/x-icon'>
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
 
-<style>
-    /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+    <style>
+        /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
         
         @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
         @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
@@ -243,10 +250,10 @@
             text-align: right;
         }
     </style>
-<script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
 </head>
 
 <body>
@@ -302,7 +309,7 @@
                         <a href="{{ route('agent.payHistory') }}"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment
                                 History</span></a>
                     </li>
-                    
+
                     <li class="{{ Request::is('agent/prepaid-token') ? 'active' :'' || Request::is('agent/postpaid-token') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label"> Buy Token</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
@@ -310,13 +317,11 @@
                                     Token</a></li>
 
 
-                            <li class="{{ Request::is('agent/postpaid-token') ? 'active' :'' }}"><a href="{{ route('agent.postpaid-token') }}"
-                                    >Postpaid Token</a></li>
+                            <li class="{{ Request::is('agent/postpaid-token') ? 'active' :'' }}"><a href="{{ route('agent.postpaid-token') }}">Postpaid Token</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::is('agent/tickets') ? 'active' :'' }}"><a href="{{ route('agent.tickets') }}"><i
-                        class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
+                    <li class="{{ Request::is('agent/tickets') ? 'active' :'' }}"><a href="{{ route('agent.tickets') }}"><i class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
                     </li>
                     <li class="{{ Request::is('agent/meter-management') ? 'active': '' }}">
                         <a href="{{ route('agent.meter') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter
@@ -378,10 +383,8 @@
                                                 <div>
                                                 </div>
                                             </form>
-                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                onclick="diamondPay(event)"
-                                                id="topUpBtn">
-                                               Top Up Now
+                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="diamondPay(event)" id="topUpBtn">
+                                                Top Up Now
                                             </button>
                                         </div>
                                     </div>
@@ -395,12 +398,11 @@
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
                             <span class="m-r-sm text-muted welcome-message">Welcome <strong class="font-bold"> {{Auth::user()->first_name}}
-                                            {{Auth::user()->last_name}}</strong> to GOENERGEE Utility 
+                                    {{Auth::user()->last_name}}</strong> to GOENERGEE Utility
                                 platform.</span>
                         </li>
                         <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
-                                onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';">
                                 <i class="fa fa-sign-out"></i>Logout</a>
                             <form class="logout-form" method="POST" action="{{ route('logout') }}">
                                 {{ csrf_field()}}
@@ -417,11 +419,10 @@
 
     </div>
     <div class="footer">
-
-                    <div class="container text-center">
-                        Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
-                    </div>
-                </div>
+        <div class="container text-center">
+            Powered by &nbsp;<strong> GOENERGEE</strong> &nbsp;&copy; 2019
+        </div>
+    </div>
     </div>
     <!-- Mainly scripts -->
 
@@ -497,49 +498,55 @@
     <script>
         function diamondPay(event) {
             var amount = document.querySelector('#topup-amount').value;
-            if(amount.length == 0 || amount == "") {
+            if (amount.length == 0 || amount == "") {
                 alert('Please Enter an Amount');
                 return;
             }
-
             const parente = event.target;
             updateButton();
-            {{-- parente.disabled = true; --}}
             // Connect to diamond API to deduct amount fro agent's Account
             fetch(`/diamond/debit/${amount}`)
                 .then(res => res.json())
                 .then(response => {
-                    let responseResults = response.results ? JSON.parse(response.results) : response.errors;
-                    {{-- let responsed = response.errors ? JSON.parse(response.errors): response.errors; --}}
-                    if(!response.errors !== "" && responseResults.successful == true) {
-                        // Add Amount to Agent's Wallet
-                        {{-- console.log(responseResults); return; --}}
-                        const walletData = [responseResults.result.transactionReference,amount];
-                        let agentCredit = creditWallets(walletData);
-                        if(agentCredit == true) {
-                            alert('Transaction Completed');
-                            location.href="{{ route('home') }}";
+                    if (response.successful) {
+                        let responseResults = response.results ? JSON.parse(response.results) : response.errors;
+
+                        if (!response.errors !== "" && responseResults.successful == true) {
+                            // Add Amount to Agent's Wallet
+                            const walletData = [responseResults.result.transactionReference, amount];
+                            let agentCredit = creditWallets(walletData);
+                            if (agentCredit == true) {
+                                alert('Transaction Completed');
+                                location.href = "{{ route('home') }}";
+                            }
+                        } else {
+                            updateButton('Topup Wallet');
+                            alert(response.errors);
+                            console.log(response.errors);
                         }
-                    }else {
-                        updateButton('Topup Wallet');
+                    } else {
                         alert(response.errors);
-                        console.log(response.errors);
+                        updateButton('Top Up');
+                        return;
                     }
+
                 });
         }
 
         const creditWallets = (response) => {
-            
+
             console.log('Crediting Agent Wallet...');
             updateButton('Updating Your Wallet ...');
-            if(!response) return;
- 
+            if (!response) return;
+
             $.ajax({
                 url: '/wallets/credit',
                 type: 'POST',
-                data: { response },
+                data: {
+                    response
+                },
                 success: (result) => {
-                    if(!result.successful || !result.successful == true) {
+                    if (!result.successful || !result.successful == true) {
                         return false;
                         updateButton('Top up Wallet');
                     }
@@ -671,7 +678,8 @@
 
         });
     </script>
-    {{--<!-- Page-Level Scripts -->--}}
+    {{--
+    <!-- Page-Level Scripts -->--}}
     <script>
 
     </script>
