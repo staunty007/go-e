@@ -496,9 +496,9 @@
         });
     });
 </script>
-<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-dd-MMM-yyyy.js"></script>
+<script src="https://www.bubt.edu.bd/assets/back/backend/DataTables-1.10.13/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -549,9 +549,9 @@
                 var max = $('#max-date').val();
                 var createdAt = data[0] || 0; // Our date column in the table
             //createdAt=createdAt.split(" ");
-                var startDate   = moment(min, "DD/MM/YY");
-                var endDate     = moment(max, "DD/MM/YY");
-                var diffDate = moment(createdAt, "DD/MM/YY");
+                var startDate   = moment(min, "DD/MM/YYYY");
+                var endDate     = moment(max, "DD/MM/YYYY");
+                var diffDate = moment(createdAt, "DD/MM/YYYY");
 
                 if ( (min == "" || max == "") || diffDate.isBetween(startDate, endDate, 'days'))
                 {  return true;  }
@@ -568,7 +568,6 @@
     </script>
     <script src="{{asset('js/index.js')}}"></script>
     <!-- Mainly scripts -->
-    <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     <script src="{{asset('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>

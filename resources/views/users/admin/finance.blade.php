@@ -51,49 +51,7 @@
 </div>
 
 <div id="disco" class="tabcontent">
-    <div class="row">
-
-        <div class="col-lg-4 col-md-4">
-
-            <div class="stat">
-
-                <div class="stat__icon-wrapper stat--bg-green">
-                    <i data-feather="shopping-cart" class="stat__icon"></i>
-                </div>
-                <div class="stat__data">
-                    <h1 class="stat__header">Total Income</h1>
-                    <p class="stat__subheader"> <span>&#8358;</span>705,100</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-4">
-            <div class="stat stat--has-icon-right">
-                <div class="stat__icon-wrapper stat--bg-blue">
-                    <i data-feather="briefcase" class="stat__icon"></i>
-                </div>
-                <div class="stat__data">
-                    <h1 class="stat__header">Billers</h1>
-                    <p class="stat__subheader">1</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="stat stat--has-icon-right">
-                <div class="stat__icon-wrapper stat--bg-dark-red">
-                    <i data-feather="sun" class="stat__icon stat--color-white"></i>
-                </div>
-                <div class="stat__data">
-                    <h1 class="stat__header">Total Profit</h1>
-                    <p class="stat__subheader"> <span>&#8358;</span>300</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+        @include('includes.totals')
 
     <div class="row" style="margin-top: 20px;">
         <div class="col-lg-6">
