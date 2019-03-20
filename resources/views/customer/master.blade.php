@@ -35,10 +35,10 @@
     </script>
     <style>
         #chartdiv {
-          width: 100%;
-          height: 280px;
+            width: 100%;
+            height: 280px;
         }
-        </style>
+    </style>
     <!--End of Tawk.to Script-->
     {{-- <style>
         #myModal6:active {
@@ -64,287 +64,320 @@
 
     <style>
         /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-            @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
-            @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+        @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 
-            html,
-            body {
-                min-height: 100%;
-                /* background: #ecf0f1; */
+        html,
+        body {
+            min-height: 100%;
+            /* background: #ecf0f1; */
+        }
+
+        .header,
+        .closing,
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header {
+            margin-top: 2vh;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-family: Raleway, sans-serif;
+            font-size: 2.5em;
+            text-transform: uppercase;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
             }
 
-            .header,
-            .closing,
-            .container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            to {
+                transform: rotate(360deg);
             }
+        }
 
-            .header {
-                margin-top: 2vh;
-                text-align: center;
-            }
+        .closing {
+            font-family: Raleway, sans-serif;
+            margin: 1em 0;
+            text-align: center;
+            flex-wrap: wrap;
+        }
 
-            .header h1 {
-                color: #333;
-                font-family: Raleway, sans-serif;
-                font-size: 2.5em;
-                text-transform: uppercase;
-            }
+        .closing__icon {
+            margin: 0 0.3em;
+            color: #D90429;
+            transition: all 0.3s ease;
+            fill: transparent;
+        }
 
-            @keyframes rotate {
-                from {
-                    transform: rotate(0deg);
-                }
+        .closing__icon:hover {
+            fill: #D90429;
+            cursor: pointer;
+        }
 
-                to {
-                    transform: rotate(360deg);
-                }
-            }
+        .closing__icon:active {
+            animation: rotate 2s infinite;
+        }
 
-            .closing {
-                font-family: Raleway, sans-serif;
-                margin: 1em 0;
-                text-align: center;
-                flex-wrap: wrap;
-            }
+        .closing a {
+            text-decoration: none;
+            color: #EF233C;
+            border-bottom: 1px solid transparent;
+            transition: border 0.3s ease-in;
+        }
 
-            .closing__icon {
-                margin: 0 0.3em;
-                color: #D90429;
-                transition: all 0.3s ease;
-                fill: transparent;
-            }
+        .closing a:hover {
+            border-bottom: 1px solid;
+        }
 
-            .closing__icon:hover {
-                fill: #D90429;
-                cursor: pointer;
-            }
+        .container {
+            flex-wrap: wrap;
+        }
 
-            .closing__icon:active {
-                animation: rotate 2s infinite;
-            }
+        .container .stat {
+            margin-right: 1em;
+            margin-bottom: 1em;
+        }
 
-            .closing a {
-                text-decoration: none;
-                color: #EF233C;
-                border-bottom: 1px solid transparent;
-                transition: border 0.3s ease-in;
-            }
+        .stat {
+            min-width: 280px;
+            height: 90px;
+            background: #fff;
+            display: flex;
+            font-family: Lato, sans-serif;
+            cursor: pointer;
+            box-shadow: none;
+            transition: box-shadow 0.1s ease-in;
+        }
 
-            .closing a:hover {
-                border-bottom: 1px solid;
-            }
+        .stat:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+        }
 
-            .container {
-                flex-wrap: wrap;
-            }
+        .stat:active {
+            box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+        }
 
-            .container .stat {
-                margin-right: 1em;
-                margin-bottom: 1em;
-            }
+        .stat--has-icon-right {
+            flex-direction: row-reverse;
+        }
 
-            .stat {
-                min-width: 280px;
-                height: 90px;
-                background: #fff;
-                display: flex;
-                font-family: Lato, sans-serif;
-                cursor: pointer;
-                box-shadow: none;
-                transition: box-shadow 0.1s ease-in;
-            }
+        .stat__icon-wrapper {
+            width: 90px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .stat:hover {
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-            }
+        .stat__icon {
+            color: #2A3036;
+            width: 45px;
+            height: 45px;
+        }
 
-            .stat:active {
-                box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
-            }
+        .stat__data {
+            flex: 1 0 90px;
+            height: 45px;
+            align-self: center;
+            padding: 0 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-            .stat--has-icon-right {
-                flex-direction: row-reverse;
-            }
+        .stat__header {
+            margin: 0;
+            color: #2A3036;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
 
-            .stat__icon-wrapper {
-                width: 90px;
-                min-height: 90px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        .stat__subheader {
+            color: #373E45;
+            margin: 0;
+            font-size: 1em;
+        }
 
-            .stat__icon {
-                color: #2A3036;
-                width: 45px;
-                height: 45px;
-            }
+        .stat--bg-white {
+            background: #F7FFF7;
+        }
 
-            .stat__data {
-                flex: 1 0 90px;
-                height: 45px;
-                align-self: center;
-                padding: 0 1em;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
+        .stat--bg-dark_grey {
+            background: #2F4050;
+        }
 
-            .stat__header {
-                margin: 0;
-                color: #2A3036;
-                font-size: 1.2em;
-                font-weight: bold;
-            }
+        .stat--bg-dark-white {
+            background: #deffde;
+        }
 
-            .stat__subheader {
-                color: #373E45;
-                margin: 0;
-                font-size: 1em;
-            }
+        .stat--color-white {
+            color: #F7FFF7;
+        }
 
-            .stat--bg-white {
-                background: #F7FFF7;
-            }
+        .stat--bg-green {
+            background: #9BC53D;
+        }
 
-            .stat--bg-dark_grey {
-                background: #2F4050;
-            }
+        .stat--bg-dark-green {
+            background: #8cb336;
+        }
 
-            .stat--bg-dark-white {
-                background: #deffde;
-            }
+        .stat--color-green {
+            color: #9BC53D;
+        }
 
-            .stat--color-white {
-                color: #F7FFF7;
-            }
+        .stat--bg-yellow {
+            background: #FDE74C;
+        }
 
-            .stat--bg-green {
-                background: #9BC53D;
-            }
+        .stat--bg-dark-yellow {
+            background: #fde433;
+        }
 
-            .stat--bg-dark-green {
-                background: #8cb336;
-            }
+        .stat--color-yellow {
+            color: #FDE74C;
+        }
 
-            .stat--color-green {
-                color: #9BC53D;
-            }
+        .stat--bg-orange {
+            background: #FA7921;
+        }
 
-            .stat--bg-yellow {
-                background: #FDE74C;
-            }
+        .stat--bg-dark-orange {
+            background: #f96a08;
+        }
 
-            .stat--bg-dark-yellow {
-                background: #fde433;
-            }
+        .stat--color-orange {
+            color: #FA7921;
+        }
 
-            .stat--color-yellow {
-                color: #FDE74C;
-            }
+        .stat--bg-blue {
+            background: #5BC0EB;
+        }
 
-            .stat--bg-orange {
-                background: #FA7921;
-            }
+        .stat--bg-dark-blue {
+            background: #44b7e8;
+        }
 
-            .stat--bg-dark-orange {
-                background: #f96a08;
-            }
+        .stat--bg-dark-grey {
+            background: #2F4050;
+        }
 
-            .stat--color-orange {
-                color: #FA7921;
-            }
+        .stat--color-blue {
+            color: #5BC0EB;
+        }
 
-            .stat--bg-blue {
-                background: #5BC0EB;
-            }
-
-            .stat--bg-dark-blue {
-                background: #44b7e8;
-            }
-
-            .stat--bg-dark-grey {
-                background: #2F4050;
-            }
-
-            .stat--color-blue {
-                color: #5BC0EB;
-            }
-
-            .stat--color-light_blue {
-                color: #2F4050;
-            }
+        .stat--color-light_blue {
+            color: #2F4050;
+        }
 
 
 
-            .stat--bg-red {
-                background: #E55934;
-            }
+        .stat--bg-red {
+            background: #E55934;
+        }
 
-            .stat--bg-dark-red {
-                background: #e2471d;
-            }
+        .stat--bg-dark-red {
+            background: #e2471d;
+        }
 
-            .stat--color-red {
-                color: #E55934;
-            }
+        .stat--color-red {
+            color: #E55934;
+        }
 
-            .stat--has-text-right {
-                text-align: right;
-            }
-        </style>
+        .stat--has-text-right {
+            text-align: right;
+        }
+    </style>
 
     <!--Start on or off switch toggle-->
     <style>
         .onoffswitch {
-    position: relative; width: 90px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-}
-.onoffswitch-checkbox {
-    display: none;
-}
-.onoffswitch-label {
-    display: block; overflow: hidden; cursor: pointer;
-    border: 2px solid #999999; border-radius: 20px;
-}
-.onoffswitch-inner {
-    display: block; width: 200%; margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-    font-size: 10px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-    box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-    content: "Meter Top Up";
-    padding-left: 2px;
-    background-color: #34A7C1; color: #FFFFFF;
-}
-.onoffswitch-inner:after {
-    content: "OFF";
-    padding-right: 10px;
-    background-color: #EEEEEE; color: #999999;
-    text-align: right;
-}
-.onoffswitch-switch {
-    display: block; width: 18px; margin: 6px;
-    background: #FFFFFF;
-    position: absolute; top: 0; bottom: 0;
-    right: 56px;
-    border: 2px solid #999999; border-radius: 20px;
-    transition: all 0.3s ease-in 0s; 
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px; 
-}
-</style>
+            position: relative;
+            width: 90px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .onoffswitch-checkbox {
+            display: none;
+        }
+
+        .onoffswitch-label {
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #999999;
+            border-radius: 20px;
+        }
+
+        .onoffswitch-inner {
+            display: block;
+            width: 200%;
+            margin-left: -100%;
+            transition: margin 0.3s ease-in 0s;
+        }
+
+        .onoffswitch-inner:before,
+        .onoffswitch-inner:after {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 30px;
+            padding: 0;
+            line-height: 30px;
+            font-size: 10px;
+            color: white;
+            font-family: Trebuchet, Arial, sans-serif;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        .onoffswitch-inner:before {
+            content: "Meter Top Up";
+            padding-left: 2px;
+            background-color: #34A7C1;
+            color: #FFFFFF;
+        }
+
+        .onoffswitch-inner:after {
+            content: "OFF";
+            padding-right: 10px;
+            background-color: #EEEEEE;
+            color: #999999;
+            text-align: right;
+        }
+
+        .onoffswitch-switch {
+            display: block;
+            width: 18px;
+            margin: 6px;
+            background: #FFFFFF;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 56px;
+            border: 2px solid #999999;
+            border-radius: 20px;
+            transition: all 0.3s ease-in 0s;
+        }
+
+        .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+            margin-left: 0;
+        }
+
+        .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+            right: 0px;
+        }
+    </style>
     <!--End On or off switch toggle -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -395,26 +428,23 @@
                     </li>
 
                     <li>
-                    <li class="{{ Request::is('customer/payment-history') ? 'active' :'' }}"><a href="{{ route('payment-history') }}"><i
-                                class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
+                    <li class="{{ Request::is('customer/payment-history') ? 'active' :'' }}"><a href="{{ route('payment-history') }}"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment History</span></a>
                     </li>
                     <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' || Request::is('customer/postpaid-payment') ? 'active' :'' }}">
                         <a><i class="fa fa-money"></i> <span class="nav-label">Make Payment</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            @if(Auth::user()->customer->user_type == 1)
+                            {{-- @if(Auth::user()->customer->user_type == 1) --}}
                             <li class="{{ Request::is('customer/prepaid-payment') ? 'active' :'' }}"><a href="{{ route('customer.prepaid-payment') }}">Prepaid
                                     Payment</a></li>
-                            @else
+                            {{-- @else --}}
                             <li><a href="{{ route('customer.postpaid-payment') }}">Postpaid Payment</a></li>
-                            @endif
+                            {{-- @endif --}}
                         </ul>
                     </li>
 
-                    <li class="{{ Request::is('customer/meter-request') ? 'active' :'' }}"><a href="{{ route('meter.request') }}"><i
-                                class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
+                    <li class="{{ Request::is('customer/meter-request') ? 'active' :'' }}"><a href="{{ route('meter.request') }}"><i class="fa fa-table"></i> <span class="nav-label">Meter Request</span></a>
                     </li>
-                    <li class="{{ Request::is('customer/tickets') ? 'active' :'' }}"><a href="{{ route('customer.tickets') }}"><i
-                                class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
+                    <li class="{{ Request::is('customer/tickets') ? 'active' :'' }}"><a href="{{ route('customer.tickets') }}"><i class="fa fa-envelope"></i> <span class="nav-label">My Support Tickets</span></a>
                     </li>
                     <li class="{{ Request::is('customer/profile') ? 'active' :'' }}">
                         <a href="{{ route('customer.profile') }}">
@@ -424,10 +454,9 @@
                     @endif
                     <li>
                     <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"><i
-                                class="fa fa-sign-out"></i> Logout</a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"><i class="fa fa-sign-out"></i> Logout</a>
                         {{-- <form class="logout-form" method="POST" action="{{ route('logout') }}">
-                            {{ csrf_field()}}
+                        {{ csrf_field()}}
                         </form> --}}
                     </li>
                     </li>
@@ -439,131 +468,103 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #1e3344;">
                     <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
-                            </a>
-                            {{-- <form role="search" class="navbar-form-custom" action="search_results.html">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search"
-                                        id="top-search">
-                                </div>
-                            </form> --}}
-                            <div class="row" style="margin-top: 1em">
-                                <div class="onoffswitch pull-right">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                                        checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
+                        <div class="navbar-header" style="display:flex; justify-content: space-between; width: 100%">
+                            <div class="navbar-navbar-left" style="width: 50%">
+                                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
+                                </a>
+                                <div class="row" style="margin-top: 1em">
+                                    <div class="onoffswitch pull-right">
+                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
 
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Pay Bill
-                                </button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Pay Bill
+                                    </button>
 
-                                <button type="button" class="btn btn-primary mt-10">
-                                    Top up Wallet
-                                </button>
-                                <button class="btn btn-default mt-10">
-                                    <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
-                                @push('popups')
-                                <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <button type="button" class="btn btn-primary mt-10">
+                                        Top up Wallet
+                                    </button>
+                                    <button class="btn btn-default mt-10">
+                                        <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
+                                    @push('popups')
+                                    <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        <span class="sr-only">Close</span>
+                                                    </button>
+                                                    <h4 class="modal-title">Top Up Wallet</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <form id="admin_amount">
+                                                            <div class="form-group">
+                                                                <label>Amount</label>
+                                                                <input id="topup-amount" placeholder="Enter Amount" class="form-control">
+                                                            </div>
+                                                            <div>
+                                                            </div>
+                                                        </form>&
+                                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="this.innerHTML='Processing...'; diamondPay()" id="topUpBtn">
+                                                            <strong>Top Up Now</strong>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    @endpush
+                                    <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
+                                                Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
+                                    <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
+                                            -->
+
+
+                                </div>
+                                <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    <span class="sr-only">Close</span>
-                                                </button>
-                                                <h4 class="modal-title">Top Up Wallet</h4>
+                                                <h3>Choose Payment Option</h3>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="form-group">
-                                                    <form id="admin_amount">
-                                                        <div class="form-group">
-                                                            <label>Amount</label>
-                                                            <input id="topup-amount" placeholder="Enter Amount" class="form-control">
-                                                        </div>
-                                                        <div>
-                                                        </div>
-                                                    </form>&
-                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"
-                                                        onclick="this.innerHTML='Processing...'; diamondPay()" id="topUpBtn">
-                                                        <strong>Top Up Now</strong>
-                                                    </button>
-                                                </div>
+                                                <center>
+                                                    <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
+                                                    <a href="{{ route('customer.postpaid-payment') }}" target="_blank" class="btn btn-success">Postpaid</a>
+                                                </center>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-
-
-                                @endpush
-                                <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
-                                Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
-                                <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
-                             -->
-                               
-
                             </div>
-                            <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3>Choose Payment Option</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <center>
-                                                <a href="{{ route('customer.prepaid-payment') }}" class="btn btn-primary">Prepaid</a>
-                                                <a href="{{ route('customer.postpaid-payment') }}" target="_blank"
-                                                    class="btn btn-success">Postpaid</a>
-                                            </center>
-                                        </div>
-                                    </div>
-
-                                </div>
+                            <div class="navbar-navbar-right" style="width: 50%">
+                                <ul class="nav navbar-top-links navbar-right">
+                                    <li>
+                                        <span class="m-r-sm welcome-message" style="color: #fff">
+                                            Welcome
+                                            <b>{{ ucwords(Auth::user()->first_name .' '.Auth::user()->last_name )}} </b>
+                                            | GOENERGEE Utility Platform </span>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()" onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';" style="background: transparent; color: rgb(255,255,255);><i class=" fa fa-sign-out"></i>
+                                            Logout</a>
+                                        <form class="logout-form" method="POST" action="{{ route('logout') }}">
+                                            {{ csrf_field()}}
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
-<<<<<<< HEAD
+
                         </div>
-                        <ul class="nav navbar-top-links navbar-right">
-                            <li>
-                                <span class="m-r-sm welcome-message" style="color: #fff"> Welcome <b>{{
-                                        Auth::user()->first_name}} {{ Auth::user()->last_name}} </b>| GOENERGEE
-                                    Utility Platform </span>
-                            </li>
-                            <li>
-
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
-                                    onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';"
-                                    style="background: transparent; color: rgb(255,255,255);><i class=" fa fa-sign-out"></i>
-                                    Logout</a>
-                                <form class="logout-form" method="POST" action="{{ route('logout') }}">
-                                    {{ csrf_field()}}
-                                </form>
-                            </li>
-                        </ul>
-=======
-                            <ul class="nav navbar-top-links navbar-right">
-                                <li>
-                                    <span class="m-r-sm welcome-message" style="color: #fff">
-                                     Welcome 
-                                     <b>{{ ucwords(Auth::user()->first_name .' '.Auth::user()->last_name )}} </b>
-                                     | GOENERGEE Utility Platform </span>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
-                                        onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#fff';style.background = 'transparent';"
-                                        style="background: transparent; color: rgb(255,255,255);><i class=" fa
-                                        fa-sign-out"></i>
-                                        Logout</a>
-                                    <form class="logout-form" method="POST" action="{{ route('logout') }}">
-                                        {{ csrf_field()}}
-                                    </form>
-                                </li>
-                            </ul>
->>>>>>> d0735af612d2e930b7bdeea3cdb39adca12fb40b
-
                 </nav>
             </div>
             @if(session('success'))
