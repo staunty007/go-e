@@ -524,6 +524,11 @@
                     return;
                 }
                 
+            }).fail((err) => {
+                console.log(err.responseJSON.data);
+                let { data } = err.responseJSON;
+                alert(data);
+                updateButton('Top Up');
             });
 
             return;
