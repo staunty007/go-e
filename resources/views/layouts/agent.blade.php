@@ -18,14 +18,9 @@
     <link href="{{asset('css/table1.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/plugins/footable/footable.core.css')}}" rel="stylesheet">
-<<<<<<< HEAD
-    
-    {{-- <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet"> --}}
-=======
 
     {{--
     <link href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet"> --}}
->>>>>>> d0735af612d2e930b7bdeea3cdb39adca12fb40b
 
     {{--
     <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet"> --}}
@@ -505,32 +500,35 @@
             const parente = event.target;
             updateButton();
             // Connect to diamond API to deduct amount fro agent's Account
-            fetch(`/diamond/debit/${amount}`)
-                .then(res => res.json())
-                .then(response => {
-                    if (response.successful) {
-                        let responseResults = response.results ? JSON.parse(response.results) : response.errors;
+            $.get(`/diamond/debit/${amount}`, function(dataBack, status){
+                console.log(dataBack);
+                if(dataBack.data == "") {
+                    alert('There was a glitch, Please try again');
+                    updateButton('Top up');
+                    return;
+                }
 
-                        if (!response.errors !== "" && responseResults.successful == true) {
-                            // Add Amount to Agent's Wallet
-                            const walletData = [responseResults.result.transactionReference, amount];
-                            let agentCredit = creditWallets(walletData);
-                            if (agentCredit == true) {
-                                alert('Transaction Completed');
-                                location.href = "{{ route('home') }}";
-                            }
-                        } else {
-                            updateButton('Topup Wallet');
-                            alert(response.errors);
-                            console.log(response.errors);
-                        }
-                    } else {
-                        alert(response.errors);
-                        updateButton('Top Up');
-                        return;
+                if(dataBack.success == true) {
+                    const parsedResponse = JSON.parse(dataBack.data);
+                    const walletData = [parsedResponse.result.transactionReference, amount];
+                    let agentCredit = creditWallets(walletData);
+                    if (agentCredit == true) {
+                        alert('Transaction Completed');
+                        setTimeout(() => {
+                            location.href = "{{ route('home') }}";
+                        }, 5000);
                     }
+                }else {
+                    alert(dataBack.errors);
+                    updateButton('Top Up');
+                    return;
+                }
+                
+            });
 
-                });
+            return;
+            fetch(`/diamond/debit/${amount}/diamond/debit/${amount}`)
+             
         }
 
         const creditWallets = (response) => {
@@ -550,6 +548,9 @@
                         return false;
                         updateButton('Top up Wallet');
                     }
+                    setTimeout(() => {
+                        alert('Wallet Updated...');
+                    },2000)
                 },
                 error: (err) => {
                     console.log(err);

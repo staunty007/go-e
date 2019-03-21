@@ -1,22 +1,9 @@
 // import Axios from "axios";
 // 
-const baseUrl = "http://45.76.58.66";
-const nibbsUrl = "http://18.224.187.121:8888/cpay/client/action";
-var xmlJsonOptions = {
-    attributeNamePrefix : "@_",
-    attrNodeName: "attr", //default is 'false'
-    textNodeName : "#text",
-    ignoreAttributes : true,
-    ignoreNameSpace : false,
-    allowBooleanAttributes : false,
-    parseNodeValue : true,
-    parseAttributeValue : false,
-    trimValues: true,
-    cdataTagName: "__cdata", //default is 'false'
-    cdataPositionChar: "\\c",
-    localeRange: "", //To support non english character in tag/attribute values.
-    parseTrueNumberOnly: false,
-};
+const baseUrl = "http://localhost:8000";
+const nibbsUrl = `${baseUrl}/nibbs-payment`;
+
+let transactionOtpCode, transactionMandateCode, amountToBePaid, bankCodeSelected;
 
 const loadBanks = () => {
     
@@ -48,16 +35,18 @@ selectOption.addEventListener('change', () => {
 const paymentButton = document.querySelector('#payWithBank');
 
 paymentButton.addEventListener('click', (e) => {
+    paymentButton.innerHTML = 'Please Wait...';
+    paymentButton.disabled = true;
     e.preventDefault();
-    let selectedBank = document.querySelector('#bank-i').value;
+    bankCodeSelected = document.querySelector('#bank-i').value;
     let accName = document.querySelector('#acc_name').value;
     let accNo = document.querySelector('#nuban').value;
-    let amount = document.querySelector('#payWithBank_amount').value;
+    amountToBePaid = document.querySelector('#payWithBank_amount').value;
 
     let payload = {
         account_no: accNo,
         account_name: accName,
-        bank: selectedBank
+        bank: bankCodeSelected
     };
 
     if(amount) {
@@ -73,7 +62,6 @@ const showAccountForm = (opened = false) => {
     document.querySelector('.other').style.display = opened ? 'block' : 'none';
 };
 
-
 let nuban = document.querySelector("#nuban");
 nuban.addEventListener('keyup', () => {
 
@@ -83,53 +71,164 @@ nuban.addEventListener('keyup', () => {
 });
 
 
-const setHeader = (operation) => ({
-    "operation": operation,
-    "key": "F78BE99289AB52FDF97190CEBFC1D6B8",
-    "Content-Type": "application/json",
-    "cache-control": "no-cache",
-});
-
-// var settings = {
-//     "async": true,
-//     "crossDomain": true,
-//     "url": `${nibbsUrl}?=,`,
-//     "method": "POST",
-//     "headers": {
-//         "operation": "VO",
-//         "key": "F78BE99289AB52FDF97190CEBFC1D6B8",
-//         "Content-Type": "application/json",
-//         "cache-control": "no-cache",
-//         // "Postman-Token": "7f1ec755-e91f-4889-9aed-b6ed21163a3d"
-//     },
-//     "processData": false,
-//     "data": "{\n\"mandateCode\":\"99908073049745315899\",\n\"bankCode\":\"070\",\n\"transType\":\"3\",\n\"otp\":\"918495\",\n\"billerId\":\"NIBSS0000000128\",\n\"billerName\":\"Ralmuof\"\n}"
-// }
 // Create Mandate
 const createMandate = ({ account_no, account_name } = data) => {
-    // console.log(account_no); return;
     let requestData = {
-        acctNumber: account_no,
-        acctName: account_name,
-        transType: '1',
-        bankCode: '070', //selectedBank
-        billerId: "NIBSS0000000128",
-        billerName: 'Ralmuof'
+        accountNumber: account_no,
+        accountName: account_name,
+        bankCode: '070'
     };
-    // console.log(payload); return;
 
-    axios.post(`${nibbsUrl}`, requestData, {headers: setHeader('CM')},)
-        .then(response => {
-            let mandateJsonResponse = parseXmlJson(response.data.data);
-            let { MandateCode, ResponseCode } = mandateJsonResponse.CreateMandateCode;
+    $.ajax({
+        url: `${nibbsUrl}/create-mandate`,
+        method: 'POST',
+        data: requestData,
+        success: (response) => {
 
-            if(ResponseCode == 00) {
-                document.getElementById('#otp_box').style.display = 'block';
+            if(response.success) {
+                responseData = JSON.parse(response.data);
+                let mandateJsonResponse = parseXmlJson(responseData.data);
+                let { MandateCode, ResponseCode } = mandateJsonResponse.CreateMandateResponse;
+                if(ResponseCode == 00) {
+                    transactionMandateCode = MandateCode
+                    showBankDetails(false);
+                    showOtpBox(true);
+                }else {
+                    alert('Something Went Wrong, Please Try Again'); return
+                }
             }
-            console.log(MandateCode);
-        })
-        .catch(err => console.table(err))
+        },
+        error: (err) => {
+
+        }
+    });
+
 };
+
+// Validates Fresh Registration OTP
+const validateOtpNoReg = (otp) => {
+
+    let requestData = {
+        otpCode: otp,
+        transactionMandateCode,
+        bankCodeSelected
+    };
+
+    $.ajax({
+        url: `${nibbsUrl}/validate-registration`,
+        method: 'POST',
+        data: requestData,
+        success: (response) => {
+
+            if(response.success) {
+                responseData = JSON.parse(response.data);
+                let mandateJsonResponse = parseXmlJson(responseData.data);
+                let { ResponseCode } = mandateJsonResponse.ValidateOTPResponse;
+                if(ResponseCode == 00) {
+                    generatePaymentOtp();
+                    showOtpPayment(true);
+                }else {
+                    alert('Something Went Wrong, Please Try Again'); return
+                }
+            }
+        },
+        error: (err) => {
+
+        }
+    });
+    
+
+
+};
+
+// Generates OTP for Payment
+const generatePaymentOtp = () => {
+
+    let requestData = {
+        transactionMandateCode,
+        bankCodeSelected,
+        amountToBePaid
+    };
+
+    $.ajax({
+        url: `${nibbsUrl}/generate-otp`,
+        method: 'POST',
+        data: requestData,
+        success: (response) => {
+
+            if(response.success) {
+                responseData = JSON.parse(response.data);
+                let jsonResponse = parseXmlJson(responseData.data);
+                let { MandateCode, ResponseCode } = jsonResponse.GenerateOtpResponse;
+                if(ResponseCode == 00) {
+                    transactionMandateCode = MandateCode
+                    showBankDetails(false);
+                    showOtpBox(true);
+                }else {
+                    alert('Something Went Wrong, Please Try Again'); return
+                }
+            }
+        },
+        error: (err) => {
+
+        }
+    });
+};
+
+// Validates OTP For Payment
+const validatePaymentOtp = () => {
+    let requestData = {
+        transactionMandateCode,
+        bankCodeSelected,
+        amountToBePaid,
+        otpCode
+    };
+
+    $.ajax({
+        url: `${nibbsUrl}/validate-otp`,
+        method: 'POST',
+        data: requestData,
+        success: (response) => {
+
+            if(response.success) {
+                responseData = JSON.parse(response.data);
+                let jsonResponse = parseXmlJson(responseData.data);
+                let { ReferenceNumber, CPayRef,ResponseCode } = jsonResponse.ValidateOTPResponse;
+                if(ResponseCode == 00) {
+                    // transactionMandateCode = MandateCode
+                    // showBankDetails(false);
+                    // showOtpBox(true);
+                    showOtpPayment(false);
+                    showSuccess(true);
+                }else {
+                    alert('Something Went Wrong, Please Try Again'); return
+                }
+            }
+        },
+        error: (err) => {
+
+        }
+    });
+};
+
+
+
+
+// Validates Registration OTP Button
+let validateOtpFreshBtn = document.getElementById('validate-otp');
+
+validateOtpFreshBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    let otpCode = document.getElementById('otp-reg').value;
+    if(otpCode) {
+        validateOtpFreshBtn.innerHTML = 'Validating...';
+        validateOtpFreshBtn.disabled = true;
+        validateOtpNoReg(otpCode);
+    }else {
+        alert('Please Enter OTP Received'); return;
+    }
+});
+
 
 
 const parseXmlJson = xml => {
@@ -137,11 +236,26 @@ const parseXmlJson = xml => {
         return parser.parse(xml);
     }
     return false;
-}
+};
 
+const showBankDetails = (isBank = true) => {
+    document.getElementById('bank_details').style.display = isBank ? 'block' : 'none';
+};
 
+const showOtpBox = (isOtp = false) => {
+    document.getElementById('otp-details').style.display = isOtp ? 'block' : 'none';
+};
 
+const showOtpPayment = (isOtp = false) => {
+    document.getElementById('otp-payment').style.display = isOtp ? 'block' : 'none';
+};
 
+const showSuccess = (isPaymentCompleted = false) => {
+    document.getElementById('success-payment').style.display = isPaymentCompleted ? 'block' : 'none';
+};
+
+showOtpBox();
+showOtpPayment();
 
 
 

@@ -294,7 +294,15 @@ Route::get('/nibbs-xml',function() {
 
 
 
-
+/**
+ * Nibbs Operation API Route
+ */
+Route::group(['prefix' => 'nibbs-payment'], function() {
+    Route::post('create-mandate','API\NibbsController@createMandate');
+    Route::post('validate-registration','API\NibbsController@validateOTPFresh');
+    Route::post('generate-otp','API\NibbsController@generatePaymentOtp');
+    Route::post('validate-otp','API\NibbsController@validatePaymentOtp');
+});
 
 
 

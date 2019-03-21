@@ -233,8 +233,12 @@ class NIBBSController extends Controller
             [
                 "bankCode" => "221",
                 "bankName" => "Stanbic IBTC Bank Plc",
+            ],
+            [
+                "bankCode" => '070',
+                'bankName' => 'Fidelity Bank'
             ]
-            ], 200);
+        ], 200);
     }
 
     public function tryForm()

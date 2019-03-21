@@ -99,7 +99,7 @@ class DiamondApiController extends Controller
         
         // Check if Admin Has funds in wallet or deposit
         if ($amount > $adminBiodata->wallet_balance) {
-            return response()->json(['errors' =>'Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later']);
+            return $this->errorResponse('Sorry, Payment Cannot be made at the moment, Please Contact Admin or Try Again Later');
         }
 
         // Find Agent Biodata
@@ -108,7 +108,7 @@ class DiamondApiController extends Controller
 
         // Check if Account Number is Empty
         if($accountNumber == "") {
-            return response()->json('Please Update Your Account Number Before Proceeding...');
+            return $this->errorResponse('Please Update Your Account Number Before Proceeding...');
         }
 
         // Transaction Description
@@ -138,22 +138,45 @@ class DiamondApiController extends Controller
 
         // Response From Curl Request
         $response = curl_exec($curl);
+        // return $response;
         // Error from Curl Request
         $err = curl_error($curl);
         // Close Curl  Connection
-        curl_close($curl);
-        // Payload to Frontend
-        $payload = [
-            'results' => $response,
-            'errors' => $err
-        ];
-        // return response
-        return response()->json($payload);
+        curl_close($curl);   
+
+        // return response()->json([
+        //     'success' => true,
+        //     'data' => $response
+        // ]);
+        // return $this->successResponse($response);
+        return response()->json([
+            'success' => true,
+            'data' => $response,
+            'error' => $err
+        ], 200);
+
 
     }
 
 
+    // Generate Response
+    public function successResponse($data = 'Successful')
+    {
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ], 200);
+    }
 
+
+    // Generate Response
+    public function errorResponse($data = 'Failed')
+    {
+        return response()->json([
+            'success' => false,
+            'data' => $data
+        ], 422);
+    }
 
 
 

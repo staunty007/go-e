@@ -122,24 +122,41 @@
                                             <div class="other">
                                                 <div class="form-group">
                                                     <label>Please Enter Your Account Number</label>
-                                                    <input type="text" class="form-control" id="nuban" name="account_number">
+                                                    <input type="text" value="5050007512" class="form-control" id="nuban" name="account_number">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Please Enter Your Account Name</label>
-                                                    <input type="text" class="form-control" id="acc_name" name="account_name">
+                                                    <input type="text" value="OKOLI CHUKWUMA PAUL" class="form-control" id="acc_name" name="account_name">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Enter Amount</label>
                                                     <input type="text" class="form-control" id="payWithBank_amount" name="payWithBank_amount" readonly>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button class="btn btn-block btn-primary" id="payWithBank" disabled>
+                                                    <button class="btn btn-block btn-primary" id="payWithBank">
                                                         Pay With Bank
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                        <div id="otp-details">
+                                            <div class="form-group">
+                                                <label>Enter OTP Code Received</label>
+                                                <input type="tel" class="form-control" id="otp-reg" />
+                                            </div>
+                                            <div class="form-group">
+                                                <button id="validate-otp" class="btn btn-primary btn-block">Validate OTP</button>
+                                            </div>
+                                        </div>
+                                        <div id="otp-payment">
+                                            <div class="form-group">
+                                                <label>Please Enter OTP Code</label>
+                                                <input type="tel" class="form-control" id="otp-pay" />
+                                            </div>
+                                            <div class="form-group">
+                                                <button id="validate-otp-pay" class="btn btn-primary btn-block">Submit</button>
+                                            </div>
+                                        </div>
                                     </center>
                                 </div>
                                 <div class="bhoechie-tab-content">
@@ -378,35 +395,11 @@
         var handler = PaystackPop.setup({
             key: "{{ env('PS_KEY') }}",
             email: document.querySelector('#emailret').value,
-            amount: chargedAmount,
+            amount: `${chargedAmount}00`,
             ref: reff,
             callback: function (response) {
                 // charge wallet
-                let dataBack;
-                document.querySelector("#response").innerHTML = `<div class="modal-footer">
-								<h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
-							</div>`;
-                console.log('charging Wallet...');
-                let amountCommission = amount - amount * 0.02;
-                fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
-                    .then(res => res.json())
-                    .then(chargeWalletResult => {
-                        console.log('Generating Token...');
-                        if(chargeWalletResult.response.result.orderDetails) {
-                            const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
-                            const orderId = chargeWalletResult.response.result.orderId;
-                            document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                                    <h2>Completing Transaction... <div class="loader-css"></div></h2> 
-                            </div>`;
-                            generateToken(payRef, orderId);
-                        }else {
-                        document.querySelector("#response").innerHTML = `<div class="modal-footer">
-                            <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
-                            <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
-                        </div>`;
-                        }
-                    })
-                    .catch(err => console.log(err));
+                chargeWallet();
             },
             onClose: function () {
                 alert('Payment Cancelled');
@@ -591,7 +584,35 @@
             .then(result => {
                 console.log(result);
             })
-    })
+    });
+
+    const chargeWallet = () => {
+        document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                        <h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
+                    </div>`;
+        console.log('charging Wallet...');
+        let amountCommission = amount - amount * 0.02;
+        fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
+            .then(res => res.json())
+            .then(chargeWalletResult => {
+                console.log('Generating Token...');
+                if(chargeWalletResult.response.result.orderDetails) {
+                    const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
+                    const orderId = chargeWalletResult.response.result.orderId;
+                    document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                            <h2>Completing Transaction... <div class="loader-css"></div></h2> 
+                    </div>`;
+                    generateToken(payRef, orderId);
+                }else {
+                document.querySelector("#response").innerHTML = `<div class="modal-footer">
+                    <h4 class="text-center">There was an error while generating Your Meter Token, Please click on the button below to try again</h4>
+                    <button onclick="retryTokenGenerate('${ref}',${id})" class="btn btn-success">Generate Token Again</button>
+                </div>`;
+                }
+            })
+            .catch(err => console.log(err));
+    };
+
 
 </script>
 <script>
