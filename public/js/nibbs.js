@@ -1,6 +1,6 @@
 // import Axios from "axios";
 // 
-const baseUrl = "http://localhost:8000";
+const baseUrl = "http://45.76.58.66";
 const nibbsUrl = `${baseUrl}/nibbs-payment`;
 
 let transactionOtpCode, transactionMandateCode, amountToBePaid, bankCodeSelected;
