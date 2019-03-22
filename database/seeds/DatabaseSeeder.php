@@ -71,13 +71,13 @@ class DatabaseSeeder extends Seeder
         DB::table('services_list')->insert([
             [
                 "title" => "EKEDC Electricity Prepaid Meter Payment",
-                "link" => "#prepaid-meter",
+                "link" => "guest/each-service-type/prepaid-meters",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now()
             ],
             [
                 "title" => "EKEDC Electricity Postpaid Meter Payment",
-                "link" => "postpaidpayment",
+                "link" => "guest/each-service-type/postpaid-meters",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now()
             ],

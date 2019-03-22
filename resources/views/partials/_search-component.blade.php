@@ -1,4 +1,11 @@
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script>
 $(".services-list-overlay").hide();
 function listServices() {
     // Check if value is not empty else hide overlay
@@ -8,28 +15,29 @@ function listServices() {
         document.querySelector(".services-list-overlay").innerHTML ="<center>Fetching Results....";
         if(navigator.onLine) {
             setTimeout(() => {
-                let valSearch = document.querySelector("#searchForm").value;
-                fetch(`/lists/services/${valSearch}`)
-                .then(res => res.json())
-                .then(results => {
-                    // console.log(results);
-                    if(results.length !== 0) {
-                        let htmll = "";
-                        for(const result of results){
-                            // console.log(result.title);
-                            htmll += `<a href="{{ url('${result.link}') }}" target="_blank">${result.title}</a>`;
-                            setTimeout(() => {
-                                $(".services-list-overlay").html(htmll);
-                            }, 1000);
+                let keyword = document.querySelector("#searchForm").value;
+                $.ajax({
+                    url: '/lists/services',
+                    method: 'POST',
+                    data: keyword,
+                    success: (response) => {
+                        if(response.length !== 0) {
+                            let htmll = "";
+                            for(const result of response){
+                                // console.log(result.title);
+                                htmll += `<a href="{{ url('${result.link}') }}" target="_blank">${result.title}</a>`;
+                                setTimeout(() => {
+                                    $(".services-list-overlay").html(htmll);
+                                }, 1000);
+                            }
+                        }else {
+                            $(".services-list-overlay").html('<center><span style="color: red">No Results Found</span></center>');
                         }
-                    }else {
-                        $(".services-list-overlay").html('<center><span style="color: red">No Results Found</span></center>');
+                    },
+                    error: (err) => {
+                        $(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
                     }
-                    
                 })
-                .catch(err => {
-                    $(".services-list-overlay").html('<center><span style="color: red;">Something bad went wrong, Try Again Later.</span></center>');
-                });
             }, 2000);
         }else {
             $(".services-list-overlay").html('<center><span style="color: red;">Oops! Seems you are disconnected.</span></center>');
