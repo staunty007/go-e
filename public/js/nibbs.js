@@ -37,7 +37,8 @@ selectOption.addEventListener('change', () => {
 const paymentButton = document.querySelector('#payWithBank');
 
 paymentButton.addEventListener('click', (e) => {
-    paymentButton.innerHTML = 'Please Wait...';
+    if(navigator.onLine) {
+        paymentButton.innerHTML = 'Please Wait...';
     paymentButton.disabled = true;
     e.preventDefault();
     bankCodeSelected = document.querySelector('#bank-i').value;
@@ -51,12 +52,10 @@ paymentButton.addEventListener('click', (e) => {
         bank: bankCodeSelected
     };
 
-    if(amount) {
-        createMandate(payload);
-    }else {
-        alert('Please Enter an Amount');
-        document.querySelector('#amount').classList.add('is-invalid');
+    createMandate(payload);
+    
     }
+    
 
 });
 
@@ -101,7 +100,9 @@ const createMandate = ({ account_no, account_name } = data) => {
             }
         },
         error: (err) => {
-
+            paymentButton.innerHTML = 'Pay with Bank';
+            paymentButton.disabled = false;
+            alert('Something Went Wrong, Please Try Again');
         }
     });
 

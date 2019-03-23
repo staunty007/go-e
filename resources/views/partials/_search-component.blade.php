@@ -7,7 +7,8 @@
 </script>
 <script>
 $(".services-list-overlay").hide();
-function listServices() {
+
+const listServices = () => {
     // Check if value is not empty else hide overlay
     if($("#searchForm").val() !== '') {
         $(".services-list-overlay").fadeIn(200);
