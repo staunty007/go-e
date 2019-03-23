@@ -157,6 +157,9 @@
                                                 <button id="validate-otp-pay" class="btn btn-primary btn-block">Submit</button>
                                             </div>
                                         </div>
+                                        <div id="success-payment">
+                                            Transaction Completed
+                                        </div>
                                     </center>
                                 </div>
                                 <div class="bhoechie-tab-content">

@@ -1,7 +1,8 @@
 // import Axios from "axios";
 // 
 // const baseUrl = "http://45.76.58.66";
-const baseUrl = "http://localhost:8000";
+const baseUrl = `http://${location.host}`;
+// console.log(baseUrl);
 const nibbsUrl = `${baseUrl}/nibbs-payment`;
 
 let transactionOtpCode, transactionMandateCode, amountToBePaid, bankCodeSelected;
@@ -123,18 +124,21 @@ const validateOtpNoReg = (otp) => {
 
             if(response.success) {
                 responseData = JSON.parse(response.data);
-                let mandateJsonResponse = parseXmlJson(responseData.data);
-                let { ResponseCode } = mandateJsonResponse.ValidateOTPResponse;
+                let validateJsonResponse = parseXmlJson(responseData.data);
+                let { ResponseCode } = validateJsonResponse.ValidateOTPResponse;
                 if(ResponseCode == 00) {
                     generatePaymentOtp();
-                    showOtpPayment(true);
+                    // showOtpBox(false);
+                    // showOtpPayment(true);
                 }else {
                     alert('Something Went Wrong, Please Try Again'); return
                 }
             }
         },
         error: (err) => {
-
+            validateOtpFreshBtn.innerHTML = "Validate Otp";
+            validateOtpFreshBtn.disabled = false;
+            alert('Something Went Wrong, Please Try Again');
         }
     });
     
@@ -160,11 +164,12 @@ const generatePaymentOtp = () => {
             if(response.success) {
                 responseData = JSON.parse(response.data);
                 let jsonResponse = parseXmlJson(responseData.data);
-                let { MandateCode, ResponseCode } = jsonResponse.GenerateOtpResponse;
+                let { ResponseCode } = jsonResponse.GenerateOtpResponse;
                 if(ResponseCode == 00) {
                     transactionMandateCode = MandateCode
-                    showBankDetails(false);
-                    showOtpBox(true);
+                    // showBankDetails(false);
+                    showOtpBox(false);
+                    showOtpPayment(true);
                 }else {
                     alert('Something Went Wrong, Please Try Again'); return
                 }
@@ -257,7 +262,7 @@ const showSuccess = (isPaymentCompleted = false) => {
 
 showOtpBox();
 showOtpPayment();
-
+showSuccess();
 
 
 
