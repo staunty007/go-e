@@ -1,7 +1,12 @@
 <?php
 
-$DATABASE_URL = parse_url('mysql://b431b523d45226:5cdaba83@eu-cdbr-west-02.cleardb.net/heroku_d50c4bc16952298?reconnect=true');
+// $DATABASE_URL = parse_url('mysql://b431b523d45226:5cdaba83@eu-cdbr-west-02.cleardb.net/heroku_d50c4bc16952298?reconnect=true');
+$url = parse_url('mysql://b431b523d45226:5cdaba83@eu-cdbr-west-02.cleardb.net/heroku_d50c4bc16952298?reconnect=true');
 
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
 return [
 
     /*
@@ -15,7 +20,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mysql_heroku_production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +39,17 @@ return [
     */
 
     'connections' => [
+
+        'mysql_heroku_production' => array(
+            'driver' => 'mysql',
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+        ),
 
         'sqlite' => [
             'driver' => 'sqlite',
