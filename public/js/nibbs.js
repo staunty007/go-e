@@ -5,7 +5,7 @@ const baseUrl = `http://${location.host}`;
 // console.log(baseUrl);
 const nibbsUrl = `${baseUrl}/nibbs-payment`;
 
-let transactionOtpCode, transactionMandateCode, amountToBePaid, bankCodeSelected;
+let transactionOtpCode, transactionMandateCode, amountToBePaid, bankCodeSelected = '070';
 
 const loadBanks = () => {
     
@@ -39,20 +39,20 @@ const paymentButton = document.querySelector('#payWithBank');
 paymentButton.addEventListener('click', (e) => {
     if(navigator.onLine) {
         paymentButton.innerHTML = 'Please Wait...';
-    paymentButton.disabled = true;
-    e.preventDefault();
-    bankCodeSelected = document.querySelector('#bank-i').value;
-    let accName = document.querySelector('#acc_name').value;
-    let accNo = document.querySelector('#nuban').value;
-    amountToBePaid = document.querySelector('#payWithBank_amount').value;
+        paymentButton.disabled = true;
+        e.preventDefault();
+        // bankCodeSelected = document.querySelector('#bank-i').value;
+        let accName = document.querySelector('#acc_name').value;
+        let accNo = document.querySelector('#nuban').value;
+        amountToBePaid = document.querySelector('#payWithBank_amount').value;
 
-    let payload = {
-        account_no: accNo,
-        account_name: accName,
-        bank: bankCodeSelected
-    };
+        let payload = {
+            account_no: accNo,
+            account_name: accName,
+            bank: bankCodeSelected
+        };
 
-    createMandate(payload);
+        createMandate(payload);
     
     }
     
@@ -165,10 +165,8 @@ const generatePaymentOtp = () => {
             if(response.success) {
                 responseData = JSON.parse(response.data);
                 let jsonResponse = parseXmlJson(responseData.data);
-                let { ResponseCode } = jsonResponse.GenerateOtpResponse;
+                let { ResponseCode } = jsonResponse.GenerateOTPResponse;
                 if(ResponseCode == 00) {
-                    transactionMandateCode = MandateCode
-                    // showBankDetails(false);
                     showOtpBox(false);
                     showOtpPayment(true);
                 }else {
@@ -183,7 +181,7 @@ const generatePaymentOtp = () => {
 };
 
 // Validates OTP For Payment
-const validatePaymentOtp = () => {
+const validatePaymentOtp = (otpCode) => {
     let requestData = {
         transactionMandateCode,
         bankCodeSelected,
@@ -202,12 +200,12 @@ const validatePaymentOtp = () => {
                 let jsonResponse = parseXmlJson(responseData.data);
                 let { ReferenceNumber, CPayRef,ResponseCode } = jsonResponse.ValidateOTPResponse;
                 if(ResponseCode == 00) {
-                    // transactionMandateCode = MandateCode
-                    // showBankDetails(false);
-                    // showOtpBox(true);
                     showOtpPayment(false);
                     showSuccess(true);
+                    chargeWallet();
                 }else {
+                    validateOtpPay.innerHTML = 'Validating...';
+                    validateOtpPay.disabled = true;
                     alert('Something Went Wrong, Please Try Again'); return
                 }
             }
@@ -231,6 +229,21 @@ validateOtpFreshBtn.addEventListener('click', (e) => {
         validateOtpFreshBtn.innerHTML = 'Validating...';
         validateOtpFreshBtn.disabled = true;
         validateOtpNoReg(otpCode);
+    }else {
+        alert('Please Enter OTP Received'); return;
+    }
+});
+
+// Payment OTP Button
+let validateOtpPay = document.getElementById("validate-otp-pay");
+
+validateOtpPay.addEventListener('click', (e) => {
+    e.preventDefault();
+    let otpCode = document.getElementById('otp-pay').value;
+    if(otpCode) {
+        validateOtpPay.innerHTML = 'Completing Transaction...';
+        validateOtpPay.disabled = true;
+        validatePaymentOtp(otpCode);
     }else {
         alert('Please Enter OTP Received'); return;
     }
