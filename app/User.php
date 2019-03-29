@@ -55,4 +55,22 @@ class User extends Authenticatable
     public function payment() {
         return $this->hasMany(Payment::class);
     }
+
+
+    public function store($request)
+    {
+        return $this->create([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'mobile' => $request['mobile'],
+            'password' => bcrypt($request['password'])
+        ]);
+    }
+
+
+    public function getUserById($user_id)
+    {
+        return $this->find($user_id)->with(['customer','agent','payment']);
+    }
 }
