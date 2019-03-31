@@ -13,9 +13,10 @@ use App\User;
 |
 */
 
-// Route::middleware('jwt.auth')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('jwt.verify')->group(function() {
+    Route::get('user/{id}','API\UserController@getUser');
+});
+
 
 Route::get('test',function() {
     return response()->json('Hurray API Works', 200);

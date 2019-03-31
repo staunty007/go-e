@@ -14,13 +14,9 @@ class Validater {
                 "first_name" => 'required',
                 "last_name" => 'required',
                 "email" => "required|email|unique:users",
-                "mobile" => 'required|number',
+                "mobile" => 'required',
                 "password" => 'required|min:6',
                 "confirm_password" => 'required|same:password',
-                'access_token' => 'sometimes',
-                'provider' => 'sometimes',
-                'provider_id' => 'sometimes',
-                'role_id' => 'sometimes'
             ],
             "VALIDATE_LOGIN" => [
                 "email" => 'required|exists:users',
