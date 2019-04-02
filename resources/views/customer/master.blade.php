@@ -7,16 +7,13 @@
     <title>GOENERGEE | Customer Dashboard</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="/customer/js/jquery-3.1.1.min.js"></script>
-
-
-
+    
     <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
     <link href="/customer/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="/customer/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="/customer/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-
-
+    <script src="https://unpkg.com/feather-icons"></script>
     <link rel="icon" href="/customer/img/favicon.png" type='image/x-icon'>
     <link href="{{ asset('css/barchart.css') }}" rel="stylesheet">
     <!--Start of Tawk.to Script-->
@@ -39,111 +36,86 @@
             height: 280px;
         }
     </style>
-    <!--End of Tawk.to Script-->
-    {{-- <style>
-        #myModal6:active {
-            z-index: -10;
-        }
-        </style> --}}
 
-    @stack('style')
-    <link href="css/column.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-    <link href="css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="css/plugins/switchery/switchery.css" rel="stylesheet">
-
-
-
-
+    <!--Start on or off switch toggle-->
     <style>
-        /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-        @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
-        @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
-
-        html,
-        body {
-            min-height: 100%;
-            /* background: #ecf0f1; */
+        .onoffswitch {
+            position: relative;
+            width: 90px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
-        .header,
-        .closing,
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .onoffswitch-checkbox {
+            display: none;
         }
 
-        .header {
-            margin-top: 2vh;
-            text-align: center;
-        }
-
-        .header h1 {
-            color: #333;
-            font-family: Raleway, sans-serif;
-            font-size: 2.5em;
-            text-transform: uppercase;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .closing {
-            font-family: Raleway, sans-serif;
-            margin: 1em 0;
-            text-align: center;
-            flex-wrap: wrap;
-        }
-
-        .closing__icon {
-            margin: 0 0.3em;
-            color: #D90429;
-            transition: all 0.3s ease;
-            fill: transparent;
-        }
-
-        .closing__icon:hover {
-            fill: #D90429;
+        .onoffswitch-label {
+            display: block;
+            overflow: hidden;
             cursor: pointer;
+            border: 2px solid #999999;
+            border-radius: 20px;
         }
 
-        .closing__icon:active {
-            animation: rotate 2s infinite;
+        .onoffswitch-inner {
+            display: block;
+            width: 200%;
+            margin-left: -100%;
+            transition: margin 0.3s ease-in 0s;
         }
 
-        .closing a {
-            text-decoration: none;
-            color: #EF233C;
-            border-bottom: 1px solid transparent;
-            transition: border 0.3s ease-in;
+        .onoffswitch-inner:before,
+        .onoffswitch-inner:after {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 30px;
+            padding: 0;
+            line-height: 30px;
+            font-size: 10px;
+            color: white;
+            font-family: Trebuchet, Arial, sans-serif;
+            font-weight: bold;
+            box-sizing: border-box;
         }
 
-        .closing a:hover {
-            border-bottom: 1px solid;
+        .onoffswitch-inner:before {
+            content: "Meter Top Up";
+            padding-left: 2px;
+            background-color: #34A7C1;
+            color: #FFFFFF;
         }
 
-        .container {
-            flex-wrap: wrap;
+        .onoffswitch-inner:after {
+            content: "OFF";
+            padding-right: 10px;
+            background-color: #EEEEEE;
+            color: #999999;
+            text-align: right;
         }
 
-        .container .stat {
-            margin-right: 1em;
-            margin-bottom: 1em;
+        .onoffswitch-switch {
+            display: block;
+            width: 18px;
+            margin: 6px;
+            background: #FFFFFF;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 56px;
+            border: 2px solid #999999;
+            border-radius: 20px;
+            transition: all 0.3s ease-in 0s;
+        }
+
+        .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+            margin-left: 0;
+        }
+
+        .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+            right: 0px;
         }
 
         .stat {
@@ -295,93 +267,10 @@
         .stat--has-text-right {
             text-align: right;
         }
+    
     </style>
 
-    <!--Start on or off switch toggle-->
-    <style>
-        .onoffswitch {
-            position: relative;
-            width: 90px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        .onoffswitch-checkbox {
-            display: none;
-        }
-
-        .onoffswitch-label {
-            display: block;
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid #999999;
-            border-radius: 20px;
-        }
-
-        .onoffswitch-inner {
-            display: block;
-            width: 200%;
-            margin-left: -100%;
-            transition: margin 0.3s ease-in 0s;
-        }
-
-        .onoffswitch-inner:before,
-        .onoffswitch-inner:after {
-            display: block;
-            float: left;
-            width: 50%;
-            height: 30px;
-            padding: 0;
-            line-height: 30px;
-            font-size: 10px;
-            color: white;
-            font-family: Trebuchet, Arial, sans-serif;
-            font-weight: bold;
-            box-sizing: border-box;
-        }
-
-        .onoffswitch-inner:before {
-            content: "Meter Top Up";
-            padding-left: 2px;
-            background-color: #34A7C1;
-            color: #FFFFFF;
-        }
-
-        .onoffswitch-inner:after {
-            content: "OFF";
-            padding-right: 10px;
-            background-color: #EEEEEE;
-            color: #999999;
-            text-align: right;
-        }
-
-        .onoffswitch-switch {
-            display: block;
-            width: 18px;
-            margin: 6px;
-            background: #FFFFFF;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 56px;
-            border: 2px solid #999999;
-            border-radius: 20px;
-            transition: all 0.3s ease-in 0s;
-        }
-
-        .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
-            margin-left: 0;
-        }
-
-        .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
-            right: 0px;
-        }
-    </style>
-    <!--End On or off switch toggle -->
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+   
 
 </head>
 
@@ -598,15 +487,15 @@
         <!-- Mainly scripts -->
 
         <!-- Resources -->
+        <script src="js/bootstrap.js"></script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="https://www.amcharts.com/lib/4/core.js"></script>
         <script src="https://www.amcharts.com/lib/4/charts.js"></script>
         <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
         <!-- Mainly scripts -->
-        <script src="js/jquery-3.1.1.min.js"></script>
+        {{-- <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script> --}}
         <!-- Custom and plugin javascript -->
         <script src="/customer/js/inspinia.js"></script>
         <script src="/customer/js/plugins/pace/pace.min.js"></script>
@@ -665,18 +554,12 @@
         <script src="js/inspinia.js"></script>
         <script src="js/plugins/pace/pace.min.js"></script>
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
         <!-- Input Mask-->
         <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
         <!-- Data picker -->
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-
-
-
         <!-- MENU -->
         <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
