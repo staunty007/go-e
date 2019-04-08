@@ -11,7 +11,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=goenergee
 DB_USERNAME=root
-DB_PASSWORD=secret
+DB_PASSWORD=mysql
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
@@ -75,4 +75,4 @@ PS_KEY = pk_test_120bd5b0248b45a0865650f70d22abeacf719371
 
 # Ticketing URL for Admins ( This should be changed when on live server)
 TICKETING_API_URL = 'http://localhost:8000/login-api'
-TICKETING_ADMIN_URL = "http://localhost:8000/tickets"
+TICKETING_ADMIN_URL = "http://localhost:8000/tickets";

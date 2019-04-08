@@ -31,6 +31,9 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+
+    protected $forbiddenIds = [1,2];
+
     /**
      * User ----- Customer Data Relationship
      */
@@ -79,6 +82,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function getUserById($user_id)
     {
-        return $this->find($user_id);
+        return $this->find($user_id)->with('customer');
+        // return $this->where(
+        //     // ['role_id' => 0],
+        //     'id', $user_id
+        // );
+        
+
+        return false;
     }
 }

@@ -8,6 +8,9 @@ use App\User;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use JWTException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountActivation;
+
 // use JWTFactory;
 
 
@@ -43,8 +46,6 @@ class UserController extends Controller
     public function register(Request $request, User $user)
     {
         // return $request;
-
-
         $validator = Validator::make($request->all(), [
             "first_name" => 'required',
             "last_name" => 'required',
@@ -61,8 +62,15 @@ class UserController extends Controller
         
         $user = $user->store($request->all());
 
+        // return $user;
+
         if($user) {
-            return $this->success('User Registered Successfully',201);
+            try {
+                Mail::to($user->email)->send(new AccountActivation($user));
+                return $this->success('User Registered Successfully',201);
+            } catch (\Throwable $th) {
+                return $this->error('Cannot Send Email to User' .$th->getMessage());
+            }
         }
         
         return $this->error('Something Went Wrong', 500);
