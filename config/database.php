@@ -1,7 +1,9 @@
 <?php
 
 // $DATABASE_URL = parse_url('mysql://b431b523d45226:5cdaba83@eu-cdbr-west-02.cleardb.net/heroku_d50c4bc16952298?reconnect=true');
-$url = parse_url('mysql://b431b523d45226:5cdaba83@eu-cdbr-west-02.cleardb.net/heroku_d50c4bc16952298?reconnect=true');
+// $url = parse_url('mysql://bd9cab4f8e2a79:dde1874b@eu-cdbr-west-02.cleardb.net/heroku_778284b4d5bbbf7?reconnect=true');
+$url = parse_url(getenv("CLEARDB_GREEN_URL"));
+// CLEARDB_GREEN_URL
 
 $host = $url["host"];
 $username = $url["user"];
@@ -49,6 +51,7 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
+            // 'port' => env('DB_PORT','3306')
         ),
 
         'sqlite' => [
