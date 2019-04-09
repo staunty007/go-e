@@ -95,9 +95,9 @@
                                         <h4 class="fa fa-university"></h4><br/>mVisa
                                     </a>
                                     @auth
-                                        <a href="#" class="list-group-item text-center">
+                                        {{-- <a href="#" class="list-group-item text-center">
                                             <h4 class="fa fa-money"></h4><br/>My Wallet
-                                        </a>
+                                        </a> --}}
                                     @endauth
 
                                 </div>
@@ -160,7 +160,12 @@
                                         <div id="success-payment">
                                             Transaction Completed
                                         </div>
+
+
+                                        <img src="{{ asset('images/nibbs-logo.png') }}" width="50" />
                                     </center>
+
+
                                 </div>
                                 <div class="bhoechie-tab-content">
                                     <center>

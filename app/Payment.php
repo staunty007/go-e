@@ -20,4 +20,11 @@ class Payment extends Model
     public function agent() {
         return $this->belongsTo(AgentBiodata::class);
     }
+
+
+    public function getPayments()
+    {
+        $user = request()->user;
+        return $this->with('transaction')->where('email',$user->email)->get();
+    }
 }

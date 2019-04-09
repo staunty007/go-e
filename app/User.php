@@ -28,11 +28,20 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'api_token',
+        'updated_at',
+        'provider',
+        'provider_id',
+        'access_token',
+        'role_id',
+        
     ];
 
+    // Default User Request
+    // private $user = request()->user;
 
-    protected $forbiddenIds = [1,2];
 
     /**
      * User ----- Customer Data Relationship
@@ -70,25 +79,32 @@ class User extends Authenticatable implements JWTSubject
 
     public function store($request)
     {
-        return $this->create([
+        $user = $this->create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
             'mobile' => $request['mobile'],
             'password' => bcrypt($request['password'])
         ]);
+
+        $user->customer()->create([
+            'address' => '',
+            'meter_no' => ''
+        ]);
+
+        return $user;
     }
 
 
     public function getUserById($user_id)
     {
-        return $this->find($user_id)->with('customer');
-        // return $this->where(
-        //     // ['role_id' => 0],
-        //     'id', $user_id
-        // );
-        
+        return $this->with('custome')->find($user_id);
+    }
 
-        return false;
+    // Get Logged in User
+    public function getUser()
+    {
+        $user = request()->user;
+        return $this->with(['customer'])->find($user->id);
     }
 }

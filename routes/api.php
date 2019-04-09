@@ -21,9 +21,11 @@ Route::group(['prefix' => 'v1/'], function() {
         // Customers API
         Route::prefix('customer')->group(function() {
             // Get Customer Profile
-            Route::get('/{id}','API\CustomerController@getCustomer');
+            Route::get('/profile','API\CustomerController@getCustomer');
             // Get Customer Transactions
-            Route::get('/{id}/payments','API\CustomerController@getCustomerTransactions');
+            Route::get('/payments','API\CustomerController@getCustomerTransactions');
+            // Request Meter
+            Route::post('meter-request','API\CustomerController@requestMeter');
         });
     });
     
