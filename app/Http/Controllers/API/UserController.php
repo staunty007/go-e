@@ -65,9 +65,9 @@ class UserController extends Controller
         // return $user;
 
         if($user) {
-            return $this->success('User Registered Successfully',201);
             try {
                 Mail::to($user->email)->send(new AccountActivation($user));
+                return $this->success('User Registered Successfully',201);
             } catch (\Throwable $th) {
                 return $this->error('Cannot Send Email to User' .$th->getMessage());
             }
