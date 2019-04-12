@@ -16,6 +16,7 @@ use App\Mail\AccountActivation;
 
 class UserController extends Controller
 {
+    // Login for Users
     public function login(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
