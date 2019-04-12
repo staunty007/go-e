@@ -16,7 +16,7 @@ use App\Mail\AccountActivation;
 
 class UserController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
             "email" => 'required|email',
@@ -37,8 +37,11 @@ class UserController extends Controller
             return $this->error('Could Not Create Token',500);
         }
 
-        // return $token;
-        return $this->success($token);
+        $response = [
+            "user" => $user->getUser(),
+            "token" => $token
+        ];
+        return $this->success($response);
     }
 
 

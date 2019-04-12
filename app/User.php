@@ -104,7 +104,12 @@ class User extends Authenticatable implements JWTSubject
     // Get Logged in User
     public function getUser()
     {
-        $user = request()->user;
-        return $this->with(['customer'])->find($user->id);
+        $user = auth()->user();
+
+        if($user) {
+            return $this->with(['customer'])->find($user->id);
+        }
+
+        return false;
     }
 }
