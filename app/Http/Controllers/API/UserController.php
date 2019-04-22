@@ -86,6 +86,7 @@ class UserController extends Controller
     {
         $user = $user->getUserById($id);
         
+        
         if($user) {
             return $this->success($user);
         }

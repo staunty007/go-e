@@ -52,6 +52,20 @@ class DatabaseSeeder extends Seeder
                 'provider_id' => '',
                 'access_token' => '',
             ],
+            [
+                'role_id' => 0,
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'is_activated' => 1,
+                'mobile' => '123456789',
+                'email' => 'johndoe@goenergee.com',
+                'password' => bcrypt('password'),
+                'is_completed' => 1,
+                'provider' => '',
+                'provider_id' => '',
+                'access_token' => '',
+            ],
+            
         ]);
 
         DB::table('admin_biodatas')->insert([
