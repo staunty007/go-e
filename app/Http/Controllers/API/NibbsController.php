@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class NibbsController extends Controller
 {
-    protected $actionUrl = "http://18.224.187.121:8888/cpay/client/action";
+    protected $actionUrl = "http://18.222.192.67:4444/cpay/client/action";
 
     // Create Mandate
     public function createMandate(Request $request)
@@ -20,21 +20,21 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_PORT => "8888",
-        CURLOPT_URL => $this->actionUrl,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "{\n\t\"acctNumber\":\"$accountNumber\",\n\t\"acctName\":\"$accountName\",\n\t\"transType\":\"1\",\n\t\"bankCode\":\"$bankCode\",\n\t\"billerId\":\"NIBSS0000000128\",\n\t\"billerName\":\"Ralmuof\"\n}",
-        CURLOPT_HTTPHEADER => array(
-            "Content-Type: application/json",
-            "cache-control: no-cache",
-            "key: F78BE99289AB52FDF97190CEBFC1D6B8",
-            "operation: CM"
-        ),
+            CURLOPT_PORT => "8888",
+            CURLOPT_URL => $this->actionUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\n\t\"acctNumber\":\"$accountNumber\",\n\t\"acctName\":\"$accountName\",\n\t\"transType\":\"1\",\n\t\"bankCode\":\"$bankCode\",\n\t\"billerId\":\"NIBSS0000000128\",\n\t\"billerName\":\"Ralmuof\"\n}",
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: application/json",
+                "cache-control: no-cache",
+                "key: F78BE99289AB52FDF97190CEBFC1D6B8",
+                "operation: CM"
+            ),
         ));
 
         $response = curl_exec($curl);
