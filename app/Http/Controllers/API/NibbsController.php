@@ -20,7 +20,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8888",
+            CURLOPT_PORT => "4444",
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -61,7 +61,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8888",
+            CURLOPT_PORT => "4444",
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -102,7 +102,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8888",
+            CURLOPT_PORT => "4444",
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -143,7 +143,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8888",
+            CURLOPT_PORT => "4444",
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
