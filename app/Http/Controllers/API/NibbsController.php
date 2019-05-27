@@ -43,7 +43,7 @@ class NibbsController extends Controller
         curl_close($curl);
 
         if ($err) {
-            return $this->errorResponse($err . \n\n . $this->actionUrl);
+            return $this->errorResponse($err . "\n\n" . $this->actionUrl);
         } else {
             return $this->successResponse($response);
         }
