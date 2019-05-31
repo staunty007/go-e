@@ -216,7 +216,7 @@
                                 <td>{{ date('d/m/Y',strtotime($pay->created_at)) }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>Web</td>
-                                <td>Successful</td>
+                                <td><span class="label label-info">Successful</label></td>
                                 <td>{{ str_replace('OFFLINE_','',$pay->user_type) }}</td>
                                 <td>{{ $pay->meter_no }}</td>
                                 <td>N{{ number_format($pay->transaction->total_amount) }}</td>

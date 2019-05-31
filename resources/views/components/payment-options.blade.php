@@ -368,13 +368,15 @@
 
 
     function continuePay(payload) {
-        // Hold the payment information in a session
+        // Hold the payment information
+        // So a technical customer won't change the amount
         $.ajax({
             url: '/payment/hold',
             method: 'POST',
             data: { payload, _token: "{{ csrf_token() }}" },
             success: (response) => {
                 if (response.code == "ok") {
+                    // Open the Payment Options Modal
                     openOptions();
                 }
             },
