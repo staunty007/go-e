@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class NibbsController extends Controller
 {
-    protected $actionUrl = "http://18.222.192.67:4444/cpay/client/action";
+    protected $actionUrl = "http://34.211.118.88:4444/cpay/client/action";
 
     // Create Mandate
     public function createMandate(Request $request)
