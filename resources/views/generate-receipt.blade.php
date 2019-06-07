@@ -55,7 +55,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Transaction Ref.: </td>
-                                                    <td>@{{ details.payment_ref }}</td>
+                                                    <td>
+                                                        @{{ details.payment_ref }}
+                                                        @guest
+                                                            <small>Please Note Down the Transaction Reference</small>
+                                                        @endguest
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -84,7 +89,7 @@
                                                         <td v-if="!tokenError">
                                                             <span v-if="bsst">
                                                                 <b>Std Token:</b> <b><big>@{{ details.token_data}}</big></b><br>
-                                                                <span class="text-info"><b>Bsst Token:</b> <b><big>@{{ details.bonus_token }}</big></b></span>
+                                                                <span class="text-danger"><b>Bsst Token:</b> <b><big>@{{ details.bonus_token }}</big></b></span>
                                                             </span>
                                                             <span v-else>
                                                                 <b><big>@{{ details.token_data}}</big></b>
@@ -92,8 +97,8 @@
 
                                                         </td>
                                                         <td>
-                                                            <span class="label label-success">
-                                                                <span class="badge badge-success">
+                                                            <span class="label label-info">
+                                                                <span class="badge badge-info">
                                                                     @{{ details.payment_status === "CONFIRMED" ? 'Successful' : details.payment_status }}</span>
 
                                                             </span>
