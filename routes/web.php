@@ -14,6 +14,8 @@ Route::get('banks-to-banks', function () {
     return view('nibbs-interface');
 });
 
+Route::post('nibbs/requery-transaction', 'API\NibbsController@requeryTransaction');
+
 Route::get('/', function () {
     // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
     //     return back();
