@@ -16,16 +16,6 @@
     <link href="{{asset('css/tab.css')}}" rel="stylesheet">
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
-<<<<<<< HEAD
-    <link href="{{asset('css/plugins/steps/jquery.steps.css')}}" rel="stylesheet">
-    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
-    <link href="{{asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/table1.css') }}" rel="stylesheet">
-    <link href="{{asset('css/bar.css')}}" rel="stylesheet">
- 
-=======
     <link href="{{asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -40,12 +30,11 @@
     <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cylinder.css') }}" rel="stylesheet">
     <link href="{{ asset('css/pie.css') }}" rel="stylesheet">
->>>>>>> d0735af612d2e930b7bdeea3cdb39adca12fb40b
     <link href="{{ asset('css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 
- <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet"> 
+    <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
 
- <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    <link href="{{asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
     <link href="{{ asset('css/3dpie.css') }}" rel="stylesheet">
 
 
@@ -55,7 +44,7 @@
     <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-        $.fn.dataTable.ext.errMode = 'none';
+            $.fn.dataTable.ext.errMode = 'none';
             $('#example').DataTable({
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api(),
@@ -111,7 +100,8 @@
                     <li class="nav-header">
                         <div class="dropdown profile-element">
                             <span>
-                                <img alt="image" class="img-circle nav-image" src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset('storage/'.Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif" />
+                                <img alt="image" class="img-circle nav-image"
+                                    src="@if(Storage::disk('public')->exists(Auth::user()->avatar)) {{asset('storage/'.Auth::user()->avatar)}} @else {{asset('images/avatar.jpg')}} @endif" />
                             </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
@@ -131,7 +121,8 @@
 
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.querySelector('.logout-form').submit()">logout</a>
                                     <form class="logout-form" method="POST" action="{{ route('logout') }}">
                                         {{ csrf_field()}}
                                     </form>
@@ -143,42 +134,59 @@
                         </div>
                     </li>
 
-                    <li class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('finance') ? 'active' :'' }}">
-                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span class="fa arrow"></span></a>
+                    <li
+                        class="{{$current_route_name =="admin.dashboard" ? 'active' : ''}}{{ Request::is('finance') ? 'active' :'' }}">
+                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Dashboard</span> <span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-     
-                            <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.finance') }}">Finance</a></li>
-                            <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a href="{{ route('admin.income') }}">Income
+
+                            <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.finance') }}">Finance</a></li>
+                            <li class="{{ Request::is('backend/income') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.income') }}">Income
                                     Report</a></li>
                         </ul>
                     </li>
-                    <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' || Request::is('backend/agent-topup-trackers') ? 'active' :'' }}">
-                        <a><i class="fa fa-clone"></i> <span class="nav-label">Topup Trackers</span> <span class="fa arrow"></span></a>
+                    <li
+                        class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' || Request::is('backend/agent-topup-trackers') ? 'active' :'' }}">
+                        <a><i class="fa fa-clone"></i> <span class="nav-label">Topup Trackers</span> <span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' }}"><a href="{{ route('admin.admin-topup-track') }}">Admin
+                            <li class="{{ Request::is('backend/admin-topup-trackers') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.admin-topup-track') }}">Admin
                                     Topup</a></li>
-                            <li class="{{ Request::is('backend/agent-topup-trackers') ? 'active' :'' }}"><a href="{{ route('admin.agent-topup-track') }}">Agent
+                            <li class="{{ Request::is('backend/agent-topup-trackers') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.agent-topup-track') }}">Agent
                                     Topup</a></li>
                         </ul>
                     </li>
 
                     </li>
 
-                    <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' || Request::is('backend/agent-transactions') ? 'active' :'' }}">
-                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Payment History</span> <span class="fa arrow"></span></a>
+                    <li
+                        class="{{ Request::is('backend/direct-transactions') ? 'active' :'' || Request::is('backend/agent-transactions') ? 'active' :'' }}">
+                        <a><i class="fa fa-credit-card"></i> <span class="nav-label">Payment History</span> <span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a href="{{ route('admin.direct-transactions') }}">Direct
+                            <li class="{{ Request::is('backend/direct-transactions') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.direct-transactions') }}">Direct
                                     Transactions</a></li>
-                            <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a href="{{ route('admin.agent-transactions') }}">Agent
+                            <li class="{{ Request::is('backend/agent-transactions') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.agent-transactions') }}">Agent
                                     Transactions</a></li>
-                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a href="{{ route('admin.income_channel') }}">Payment
+                            <li class="{{ Request::is('backend/income_channel') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.income_channel') }}">Payment
                                     Channels
+                                </a></li>
+                            <li class="{{ Request::is('backend/requery-transactions') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.requery-transactions') }}">Requery Transactions
                                 </a></li>
 
 
                         </ul>
                     </li>
-                    <li class="{{ Request::is('backend/agentsales') ? 'active' :'' }}"><a href="{{ route('admin.agentsales') }}">
+                    <li class="{{ Request::is('backend/agentsales') ? 'active' :'' }}"><a
+                            href="{{ route('admin.agentsales') }}">
                             <i class="fa fa-money"></i>
                             <span class="nav-label">Agent Sales</span>
                         </a>
@@ -191,12 +199,15 @@
                     </li>
 
 
-                    <li class="{{ Request::is('backend/district-energy') ? 'active' :'' || Request::is('backend/district-energy') ? 'active' :'' }}">
+                    <li
+                        class="{{ Request::is('backend/district-energy') ? 'active' :'' || Request::is('backend/district-energy') ? 'active' :'' }}">
                         <a><i class="fa fa-credit-card"></i> <span class="nav-label">Energy Consumption</span> <span
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('backend/district-energy') ? 'active' :'' }}"><a href="{{ route('admin.district-energy') }}">District</a></li>
-                            <li class="{{ Request::is('backend/customer-energy') ? 'active' :'' }}"><a href="{{ route('admin.customer-energy') }}">Customer</a></li>
+                            <li class="{{ Request::is('backend/district-energy') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.district-energy') }}">District</a></li>
+                            <li class="{{ Request::is('backend/customer-energy') ? 'active' :'' }}"><a
+                                    href="{{ route('admin.customer-energy') }}">Customer</a></li>
 
 
 
@@ -226,22 +237,27 @@
                         </a>
                     </li>
                     {{-- <li class="{{$current_route_name =="admin.postpaid_bill" ? 'active' : ''}}">
-                        <a href="{{route('admin.postpaid_bill')}}">
-                            <i class="fa fa-podcast"></i>
-                            <span class="nav-label">Post Paid Bill</span>
-                        </a>
+                    <a href="{{route('admin.postpaid_bill')}}">
+                        <i class="fa fa-podcast"></i>
+                        <span class="nav-label">Post Paid Bill</span>
+                    </a>
                     </li> --}}
-                    <li class="{{ Request::is('backend/manage/users/*') ? 'active' :'' || Request::is('backend/manage/agents/*') ? 'active' :'' }}">
-                        <a><i class="fa fa-users"></i> <span class="nav-label">User Manager</span> <span class="fa arrow"></span></a>
+                    <li
+                        class="{{ Request::is('backend/manage/users/*') ? 'active' :'' || Request::is('backend/manage/agents/*') ? 'active' :'' }}">
+                        <a><i class="fa fa-users"></i> <span class="nav-label">User Manager</span> <span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::is('backend/manage/users/*') || Request::is('backend/manage/users') ? 'active' :'' }}"><a
-                                    href="{{ route('users.index') }}">Manage
+                            <li
+                                class="{{ Request::is('backend/manage/users/*') || Request::is('backend/manage/users') ? 'active' :'' }}">
+                                <a href="{{ route('users.index') }}">Manage
                                     Users</a></li>
-                            <li class="{{ Request::is('backend/manage/agents/*') || Request::is('backend/manage/agents')? 'active' :'' }}"><a
-                                    href="{{ route('agents.index') }}">Manage
+                            <li
+                                class="{{ Request::is('backend/manage/agents/*') || Request::is('backend/manage/agents')? 'active' :'' }}">
+                                <a href="{{ route('agents.index') }}">Manage
                                     Agents</a></li>
-                            <li class="{{ Request::is('backend/manage/discos/') || Request::is('backend/manage/discos/*') ? 'active' :'' }}"><a
-                                    href="{{ route('discos.index') }}">Manage
+                            <li
+                                class="{{ Request::is('backend/manage/discos/') || Request::is('backend/manage/discos/*') ? 'active' :'' }}">
+                                <a href="{{ route('discos.index') }}">Manage
                                     Discos</a></li>
                         </ul>
                     </li>
@@ -254,9 +270,9 @@
 
                     {{-- <li>
                         <a href="{{ env('TICKETING_ADMIN_URL') }}">
-                            <i class="fa fa-envelope"></i>
-                            <span class="nav-label">CRM</span>
-                        </a>
+                    <i class="fa fa-envelope"></i>
+                    <span class="nav-label">CRM</span>
+                    </a>
                     </li> --}}
                     <li>
                         <a href="{{ route('admin.tickets' )}}">
@@ -291,7 +307,8 @@
                                             <form id="admin_amount">
                                                 <div class="form-group">
                                                     <label>Amount</label>
-                                                    <input id="topup-amount" placeholder="Enter Amount" class="form-control">
+                                                    <input id="topup-amount" placeholder="Enter Amount"
+                                                        class="form-control">
                                                 </div>
                                                 <div>
                                                 </div>
@@ -312,12 +329,14 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">  Welcome to <strong>GOENERGEE</strong>
-                                Admin  | GOENERGEE Utility Platform.</span>
+                            <span class="m-r-sm text-muted welcome-message"> Welcome to <strong>GOENERGEE</strong>
+                                Admin | GOENERGEE Utility Platform.</span>
                         </li>
                         <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
-                                onmouseover="style.background = '#1AB394'; style.color = '#fff'; " onmouseout="style.color = '#666';style.background = 'transparent';">
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.querySelector('.logout-form').submit()"
+                                onmouseover="style.background = '#1AB394'; style.color = '#fff'; "
+                                onmouseout="style.color = '#666';style.background = 'transparent';">
                                 <i class="fa fa-sign-out"></i>Logout</a>
                             <form class="logout-form" method="POST" action="{{ route('logout') }}">
                                 {{ csrf_field()}}
@@ -817,7 +836,7 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-             $('.dataTables-example').DataTable({
+            $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [{
                         extend: 'copy'
@@ -952,7 +971,7 @@
                     // Output the result data for cropping image.
                 }
             });
-            
+
             var $inputImage = $("#inputImage");
             if (window.FileReader) {
                 $inputImage.change(function () {

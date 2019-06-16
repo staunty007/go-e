@@ -58,7 +58,7 @@
                                                     <td>
                                                         @{{ details.payment_ref }}
                                                         @guest
-                                                            <small>Please Note Down the Transaction Reference</small>
+                                                            <sm>Please Note Down the Transaction Reference</small>
                                                         @endguest
                                                     </td>
                                                 </tr>

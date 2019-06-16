@@ -144,6 +144,7 @@ Route::prefix('backend')->group(function () {
         Route::get('direct-transactions', 'AdminController@directTransactions')->name('admin.direct-transactions');
         Route::get('agent-transactions', 'AdminController@agentTransactions')->name('admin.agent-transactions');
         Route::get('income_channel', 'AdminController@income_channel')->name('admin.income_channel');
+        Route::view('requery-transactions', 'users.admin.requery-transactions')->name('admin.requery-transactions');
         Route::get('payment_history', 'AdminController@payment_history')->name('admin.payment_history');
         Route::get('demographics', 'AdminController@demographics')->name('admin.demographics');
         Route::get('district-energy', 'AdminController@district_energy')->name('admin.district-energy');
