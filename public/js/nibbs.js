@@ -32,7 +32,7 @@ const setBanks = (banks) => {
 
 selectOption.addEventListener('change', () => {
 
-		this.value !== ' ' ? showAccountForm(true) :
+	this.value !== ' ' ? showAccountForm(true) :
 		showAccountForm(false);
 });
 
@@ -73,7 +73,10 @@ nuban.addEventListener('keyup', () => {
 });
 
 // Create Mandate
-const createMandate = ({ account_no, account_name } = data) => {
+const createMandate = ({
+	account_no,
+	account_name
+} = data) => {
 	let requestData = {
 		accountNumber: account_no,
 		accountName: account_name,
@@ -88,7 +91,10 @@ const createMandate = ({ account_no, account_name } = data) => {
 			if (response.success) {
 				responseData = JSON.parse(response.data);
 				let mandateJsonResponse = parseXmlJson(responseData.data);
-				let { MandateCode, ResponseCode } = mandateJsonResponse.CreateMandateResponse;
+				let {
+					MandateCode,
+					ResponseCode
+				} = mandateJsonResponse.CreateMandateResponse;
 				if (ResponseCode == 00) {
 					transactionMandateCode = MandateCode;
 					showBankDetails(false);
@@ -123,7 +129,9 @@ const validateOtpNoReg = (otp) => {
 			if (response.success) {
 				responseData = JSON.parse(response.data);
 				let validateJsonResponse = parseXmlJson(responseData.data);
-				let { ResponseCode } = validateJsonResponse.ValidateOTPResponse;
+				let {
+					ResponseCode
+				} = validateJsonResponse.ValidateOTPResponse;
 				if (ResponseCode == 00) {
 					generatePaymentOtp();
 					// showOtpBox(false);
@@ -158,7 +166,9 @@ const generatePaymentOtp = () => {
 			if (response.success) {
 				responseData = JSON.parse(response.data);
 				let jsonResponse = parseXmlJson(responseData.data);
-				let { ResponseCode } = jsonResponse.GenerateOTPResponse;
+				let {
+					ResponseCode
+				} = jsonResponse.GenerateOTPResponse;
 				if (ResponseCode == 00) {
 					showOtpBox(false);
 					showOtpPayment(true);
@@ -189,7 +199,9 @@ const validatePaymentOtp = (otpCode) => {
 			if (response.success) {
 				responseData = JSON.parse(response.data);
 				let jsonResponse = parseXmlJson(responseData.data);
-				let { ResponseCode } = jsonResponse.ValidateOTPResponse;
+				let {
+					ResponseCode
+				} = jsonResponse.ValidateOTPResponse;
 				if (ResponseCode == 00) {
 					showOtpPayment(false);
 					showSuccess(true);
@@ -273,7 +285,7 @@ showOtpBox();
 showOtpPayment();
 showSuccess();
 
-(function() {
+(function () {
 	loadBanks();
 	// setBanks();
 })();
