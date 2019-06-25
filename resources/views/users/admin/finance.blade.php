@@ -305,24 +305,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- <div class="col-lg-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading text-center">
-                    <h4>INCOME REPORT BY CUSTOMER METER TYPE</h4>
-                </div>
-
-                <div class="ibox-content">
-                    <div class="text-center">
-                        <div id="chartdiv2" height="140"></div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
-       
     </div>
 </div>
 </div>

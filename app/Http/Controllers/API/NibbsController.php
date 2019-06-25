@@ -174,20 +174,29 @@ class NibbsController extends Controller
     }
 
     // Re-Query Transaction
-    public function requeryTransaction($transaction_ref, $cpay_ref)
+    public function requeryTransaction(Request $request)
     {
         $curl = curl_init();
 
+        $transaction_id = $request->transaction_id;
+        $cpay_ref = $request->cpay_ref;
+
+        // Requery Endpoint
+        // https://staging.nibssplc.com.ng/CentralPayPlus/merchantTransQueryJSON?transaction_id=R283265064&cpay_ref=862DDE 03-0E33-206C-B54C69BEFE533095&merchant_id=00000001&hash=6fa5eaafe672a47b4a148174b1f2d75b4c0ed242e2556f05144f
+
+        $hash = hash('sha256', "" . $transaction_id . "" . $cpay_ref . "NIBSS0000000128F78BE99289AB52FDF97190CEBFC1D6B8");
+
+        $endpoint = "https://staging.nibss-plc.com.ng/CentralPayPlus/merchantTransQueryJSON?transaction_id=" . $transaction_id . "&cpay_ref=" . $cpay_ref . "&merchant_id=NIBSS0000000128&hash=" . $hash;
+
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "4444",
-            CURLOPT_URL => $this->actionUrl,
+            CURLOPT_URL => $endpoint,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POSTFIELDS => "{\n\"transaction_id\":\"$transaction_ref\",\n\"cpay_ref\":\"$cpay_ref\"}",
+            CURLOPT_POSTFIELDS => "",
 
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
@@ -201,9 +210,15 @@ class NibbsController extends Controller
         curl_close($curl);
 
         if ($err) {
-            return $this->errorResponse($err);
+            return response()->json([
+                'success' => false,
+                'data' => $err
+            ], 422);
         } else {
-            return $this->successResponse($response);
+            return response()->json([
+                'success' => true,
+                'data' => json_decode($response, true)
+            ], 200);
         }
     }
 
