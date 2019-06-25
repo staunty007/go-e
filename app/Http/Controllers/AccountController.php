@@ -42,7 +42,7 @@ class AccountController extends Controller
             return response()->json(['err' => 'Email Already Exists']);
         }
 
-        if($request->password !== $request->password_confirmation) {
+        if ($request->password !== $request->password_confirmation) {
             return response()->json(['err' => 'Password Does not Match']);
         }
 
@@ -55,7 +55,6 @@ class AccountController extends Controller
                 $customer->save();
                 session()->forget('referred');
             }
-
         }
 
         $bio = new CustomerBiodata;
@@ -83,9 +82,8 @@ class AccountController extends Controller
             Mail::to($user->email)->send(new AccountActivation($user));
             return response()->json(['sus' => '1']);
         } catch (\Throwable $th) {
-            return response()->json(['err' => 'We are unable to send you an email to complete your Account Registration, Please Retry Below', 'user' => $user,'is_email_error' => true]);
+            return response()->json(['err' => 'We are unable to send you an email to complete your Account Registration, Please Retry Below', 'user' => $user, 'is_email_error' => true]);
         }
-        
     }
 
     /**
@@ -99,7 +97,7 @@ class AccountController extends Controller
             Mail::to($request->email)->send(new AccountActivation($request));
             return response()->json(['sus' => '1']);
         } catch (\Throwable $th) {
-            return response()->json(['is_email_error' => true,'err' => 'We are unable to send you an email to complete your Account Registration, Please Retry Below', 'user' => $request]);
+            return response()->json(['is_email_error' => true, 'err' => 'We are unable to send you an email to complete your Account Registration, Please Retry Below', 'user' => $request]);
         }
     }
 
@@ -119,7 +117,7 @@ class AccountController extends Controller
             // return view('referral-signup')->withRef($findRef->refer_id);
         }
     }
-    
+
     public function activateAccount($token)
     {
         // if(session()->has('referred'))
@@ -132,13 +130,13 @@ class AccountController extends Controller
         $user->save();
 
         Auth::login($user);
-        
+
 
         session()->forget('account_info');
         return view('activating');
     }
 
-    
+
     public function paymentFrame()
     {
         return view('postpaidpayment-frame');
@@ -162,16 +160,16 @@ class AccountController extends Controller
             }
 
             $paymentDetails[] = $request->all();
-            
+
             // Flush Payment Details
             session()->forget('payment_details');
-            if(auth()->check()) {
+            if (auth()->check()) {
                 $agent_id = auth()->id();
                 $id['agent_id'] = $agent_id;
-                $newarray = array_collapse(array_prepend($paymentDetails,$id));
+                $newarray = array_collapse(array_prepend($paymentDetails, $id));
                 session()->put(['payment_details' => $newarray]);
             }
-            
+
             return response()->json(['code' => 'ok', 'text' => session()->get('payment_details')]);
         }
 
@@ -201,16 +199,16 @@ class AccountController extends Controller
     {
         $bio = $this->customerData();
         // return $bio;
-        $topups = Payment::where('email','agent@goenergee.com')->get();
+        $topups = Payment::where('email', 'agent@goenergee.com')->get();
         // return $topups;
         $previous_topup = array_flatten(last($topups));
         $prev_tops = 0;
-        if($previous_topup) {
-            $prev_top = Transaction::where('payment_id',$previous_topup[0]['id'])->first();
+        if ($previous_topup) {
+            $prev_top = Transaction::where('payment_id', $previous_topup[0]['id'])->first();
             $prev_tops = $prev_top ? $prev_top->initial_amount : 0;
         }
         // return $previous_topups;
-        return view('customer.postpaid-payment',compact('prev_tops'))->withBio($bio);
+        return view('customer.postpaid-payment', compact('prev_tops'))->withBio($bio);
     }
 
     public function paymentSuccess($user_type, $reff)
@@ -223,20 +221,27 @@ class AccountController extends Controller
             $prepaid = new Payment;
 
             // Set a variable for the token data
-            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+            if (
+                isset($tokenDetails['response']['orderDetails']['tokenData'])
                 &&
-                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])) {
+                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])
+            ) {
                 $token_data = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
             }
 
             $bonus_token = "";
-            
+
             // if bonus token is generated then set it
-            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+            if (
+                isset($tokenDetails['response']['orderDetails']['tokenData'])
                 &&
-                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
+                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])
+            ) {
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
+
+            // Get nibbs payment details
+            $nibbs = session()->exists('nibbs_details') ? session()->get('nibbs_details') : [];
 
             $paymentId = "";
             $paymentId = DB::table('payments')->insertGetId([
@@ -251,12 +256,13 @@ class AccountController extends Controller
                 'bonus_token' => isset($bonus_token) ? $bonus_token : null,
                 'user_type' => $tokenDetails['response']['orderDetails']['customerAccountType'],
                 'transaction_type' => "Web",
-                'transaction_ref' => $reff,
+                'transaction_ref' => $nibbs['TransactionRef'] ? $nibbs['TransactionRef'] : $reff,
+                'cpay_ref' => $nibbs['CPayRef'] ? $nibbs['CPayRef'] : null,
                 'payment_ref' => $tokenDetails['response']['orderDetails']['paymentReference'],
                 'order_id' => $tokenDetails['response']['orderDetails']['orderId'],
                 'value_of_kwh' => (isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units']) ? $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['units'] : $tokenDetails['response']['orderDetails']['tokenData']['status']['value']),
                 'is_agent' => (isset($paymentDetails['is_agent']) && $paymentDetails['is_agent'] == '1') ? true : false,
-                'agent_id' => (isset($paymentDetails['is_agent']) ? $paymentDetails['agent_id'] : 0 ),
+                'agent_id' => (isset($paymentDetails['is_agent']) ? $paymentDetails['agent_id'] : 0),
                 'purpose' => $tokenDetails['response']['orderDetails']['purpose'],
                 'payment_status' => $tokenDetails['response']['orderDetails']['status'],
                 'created_at' => new Carbon('now'),
@@ -292,7 +298,7 @@ class AccountController extends Controller
                 $transaction->ralmuof = $ralmuof;
                 $transaction->total_split = $totalSplit;
                 $transaction->net_amount = $netAmount;
-    
+
                 // Wallet Balance
                 $adminBio = AdminBiodata::firstOrFail();
                 //return $adminBio;
@@ -364,18 +370,22 @@ class AccountController extends Controller
             $prepaid = new Payment;
 
             // Set a variable for the token data
-            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+            if (
+                isset($tokenDetails['response']['orderDetails']['tokenData'])
                 &&
-                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])) {
+                isset($tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'])
+            ) {
                 $token_data = $tokenDetails['response']['orderDetails']['tokenData']['stdToken']['value'];
             }
 
             $bonus_token = "";
-            
+
             // if bonus token is generated then set it
-            if (isset($tokenDetails['response']['orderDetails']['tokenData'])
+            if (
+                isset($tokenDetails['response']['orderDetails']['tokenData'])
                 &&
-                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])) {
+                isset($tokenDetails['response']['orderDetails']['tokenData']['bsstToken'])
+            ) {
                 $bonus_token = $tokenDetails['response']['orderDetails']['tokenData']['bsstToken']['value'];
             }
 
@@ -434,7 +444,7 @@ class AccountController extends Controller
                 $transaction->ralmuof = $ralmuof;
                 $transaction->total_split = $totalSplit;
                 $transaction->net_amount = $netAmount;
-    
+
                 // Wallet Balance
                 $adminBio = AdminBiodata::firstOrFail();
                 //return $adminBio;
@@ -512,22 +522,21 @@ class AccountController extends Controller
         // If Payment was made by an agent
         if ($payment->is_agent == true) {
             $payment = Payment::where('order_id', $orderId)->with('agent_transaction')->firstOrFail();
-        }else {
+        } else {
             $payment = Payment::where('order_id', $orderId)->with('transaction')->firstOrFail();
         }
 
         try {
             // Only send mail when the token is generated || the user type is POSTPAID
-            if($payment->payment_status == "CONFIRMED" || $payment->user_type == "OFFLINE_POSTPAID") {
+            if ($payment->payment_status == "CONFIRMED" || $payment->user_type == "OFFLINE_POSTPAID") {
                 $mail = Mail::to("$payment->email")->send(new TransactionReceipt($payment, $user_type));
             }
             // return response to frontend
-            return response()->json($payment);    
-        }catch(\Exception $e) {
+            return response()->json($payment);
+        } catch (\Exception $e) {
             // Return exceptions
-            return response()->json([$payment,["errors" => $e]]); 
+            return response()->json([$payment, ["errors" => $e]]);
         }
-        
     }
 
 
@@ -707,21 +716,21 @@ class AccountController extends Controller
 
     // public function loggedAgentPostpaidPaymentSuccess($ref)
     // {
-        
+
     // }
     public function home()
     {
         if (\Auth::check()) {
             $role = \Auth::user()->role_id;
             switch ($role) {
-                // Admin is Logged in
+                    // Admin is Logged in
                 case '1':
                     return redirect('/backend/finance');
                     break;
                 case '2':
-                //  Agent is logged in
-				//  Redirect to Dashboard
-					return redirect('agent/dashboard');
+                    //  Agent is logged in
+                    //  Redirect to Dashboard
+                    return redirect('agent/dashboard');
                     break;
                 case '3':
                     //return view('users.distributor.finance');
@@ -735,7 +744,6 @@ class AccountController extends Controller
         } else {
             return redirect('/')->withError('Session Expired, Please Login');
         }
-
     }
 
     public function customerProfile()
@@ -750,7 +758,7 @@ class AccountController extends Controller
     {
         if (auth()->check()) {
             $user = User::where('id', auth()->id())->first();
-            
+
             // Check if user already updated their profile
             if ($user->is_completed == 1) {
                 $account_type = "PREPAID";
@@ -873,7 +881,7 @@ class AccountController extends Controller
     {
         $userEmail = \Auth::user()->email;
         //return $userEmail;
-        $prepaid = Payment::where('email', $userEmail)->with('transaction')->orderBy('created_at','ASC')->paginate(10);
+        $prepaid = Payment::where('email', $userEmail)->with('transaction')->orderBy('created_at', 'ASC')->paginate(10);
         // return $prepaid;
         return view('customer.payment_history')->withPayments($prepaid);
     }

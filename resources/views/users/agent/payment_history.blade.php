@@ -195,6 +195,7 @@
                                                 <tr>
                                                     <th>Date</th>
                                                     <th>Ref</th>
+                                                    <th>CPay Ref</th>
                                                     <th>Channel</th>
                                                     <th>Type</th>
                                                     <th>Name</th>
@@ -218,6 +219,7 @@
                                                 <tr>
                                                     <td>{{ date('d/m/y h:i:s A', strtotime($d->created_at) ) }}</td>
                                                     <td>{{ $d->payment_ref }}</td>
+                                                     <td>{{ $d->cpay_ref }}</td>
                                                     <td>AGENCY-{{ strtoupper($d->transaction_type) }}</td>
                                                     <td>{{ str_replace('OFFLINE_','',$d->user_type)}} </td>
                                                     <td>{{ $d->first_name." ". $d->last_name }}</td>

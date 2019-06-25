@@ -596,7 +596,8 @@
             })
     });
 
-    const chargeWallet = () => {
+    const chargeWallet = (payload = '') => {
+        payload ? postDetails(payload) : console.log('Free Fair');
         document.querySelector("#response").innerHTML = `<div class="modal-footer">
                         <h2>Validating Transaction... <div class=" bg-darrk loader-css"></div></h2>
                     </div>`;
@@ -605,7 +606,6 @@
         fetch(`/ekedc/charge-wallet/${amountCommission}/${accountType}/${meter_no}`)
             .then(res => res.json())
             .then(chargeWalletResult => {
-                console.log('Generating Token...');
                 if(chargeWalletResult.response.result.orderDetails) {
                     const payRef = chargeWalletResult.response.result.orderDetails.paymentReference;
                     const orderId = chargeWalletResult.response.result.orderId;
@@ -623,6 +623,20 @@
             .catch(err => console.log(err));
     };
 
+    const postDetails = (details) => {
+        console.log('Sending Details to Backyard...')
+        $.ajax({
+            url: '/nibbs-payment/post-nibbs-details',
+            method: 'POST',
+            data: details,
+            success: (response) => {
+                console.log(response);
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        });
+    } 
 
 </script>
 <script>

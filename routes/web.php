@@ -299,6 +299,8 @@ Route::group(['prefix' => 'nibbs-payment'], function () {
     Route::post('validate-registration', 'API\NibbsController@validateOTPFresh');
     Route::post('generate-otp', 'API\NibbsController@generatePaymentOtp');
     Route::post('validate-otp', 'API\NibbsController@validatePaymentOtp');
+    Route::post('post-nibbs-details', 'API\NibbsController@postDetails');
+    Route::get('find-session', 'API\NibbsController@find');
 });
 
 

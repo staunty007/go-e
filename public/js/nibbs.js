@@ -133,6 +133,7 @@ const validateOtpNoReg = (otp) => {
 					ResponseCode
 				} = validateJsonResponse.ValidateOTPResponse;
 				if (ResponseCode == 00) {
+					// console.log(validateJsonResponse);
 					generatePaymentOtp();
 					// showOtpBox(false);
 					// showOtpPayment(true);
@@ -202,13 +203,14 @@ const validatePaymentOtp = (otpCode) => {
 				let {
 					ResponseCode
 				} = jsonResponse.ValidateOTPResponse;
+				console.log(jsonResponse);
 				if (ResponseCode == 00) {
 					showOtpPayment(false);
 					showSuccess(true);
-					chargeWallet();
+					chargeWallet(jsonResponse);
 				} else {
-					validateOtpPay.innerHTML = 'Validating...';
-					validateOtpPay.disabled = true;
+					validateOtpPay.innerHTML = 'Validate OTP';
+					validateOtpPay.disabled = false;
 					alert('Something Went Wrong, Please Try Again');
 					return;
 				}
