@@ -222,6 +222,22 @@ class NibbsController extends Controller
         }
     }
 
+    // Accept and Add Session Ref
+    public function postDetails(Request $request)
+    {
+        if ($request) {
+            session()->put('nibbs_details', $request->all());
+            return $this->success('Accepted');
+        }
+
+        return 'Nothing';
+    }
+
+    // find
+    public function find()
+    {
+        return session()->get('nibbs_details');
+    }
 
     // Generate Response
     public function successResponse($data = 'Successful')

@@ -160,6 +160,7 @@
                                 <tr>
                                     <th data-hide="phone">Trans Date</th>
                                     <th data-hide="phone">Trans Ref</th>
+                                    <th data-hide="phone">Cpay Ref</th>
                                     <th data-hide="phone">Customer Name</th>
                                     <th data-hide="phone">Trans type</th>
                                     <th data-hide="phone">Status</th>
@@ -192,6 +193,7 @@
                                     <td>{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
                                     {{-- <td>{{ date('d/m/Y h:i:s A', strtotime($p->created_at)) }}</td> --}}
                                     <td>{{ $p->transaction_ref }}</td>
+                                    <td>{{ $p->cpay_ref }}</td>
                                     <td>{{ $p->first_name }} {{ $p->last_name }}</td>
                                     <td>{{ $p->transaction_type }}</td>
                                     <td>

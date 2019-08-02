@@ -199,6 +199,7 @@
                                 <th>ID</th>
                                 <th>Trans Date</th>
                                 <th>Trans Ref</th>
+                                <th>CPay Ref</th>
                                 <th>Trans type</th>
                                 <th>Status</th>
                                 <th>Type</th>
@@ -215,6 +216,7 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ date('d/m/Y',strtotime($pay->created_at)) }}</td>
                                 <td>{{ $pay->transaction_ref }}</td>
+                                <td>{{ $pay->cpay_ref }}</td>
                                 <td>Web</td>
                                 <td><span class="label label-info">Successful</label></td>
                                 <td>{{ str_replace('OFFLINE_','',$pay->user_type) }}</td>
