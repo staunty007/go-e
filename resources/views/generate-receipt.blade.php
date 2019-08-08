@@ -62,10 +62,10 @@
                                                         @endguest
                                                     </td>
                                                 </tr>
-                                                <tr v-if="details.cpay_ref !== null">
+                                                {{-- <tr v-if="details.cpay_ref !== null">
                                                     <td>CPay Ref: </td>
                                                     <td>@{{ details.cpay_ref }}</td>
-                                                </tr>
+                                                </tr> --}}
                                             </table>
                                         </div>
                                         <div class="col-md-4">
