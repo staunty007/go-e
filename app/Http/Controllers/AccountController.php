@@ -535,7 +535,8 @@ class AccountController extends Controller
             return response()->json($payment);
         } catch (\Exception $e) {
             // Return exceptions
-            return response()->json([$payment, ["errors" => $e]]);
+            return response()->json($payment);
+            // return response()->json([$payment, ["errors" => $e]]);
         }
     }
 
