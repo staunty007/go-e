@@ -200,6 +200,7 @@ const validatePaymentOtp = (otpCode) => {
 			if (response.success) {
 				responseData = JSON.parse(response.data);
 				let jsonResponse = parseXmlJson(responseData.data);
+				console.log('Validating', jsonResponse.ValidateOTPResponse);
 				let {
 					ResponseCode
 				} = jsonResponse.ValidateOTPResponse;
@@ -207,9 +208,9 @@ const validatePaymentOtp = (otpCode) => {
 				if (ResponseCode == 00) {
 					showOtpPayment(false);
 					showSuccess(true);
-					chargeWallet(jsonResponse);
+					chargeWallet(jsonResponse.ValidateOTPResponse);
 				} else {
-					validateOtpPay.innerHTML = 'Validate OTP';
+					validateOtpPay.innerHTML = 'Submit OTP';
 					validateOtpPay.disabled = false;
 					alert('Something Went Wrong, Please Try Again');
 					return;

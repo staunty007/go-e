@@ -58,9 +58,13 @@
                                                     <td>
                                                         @{{ details.payment_ref }}
                                                         @guest
-                                                            <sm>Please Note Down the Transaction Reference</small>
+                                                            <small style="font-size: 12px; color: blue; margin-left: 2em">Please Note Down the Transaction Reference</small>
                                                         @endguest
                                                     </td>
+                                                </tr>
+                                                <tr v-if="details.cpay_ref !== null">
+                                                    <td>CPay Ref: </td>
+                                                    <td>@{{ details.cpay_ref }}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -175,11 +179,12 @@
                     this.sendSMS()
                 },
                 methods: {
-                    fetchOrderDetails: function() {
+                    async fetchOrderDetails() {
                         // let app = this;
-                        axios.get(`/fetch/${this.orderid}/${this.user_type}`)
+                        await axios.get(`/fetch/${this.orderid}/${this.user_type}`)
                             .then(res => {
                                 this.details = res.data;
+                                
                                 if(this.details.bonus_token !== "" && this.details.bonus_token.length > 10) {
                                     this.bsst = true;
                                 }
@@ -200,14 +205,14 @@
                                 console.log(err);
                             });
                     },
-                    sendSMS: function() {
+                    async sendSMS() {
 
                     this.textMsg = "Meter Token: 424289848298928.\nYour Eko Electricity Distribution Company Plc. " + this.paymentType+" payment of NGN "+this.paidAmount+" was successfull.\nREF: "+this.smsRef+". \nFor support call 0700 000000000";
                     
                     this.apiReq = "http://portal.bulksmsnigeria.net/api/?username=codergab@gmail.com&password=Ayomideg@7&message="+this.textMsg+"&sender=GOENERGEE&mobiles="+this.smsNumber+"";
                     // this.apiReq = 'http://localhost:8000';
 
-                    axios.get(this.apiReq, { crossdomain: true })
+                    await axios.get(this.apiReq, { crossdomain: true })
                         .then(response => {
                             this.sent = true
                             this.loading = false

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 class NibbsController extends Controller
 {
+    private $port = 4444;
     protected $actionUrl = "http://34.211.118.88:4444/cpay/client/action";
 
     // Create Mandate
@@ -20,7 +21,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "4444",
+            CURLOPT_PORT => $this->port,
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -61,7 +62,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "4444",
+            CURLOPT_PORT => $this->port,
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -102,7 +103,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "4444",
+            CURLOPT_PORT => $this->port,
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -143,7 +144,7 @@ class NibbsController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "4444",
+            CURLOPT_PORT => $this->port,
             CURLOPT_URL => $this->actionUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
