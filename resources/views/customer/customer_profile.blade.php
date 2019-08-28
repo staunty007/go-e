@@ -48,6 +48,13 @@
                             @endif
                         </li>
                         <li>
+                            <span class="fa fa-table m-r-xs"></span>
+                            <label>Meter Type:</label>
+                            @if(Auth::user()->is_completed == 1)
+                            {{ $profile->customer->user_type == 1 ? "PREPAID" : "POSTPAID" }}
+                            @endif
+                        </li>
+                        <li>
                             <span class="fa fa-map-marker m-r-xs"></span>
                             <label>District:</label>
                             ((Name?))
@@ -256,6 +263,7 @@
                     }
                 })
                 .catch(err => {
+                    //console.log(err); return;
                     // alert('Sorry Something Went Wrong');
                     $.alert({
                         title: 'Ooops!',

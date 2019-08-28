@@ -10,7 +10,7 @@
         <div class="ibox-content">
             <h1 class="no-margins">₦</h1>
 
-            <small>Previos Top Up to EKEDC</small>
+            <small>Previous Top Up to EKEDC</small>
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Financial Performance for GOENERGEE
+                Topup Tracker for GOENERGEE
             </div>
             <div class="ibox-content m-b-sm border-bottom">
                 <!-- <div class="row">

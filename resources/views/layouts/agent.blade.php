@@ -300,6 +300,9 @@
                     <li class="{{ Request::is('home') ? 'active': '' }}"><a href="{{ route('agent.dashboard') }}"><span>&#8358;</span></i>
                             <span class="nav-label">&nbsp My Dashboard</span></a>
                     </li>
+                    <li class=""><a href="#"><span><i class="fa fa-balance-scale"></i></span></i>
+                            <span class="nav-label">&nbsp Top-up Tracker</span></a>
+                    </li>
                     <li class="{{ Request::is('agent/payment-history') ? 'active': '' }}">
                         <a href="{{ route('agent.payHistory') }}"><i class="fa fa-cc-visa"></i> <span class="nav-label">Payment
                                 History</span></a>
@@ -393,7 +396,7 @@
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
                             <span class="m-r-sm text-muted welcome-message">Welcome <strong class="font-bold"> {{Auth::user()->first_name}}
-                                    {{Auth::user()->last_name}}</strong> to GOENERGEE Utility
+                                    {{Auth::user()->last_name}}</strong> | GOENERGEE Utility
                                 platform.</span>
                         </li>
                         <li>

@@ -188,7 +188,7 @@
                     <li class="{{ Request::is('backend/agentsales') ? 'active' :'' }}"><a
                             href="{{ route('admin.agentsales') }}">
                             <i class="fa fa-money"></i>
-                            <span class="nav-label">Agent Sales</span>
+                            <span class="nav-label">Agent</span>
                         </a>
                     </li>
                     <li class="{{$current_route_name =='admin.payment_history' ? 'active' : ''}}">
@@ -197,7 +197,6 @@
                             <span class="nav-label">Commission Split</span>
                         </a>
                     </li>
-
 
                     <li
                         class="{{ Request::is('backend/district-energy') ? 'active' :'' || Request::is('backend/district-energy') ? 'active' :'' }}">
@@ -329,7 +328,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message"> Welcome to <strong>GOENERGEE</strong>
+                            <span class="m-r-sm text-muted welcome-message"> Welcome | <strong>GOENERGEE</strong>
                                 Admin | GOENERGEE Utility Platform.</span>
                         </li>
                         <li>

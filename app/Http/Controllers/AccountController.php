@@ -243,6 +243,10 @@ class AccountController extends Controller
             // Get nibbs payment details
             $nibbs = session()->exists('nibbs_details') ? session()->get('nibbs_details') : [];
 
+            //$agentId = User::has()
+
+            //return response()->json($paymentDetails);
+
             $paymentId = "";
             $paymentId = DB::table('payments')->insertGetId([
                 'first_name' => $paymentDetails['firstname'],
@@ -739,8 +743,12 @@ class AccountController extends Controller
                     //return "Logged In";
                     break;
                 default:
-                    return view('customer.dashboard');
-                    break;
+                // extra datas
+                $payments = Payment::where('email', auth()->user()->email)->with('transaction')->orderBy('created_at', 'ASC');
+                $pay_total['month'] = $payments->whereMonth('created_at', Carbon::now()->month)->count();
+                $pay_total['year'] = $payments->whereYear('created_at', Carbon::now()->year)->count();
+                return view('customer.dashboard', compact('pay_total'));
+                break;
             }
         } else {
             return redirect('/')->withError('Session Expired, Please Login');
@@ -766,7 +774,7 @@ class AccountController extends Controller
                 if (str_contains($meter, '-') == true) {
                     $account_type = "POSTPAID";
                 }
-                return $account_type;
+                //return $account_type;
                 $valid = $ci->validateCustomer($account_type, $meter);
                 return $valid;
                 // return response()->json(['response' => ['retn' => 0, 'desc' => 'Request Successful']]);

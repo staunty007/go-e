@@ -16,6 +16,10 @@ Route::get('banks-to-banks', function () {
 
 Route::post('nibbs/requery-transaction', 'API\NibbsController@requeryTransaction');
 
+Route::get('ikeja/fetch-customer','IkejaController@index');
+Route::get('gt/pay','GTPayController@sendTransaction');
+Route::get('gt/notify','GTPayController@getNotification');
+
 Route::get('/', function () {
     // if (url()->previous() == url('ekedc') || url()->previous() == url('distributor/*')) {
     //     return back();
@@ -24,7 +28,8 @@ Route::get('/', function () {
     return view('guest.home');
 });
 
-Route::get("download-reciept/{payment_ref}", "PagesController@downloadReciept")->name('download-reciept');
+// Route::get("download-reciept/{payment_ref}", "PagesController@downloadReciept")->name('download-reciept');
+Route::get("payment-reciept/{payment_ref}", "PagesController@viewReciept")->name('view-reciept');
 
 Route::prefix('guest')->group(function () {
     Route::get('home', 'GuestController@guestServices')->name('guest.services');

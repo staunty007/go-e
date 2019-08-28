@@ -60,7 +60,7 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img alt="image"  src="/customer/img/150.png">
+                                <img alt="image"  src="/customer/img/15.png">
 
                             </div>
                             <div class="item ">
@@ -79,9 +79,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
     @endsection
     @push('scripts')

@@ -361,6 +361,7 @@
                             <div class="navbar-navbar-left" style="width: 50%">
                                 <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
                                 </a>
+                                
                                 <div class="row" style="margin-top: 1em">
                                     <div class="onoffswitch pull-right">
                                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
@@ -370,14 +371,18 @@
                                         </label>
                                     </div>
 
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal6">Pay Bill
+                                    <button class="btn btn-primary hidden" data-toggle="modal" data-target="#myModal6">Pay Bill
                                     </button>
 
-                                    <button type="button" class="btn btn-primary mt-10">
+
+                                    <button type="button" class="btn btn-primary mt-10 hidden" >
                                         Top up Wallet
                                     </button>
                                     <button class="btn btn-default mt-10">
-                                        <span class="text-black-50" style="font-weight: bold">Wallet Balance: N</span></button>
+                                        <span class="text-black-50" style="font-weight: bold">Wallet Balance: N {{ $myWallet }}</span></button>
+                                        <div class="col-md-5">
+                                            <input type="text" name="" class="form-control" placeholder="Search for Billers" id="">
+                                        </div>
                                     @push('popups')
                                     <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
@@ -387,7 +392,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                         <span class="sr-only">Close</span>
                                                     </button>
-                                                    <h4 class="modal-title">Top Up Wallet</h4>
+                                                    <h4 class="modal-title">Top Up Wallet </h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group">
@@ -408,9 +413,8 @@
 
                                         </div>
                                     </div>
-
-
                                     @endpush
+                                   
                                     <!-- &nbsp; &nbsp; &nbsp; <label type="button" class="btn btn-info mt-8">
                                                 Meter Auto Top-up<input type="checkbox" class="js-switch" checked /> -->
                                     <!-- <input id="toggle-one" checked type="checkbox"> <script> $(function() { $('#toggle-one').bootstrapToggle(); }) </script>
@@ -418,6 +422,7 @@
 
 
                                 </div>
+                                
                                 <div class="modal inmodal fade" id="myModal6" tabindex="9999" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
@@ -434,6 +439,7 @@
 
                                     </div>
                                 </div>
+
                             </div>
                             <div class="navbar-navbar-right" style="width: 50%">
                                 <ul class="nav navbar-top-links navbar-right">

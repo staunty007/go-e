@@ -14,7 +14,7 @@
                 <p class="stat__subheader">
 
                     <h4 class="no-margins">10 <span class="pull-right">15</span></h4>
-                    <small>Registrered<span class="pull-right">Unregistered</span></small>
+                    <small>Registered<span class="pull-right">Unregistered</span></small>
                  </p>
             </div>
          </div>
@@ -30,7 +30,7 @@
             <p class="stat__subheader">
 
                 <h4 class="no-margins">2 <span class="pull-right">2</span></h4>
-                <small>Registrered<span class="pull-right">Unregistered</span></small>
+                <small>Registered<span class="pull-right">Unregistered</span></small>
                 </p>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <p class="stat__subheader">
 
                 <h4 class="no-margins">0 <span class="pull-right">0</span></h4>
-                <small>Registrered<span class="pull-right">Unregistered</span></small>
+                <small>Registered<span class="pull-right">Unregistered</span></small>
                 </p>
         </div>
     </div>

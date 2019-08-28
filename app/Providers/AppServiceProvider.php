@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Payment;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\User;
 use Illuminate\Support\Facades\URL;
+use Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,7 +39,9 @@ class AppServiceProvider extends ServiceProvider
 		view()->composer('customer/*', function ($view) {
 			if (auth()->check()) {
 				$customer = User::where('id', auth()->id())->with('customer')->first();
-				$view->with('customer', $customer);
+				//customer's wallet balance
+				$myWallet = Auth::user()->customer->wallet_balance;
+				$view->with('customer', $customer)->with('myWallet',$myWallet);
 			}
 		});
 

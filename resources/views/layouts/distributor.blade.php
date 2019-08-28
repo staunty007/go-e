@@ -79,7 +79,7 @@
                         <a href="{{route('distributor.topup-tracker')}}">
                             <span>&#8358;</span>
                             </i>
-                            <span class="nav-label">&nbsp;Top Up Tracker</span>
+                            <span class="nav-label">&nbsp;Top-up Tracker</span>
                         </a>
                     </li>
 

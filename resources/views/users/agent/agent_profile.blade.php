@@ -18,7 +18,8 @@
                             <small>GOENERGEE - AGENT</small>
                         </div>
 
-                        <ul class="list-unstyled m-t-md">
+                        <ul class="list-unstyled m-t-md" style="text-align: left;">
+                        <ul class="list-unstyled m-t-md" >
 
                          <li>
 
@@ -43,7 +44,45 @@
                          
                         </ul>
                     </div>
+                    <div class="widget-head-color-box navy-bg p-lg text-center">
+
+                        <ul class="list-unstyled m-t-md" style="text-align: left;">
+
+                         <li>
+
+                             <label> Business Name:</label>
+                             {{ $profile->user->first_name." ".$profile->user->last_name }}
+                         </li>
+                         <li>
+
+                             <label>Business Phone:</label>
+                             {{ $profile->user->email }}
+                         </li>
+                         <li>
+
+                             <label>Business Address:</label>
+                             {{ $profile->address}}
+                         </li>
+                         <li>
+
+                            <label>Bank Account:</label>
+                             {{ $profile->user->mobile}}
+                         </li>
+                         <li>
+                             <label for="">Contract Status:</label>
+                            
+                         </li>
+                         <li>
+                             <label for="">Valid ID:</label>
+                            
+                         </li>
+                         <li>
+                             <label for="">Agent Card:</label>
+                            
+                         </li>
+                        </ul>
                     </div>
+                </div>
                    
                 <div class="col-lg-8">
                     <div class="ibox">
@@ -132,10 +171,9 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Your keystone Account Number</label>
+                                            <label>Your Bank Account Number</label>
                                             <input type="text" name="account_no" class="form-control" value="{{ $profile->account_number }}">
                                         </div>
-                                        
                                     </div>
 
 

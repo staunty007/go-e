@@ -144,6 +144,9 @@
                         <th>Festac</th>
                         <th>Apapa</th>
                         <th>Agbara</th>
+                        <th>Mushin</th>
+                        <th>Ibeju</th>
+                        <th>Lekki</th>
                         
 
 
@@ -159,6 +162,9 @@
                         <td>900</td>
                         <td>800</td>
                         <td>600</td>
+                        <td>450</td>
+                        <td>450</td>
+                        <td>450</td>
                         <td>450</td>
 
                     </tr>

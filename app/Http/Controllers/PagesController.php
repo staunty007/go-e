@@ -43,4 +43,11 @@ class PagesController extends Controller
         // $pdf = PDF::loadView('download-reciept-page');
 		// return $pdf->download('reciept-download.pdf');
     }
+
+    public function viewReciept($payment_ref) {
+
+        $reciept = Payment::where('payment_ref', $payment_ref)->with('transaction')->firstOrFail();
+        //return $reciept;
+        return view('customer-reciept', compact('reciept'));
+    }
 }

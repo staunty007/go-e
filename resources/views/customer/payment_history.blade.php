@@ -198,6 +198,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Trans Date</th>
+                                <th>Biller</th>
                                 <th>Trans Ref</th>
                                 <th>CPay Ref</th>
                                 <th>Trans type</th>
@@ -215,6 +216,7 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ date('d/m/Y',strtotime($pay->created_at)) }}</td>
+                                <td>EKEDC</td>
                                 <td>{{ $pay->transaction_ref }}</td>
                                 <td>{{ $pay->cpay_ref }}</td>
                                 <td>Web</td>
@@ -224,7 +226,8 @@
                                 <td>N{{ number_format($pay->transaction->total_amount) }}</td>
                                 <td>{{ $pay->token_data }}</td>
                                 <td>{{ round($pay->value_of_kwh,2) }}</td>
-                                <th><a href="{{ route('download-reciept',$pay->payment_ref) }}" class="btn btn-info">Receipt</a></th>
+                                {{-- <th><a href="{{ route('download-reciept',$pay->payment_ref) }}" class="btn btn-info">Receipt</a></th> --}}
+                                <th><a href="{{ route('view-reciept',$pay->payment_ref) }}" class="btn btn-info">Receipt</a></th>
                             </tr>
                             @endforeach
                         </tbody>

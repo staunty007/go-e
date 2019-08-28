@@ -164,6 +164,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Artisaninweb\SoapWrapper\ServiceProvider::class,
 
     ],
 
@@ -217,6 +218,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'SoapWrapper' => Artisaninweb\SoapWrapper\Facade\SoapWrapper::class,
     ],
 
 ];

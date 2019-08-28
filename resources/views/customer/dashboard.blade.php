@@ -29,8 +29,7 @@
             <div class="stat__data">
                 <h1 class="stat__header"> My Transactions</h1><br>
                 <p class="stat__subheader">
-
-                    <h4 class="no-margins">2 <span class="pull-right">2</span></h4>
+                    <h4 class="no-margins">{{ $pay_total['month'] }} <span class="pull-right">{{ $pay_total['year'] }}</span></h4>
                     <small>Month<span class="pull-right">Year</span></small>
                 </p>
             </div>
