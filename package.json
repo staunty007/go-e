@@ -25,7 +25,7 @@
         "@trendmicro/react-sidenav": "^0.4.5",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "calidation": "^1.6.2",
-        "jspdf": "^1.4.1",
+        "jspdf": "^2.3.1",
         "material-icons-react": "^1.0.4",
         "moment": "^2.22.2",
         "nuka-carousel": "^4.4.3",
